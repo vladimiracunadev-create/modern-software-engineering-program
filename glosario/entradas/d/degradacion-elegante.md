@@ -2,45 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Degradación](./degradacion.md) · [Degradación explícita →](./degradacion-explicita.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 20](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 20](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md)
 
 ## Definición
 
-Respuesta reducida pero útil que se ofrece cuando la respuesta completa no es posible.
-
-Definición de trabajo de [SE-439 — Circuit breakers, bulkheads y degradación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-249 — Caching, rate limiting y protección](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-249-caching-rate-limiting-y-proteccion/README.md): Reducción controlada de funciones para mantener lo esencial bajo sobrecarga.
-- En [SE-321 — Resiliencia: bulkhead, sidecar, ambassador y degradación](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-321-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/README.md): Respuesta parcial o antigua en lugar de un fallo total.
+La **degradación elegante** (*graceful degradation*) es una respuesta reducida pero útil que se ofrece cuando la respuesta completa no es posible. [SE-439](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/README.md) (circuit breakers, bulkheads y degradación) es su clase principal. [SE-249](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-249-caching-rate-limiting-y-proteccion/README.md) la ve como reducción controlada de funciones para mantener lo esencial bajo sobrecarga, y [SE-321](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-321-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/README.md) como una respuesta parcial o antigua en lugar de un fallo total.
 
 ## Por qué importa
 
-En [SE-439 — Circuit breakers, bulkheads y degradación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/README.md), el tema «Degradación elegante» importa porque una respuesta pobre pero útil vale más que un error.
+Una respuesta pobre pero útil vale más que un error. Convierte un fallo en servicio reducido. La decisión que cambia es qué se sacrifica primero y qué nunca: eso es una decisión de producto que debe tomarse *antes* del incidente, no durante.
 
 ## Cómo funciona
 
-Según [SE-439 — Circuit breakers, bulkheads y degradación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/README.md), en la sección «Degradación elegante»:
+[SE-439](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/README.md) define una **respuesta degradada** como una respuesta más barata y menos completa que sigue siendo útil. Ejemplos de la clase: una miniatura genérica en lugar de la vista previa, la lista de entregas de la última caché con una marca de «actualizada hace 5 min», un resumen sin las estadísticas de la semana.
 
-Una **respuesta degradada** es una respuesta más barata y menos completa que sigue siendo útil: una miniatura genérica en lugar de la vista previa, la lista de entregas de la última caché con una marca de «actualizada hace 5 min», un resumen sin las estadísticas de la semana. Convierte un error en un servicio reducido. Tiene condiciones: debe ser mucho más barata que la respuesta completa (si cuesta casi lo mismo, no libera capacidad), debe ser honesta (la persona debe poder saber que está viendo algo degradado) y debe haberse decidido de antemano con producto, no improvisado durante el incidente. Y tiene riesgos: servir datos viejos puede ser inaceptable para una calificación y aceptable para un historial, y esa frontera es una decisión de negocio que hay que escribir.
+Tres condiciones:
+
+1. **Mucho más barata que la completa.** Si cuesta casi lo mismo, no libera capacidad.
+2. **Honesta:** la persona debe poder saber que está viendo algo degradado.
+3. **Decidida de antemano con producto,** no improvisada.
+
+Y un riesgo: servir datos viejos puede ser inaceptable para una calificación y aceptable para un historial; esa frontera es una decisión de negocio que hay que escribir. Se combina con el circuit breaker (que decide *cuándo* dejar de llamar a una dependencia) y los bulkheads (que limitan el daño a un compartimento).
 
 ## Ejemplo
 
-Caso medido en la sección «Degradación elegante» de [SE-439 — Circuit breakers, bulkheads y degradación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/README.md):
-
-Una **respuesta degradada** es una respuesta más barata y menos completa que sigue siendo útil: una miniatura genérica en lugar de la vista previa, la lista de entregas de la última caché con una marca de «actualizada hace 5 min», un resumen sin las estadísticas de la semana. Convierte un error en un servicio reducido. Tiene condiciones: debe ser mucho más barata que la respuesta completa (si cuesta casi lo mismo, no libera capacidad), debe ser honesta (la persona debe poder saber que está viendo algo degradado) y debe haberse decidido de antemano con producto, no improvisado durante el incidente.
+En [SE-439](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/README.md), cuando la dependencia que genera vistas previas se satura, el servicio responde con la miniatura genérica y sigue atendiendo entregas. Ilustración propia: si el servicio de recomendaciones cae, la página de inicio muestra los más recientes en vez de los personalizados, con el aviso correspondiente.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-439 — Circuit breakers, bulkheads y degradación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/README.md)) son:
-
-- **Una dependencia secundaria tumba la función principal** — causa: pool compartido. Corrección: mamparos por dependencia o por criticidad.
-- **El interruptor se abre y cierra sin parar** — causa: umbral demasiado bajo para fallos aleatorios. Corrección: subir el umbral o usar una ventana con fracción de fallos.
+- **Degradar sin avisar,** de modo que se confunde un dato viejo con uno actual.
+- **Una versión degradada tan cara como la completa,** que no alivia la sobrecarga.
+- **Improvisarla en el incidente,** sin acordar qué datos pueden estar atrasados.
+- **Confundirla con tolerancia a fallos:** la degradación acepta ofrecer menos; la tolerancia busca ofrecer lo mismo.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-439 — Circuit breakers, bulkheads y degradación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/README.md)) son: Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con tiempo virtual y semillas fijas en Windows y Ubuntu (WSL2) con resultados idénticos.
+No sirve cuando la respuesta parcial es peligrosa o incorrecta (un saldo atrasado en una operación de pago, una calificación definitiva). Exige mantener y probar un camino adicional de código que casi nunca se ejecuta, y por eso se degrada también. No reemplaza arreglar la causa de la sobrecarga.
 
 ## Relación con otros conceptos
 

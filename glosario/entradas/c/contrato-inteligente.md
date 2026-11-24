@@ -2,40 +2,44 @@
 
 [↑ Glosario](../../README.md) · [← Contrato entre equipos](./contrato-entre-equipos.md) · [Contrato multicapa →](./contrato-multicapa.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 24](../../../classes/part-24-software-especializado-y-dominios/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 24](../../../classes/part-24-software-especializado-y-dominios/README.md)
 
 ## Definición
 
-Programa desplegado en una cadena que se ejecuta de forma determinista cuando se invoca.
-
-Definición de trabajo de [SE-296 — Blockchain, consenso y contratos inteligentes](../../../classes/part-24-software-especializado-y-dominios/se-296-blockchain-consenso-y-contratos-inteligentes/README.md).
+Un **contrato inteligente** (*smart contract*) es un programa desplegado en una cadena de bloques que se ejecuta de forma determinista cuando se invoca. Es la definición de [SE-296](../../../classes/part-24-software-especializado-y-dominios/se-296-blockchain-consenso-y-contratos-inteligentes/README.md) (blockchain, consenso y contratos inteligentes). Ni es un contrato en el sentido legal ni es «inteligente»: es código cuya ejecución replican todos los nodos de la red.
 
 ## Por qué importa
 
-En [SE-296 — Blockchain, consenso y contratos inteligentes](../../../classes/part-24-software-especializado-y-dominios/se-296-blockchain-consenso-y-contratos-inteligentes/README.md), el tema «Contratos inteligentes» importa porque fija que el código es la regla y que un error es permanente.
+En un contrato inteligente el código es la regla, y un error es permanente. Por eso la decisión profesional no es solo cómo escribirlo, sino *si* hace falta. [SE-296](../../../classes/part-24-software-especializado-y-dominios/se-296-blockchain-consenso-y-contratos-inteligentes/README.md) compara tres diseños para certificados: un registro propio firmado, una cadena pública con el hash de cada certificado, y un contrato que emite certificados; el tercero añade lógica y un riesgo de error permanente.
 
 ## Cómo funciona
 
-Según [SE-296 — Blockchain, consenso y contratos inteligentes](../../../classes/part-24-software-especializado-y-dominios/se-296-blockchain-consenso-y-contratos-inteligentes/README.md), en la sección «Contratos inteligentes»:
+Según [SE-296](../../../classes/part-24-software-especializado-y-dominios/se-296-blockchain-consenso-y-contratos-inteligentes/README.md), un contrato tiene tres rasgos:
 
-Un contrato inteligente es un programa que vive en la cadena y se ejecuta cuando se le invoca. Es **determinista** (todos los nodos deben llegar al mismo resultado), **público** (cualquiera puede leerlo y atacarlo) e **inmutable** una vez desplegado (salvo mecanismos de actualización diseñados de antemano). Sus errores son por eso costosos. La **reentrada** ocurre cuando el contrato llama a código ajeno antes de actualizar su propio estado: ese código puede volver a invocar al contrato y encontrar el estado viejo. La defensa es ordenar: comprobar condiciones, actualizar el estado y solo después interactuar con otros. La encuesta de Atzei et al. cataloga esta y otras clases de ataque.
+- **Determinista:** todos los nodos deben llegar al mismo resultado, así que no puede depender de fuentes no replicables.
+- **Público:** cualquiera puede leerlo y atacarlo.
+- **Inmutable** una vez desplegado, salvo mecanismos de actualización diseñados de antemano.
+
+Su error característico es la **reentrada**: el contrato llama a código ajeno antes de actualizar su propio estado, y ese código vuelve a invocar al contrato, que encuentra el estado viejo. La defensa es ordenar: comprobar condiciones, actualizar el estado y solo después interactuar con otros. La encuesta de Atzei et al., que cita la clase, cataloga esta y otras clases de ataque.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-296 — Blockchain, consenso y contratos inteligentes](../../../classes/part-24-software-especializado-y-dominios/se-296-blockchain-consenso-y-contratos-inteligentes/README.md):
+En [SE-296](../../../classes/part-24-software-especializado-y-dominios/se-296-blockchain-consenso-y-contratos-inteligentes/README.md), el equipo de la plataforma evalúa certificados de dos maneras ligeras antes del contrato: (1) un registro propio con firma digital y clave pública publicada, que cualquiera verifica sin llamar a la plataforma y que puede revocarse; (2) un hash de cada certificado en una cadena pública, que añade un sello de fecha que la plataforma no puede alterar, a cambio de comisiones, latencia y un registro permanente. Ilustración del patrón de reentrada (esbozo, no de la clase):
 
-El equipo de la plataforma compara tres diseños para los certificados. (1) Un registro propio con firma digital de la plataforma y la clave pública publicada: cualquiera verifica sin llamar a la plataforma, el coste es mínimo y se puede revocar. (2) Una cadena pública donde se escribe el hash de cada certificado: añade un sello de fecha que la plataforma no puede alterar, a cambio de comisiones, latencia y un registro permanente. (3) Un contrato que emite certificados: añade lógica y un riesgo de error permanente.
+```text
+retirar(): enviar fondos al llamante; luego poner saldo = 0   # incorrecto
+retirar(): poner saldo = 0; luego enviar fondos al llamante   # orden correcto
+```
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-296 — Blockchain, consenso y contratos inteligentes](../../../classes/part-24-software-especializado-y-dominios/se-296-blockchain-consenso-y-contratos-inteligentes/README.md)) son:
-
-- **Se trata un registro como verdadero «porque está en la cadena»** — causa: se confunde integridad con veracidad. Corrección: firmar en origen y verificar el dato fuera de la cadena.
-- **Un pago se revierte tras darlo por definitivo** — causa: pocas confirmaciones para el poder del atacante. Corrección: calcular las confirmaciones con la fórmula y el supuesto declarado.
+- **Tratar un registro como verdadero «porque está en la cadena»:** se confunde integridad con veracidad. Corrección: firmar en origen y verificar el dato fuera de la cadena ([SE-296](../../../classes/part-24-software-especializado-y-dominios/se-296-blockchain-consenso-y-contratos-inteligentes/README.md)).
+- **Dar un pago por definitivo con pocas confirmaciones:** puede revertirse; hay que calcular las confirmaciones según el poder del atacante.
+- **Suponer que se puede corregir tras desplegar:** salvo mecanismo previsto, no se puede.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-296 — Blockchain, consenso y contratos inteligentes](../../../classes/part-24-software-especializado-y-dominios/se-296-blockchain-consenso-y-contratos-inteligentes/README.md)) son: Las definiciones son operativas para los certificados verificables. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se minó en ninguna red, no se desplegó ningún contrato ni se usó valor económico: los bloques, las dificultades, las tasas de propagación y el contrato son modelos del autor. La siguiente clase pasa a los sistemas geoespaciales y temporales.
+No conviene cuando hay una parte de confianza razonable, cuando se necesita corregir errores, o cuando el dato debe ser privado (el contrato es público). Los costos (comisiones, latencia, permanencia) pueden superar el beneficio frente a un registro firmado. La clase trabaja con modelos y datos sintéticos; no audita ningún contrato real.
 
 ## Relación con otros conceptos
 

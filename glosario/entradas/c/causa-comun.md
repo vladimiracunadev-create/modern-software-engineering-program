@@ -2,57 +2,35 @@
 
 [↑ Glosario](../../README.md) · [← Catálogo de servicios](./catalogo-de-servicios.md) · [Causa y evidencia →](./causa-y-evidencia.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md)
 
 ## Definición
 
-Un solo evento o condición que degrada varios canales que se suponían independientes.
-
-Definición de trabajo de [SE-445 — Riesgo, peligro y seguridad funcional: HARA, FMEA, FTA y STPA](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-445-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-274 — Safety, seguridad y vida útil prolongada](../../../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md): Origen único de fallos que afecta a varios componentes redundantes a la vez.
-- En [SE-440 — Disponibilidad, durabilidad y recuperación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md): Evento único que provoca el fallo simultáneo de varios componentes supuestamente independientes.
-- En [SE-325 — Drivers, restricciones y atributos de arquitectura](../../../classes/part-27-arquitectura-de-software-y-dominio/se-325-drivers-restricciones-y-atributos-de-arquitectura/README.md): Fallo que afecta a varios componentes a la vez porque comparten algo (despliegue, configuración, dependencia).
-- En [SE-499 — Runbooks, on-call y escalamiento](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md): Origen compartido por varios fallos que los hace dejar de ser independientes.
+Una **causa común** es un solo evento o condición que degrada varios canales que se suponían independientes. El programa lo usa con el mismo núcleo en varias clases: [SE-445](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-445-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa/README.md) (riesgo y seguridad funcional) la presenta como lo que rompe el producto de probabilidades; [SE-274](../../../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md), como origen único de fallos de varios componentes redundantes; [SE-440](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md), como evento único que provoca el fallo simultáneo; [SE-325](../../../classes/part-27-arquitectura-de-software-y-dominio/se-325-drivers-restricciones-y-atributos-de-arquitectura/README.md), como fallo por algo compartido (despliegue, configuración, dependencia); [SE-499](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md), como origen compartido que hace que los fallos dejen de ser independientes.
 
 ## Por qué importa
 
-En [SE-445 — Riesgo, peligro y seguridad funcional: HARA, FMEA, FTA y STPA](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-445-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa/README.md), el tema «Causa común» importa porque rompe el producto de probabilidades.
-
-En [SE-446 — IEC 61508 y niveles de integridad de seguridad](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-446-iec-61508-y-niveles-de-integridad-de-seguridad/README.md), el tema «Causa común» importa porque limita lo que gana la redundancia.
+La redundancia solo ayuda si los canales fallan por separado. Si dos réplicas comparten fuente de energía, versión de software o configuración, su probabilidad conjunta de fallar no es el producto de las individuales. [SE-446](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-446-iec-61508-y-niveles-de-integridad-de-seguridad/README.md) dice que la causa común limita lo que gana la redundancia. Cambia la decisión de diseño: en lugar de añadir una réplica más, se pregunta qué comparten las existentes.
 
 ## Cómo funciona
 
-Según [SE-445 — Riesgo, peligro y seguridad funcional: HARA, FMEA, FTA y STPA](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-445-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa/README.md):
+Si dos canales fallan cada uno con probabilidad *p* de forma independiente, ambos fallan con *p²*. Con causa común, una fracción de los fallos afecta a los dos a la vez y esa fracción domina. [SE-446](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-446-iec-61508-y-niveles-de-integridad-de-seguridad/README.md) lo modela con el parámetro β, la fracción de causa común. Con λ = 2 × 10⁻⁶ por hora, intervalo de prueba de un año y β = 0,05, el laboratorio da 8,76 × 10⁻³ para 1oo1, 5,30 × 10⁻⁴ para 1oo2 y 7,15 × 10⁻⁴ para 2oo3. Con pruebas cada cinco años: 4,38 × 10⁻², 4,50 × 10⁻³ y 9,12 × 10⁻³. Notación: «1oo2» son dos canales donde basta uno para cortar; «2oo3», tres donde cortan si dos coinciden.
 
-Elige un sistema tuyo donde un fallo pueda causar daño físico, económico o a datos de personas. Escribe tres peligros con contexto, construye un árbol de fallos de uno de ellos y busca al menos una causa común. Ordena tus modos de fallo por gravedad antes de calcular nada y enumera las acciones de control no seguras de un componente. Anota qué supuesto, si cambiara, haría que el análisis dejara de valer, y quién debería enterarse.
-
-Según [SE-446 — IEC 61508 y niveles de integridad de seguridad](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-446-iec-61508-y-niveles-de-integridad-de-seguridad/README.md):
-
-«1oo1» es un canal; «1oo2» son dos canales donde basta uno para cortar (alta seguridad, más disparos falsos); «2oo3» son tres canales donde cortan si dos están de acuerdo (equilibra seguridad y disponibilidad). Con una tasa λ de fallos peligrosos no detectados y un intervalo de prueba T, las aproximaciones habituales son λT/2 para 1oo1, ((1 − β)λT)²/3 + βλT/2 para 1oo2 y ((1 − β)λT)² + βλT/2 para 2oo3, donde β es la fracción de causa común. Con λ = 2 × 10⁻⁶ por hora, T = un año y β = 0,05, el laboratorio da 8,76 × 10⁻³ para 1oo1, 5,30 × 10⁻⁴ para 1oo2 y 7,15 × 10⁻⁴ para 2oo3. Con prueba cada cinco años: 4,38 × 10⁻², 4,50 × 10⁻³ y 9,12 × 10⁻³.
+[SE-445](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-445-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa/README.md) indica buscar al menos una causa común al construir un árbol de fallos; [SE-274](../../../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md) propone diversidad de principio, de alimentación y de software; [SE-325](../../../classes/part-27-arquitectura-de-software-y-dominio/se-325-drivers-restricciones-y-atributos-de-arquitectura/README.md) y [SE-440](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md), enumerar lo que comparten las réplicas y aislarlo.
 
 ## Ejemplo
 
-Ejemplo de [SE-445 — Riesgo, peligro y seguridad funcional: HARA, FMEA, FTA y STPA](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-445-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa/README.md) (sección «Ejemplo mínimo»):
-
-Un árbol de dos canales y la comprobación del efecto de una causa común, con solo la biblioteca estándar:
+[SE-274](../../../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md): «tenemos tres sensores» y fallan los tres, porque compartían principio de medida o alimentación. [SE-440](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md): el sistema cae más de lo que da la cuenta porque las capas comparten algo. Ilustración propia: dos servidores en zonas distintas, pero ambos con el mismo despliegue defectuoso, fallan juntos.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **«Tenemos tres sensores» y fallan los tres** — causa: causa común. Corrección: diversidad de principio, alimentación y software; analizar la causa común. ([SE-274](../../../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md))
-- **El sistema cae más de lo que da la cuenta** — causa: fallos en serie ignorados o causa común. Corrección: calcular con todas las capas y listar lo que comparten las réplicas. ([SE-440](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md))
-- **La disponibilidad prometida no se cumple con réplicas** — causa: la causa común domina y las réplicas no son independientes. Corrección: identificar lo que comparten las réplicas y aislarlo. ([SE-325](../../../classes/part-27-arquitectura-de-software-y-dominio/se-325-drivers-restricciones-y-atributos-de-arquitectura/README.md))
+- **Multiplicar probabilidades de componentes sin verificar independencia.**
+- **Contar réplicas como protección cuando comparten dependencia** ([SE-325](../../../classes/part-27-arquitectura-de-software-y-dominio/se-325-drivers-restricciones-y-atributos-de-arquitectura/README.md)).
+- **Confundirla con falla en cascada:** la cascada propaga de un componente a otro; la causa común afecta a varios simultáneamente por un origen compartido.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Escribe tres peligros con contexto, construye un árbol de fallos de uno de ellos y busca al menos una causa común. ([SE-445](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-445-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa/README.md))
-- Depende del resto de los parámetros: de la tasa de fallo, el intervalo de prueba, la cobertura, la causa común y de las restricciones arquitectónicas que impone la norma según la proporción de fallos seguros y la tolerancia a fallos de hardware. ([SE-446](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-446-iec-61508-y-niveles-de-integridad-de-seguridad/README.md))
+El valor de β es una estimación, no una constante medible fácilmente; los números de [SE-446](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-446-iec-61508-y-niveles-de-integridad-de-seguridad/README.md) son un laboratorio con parámetros elegidos, no datos de un sistema. Y el análisis solo encuentra las causas comunes que alguien se pregunta; una no imaginada sigue ahí. Si los canales son realmente diversos y aislados, el modelo independiente es una aproximación razonable.
 
 ## Relación con otros conceptos
 

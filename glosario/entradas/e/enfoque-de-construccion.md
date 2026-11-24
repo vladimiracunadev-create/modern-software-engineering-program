@@ -2,40 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Energía](./energia.md) · [Engineering Manager →](./engineering-manager.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 21](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 21](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md)
 
 ## Definición
 
-Forma de producir el cliente que determina dónde corre la interfaz, quién la dibuja y qué capa de código se comparte entre plataformas.
-
-Definición de trabajo de [SE-255 — Nativo, híbrido, web wrapper y cross-platform](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md).
+Un **enfoque de construcción** es la forma de producir el cliente de una aplicación: determina dónde corre la interfaz, quién la dibuja y qué capa de código se comparte entre plataformas. Es el término con que [SE-255](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md) (nativo, híbrido, web wrapper y cross-platform) organiza las opciones. Son categorías de enfoque, no veredictos sobre marcas: dentro de cada una hay mucha variedad.
 
 ## Por qué importa
 
-En [SE-255 — Nativo, híbrido, web wrapper y cross-platform](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md), el tema «Enfoques de construcción» importa porque cada enfoque decide dónde corre la interfaz y quién la dibuja, y de eso derivan acceso, rendimiento y coste.
+De esa elección derivan el acceso a las capacidades del dispositivo, el rendimiento y el costo de mantener varios clientes. [SE-255](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md) pide documentarla y no tomarla por moda: cada enfoque decide dónde corre la interfaz y quién la dibuja.
 
 ## Cómo funciona
 
-Según [SE-255 — Nativo, híbrido, web wrapper y cross-platform](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md), en la sección «Enfoques de construcción»:
+[SE-255](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md) distingue cinco enfoques:
 
-El enfoque nativo escribe cada cliente con las herramientas de su plataforma. El multiplataforma con interfaz propia, como el que describe la arquitectura de Flutter, dibuja la interfaz con un motor propio. El que usa elementos nativos gobernados desde código compartido, como describe React Native, delega el dibujo a la plataforma. El híbrido en contenedor ejecuta una web dentro de una aplicación, y la web instalable corre en el navegador con capacidades limitadas. Son categorías de enfoque, no veredictos sobre marcas: dentro de cada una hay mucha variedad.
+1. **Nativo:** cada cliente con las herramientas de su plataforma. Máximo acceso y adaptación, a costa de mantener un código por plataforma.
+2. **Multiplataforma con interfaz propia:** un motor propio dibuja la interfaz, como describe la arquitectura de Flutter. Mismo aspecto en todas partes; la interfaz no usa los elementos nativos.
+3. **Multiplataforma con elementos nativos gobernados desde código compartido:** como describe React Native; delega el dibujo a la plataforma.
+4. **Híbrido en contenedor:** una web dentro de una aplicación; accede a capacidades vía un puente.
+5. **Web instalable:** corre en el navegador con capacidades limitadas.
+
+La pregunta técnica útil es dónde están las **fronteras** entre el código compartido y el de la plataforma, y cuántas veces por segundo se cruzan: la frontera más sensible es la que cruza más veces.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-255 — Nativo, híbrido, web wrapper y cross-platform](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md):
-
-El equipo del cliente documenta la elección en cuatro artefactos enlazados: la tabla de criterios con puntuaciones y su fuente, el análisis de sensibilidad (frecuencia con que gana cada opción al sortear pesos), un prototipo de la frontera más sensible (la que cruza más veces por segundo) con su medición, y la lista de capacidades que el cliente necesita y que cada opción ofrece, como disponibles, opcionales o ausentes.
+El equipo del cliente documenta la elección en cuatro artefactos enlazados ([SE-255](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md)): la tabla de criterios con puntuaciones y su fuente; el análisis de sensibilidad, que cuenta con qué frecuencia gana cada opción al sortear pesos; un prototipo de la frontera más sensible con su medición; y la lista de capacidades que el cliente necesita, marcadas como disponibles, opcionales o ausentes en cada opción.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-255 — Nativo, híbrido, web wrapper y cross-platform](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md)) son:
-
-- **La tabla de decisión elige la opción del autor de la tabla** — causa: los pesos se escogieron conociendo el ganador deseado. Corrección: fijar pesos antes de puntuar y mostrar la sensibilidad.
-- **La decisión cambia al cambiar una puntuación en un punto** — causa: las puntuaciones son juicios con incertidumbre no declarada. Corrección: perturbar las puntuaciones y reportar la estabilidad.
+- **Elegir por marca o por tendencia** en lugar de por criterios con fuente.
+- **Tomar una sola puntuación sin analizar su sensibilidad** a los pesos.
+- **Suponer que «multiplataforma» significa una sola base sin trabajo nativo:** casi siempre hay capacidades que exigen código de plataforma.
+- **Confundir enfoque con modelo de aplicación,** que trata del ciclo de vida del proceso ([SE-253](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-253-modelos-de-aplicacion-movil-y-de-escritorio/README.md)).
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-255 — Nativo, híbrido, web wrapper y cross-platform](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md)) son: Las definiciones son operativas para el cliente de la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos salvo los tiempos. No se evaluó ningún marco ni producto: las puntuaciones son del autor y la frontera es un proxy. La siguiente clase decide dónde vive el estado y cómo se sincroniza.
+La tabla de criterios codifica supuestos del equipo y de la fecha: los enfoques evolucionan. Un prototipo mide una frontera concreta, no el producto completo. Y cuando el producto es solo contenido web, la discusión de enfoques de cliente pierde sentido.
 
 ## Relación con otros conceptos
 

@@ -2,51 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Revisor de coherencia](./revisor-de-coherencia.md) · [RFC →](./rfc.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 21](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 21](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md)
 
 ## Definición
 
-Retirada de un permiso concedido, normalmente desde los ajustes del sistema y sin que la aplicación participe.
-
-Definición de trabajo de [SE-257 — Permisos, sensores y capacidades del dispositivo](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-473 — Firmas, checksums y verificación](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md): Declaración de que una clave ya no debe aceptarse.
-- En [SE-272 — Identidad de dispositivo y gestión de claves](../../../classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md): Retirada de una clave o certificado para que el servidor deje de aceptarlo.
+La **revocación** es la retirada de algo concedido. El sentido principal de [SE-257](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md) (permisos, sensores y capacidades del dispositivo) es la retirada de un permiso concedido, normalmente desde los ajustes del sistema y sin que la aplicación participe. En seguridad de claves ([SE-473](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md), [SE-272](../../../classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md)) es la declaración de que una clave o certificado ya no debe aceptarse. Ambos sentidos comparten la estructura: concedido en el pasado, retirado después, y el que verifica debe enterarse.
 
 ## Por qué importa
 
-En [SE-257 — Permisos, sensores y capacidades del dispositivo](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md), el tema «Revocación y comprobación en el uso» importa porque un permiso comprobado una vez al iniciar la sesión puede dejar de valer a los diez minutos.
+Un permiso comprobado una vez al iniciar la sesión puede dejar de valer a los diez minutos ([SE-257](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md)). Y una clave filtrada sigue funcionando hasta que alguien la declara inválida. La decisión de diseño es cuándo y cómo se comprueba.
 
 ## Cómo funciona
 
-Según [SE-257 — Permisos, sensores y capacidades del dispositivo](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md):
+**Permisos de dispositivo ([SE-257](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md)).** La revocación ocurre fuera de la aplicación y puede llegar en cualquier momento. Comprobar el permiso al iniciar la sesión y asumirlo después produce usos tras la revocación. Comprobar en cada uso lo evita y cuesta una consulta; comprobar periódicamente reduce el costo y deja una ventana. La tolerancia de esa ventana es una decisión de privacidad.
 
-La revocación ocurre fuera de la aplicación y puede llegar en cualquier momento. Comprobar el permiso al iniciar la sesión y asumirlo después produce usos tras la revocación. Comprobar en cada uso lo evita y cuesta una consulta; comprobar periódicamente reduce el coste y deja una ventana. La tolerancia de esa ventana es una decisión de privacidad.
-
-Según [SE-473 — Firmas, checksums y verificación](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md):
-
-Las claves se pierden, se filtran o caducan. La **rotación** es el cambio planificado de la clave; la **revocación**, la declaración de que una clave ya no debe usarse. Una rotación sólida se **declara antes de necesitarla**, firmada con la clave vigente, de modo que los clientes aprendan la clave nueva por la cadena de confianza anterior. Una revocación necesita llegar a los clientes, y entre el robo de la clave y la llegada de la revocación hay una ventana en la que el atacante puede firmar.
+**Claves ([SE-473](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md)).** Las claves se pierden, se filtran o caducan. La *rotación* es el cambio planificado; la *revocación*, la declaración de que una clave ya no debe usarse. Una rotación sólida se **declara antes de necesitarla**, firmada con la clave vigente, de modo que los clientes aprendan la clave nueva por la cadena de confianza anterior. Una revocación necesita llegar a los clientes, y entre el robo de la clave y la llegada de la revocación hay una ventana en la que el atacante puede firmar. [SE-272](../../../classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md) la aplica a dispositivos: retirar una clave o certificado para que el servidor deje de aceptarlo.
 
 ## Ejemplo
 
-Ejemplo de [SE-473 — Firmas, checksums y verificación](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md) (sección «Ejemplo profesional»):
-
-La API de entregas publica un manifiesto (`release.json`) con nombre, versión, número de secuencia y las huellas del artefacto, del SBOM y de la procedencia, firmado con Ed25519. El cliente de línea de órdenes incorpora la clave pública en cada versión que él mismo distribuye y recuerda la mayor secuencia vista; antes de instalar calcula la huella del archivo descargado, comprueba la firma del manifiesto con la clave incorporada, comprueba el nombre, rechaza una secuencia inferior a la recordada y falla cerrado ante cualquier discrepancia.
+Ilustración propia de permisos: una aplicación de entregas guarda la ubicación solo mientras la usa. La persona revoca el permiso desde los ajustes; en el siguiente uso, la comprobación devuelve «denegado» y la función ofrece alternativa en vez de fallar. De claves: un dispositivo robado se revoca en el servidor; mientras la lista de revocación no llega a los clientes, hay una ventana.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La cámara falla con un error críptico a mitad de la sesión** — causa: se comprobó el permiso solo al iniciar. Corrección: comprobar en el uso y manejar la revocación. ([SE-257](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md))
-- **No se puede retirar una clave comprometida** — causa: sin revocación. Corrección: lista de revocación consultada por el servidor y rotación planificada. ([SE-272](../../../classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md))
+- **Comprobar el permiso una vez y asumirlo.**
+- **No definir qué hace la función al revocarse.**
+- **Confundir revocación con caducidad:** la caducidad ocurre sola; la revocación es una acción.
+- **Creer que revocar equivale a borrar los datos ya obtenidos.**
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Y supone que la revocación se aplica de forma instantánea al consultar, algo que depende de la plataforma. ([SE-257](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md))
+La revocación no deshace lo ya hecho: las firmas anteriores y los datos ya recogidos siguen existiendo. La ventana entre el compromiso y la revocación no se elimina, solo se acota. Para clientes sin conexión, la revocación no llega hasta que se reconectan.
 
 ## Relación con otros conceptos
 

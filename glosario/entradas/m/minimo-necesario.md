@@ -2,42 +2,39 @@
 
 [↑ Glosario](../../README.md) · [← Mínimo común denominador](./minimo-comun-denominador.md) · [Mínimo privilegio →](./minimo-privilegio.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 18](../../../classes/part-18-cli-tui-servicios-y-automatizacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 18](../../../classes/part-18-cli-tui-servicios-y-automatizacion/README.md)
 
 ## Definición
 
-Criterio de pedir solo la capacidad, con la precisión y el alcance más pequeños, sin los cuales una función falla.
-
-Definición de trabajo de [SE-257 — Permisos, sensores y capacidades del dispositivo](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md).
+El **mínimo necesario** es el criterio de pedir solo la capacidad, con la precisión y el alcance más pequeños, sin los cuales una función falla. Es el sentido de [SE-257](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md) (permisos, sensores y capacidades del dispositivo); [SE-226](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-226-telemetria-opt-in-y-privacidad-en-herramientas/README.md) lo aplica a la telemetría de herramientas: cada dato recogido es un riesgo que hay que justificar. Es el mismo espíritu del mínimo privilegio y de la minimización de datos, aplicado a lo que una aplicación solicita.
 
 ## Por qué importa
 
-En [SE-257 — Permisos, sensores y capacidades del dispositivo](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md), el tema «Mínimo necesario» importa porque cada capacidad que se pide es una superficie de ataque y una carga de confianza.
-
-En [SE-226 — Telemetría opt-in y privacidad en herramientas](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-226-telemetria-opt-in-y-privacidad-en-herramientas/README.md), el tema «Mínimo necesario» importa porque cada dato recogido es un riesgo que hay que justificar.
+Cada capacidad que se pide es una superficie de ataque y una carga de confianza. Pedir menos reduce lo que puede filtrarse, abusarse o exigirse en una revisión de tienda, y aumenta la probabilidad de que la persona acepte.
 
 ## Cómo funciona
 
-Según [SE-257 — Permisos, sensores y capacidades del dispositivo](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md), en la sección «Mínimo necesario»:
+[SE-257](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md) propone una pregunta de control: **qué función falla sin la capacidad**, no qué dato podría ser útil. Dos formas de reducir:
 
-Pedir menos reduce lo que puede filtrarse, abusarse o exigirse en una revisión de tienda. Si la función solo necesita saber que se entregó en la ciudad, la ubicación aproximada alcanza; si solo adjunta una imagen, el selector del sistema puede evitar pedir acceso a toda la galería. La pregunta es qué función falla sin la capacidad, no qué dato podría ser útil.
+- **Precisión:** si la función solo necesita saber que se entregó en la ciudad, la ubicación aproximada alcanza.
+- **Alcance:** si solo adjunta una imagen, el selector del sistema puede evitar pedir acceso a toda la galería.
+
+En [SE-226](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-226-telemetria-opt-in-y-privacidad-en-herramientas/README.md), el principio se ve en la telemetría *opt-in*: se recoge solo lo que se puede justificar, con consentimiento y plazo de retención. Los pasos prácticos son enumerar las funciones, asignar a cada una la capacidad más estrecha, definir qué ocurre si se deniega o revoca, y decidir cuánto tiempo se guarda el dato.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-257 — Permisos, sensores y capacidades del dispositivo](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md):
-
-El equipo del cliente escribe una tabla de capacidades con una fila por función: qué capacidad necesita, con qué precisión, cuándo la pide, qué hace si se deniega o revoca y cuánto tiempo guarda el dato. «Adjuntar foto» usa el selector del sistema o la cámara, y si se deniega, ofrece la galería. «Notificar vencimiento» usa notificaciones y, si se deniega, muestra un aviso dentro de la aplicación. «Registrar lugar de entrega» no existe: el equipo decidió que no lo necesitaba y no pidió ubicación.
+El equipo del cliente escribe una tabla de capacidades con una fila por función ([SE-257](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md)): qué capacidad necesita, con qué precisión, cuándo la pide, qué hace si se deniega o revoca y cuánto tiempo guarda el dato. «Adjuntar foto» usa el selector del sistema o la cámara, y si se deniega, ofrece la galería. «Notificar vencimiento» usa notificaciones y, si se deniega, muestra un aviso dentro de la aplicación. «Registrar lugar de entrega» no existe: el equipo decidió que no lo necesitaba y no pidió ubicación.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-257 — Permisos, sensores y capacidades del dispositivo](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md)) son:
-
-- **La aplicación se cierra al denegar la cámara** — causa: no existe camino para el estado denegado. Corrección: alternativa funcional y explicación.
-- **La cámara falla con un error críptico a mitad de la sesión** — causa: se comprobó el permiso solo al iniciar. Corrección: comprobar en el uso y manejar la revocación.
+- **Pedir todos los permisos al inicio,** antes de que la función los necesite.
+- **Pedir ubicación precisa cuando basta la aproximada.**
+- **No definir qué ocurre al denegar:** la función se rompe en vez de degradarse.
+- **Confundirlo con «pedir poco» sin criterio:** el criterio es lo que la función necesita para funcionar.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-257 — Permisos, sensores y capacidades del dispositivo](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md)) son: Las definiciones son operativas para el cliente de la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se pidió ningún permiso ni se midió ninguna persona: los estados, la revocación y la ciudad son construcciones del autor. La siguiente clase pasa a las formas de interactuar con el cliente.
+Una capacidad realmente necesaria no se evita: si la función es navegación, la ubicación precisa es parte del mínimo. Las reglas de permisos de cada plataforma cambian; la tabla de la clase refleja las de su fecha. Minimizar no reemplaza proteger bien los datos que sí se recogen.
 
 ## Relación con otros conceptos
 

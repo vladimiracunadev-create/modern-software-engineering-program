@@ -2,47 +2,43 @@
 
 [↑ Glosario](../../README.md) · [← Prueba de recorrido](./prueba-de-recorrido.md) · [Prueba de resistencia →](./prueba-de-resistencia.md)
 
-> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 20](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md)
+> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 20](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md)
 
 ## Definición
 
-Prueba que falla ante el defecto original y pasa con la corrección.
-
-Definición de trabajo de [SE-395 — Taller: reproducir una carrera y un fallo parcial](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-395-taller-reproducir-una-carrera-y-un-fallo-parcial/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-251 — Taller: reparar una API insegura e inconsistente](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-251-taller-reparar-una-api-insegura-e-inconsistente/README.md): Prueba que falla si se reintroduce un defecto ya reparado.
-- En [SE-467 — Taller: explotar y reparar un control aparente](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-467-taller-explotar-y-reparar-un-control-aparente/README.md): Prueba que falla con el defecto y pasa con la corrección, y que se conserva para detectar su reaparición.
+Una **prueba de regresión** es una prueba que falla ante el defecto original y pasa con la corrección, y que se conserva para detectar si el defecto reaparece. [SE-069](../../../classes/part-05-fundamentos-de-programacion/se-069-pruebas-tempranas-y-diseno-por-ejemplos/README.md) (pruebas tempranas y diseño por ejemplos) es la clase donde se define; [SE-251](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-251-taller-reparar-una-api-insegura-e-inconsistente/README.md) y [SE-467](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-467-taller-explotar-y-reparar-un-control-aparente/README.md) la reutilizan en talleres de reparación de una API y de un control de seguridad. No es lo mismo que «volver a ejecutar todas las pruebas»: aquí el término nombra una prueba concreta nacida de un defecto concreto.
 
 ## Por qué importa
 
-La clase donde se define, [SE-069 — Pruebas tempranas y diseño por ejemplos](../../../classes/part-05-fundamentos-de-programacion/se-069-pruebas-tempranas-y-diseno-por-ejemplos/README.md), existe con este propósito: la clase existe para usar ejemplos para descubrir particiones y propiedades antes de fijar implementación.
+Evita que un defecto reparado reaparezca. Un defecto que ya costó una vez una investigación es el más barato de proteger: cuesta una prueba y su ejecución automática. Sin ella, la corrección depende de que nadie vuelva a tocar esa parte.
 
 ## Cómo funciona
 
-Según [SE-069 — Pruebas tempranas y diseño por ejemplos](../../../classes/part-05-fundamentos-de-programacion/se-069-pruebas-tempranas-y-diseno-por-ejemplos/README.md), en la sección «Prueba de regresión»:
+[SE-069](../../../classes/part-05-fundamentos-de-programacion/se-069-pruebas-tempranas-y-diseno-por-ejemplos/README.md) fija la secuencia:
 
-Al corregir un defecto se añade primero el caso que falla, se verifica rojo por la razón correcta, se corrige y se conserva. Cobertura indica ejecución, no calidad de oráculos. Se priorizan decisiones y riesgos.
+1. **Escribir primero el caso que falla.**
+2. **Verificar rojo por la razón correcta:** que falla por el defecto, no por un error de la prueba.
+3. **Corregir.**
+4. **Conservar la prueba** en la suite.
+
+Dos precisiones de la clase: la **cobertura** indica ejecución, no calidad de los oráculos (una línea ejecutada no es una línea comprobada), y se priorizan decisiones y riesgos, no líneas.
+
+En [SE-251](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-251-taller-reparar-una-api-insegura-e-inconsistente/README.md), el equipo recibe una API con diez defectos: escribe suites, mide qué falla, repara por orden de riesgo, añade una prueba de regresión por cada reparación, **reintroduce cada defecto y registra qué suite lo detecta**, y publica la lista de defectos dormidos. Ese paso final comprueba que la prueba realmente protege.
 
 ## Ejemplo
 
-Ejemplo de [SE-251 — Taller: reparar una API insegura e inconsistente](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-251-taller-reparar-una-api-insegura-e-inconsistente/README.md) (sección «Ejemplo profesional»):
-
-El equipo recibe la API con los diez defectos y trabaja en seis pasos: escribe las tres suites; mide qué falla; repara por orden de riesgo (D3, D1, D10, D2, D4, D8, D6, D7, D9, D5); añade una prueba de regresión para cada reparación; reintroduce cada defecto y registra qué suite lo detecta; y publica la lista de defectos dormidos. Compara con el original en tres casos: un usuario normal, un integrador con un script y alguien que prueba la API sin permiso.
+Ilustración propia del paso 2: un defecto en el cálculo de la nota final con entrega tardía. La prueba de regresión fija una entrega con un día de retraso y comprueba la penalización esperada. Se ejecuta antes de corregir (rojo, y falla por la penalización ausente), se corrige y pasa (verde). Si alguien reintroduce el defecto, vuelve a fallar.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Un defecto reparado reaparece** — causa: no hay prueba de regresión que falle sin la reparación. Corrección: reintroducir el defecto y comprobar que falla. ([SE-251](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-251-taller-reparar-una-api-insegura-e-inconsistente/README.md))
+- **Un defecto reparado reaparece:** no se dejó una prueba que lo atrape ([SE-251](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-251-taller-reparar-una-api-insegura-e-inconsistente/README.md)).
+- **Una prueba que nunca estuvo en rojo:** no se sabe si detecta el defecto.
+- **Confundirla con pruebas de humo o con ejecutar toda la suite tras cada cambio.**
+- **Considerar suficiente la cobertura** sin comprobar que los oráculos detectan el defecto.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- No es necesariamente el mínimo global, pero suele ser lo bastante corto como para entenderse y para fijar la prueba de regresión. ([SE-395](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-395-taller-reproducir-una-carrera-y-un-fallo-parcial/README.md))
-- Porque una prueba de regresión solo vale si falla cuando el defecto vuelve. ([SE-251](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-251-taller-reparar-una-api-insegura-e-inconsistente/README.md))
+Protege contra el defecto conocido, no contra el siguiente. Una suite de regresión que crece sin poda se vuelve lenta y frágil. Para defectos que dependen de condiciones difíciles de reproducir (carreras, fallos de infraestructura), la prueba puede ser inestable o requerir inyección de fallos.
 
 ## Relación con otros conceptos
 

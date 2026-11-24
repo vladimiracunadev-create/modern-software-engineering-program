@@ -2,43 +2,39 @@
 
 [↑ Glosario](../../README.md) · [← Peor caso](./peor-caso.md) · [Percentil →](./percentil.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md)
 
 ## Definición
 
-Tiempo de ejecución en el peor caso de una tarea, sin interferencias.
-
-Definición de trabajo de [SE-451 — RTOS y planificación de tiempo real](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-451-rtos-y-planificacion-de-tiempo-real/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-268 — Sistemas de tiempo real y deadlines](../../../classes/part-22-embedded-iot-y-tiempo-real/se-268-sistemas-de-tiempo-real-y-deadlines/README.md): Cota superior del tiempo de cómputo de una tarea sobre todas las entradas y estados posibles.
+El **peor caso de ejecución** (*WCET*, *worst-case execution time*) es la cota superior del tiempo de cómputo de una tarea sobre todas las entradas y estados posibles. Es el sentido de [SE-268](../../../classes/part-22-embedded-iot-y-tiempo-real/se-268-sistemas-de-tiempo-real-y-deadlines/README.md) (sistemas de tiempo real y deadlines); [SE-451](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-451-rtos-y-planificacion-de-tiempo-real/README.md) lo llama el insumo más difícil de obtener para planificar. No es el tiempo promedio ni el mayor observado en pruebas: es un límite que ninguna ejecución posible debe superar.
 
 ## Por qué importa
 
-En [SE-451 — RTOS y planificación de tiempo real](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-451-rtos-y-planificacion-de-tiempo-real/README.md), el tema «WCET» importa porque es el insumo más difícil de obtener.
+El análisis de planificación (si las tareas cumplen sus plazos) usa el peor caso, no el medio. Con la media, un plazo se incumple con una frecuencia que depende de la variabilidad. [SE-268](../../../classes/part-22-embedded-iot-y-tiempo-real/se-268-sistemas-de-tiempo-real-y-deadlines/README.md) lo dice: si un trabajo se pasa de su periodo, retrasa al siguiente y la sobrecarga se encadena; por eso la utilización media no basta, importa la cola de la distribución.
 
 ## Cómo funciona
 
-Según [SE-268 — Sistemas de tiempo real y deadlines](../../../classes/part-22-embedded-iot-y-tiempo-real/se-268-sistemas-de-tiempo-real-y-deadlines/README.md):
+Hay dos caminos para obtenerlo, y ambos tienen incertidumbre:
 
-El tiempo de cómputo del análisis es el peor caso (WCET), no el medio. Lo obtienen el análisis estático y la medición con entradas extremas, y ambos tienen incertidumbre: caches, ramas poco frecuentes, esperas de periféricos. Cuando el tiempo varía y se usa la media, un plazo se incumple con una frecuencia que depende de la variabilidad. Si un trabajo se pasa de su periodo, retrasa al siguiente y la sobrecarga se encadena. Por eso la utilización media no basta: importa la cola de la distribución.
+- **Análisis estático:** deriva una cota a partir del código y del modelo del procesador. Es segura si el modelo es fiel, pero puede ser pesimista.
+- **Medición con entradas extremas:** ejecuta la tarea con las entradas más desfavorables conocidas. Da un *límite inferior* del peor caso: lo que se observó, no lo que puede ocurrir.
+
+Las fuentes de incertidumbre son cachés, ramas poco frecuentes y esperas de periféricos. Por eso la medición necesita un margen y el análisis estático, un modelo de hardware.
 
 ## Ejemplo
 
-Caso medido en la sección «WCET: lo que se mide y lo que se argumenta» de [SE-451 — RTOS y planificación de tiempo real](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-451-rtos-y-planificacion-de-tiempo-real/README.md):
-
-El tiempo de cómputo del peor caso de una tarea es el insumo más difícil. Medirlo en pruebas da un límite inferior: lo que se observó, no lo que puede ocurrir. En el laboratorio, una ordenación de 8 elementos con salida anticipada usa 56 pasos de mediana, 80 pasos como máximo observado en 1000 entradas al azar y 84 pasos en el peor caso real (entrada en orden inverso), que 1000 entradas aleatorias no generan: la marca de agua queda 4,8 % por debajo.
+El laboratorio de [SE-268](../../../classes/part-22-embedded-iot-y-tiempo-real/se-268-sistemas-de-tiempo-real-y-deadlines/README.md) ordena 8 elementos con salida anticipada: 56 pasos de mediana, 80 pasos como máximo observado en 1000 entradas al azar y 84 pasos en el peor caso real (entrada en orden inverso), que 1000 entradas aleatorias no generan. La marca de agua observada queda 4,8 % por debajo del peor caso real. Moraleja: el máximo observado subestima el WCET cuando el peor caso es raro.
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+- **Usar el promedio o la mediana** para verificar plazos.
+- **Tomar el máximo observado en pruebas como WCET.**
+- **Ignorar la interferencia:** el WCET «sin interferencias» no incluye el efecto de otras tareas ni interrupciones; se suma en el análisis de planificación.
+- **Confundirlo con latencia de cola:** esta es estadística sobre peticiones; el WCET es una cota para tareas de tiempo real.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- El tiempo de cómputo del análisis es el peor caso (WCET), no el medio. ([SE-268](../../../classes/part-22-embedded-iot-y-tiempo-real/se-268-sistemas-de-tiempo-real-y-deadlines/README.md))
+En procesadores modernos con cachés, predicción de saltos y varios núcleos, obtener una cota ajustada es difícil. Para sistemas sin plazos duros (la mayoría del software de negocio) no se calcula; se usan percentiles. Las cifras de la clase son de un laboratorio con una ordenación pequeña, no de un procesador real.
 
 ## Relación con otros conceptos
 

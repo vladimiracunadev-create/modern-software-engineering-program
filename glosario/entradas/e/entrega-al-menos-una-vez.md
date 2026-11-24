@@ -2,52 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Entradas no confiables](./entradas-no-confiables.md) · [Entrega al menos una vez / como máximo una vez →](./entrega-al-menos-una-vez-como-maximo-una-vez.md)
 
-> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 20](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md)
+> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 20](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md)
 
 ## Definición
 
-Garantía de que un mensaje llegará una o más veces, nunca cero, sin impedir los duplicados.
-
-Definición de trabajo de [SE-400 — Serverless y ejecución gestionada](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-400-serverless-y-ejecucion-gestionada/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-319 — Enterprise Integration Patterns como lenguaje común](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-319-enterprise-integration-patterns-como-lenguaje-comun/README.md): El mensaje llega una o más veces; no se pierde, puede duplicarse.
-- En [SE-241 — Responsabilidades y fronteras del backend](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-241-responsabilidades-y-fronteras-del-backend/README.md): Garantía de que un mensaje llega una o más veces; exige que quien lo recibe tolere duplicados.
-- En [SE-362 — Ingesta batch y streaming](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-362-ingesta-batch-y-streaming/README.md): Garantía de que cada mensaje llega una o más veces.
+La **entrega al menos una vez** (*at-least-once delivery*) es la garantía de que un mensaje llegará una o más veces, nunca cero, sin impedir los duplicados. Es el sentido de [SE-319](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-319-enterprise-integration-patterns-como-lenguaje-comun/README.md), [SE-241](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-241-responsabilidades-y-fronteras-del-backend/README.md), [SE-362](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-362-ingesta-batch-y-streaming/README.md), [SE-400](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-400-serverless-y-ejecucion-gestionada/README.md) y [SE-247](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-247-jobs-colas-y-procesamiento-diferido/README.md): el mensaje no se pierde, pero puede repetirse, y quien lo recibe debe tolerar duplicados.
 
 ## Por qué importa
 
-En [SE-400 — Serverless y ejecución gestionada](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-400-serverless-y-ejecucion-gestionada/README.md), el tema «Entrega al menos una vez» importa porque un evento puede llegar repetido; el efecto no debe.
+Es la garantía que ofrecen en la práctica la mayoría de colas y sistemas de eventos, porque es la que se puede cumplir sin coordinación costosa. Cambia el diseño del receptor: no se pregunta «¿llegará dos veces?» sino «¿qué pasa cuando llegue dos veces?». Ignorarlo produce cobros dobles, correos repetidos o contadores inflados.
 
 ## Cómo funciona
 
-Según [SE-400 — Serverless y ejecución gestionada](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-400-serverless-y-ejecucion-gestionada/README.md), en la sección «Entrega al menos una vez»:
+[SE-400](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-400-serverless-y-ejecucion-gestionada/README.md) explica el origen: si el consumidor no confirma, el mensaje se reenvía. La cola no puede saber si el consumidor procesó el mensaje y perdió la confirmación, o si nunca llegó a procesarlo ([SE-247](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-247-jobs-colas-y-procesamiento-diferido/README.md): no sabe si el trabajador cayó antes o después de ejecutar el efecto, solo que no confirmó). Para no perder, reentrega. Consecuencia: el manejador puede ver el mismo evento dos o más veces.
 
-Las colas y los sistemas de eventos suelen garantizar que un mensaje se entrega al menos una vez: si el consumidor no confirma, se reenvía. No pueden saber si el consumidor procesó el mensaje y perdió la confirmación o no llegó a procesarlo. Por tanto el manejador puede ver el mismo evento dos o más veces. La defensa es la **idempotencia**: procesar un evento repetido produce el mismo estado que procesarlo una vez, por ejemplo guardando el identificador del evento y descartando los ya vistos. CloudEvents formaliza que el identificador, junto con la fuente, distingue un evento de otro y que un reenvío puede conservar su identificador, precisamente lo que permite reconocerlo.
-
-Según [SE-247 — Jobs, colas y procesamiento diferido](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-247-jobs-colas-y-procesamiento-diferido/README.md), en la sección «Entrega al menos una vez»:
-
-La cola no puede saber si el trabajador cayó antes o después de ejecutar el efecto, solo que no confirmó. Para no perder, vuelve a entregar; el costo es que el efecto puede ocurrir más de una vez. Un handler **ingenuo** inserta la nota cada vez; uno **idempotente** comprueba si el trabajo ya tiene efecto (restricción única por identificador de trabajo, `SE-246`) y no repite. El resultado exactamente una vez es una propiedad del efecto, no de la cola.
+La defensa es la **idempotencia**: procesar un evento repetido produce el mismo estado que procesarlo una vez, por ejemplo guardando el identificador del evento y descartando los ya vistos. [SE-400](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-400-serverless-y-ejecucion-gestionada/README.md) cita CloudEvents: el identificador, junto con la fuente, distingue un evento de otro, y un reenvío puede conservar su identificador, justo lo que permite reconocerlo. En [SE-377](../../../classes/part-31-integracion-eventos-y-mensajeria/se-377-outbox-inbox-sagas-y-compensacion/README.md), la **inbox** (tabla con el identificador como clave primaria) lo implementa con `INSERT OR IGNORE` en la misma transacción que el efecto.
 
 ## Ejemplo
 
-Ejemplo de [SE-247 — Jobs, colas y procesamiento diferido](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-247-jobs-colas-y-procesamiento-diferido/README.md) (sección «Preguntas frecuentes»):
-
-Como propiedad del efecto sí, como garantía de la cola no. Se consigue con entrega al menos una vez y un handler idempotente; algunos sistemas lo llaman procesamiento efectivamente único.
+Un trabajador recibe «enviar certificado 42», lo envía y cae antes de confirmar. La cola reentrega y el trabajador vuelve a recibirlo. Si guarda el identificador del mensaje en la misma transacción que el efecto, el segundo intento se descarta. Ilustración propia; el patrón está en [SE-247](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-247-jobs-colas-y-procesamiento-diferido/README.md) y [SE-377](../../../classes/part-31-integracion-eventos-y-mensajeria/se-377-outbox-inbox-sagas-y-compensacion/README.md).
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Un correo o un cobro se repite** — causa: manejador no idempotente con entrega al menos una vez. Corrección: guardar el identificador del evento con el efecto. ([SE-400](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-400-serverless-y-ejecucion-gestionada/README.md))
-- **La nota se registra dos veces** — causa: handler no idempotente con entrega al menos una vez. Corrección: restricción única por identificador de trabajo. ([SE-247](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-247-jobs-colas-y-procesamiento-diferido/README.md))
+- **Suponer «exactamente una vez»:** casi nunca se ofrece de extremo a extremo; se logra combinando al menos una vez con receptor idempotente.
+- **Hacer efectos no idempotentes en el manejador** (enviar dinero, enviar un correo) sin clave de deduplicación.
+- **Confirmar antes de procesar,** que convierte la garantía en «como máximo una vez» y pierde mensajes.
+- **Confundirla con idempotencia:** la entrega es del transporte; la idempotencia es del receptor.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Las colas y los sistemas de eventos suelen garantizar que un mensaje se entrega al menos una vez: si el consumidor no confirma, se reenvía. ([SE-400](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-400-serverless-y-ejecucion-gestionada/README.md))
+Si el efecto es inofensivo repetido, el problema desaparece sin más. Si el efecto no se puede deduplicar (un sistema externo que no acepta claves), hace falta otro diseño. La garantía describe al transporte; el orden de los mensajes es otro asunto que no ofrece.
 
 ## Relación con otros conceptos
 

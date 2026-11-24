@@ -2,45 +2,39 @@
 
 [↑ Glosario](../../README.md) · [← Firma de una falla](./firma-de-una-falla.md) · [Firmantes permitidos →](./firmantes-permitidos.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 18](../../../classes/part-18-cli-tui-servicios-y-automatizacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 18](../../../classes/part-18-cli-tui-servicios-y-automatizacion/README.md)
 
 ## Definición
 
-Valor calculado con una clave privada que cualquiera puede verificar con la clave pública.
-
-Definición de trabajo de [SE-473 — Firmas, checksums y verificación](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-225 — Distribución de binarios y actualizaciones](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-225-distribucion-de-binarios-y-actualizaciones/README.md): Prueba, con una clave privada, de que el publicador es quien dice ser y de que el contenido no cambió.
-- En [SE-262 — Firma, sandbox y seguridad del cliente](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-262-firma-sandbox-y-seguridad-del-cliente/README.md): Valor que se calcula con una clave privada y se verifica con una pública y que prueba procedencia e integridad; quien no tiene la privada no puede producirlo.
+Una **firma digital** es un valor calculado con una clave privada sobre unos datos, que cualquiera puede verificar con la clave pública correspondiente. [SE-473](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md) (firmas, checksums y verificación) la define así; [SE-225](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-225-distribucion-de-binarios-y-actualizaciones/README.md) la presenta como prueba de que el publicador es quien dice ser y de que el contenido no cambió, y [SE-262](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-262-firma-sandbox-y-seguridad-del-cliente/README.md) subraya que quien no tiene la clave privada no puede producirla. Prueba procedencia (de la clave) e integridad (de esos bytes).
 
 ## Por qué importa
 
-La clase donde se define, [SE-473 — Firmas, checksums y verificación](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md), existe con este propósito: la clase existe para que puedas decidir qué comprueba quien instala tu software antes de ejecutarlo, y para que sepas qué ataque detiene cada comprobación y cuál no.
+Quien instala o actualiza software decide en qué confiar antes de ejecutarlo. [SE-473](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md) existe para que sepas qué ataque detiene cada comprobación y cuál no: una huella (checksum) detecta corrupción pero no a un atacante que reemplaza archivo y huella; una firma sí, mientras la clave privada permanezca secreta.
 
 ## Cómo funciona
 
-Según [SE-473 — Firmas, checksums y verificación](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md):
+El publicador firma los datos con su clave privada; el verificador comprueba la firma con la clave pública. Dos propiedades de diseño que [SE-473](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md) destaca:
 
-Una **firma digital** se calcula con una clave privada sobre unos datos y se verifica con la clave pública correspondiente. La verificación correcta prueba que quien posee la clave privada firmó exactamente esos bytes; no prueba quién es esa persona, que la clave sea de quien se cree, que el contenido sea benigno ni que sea reciente. Ed25519 es un algoritmo de firma moderno, con claves y firmas cortas (32 y 64 bytes) y verificación rápida, especificado en el RFC 8032. Usar firmas en lugar de solo huellas permite que el publicador y el verificador no compartan un secreto y que cualquiera pueda comprobar.
+- **No hay secreto compartido.** Publicador y verificador no comparten un secreto, y cualquiera puede comprobar (a diferencia de un código de autenticación con clave compartida).
+- **Qué prueba y qué no.** Una verificación correcta prueba que quien posee la clave privada firmó *exactamente esos bytes*. No prueba quién es esa persona, que la clave sea de quien se cree, que el contenido sea benigno ni que sea reciente.
+
+Ed25519, algoritmo moderno especificado en el RFC 8032, usa claves de 32 bytes y firmas de 64, con verificación rápida. Lo que une la clave pública con una identidad es otro mecanismo (certificados, una raíz de confianza); y lo que impide reinstalar una versión vieja firmada es un número de secuencia dentro de lo firmado.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-473 — Firmas, checksums y verificación](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md):
-
-La API de entregas publica un manifiesto (`release.json`) con nombre, versión, número de secuencia y las huellas del artefacto, del SBOM y de la procedencia, firmado con Ed25519. El cliente de línea de órdenes incorpora la clave pública en cada versión que él mismo distribuye y recuerda la mayor secuencia vista; antes de instalar calcula la huella del archivo descargado, comprueba la firma del manifiesto con la clave incorporada, comprueba el nombre, rechaza una secuencia inferior a la recordada y falla cerrado ante cualquier discrepancia.
+La API de entregas de [SE-473](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md) publica un manifiesto (`release.json`) con nombre, versión, número de secuencia y las huellas de los artefactos; la firma cubre el manifiesto. Quien instala verifica la firma y luego compara las huellas. Ilustración propia del paso: `verificar(clave_publica, manifiesto, firma)` devuelve verdadero o falso; si el atacante cambia un byte del manifiesto, falla.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-473 — Firmas, checksums y verificación](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md)) son:
-
-- **El atacante firma con su clave y pasa** — causa: clave de verificación descargada de la misma página. Corrección: clave fijada de antemano en una fuente independiente.
-- **Se acepta una versión antigua vulnerable** — causa: sin secuencia ni caducidad en lo firmado. Corrección: número monótono firmado y recordado por el cliente.
+- **Confundir firma con huella:** la huella no prueba procedencia.
+- **Creer que firmado significa seguro:** prueba quién firmó, no que el contenido sea benigno.
+- **Ignorar la actualidad:** una versión vieja firmada sigue verificando; hace falta número de secuencia.
+- **Guardar la clave privada en el repositorio o en el mismo equipo que compila sin protección.**
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-473 — Firmas, checksums y verificación](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md)) son: Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos, con firmas Ed25519 reales de `openssl` y hashes de `hashlib`, en Windows 11 (CPython 3.12.9, OpenSSL 3.5.7) y Ubuntu bajo WSL2 (3.12.3, OpenSSL 3.0.13); la matriz de ataques fue idéntica en ambos y las mediciones de tiempo, no. No hay red, servidor, usuarios, GPG, Sigstore ni infraestructura de claves real, y los nueve ataques y la independencia del canal del checksum son construcciones del autor.
+No resuelve la distribución de la clave pública: si el atacante cambia esa clave, todo verifica. No protege contra un publicador comprometido. Las pruebas de la clase usan datos sintéticos; no sustituyen una cadena de suministro con procedimientos de gestión de claves y revocación.
 
 ## Relación con otros conceptos
 

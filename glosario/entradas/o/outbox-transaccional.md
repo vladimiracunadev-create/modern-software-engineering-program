@@ -2,44 +2,46 @@
 
 [↑ Glosario](../../README.md) · [← Oscilación por supuesto](./oscilacion-por-supuesto.md) · [Overflow →](./overflow.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 20](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 20](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md)
 
 ## Definición
 
-Tabla, en la misma base que el cambio de negocio, donde se guardan los mensajes a publicar dentro de la misma transacción.
-
-Definición de trabajo de [SE-377 — Outbox, inbox, sagas y compensación](../../../classes/part-31-integracion-eventos-y-mensajeria/se-377-outbox-inbox-sagas-y-compensacion/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-241 — Responsabilidades y fronteras del backend](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-241-responsabilidades-y-fronteras-del-backend/README.md): Tabla escrita en la misma transacción que el cambio de estado, de la que un relevo lee los eventos pendientes para publicarlos después.
+El **outbox transaccional** es una tabla que vive en la misma base de datos que el cambio de negocio y en la que se guardan los mensajes que hay que publicar. La operación inserta la fila de negocio y la fila del mensaje dentro de la misma transacción. [SE-377](../../../classes/part-31-integracion-eventos-y-mensajeria/se-377-outbox-inbox-sagas-y-compensacion/README.md) lo enseña como patrón de integración y [SE-241](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-241-responsabilidades-y-fronteras-del-backend/README.md) lo presenta como la tabla de la que un relevo lee los eventos pendientes para publicarlos después. Aquí «outbox» significa la tabla más su relevo, no un servicio de mensajería.
 
 ## Por qué importa
 
-En [SE-377 — Outbox, inbox, sagas y compensación](../../../classes/part-31-integracion-eventos-y-mensajeria/se-377-outbox-inbox-sagas-y-compensacion/README.md), el tema «Outbox transaccional» importa porque convierte «publicar» en una fila de la misma transacción.
+Cuando un servicio debe cambiar su base y avisar a otros, hay dos escrituras en dos sistemas, y no existe una transacción que abarque ambos. Quien no usa outbox elige entre dos fallos: publicar después de confirmar (si el proceso cae en medio, la entrega queda guardada sin evento) o publicar antes (se emite un evento de una entrega que luego no se confirmó). El outbox cambia la decisión de diseño: «publicar» deja de ser un paso de la petición y pasa a ser un dato durable que se entrega con reintentos. [SE-377](../../../classes/part-31-integracion-eventos-y-mensajeria/se-377-outbox-inbox-sagas-y-compensacion/README.md) resume la ganancia así: ya no existen entregas sin evento ni eventos sin entrega.
 
 ## Cómo funciona
 
-Según [SE-377 — Outbox, inbox, sagas y compensación](../../../classes/part-31-integracion-eventos-y-mensajeria/se-377-outbox-inbox-sagas-y-compensacion/README.md), en la sección «Outbox transaccional»:
+1. La operación de negocio abre una transacción, escribe el cambio y escribe una fila en la tabla `outbox` (identificador, tipo, clave, cuerpo, fecha de creación y una marca de publicación). Confirma: o existen ambas filas o ninguna, porque la atomicidad la da el motor de base de datos.
+2. Un proceso aparte, el **relevo**, lee lotes de filas sin marca de publicación, las envía al corredor de mensajes y las marca como publicadas.
+3. Una tarea de limpieza elimina las filas publicadas tras un plazo de retención.
 
-El **outbox** es una tabla en la misma base de datos del servicio. La operación de negocio inserta la entrega **y** una fila en `outbox` con el mensaje en la **misma transacción**: o ambas existen o ninguna. Un proceso aparte, el **relevo**, lee las filas no publicadas, las envía al corredor y las marca. La publicación pasa de ser parte de la petición a ser una tarea que se reintenta hasta lograrlo. El costo es una tabla más, un proceso que operar, la latencia del relevo y la necesidad de limpiar lo ya enviado. La ganancia es que ya no existen entregas sin evento ni eventos sin entrega.
+El punto delicado está entre publicar y marcar. Si el relevo cae justo ahí, al reiniciar volverá a publicar el mensaje. Por eso el outbox da entrega **al menos una vez**, no exactamente una vez, y exige que quien recibe sea idempotente. [SE-377](../../../classes/part-31-integracion-eventos-y-mensajeria/se-377-outbox-inbox-sagas-y-compensacion/README.md) lo cierra con su contraparte, la **inbox**: una tabla con el identificador del mensaje como clave primaria, donde el receptor hace `INSERT OR IGNORE` en la misma transacción que aplica el efecto. Un duplicado choca con la clave y no repite el efecto.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-377 — Outbox, inbox, sagas y compensación](../../../classes/part-31-integracion-eventos-y-mensajeria/se-377-outbox-inbox-sagas-y-compensacion/README.md):
+El ejemplo de [SE-377](../../../classes/part-31-integracion-eventos-y-mensajeria/se-377-outbox-inbox-sagas-y-compensacion/README.md) es la plataforma de entregas: la tabla `outbox(id, tipo, clave, cuerpo, creado, publicado_en)` está en la misma base de las entregas; el relevo lee lotes de 100 filas sin `publicado_en`, publica, marca y limpia lo publicado hace más de siete días. Si se cae entre publicar y marcar, el mensaje sale de nuevo, y el calificador lo absorbe con su inbox. Un esbozo (ilustración, no código del programa):
 
-El equipo de la plataforma diseña tres piezas. **Outbox:** tabla `outbox(id, tipo, clave, cuerpo, creado, publicado_en)` en la misma base de las entregas; la operación que registra la entrega inserta la fila en la misma transacción. **Relevo:** un proceso que lee lotes de 100 filas sin `publicado_en`, publica, marca y limpia las publicadas con más de siete días; si se cae entre publicar y marcar, el mensaje se publica de nuevo. **Inbox:** el calificador tiene `inbox(mensaje_id primary key)` y hace `INSERT OR IGNORE` en la misma transacción del efecto.
+```sql
+BEGIN;
+INSERT INTO entrega (id, estado) VALUES (42, 'registrada');
+INSERT INTO outbox (id, tipo, clave, cuerpo, creado)
+VALUES ('m-42', 'entrega.registrada', '42', '{"entrega":42}', now());
+COMMIT;
+```
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-377 — Outbox, inbox, sagas y compensación](../../../classes/part-31-integracion-eventos-y-mensajeria/se-377-outbox-inbox-sagas-y-compensacion/README.md)) son:
-
-- **Entregas guardadas sin evento** — causa: se publicó después de confirmar, sin outbox. Corrección: outbox en la misma transacción y relevo.
-- **Eventos de entregas que no existen** — causa: se publicó antes de confirmar la base. Corrección: publicar solo desde el outbox, tras el commit.
+- **Publicar después de confirmar sin outbox**: entregas guardadas sin evento ([SE-377](../../../classes/part-31-integracion-eventos-y-mensajeria/se-377-outbox-inbox-sagas-y-compensacion/README.md)).
+- **Publicar antes de confirmar**: eventos de entregas que no existen ([SE-377](../../../classes/part-31-integracion-eventos-y-mensajeria/se-377-outbox-inbox-sagas-y-compensacion/README.md)). La corrección es publicar solo desde el outbox, tras el commit.
+- **Creer que el outbox da «exactamente una vez»**: da al menos una vez; la unicidad la aporta el receptor idempotente.
+- **Olvidar la limpieza y la latencia**: la tabla crece y el evento llega con el retraso del relevo.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-377 — Outbox, inbox, sagas y compensación](../../../classes/part-31-integracion-eventos-y-mensajeria/se-377-outbox-inbox-sagas-y-compensacion/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó corredor, red ni concurrencia de relevos: las caídas, los fallos de pasos y las compensaciones son probabilidades del autor con semilla fija, y los resultados no se extrapolan a ningún sistema. Solo el outbox y la inbox usan un motor real.
+El outbox exige que el cambio de negocio y la tabla compartan base de datos; si el estado vive en varias bases, no basta. Añade una tabla, un proceso que operar y latencia. No resuelve por sí solo el orden global de los eventos ni la compensación de pasos fallidos, que [SE-377](../../../classes/part-31-integracion-eventos-y-mensajeria/se-377-outbox-inbox-sagas-y-compensacion/README.md) trata con sagas. Los experimentos de la clase usaron datos sintéticos y un motor real solo para outbox e inbox, sin corredor ni relevos concurrentes: no se extrapolan a producción.
 
 ## Relación con otros conceptos
 

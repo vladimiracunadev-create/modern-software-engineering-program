@@ -2,55 +2,47 @@
 
 [↑ Glosario](../../README.md) · [← Disparador de revisión](./disparador-de-revision.md) · [Disponibilidad →](./disponibilidad.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 18](../../../classes/part-18-cli-tui-servicios-y-automatizacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 18](../../../classes/part-18-cli-tui-servicios-y-automatizacion/README.md)
 
 ## Definición
 
-Componente aleatorio de la espera que desincroniza a los clientes.
-
-Definición de trabajo de [SE-320 — Resiliencia: timeout, retry con jitter y circuit breaker](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-320-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-239 — Taller: construir un flujo web resiliente](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-239-taller-construir-un-flujo-web-resiliente/README.md): Componente aleatorio añadido a una espera para que los clientes no reintenten sincronizados.
-- En [SE-270 — Protocolos IoT y conectividad intermitente](../../../classes/part-22-embedded-iot-y-tiempo-real/se-270-protocolos-iot-y-conectividad-intermitente/README.md): Variación aleatoria añadida al intervalo de reintento para evitar que varios clientes coincidan.
-- En [SE-438 — Timeouts, retries, backoff y jitter](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-438-timeouts-retries-backoff-y-jitter/README.md): Variación aleatoria del tiempo de espera entre reintentos para evitar la sincronización.
-- En [SE-246 — Idempotencia, reintentos y deduplicación](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md): Aleatoriedad añadida a la espera entre reintentos para evitar que los clientes se sincronicen.
+En este glosario, **dispersión** es el nombre en español de lo que las clases llaman *jitter*: un componente aleatorio añadido a la espera de un reintento para que los clientes no reintenten sincronizados. Lo usan con el mismo sentido [SE-239](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-239-taller-construir-un-flujo-web-resiliente/README.md), [SE-246](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md), [SE-270](../../../classes/part-22-embedded-iot-y-tiempo-real/se-270-protocolos-iot-y-conectividad-intermitente/README.md) y [SE-438](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-438-timeouts-retries-backoff-y-jitter/README.md); [SE-320](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-320-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/README.md) lo desarrolla como «jitter». No debe confundirse con la dispersión estadística (varianza) ni con el *jitter* de variación de latencia en redes de tiempo real.
 
 ## Por qué importa
 
-En [SE-320 — Resiliencia: timeout, retry con jitter y circuit breaker](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-320-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/README.md), el tema «Jitter» importa porque reparte los reintentos en el tiempo
+Cuando muchos clientes fallan a la vez y reintentan con la misma regla, vuelven a chocar a la vez: una tormenta de reintentos que impide la recuperación del servicio. Añadir aleatoriedad reparte la carga en el tiempo. Es una de esas decisiones de dos líneas de código que deciden si un servicio se recupera o no.
 
 ## Cómo funciona
 
-Según [SE-320 — Resiliencia: timeout, retry con jitter y circuit breaker](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-320-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/README.md):
+El experimento de [SE-320](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-320-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/README.md) simula 1000 clientes cuyo primer intento ocurre en el instante 0 y reintentan hasta 12 veces; el servicio falla hasta 1000 ms y luego acepta 60 peticiones por cada 100 ms:
 
-El experimento simula 1000 clientes cuyo primer intento ocurre en el instante 0 y que reintentan hasta 12 veces; el servicio falla hasta 1000 ms y luego acepta 60 peticiones por cada 100 ms. Con **intervalo fijo de 100 ms**, los 1000 clientes siguen sincronizados: el pico es de **1000 peticiones por 100 ms** en cada ronda, se hacen 11.940 intentos y **880 clientes se rinden** tras 12 intentos. Con **exponencial sin aleatoriedad**, siguen sincronizados pero cada vez más espaciados: pico de **1000**, 10.320 intentos, último éxito a los **38.300 ms** y 520 abandonados. Con **jitter completo** (espera uniforme entre 0 y el valor exponencial), el pico tras el arranque baja a **537**, se hacen 6230 intentos, el último éxito llega a los 7179 ms y **nadie** se rinde.
+- **Intervalo fijo de 100 ms:** siguen sincronizados; pico de 1000 peticiones por 100 ms en cada ronda, 11 940 intentos y 880 clientes se rinden.
+- **Exponencial sin aleatoriedad:** siguen sincronizados, más espaciados; pico de 1000, 10 320 intentos, último éxito a los 38 300 ms, 520 abandonados.
+- **Jitter completo** (espera uniforme entre 0 y el valor exponencial): el pico tras el arranque baja a 537, con 6230 intentos y último éxito a los 7179 ms.
 
-Según [SE-320 — Resiliencia: timeout, retry con jitter y circuit breaker](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-320-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/README.md):
-
-El equipo de *Avisos* mide durante una semana la latencia del proveedor: p50 de 60 ms, p99 de 410 ms. Fija un timeout por intento de 500 ms (cerca del p99,5, corta menos de una llamada sana en doscientas), un plazo total de 1,5 s (menos que el de la petición del usuario), dos reintentos con jitter completo y un presupuesto del 10 % por instancia, y un interruptor que se abre con cinco fallos consecutivos durante 10 s. Documenta la pila (plazo total, interruptor, reintento, plazo por intento) y la prueba que simula un proveedor lento y comprueba que la duración máxima de una petición no supera 1,5 s. Registra tres métricas con alarma: tasa de timeouts, tasa de reintentos y estado del interruptor.
+El retroceso exponencial alarga las esperas, pero no las desincroniza; la dispersión sí. Por eso se combinan. La idea es la misma en IoT ([SE-270](../../../classes/part-22-embedded-iot-y-tiempo-real/se-270-protocolos-iot-y-conectividad-intermitente/README.md): varias unidades reconectando tras un corte), en el flujo web resiliente de [SE-239](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-239-taller-construir-un-flujo-web-resiliente/README.md) y en la idempotencia de reintentos de [SE-246](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md).
 
 ## Ejemplo
 
-Ejemplo de [SE-320 — Resiliencia: timeout, retry con jitter y circuit breaker](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-320-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/README.md) (sección «Ejemplo profesional»):
+Esbozo ilustrativo del jitter completo (no código de la clase):
 
-El equipo de *Avisos* mide durante una semana la latencia del proveedor: p50 de 60 ms, p99 de 410 ms. Fija un timeout por intento de 500 ms (cerca del p99,5, corta menos de una llamada sana en doscientas), un plazo total de 1,5 s (menos que el de la petición del usuario), dos reintentos con jitter completo y un presupuesto del 10 % por instancia, y un interruptor que se abre con cinco fallos consecutivos durante 10 s. Documenta la pila (plazo total, interruptor, reintento, plazo por intento) y la prueba que simula un proveedor lento y comprueba que la duración máxima de una petición no supera 1,5 s.
+```python
+import random
+espera = random.uniform(0, min(tope, base * 2 ** intento))
+```
+
+Con 1000 clientes reintentando tras un corte de un segundo, el tráfico deja de llegar como un muro y llega como una rampa.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Mil clientes agotan al servidor al recuperarse** — causa: reintentos sincronizados sin dispersión. Corrección: retroceso exponencial con dispersión, máximo de intentos y límite de tasa. ([SE-239](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-239-taller-construir-un-flujo-web-resiliente/README.md))
-- **El servidor cae al volver la red** — causa: reintentos sincronizados. Corrección: espera exponencial con jitter completo y retardo inicial aleatorio. ([SE-270](../../../classes/part-22-embedded-iot-y-tiempo-real/se-270-protocolos-iot-y-conectividad-intermitente/README.md))
-- **La carga se triplica tras un fallo breve** — causa: reintento inmediato sin límite. Corrección: presupuesto de reintentos y espera con jitter. ([SE-438](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-438-timeouts-retries-backoff-y-jitter/README.md))
+- **Retroceso exponencial sin aleatoriedad,** que mantiene a los clientes sincronizados.
+- **Reintentar sin tope de intentos,** que prolonga la sobrecarga.
+- **Reintentar operaciones no idempotentes:** la dispersión reparte la carga, no evita duplicados; hace falta idempotencia ([SE-246](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md)).
+- **Confundirlo con un cambio de timeout.**
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Mira cómo el jitter baja el pico a 537 y 759 y elimina los abandonos, mientras el intervalo fijo y el exponencial sin jitter dejan el pico en 1 000. ([SE-320](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-320-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/README.md))
-- Depende del contexto; en la comparación del experimento, el jitter completo da el menor pico y el equilibrado termina antes. ([SE-320](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-320-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/README.md))
+Los números de [SE-320](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-320-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/README.md) vienen de una simulación con parámetros del autor, no de un servicio real. La dispersión no arregla un servicio que sigue caído; solo evita agravarlo. Con pocos clientes, la sincronización no importa. Y retrasa aleatoriamente una parte de los reintentos, lo que alarga la espera de algunos clientes.
 
 ## Relación con otros conceptos
 

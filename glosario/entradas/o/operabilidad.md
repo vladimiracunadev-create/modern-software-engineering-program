@@ -2,40 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← OpenAPI](./openapi.md) · [Operación →](./operacion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md)
 
 ## Definición
 
-Capacidad de un dispositivo de ser mantenido durante su vida útil por personas que no lo construyeron.
-
-Definición de trabajo de [SE-276 — Proyecto: dispositivo simulado operable y actualizable](../../../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md).
+La **operabilidad** es la capacidad de un dispositivo de ser mantenido durante su vida útil por personas que no lo construyeron. Es el sentido de [SE-276](../../../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md) (proyecto: dispositivo simulado operable y actualizable). Aquí se aplica a un dispositivo; la idea general (que un sistema pueda operarse con seguridad por otros) la comparten otros textos del programa, pero esta entrada sigue la definición de la clase.
 
 ## Por qué importa
 
-En [SE-276 — Proyecto: dispositivo simulado operable y actualizable](../../../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md), el tema «Operabilidad» importa porque un dispositivo operable tolera cortes, cuelgues y actualizaciones sin visita.
+Un dispositivo desplegado vive años. Si cada incidente exige a quien lo construyó, el sistema solo funciona mientras esa persona esté. [SE-276](../../../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md) lo plantea así: un dispositivo operable tolera cortes, cuelgues y actualizaciones sin visita.
 
 ## Cómo funciona
 
-Según [SE-276 — Proyecto: dispositivo simulado operable y actualizable](../../../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md), en la sección «Operabilidad»:
+Un dispositivo es operable si una persona que no lo construyó puede mantenerlo vivo durante años. [SE-276](../../../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md) lista lo que esa persona debe saber hacer:
 
-Un dispositivo es operable si una persona que no lo construyó puede mantenerlo vivo durante años: sabe cómo se actualiza, qué pasa cuando falla, cómo se retira una clave y cómo se detecta que dejó de enviar. Operabilidad es el conjunto de las defensas de la parte vistas desde quien las usa. Sin ella, cada incidente exige a quien lo construyó.
+- **Actualizarlo** (y volver atrás si falla).
+- **Saber qué pasa cuando falla.**
+- **Retirar una clave.**
+- **Detectar que dejó de enviar.**
+
+La clase define la operabilidad como el conjunto de las defensas de la parte visto desde quien las usa: la actualización con ranuras, el temporizador de vigilancia, la rotación de claves y revocación, la telemetría. Se hace explícita en el **paquete del dispositivo**, un documento de nueve secciones que hace revisable lo decidido.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-276 — Proyecto: dispositivo simulado operable y actualizable](../../../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md):
-
-El equipo de la plataforma entrega el paquete de los 200 nodos con nueve secciones. La identidad es una clave derivada por dispositivo desde un secreto maestro que nunca está en el nodo. El firmware tiene dos ranuras con reversión a los 60 s. Las claves se rotan cada doce meses con una lista de revocación. Los umbrales son de 5 a 40 °C con variación máxima de 3 °C por muestra y una referencia independiente de CO₂.
+El equipo de la plataforma en [SE-276](../../../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md) entrega el paquete de los 200 nodos: la identidad es una clave derivada por dispositivo desde un secreto maestro que nunca está en el nodo; el firmware tiene dos ranuras con reversión a los 60 s; las claves se rotan cada doce meses con una lista de revocación; los umbrales son de 5 a 40 °C con variación máxima de 3 °C por muestra y una referencia independiente de CO₂.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-276 — Proyecto: dispositivo simulado operable y actualizable](../../../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md)) son:
-
-- **El paquete pasa el validador y falla en la flota** — causa: validador de forma sin reglas de sentido. Corrección: añadir reglas de sentido y una revisión humana.
-- **Nadie sabe qué hacer ante un nodo mudo** — causa: sin procedimiento operativo. Corrección: escribir los procedimientos de los incidentes frecuentes.
+- **El paquete pasa el validador y falla en la flota:** el validador comprobaba forma, no sentido. Corrección: reglas de sentido y revisión humana ([SE-276](../../../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md)).
+- **Nadie sabe qué hacer ante un nodo mudo:** falta el procedimiento y la responsabilidad.
+- **Confundirla con facilidad de uso:** se mide por lo que un tercero puede hacer sin ayuda del autor.
+- **Documentar sin probar:** operar exige haber ensayado la actualización y el retroceso.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-276 — Proyecto: dispositivo simulado operable y actualizable](../../../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md)) son: Las definiciones son operativas para el nodo de la sala. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se simuló ningún componente real ni se actualizó un dispositivo: las probabilidades de cuelgue, de corte y de fallo, el informe y la reparación del 90 % y las 200 mutaciones son construcciones del autor, y el validador se afinó con los mismos casos que lo evalúan.
+La clase usa un dispositivo simulado: no prueba que un dispositivo físico sea operable. La operabilidad no sustituye la seguridad ni el diseño del producto; es una propiedad sobre cómo se mantiene. Y depende de que alguien asuma la responsabilidad que el paquete declara.
 
 ## Relación con otros conceptos
 

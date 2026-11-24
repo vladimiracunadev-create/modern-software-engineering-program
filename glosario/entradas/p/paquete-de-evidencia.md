@@ -2,51 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← Paquete de capa de datos](./paquete-de-capa-de-datos.md) · [Paquete de informe →](./paquete-de-informe.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 19](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 19](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md)
 
 ## Definición
 
-Conjunto de datos que prueban cómo se construyó, verificó, aprobó y ensayó una versión.
-
-Definición de trabajo de [SE-492 — Proyecto: camino a producción con rollback](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-492-proyecto-camino-a-produccion-con-rollback/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-431 — Taller: demostrar que una prueba detecta defectos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-431-taller-demostrar-que-una-prueba-detecta-defectos/README.md): Archivo que asocia cada prueba con el defecto que detecta y el resultado de ejecutarla con y sin él.
-- En [SE-240 — Proyecto: aplicación web accesible y offline](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-240-proyecto-aplicacion-web-accesible-y-offline/README.md): Conjunto de artefactos y comprobaciones con enlaces y huellas que permite repetir una verificación.
-- En [SE-576 — Proyecto final: producto operable construido desde SPEC](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-576-proyecto-final-producto-operable-construido-desde-spec/README.md): Conjunto de artefactos que permite a otra persona revisar y operar el producto.
-- En [SE-468 — Proyecto: producto con seguridad verificable](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-468-proyecto-producto-con-seguridad-verificable/README.md): Conjunto versionado de requisitos, controles, pruebas y evidencias con fecha, alcance y huella.
+Un **paquete de evidencia** es un conjunto de datos que prueban cómo se construyó, verificó, aprobó y ensayó una versión. El programa usa el término en varias clases con matices: en [SE-431](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-431-taller-demostrar-que-una-prueba-detecta-defectos/README.md), un archivo que asocia cada prueba con el defecto que detecta y el resultado de ejecutarla con y sin él; en [SE-240](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-240-proyecto-aplicacion-web-accesible-y-offline/README.md), artefactos y comprobaciones con enlaces y huellas que permiten repetir una verificación; en [SE-576](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-576-proyecto-final-producto-operable-construido-desde-spec/README.md), el conjunto que permite a otra persona revisar y operar el producto; en [SE-468](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-468-proyecto-producto-con-seguridad-verificable/README.md), un conjunto versionado de requisitos, controles, pruebas y evidencias con fecha, alcance y huella.
 
 ## Por qué importa
 
-En [SE-492 — Proyecto: camino a producción con rollback](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-492-proyecto-camino-a-produccion-con-rollback/README.md), el tema «Paquete de evidencia» importa porque un paquete válido en forma puede ser falso en contenido.
+Una afirmación («está probado», «es seguro», «está listo») sin evidencia es opinión. El paquete convierte la afirmación en algo que otra persona puede repetir y revisar. [SE-492](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-492-proyecto-camino-a-produccion-con-rollback/README.md) advierte el reverso: un paquete válido en forma puede ser falso en contenido, así que hace falta mirar qué prueban realmente los artefactos.
 
 ## Cómo funciona
 
-Según [SE-492 — Proyecto: camino a producción con rollback](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-492-proyecto-camino-a-produccion-con-rollback/README.md):
+El hilo común de los usos del programa:
 
-El equipo de la API de entregas ensambla su camino. Cada versión pasa por la integración con ramas de menos de dos días, el grafo de trabajos con un camino crítico de 14 minutos, las compuertas ordenadas por razón de detección, el escaneo de secretos que siempre bloquea, la política sobre el plan de infraestructura, una preproducción con datos sintéticos, un canario del 5 % con criterio de retroceso automático y la observación de las métricas con intervalos. Los cambios de esquema siguen el cambio en paralelo: el equipo ensaya el retroceso cada mes en preproducción, con la versión anterior leyendo los datos que escribió la nueva, y la contracción es un cambio aparte, treinta días después, con aprobación de una segunda persona.
+1. **Cada afirmación enlaza con un artefacto** (una prueba, un resultado, un registro).
+2. **Los artefactos llevan huella** (hash) y fecha, para detectar cambios.
+3. **El alcance está declarado:** qué cubre la evidencia y qué no.
+4. **Es repetible:** otra persona puede volver a ejecutar la verificación.
 
-Según [SE-492 — Proyecto: camino a producción con rollback](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-492-proyecto-camino-a-produccion-con-rollback/README.md):
-
-Traslada el proyecto a otro sistema (por ejemplo, una aplicación móvil con un backend compartido y versiones antiguas instaladas en los teléfonos): cambia los consumidores, el esquema y las etapas, y conserva el procedimiento de cambiar en paralelo, ensayar el retroceso, hacer la ablación de las compuertas y validar el paquete de evidencia. La transferencia está lograda cuando puedes decir qué versión antigua sigue viva y qué fallo solo tiene un guardián, no cuando el diagrama se parece al de la plataforma.
+En [SE-431](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-431-taller-demostrar-que-una-prueba-detecta-defectos/README.md), la evidencia clave para una prueba es que *detecta* el defecto: se asocia cada prueba con el defecto que atrapa y se registra el resultado con y sin él. En [SE-492](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-492-proyecto-camino-a-produccion-con-rollback/README.md), el camino a producción reúne integración con ramas cortas, un grafo de trabajos con camino crítico de 14 minutos, compuertas, escaneo de secretos, política sobre el plan de infraestructura, preproducción con datos sintéticos, un canario del 5 % con retroceso automático y ensayo mensual del retroceso.
 
 ## Ejemplo
 
-Ejemplo de [SE-492 — Proyecto: camino a producción con rollback](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-492-proyecto-camino-a-produccion-con-rollback/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la API de entregas ensambla su camino. Cada versión pasa por la integración con ramas de menos de dos días, el grafo de trabajos con un camino crítico de 14 minutos, las compuertas ordenadas por razón de detección, el escaneo de secretos que siempre bloquea, la política sobre el plan de infraestructura, una preproducción con datos sintéticos, un canario del 5 % con criterio de retroceso automático y la observación de las métricas con intervalos.
+Ilustración propia con el sentido de [SE-468](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-468-proyecto-producto-con-seguridad-verificable/README.md): una fila «el servicio exige autenticación en todas las rutas» enlaza con la prueba que lo comprueba, su resultado de la última ejecución con fecha y la huella del commit evaluado. Si el commit cambia, la huella ya no coincide y la evidencia queda caduca.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El paquete de evidencia pasa y es falso** — causa: solo valida forma. Corrección: capas de cruce y verosimilitud; muestra revisada por una persona. ([SE-492](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-492-proyecto-camino-a-produccion-con-rollback/README.md))
-- **El paquete de evidencia nunca se re-ejecuta** — causa: se trata como documento. Corrección: validador en la integración continua. ([SE-431](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-431-taller-demostrar-que-una-prueba-detecta-defectos/README.md))
+- **Un paquete completo en forma y falso en contenido** ([SE-492](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-492-proyecto-camino-a-produccion-con-rollback/README.md)): se valida la estructura, no el sentido.
+- **Evidencia sin fecha ni alcance.**
+- **Confundirlo con documentación:** el paquete son pruebas y registros, no explicaciones.
+- **Reutilizar evidencia de una versión anterior** sin volver a ejecutarla.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-492 — Proyecto: camino a producción con rollback](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-492-proyecto-camino-a-produccion-con-rollback/README.md)) son: Las definiciones son operativas para el proyecto de la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con cifras publicadas idénticas.
+La evidencia prueba lo que se midió, no que no existan otros defectos. Los proyectos de la clase son escenarios didácticos y no constituyen una certificación. Y reunir evidencia tiene costo: debe ser proporcional al riesgo.
 
 ## Relación con otros conceptos
 

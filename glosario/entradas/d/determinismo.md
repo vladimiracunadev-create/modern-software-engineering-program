@@ -2,51 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Detector estructural](./detector-estructural.md) · [Determinismo de una prueba →](./determinismo-de-una-prueba.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 24](../../../classes/part-24-software-especializado-y-dominios/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 24](../../../classes/part-24-software-especializado-y-dominios/README.md)
 
 ## Definición
 
-Propiedad de producir el mismo resultado ante las mismas entradas declaradas.
-
-Definición de trabajo de [SE-428 — Datos deterministas y gestión de fixtures](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-428-datos-deterministas-y-gestion-de-fixtures/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-292 — Videojuegos, loops, entidades y simulación](../../../classes/part-24-software-especializado-y-dominios/se-292-videojuegos-loops-entidades-y-simulacion/README.md): Propiedad de una simulación que, con el mismo estado y las mismas entradas, llega siempre al mismo estado.
-- En [SE-364 — Transformación y orquestación idempotente con backfills](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-364-transformacion-y-orquestacion-idempotente-con-backfills/README.md): El resultado depende solo de las entradas declaradas.
+El **determinismo** es la propiedad de producir el mismo resultado ante las mismas entradas declaradas. El programa lo usa con ese núcleo en varios contextos: en [SE-292](../../../classes/part-24-software-especializado-y-dominios/se-292-videojuegos-loops-entidades-y-simulacion/README.md), una simulación es determinista si, con el mismo estado y las mismas entradas, llega siempre al mismo estado; en [SE-364](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-364-transformacion-y-orquestacion-idempotente-con-backfills/README.md), un paso de transformación es determinista si su resultado depende solo de las entradas declaradas; en [SE-428](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-428-datos-deterministas-y-gestion-de-fixtures/README.md), el determinismo de los datos y de las pruebas se pierde por «fuentes de no determinismo» que hay que inventariar.
 
 ## Por qué importa
 
-En [SE-428 — Datos deterministas y gestión de fixtures](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-428-datos-deterministas-y-gestion-de-fixtures/README.md), el tema «Fuentes de no determinismo» importa porque cada una tiene un remedio distinto.
+Lo que no se puede repetir no se puede depurar, comparar ni reconstruir. Con determinismo, un fallo se reproduce con una grabación de entradas, dos máquinas se sincronizan, y una transformación se puede rehacer (*backfill*) sin cambiar resultados. Sin él, una prueba que falla «a veces» no distingue un defecto de un accidente.
 
 ## Cómo funciona
 
-Según [SE-428 — Datos deterministas y gestión de fixtures](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-428-datos-deterministas-y-gestion-de-fixtures/README.md):
+La clave es **declarar todas las entradas**: todo lo que influye en el resultado y no está declarado es una fuente de no determinismo.
 
-Traslada el análisis a otra suite (por ejemplo, las pruebas de un sistema de reservas): ejecútalas en órdenes aleatorios, mide qué estrategia de fixture aísla mejor y a qué costo, e inventaría las fuentes de no determinismo. La transferencia está lograda cuando puedes explicar qué prueba dependía de cuál y cómo lo supiste, no cuando la tabla se parece.
-
-Según [SE-292 — Videojuegos, loops, entidades y simulación](../../../classes/part-24-software-especializado-y-dominios/se-292-videojuegos-loops-entidades-y-simulacion/README.md):
-
-Una simulación es **determinista** si, partiendo del mismo estado y las mismas entradas, llega siempre al mismo estado. Con paso variable el estado final depende de la secuencia de duraciones de los fotogramas, que cambia con la carga de la máquina; dos ejecuciones con las mismas entradas terminan en estados distintos. Con paso fijo la secuencia de pasos es la misma, y el resultado solo depende de las entradas. Para sincronizar dos máquinas, repetir una partida o encontrar un fallo con una grabación se necesita el paso fijo. El determinismo entre máquinas distintas exige además la misma aritmética (la no asociatividad de `SE-289` reaparece) y el mismo orden de actualización.
+- **Simulación y videojuegos ([SE-292](../../../classes/part-24-software-especializado-y-dominios/se-292-videojuegos-loops-entidades-y-simulacion/README.md)).** Con paso de tiempo variable, el estado final depende de la secuencia de duraciones de los fotogramas, que cambia con la carga de la máquina; dos ejecuciones con las mismas entradas terminan distintas. Con **paso fijo**, la secuencia de pasos es la misma y el resultado solo depende de las entradas. Para sincronizar dos máquinas, repetir una partida o encontrar un fallo con una grabación se necesita paso fijo. Entre máquinas distintas exige además la misma aritmética (la no asociatividad de [SE-289](../../../classes/part-24-software-especializado-y-dominios/se-289-software-cientifico-y-reproducibilidad/README.md) reaparece).
+- **Datos y pruebas ([SE-428](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-428-datos-deterministas-y-gestion-de-fixtures/README.md)).** Cada fuente de no determinismo (reloj, orden de ejecución, estado compartido entre pruebas, datos aleatorios sin semilla) tiene un remedio distinto: inyectar el reloj, fijar semillas, aislar fixtures.
+- **Transformaciones ([SE-364](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-364-transformacion-y-orquestacion-idempotente-con-backfills/README.md)).** Si el resultado depende solo de las entradas declaradas, repetir el trabajo da lo mismo, requisito para backfills idempotentes.
 
 ## Ejemplo
 
-Ejemplo de [SE-428 — Datos deterministas y gestión de fixtures](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-428-datos-deterministas-y-gestion-de-fixtures/README.md) (sección «Caso conductor»):
-
-La plataforma de entregas es el caso conductor. Esta clase deja el octavo artefacto: las reglas de fixtures del equipo, la transacción por prueba y el inventario de fuentes de no determinismo. `SE-429` pasa de lo que se puede automatizar a la exploración con criterio humano. Cambia después una sola decisión, el orden de ejecución a aleatorio con semilla, y observa si aparece una dependencia que nadie había notado.
+[SE-428](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-428-datos-deterministas-y-gestion-de-fixtures/README.md) propone ejecutar una suite en órdenes aleatorios, medir qué estrategia de fixture aísla mejor y a qué costo, e inventariar las fuentes de no determinismo; la transferencia está lograda cuando puedes explicar qué prueba dependía de cuál y cómo lo supiste. Ilustración propia: una prueba que compara «hoy» con una fecha fija falla en año bisiesto; la causa es el reloj como entrada no declarada.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-428 — Datos deterministas y gestión de fixtures](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-428-datos-deterministas-y-gestion-de-fixtures/README.md)) son:
-
-- **Las pruebas pasan una a una y fallan juntas** — causa: estado compartido mutable. Corrección: transacción con retroceso o base nueva por prueba.
-- **Una prueba falla una vez de cada diez** — causa: datos aleatorios sin semilla o propiedad mal enunciada. Corrección: registrar la semilla y revisar la propiedad.
+- **Confundir determinismo con ausencia de aleatoriedad:** un generador con semilla fija es determinista aunque «parezca» aleatorio.
+- **Asumir determinismo entre máquinas** sin comprobar la aritmética.
+- **Paso variable en una simulación** que se quiere repetir ([SE-292](../../../classes/part-24-software-especializado-y-dominios/se-292-videojuegos-loops-entidades-y-simulacion/README.md)).
+- **Confundirlo con idempotencia:** esta es repetir una operación sin cambiar el estado; el determinismo es mismo resultado con mismas entradas.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Traslada el análisis a otra suite (por ejemplo, las pruebas de un sistema de reservas): ejecútalas en órdenes aleatorios, mide qué estrategia de fixture aísla mejor y a qué costo, e inventaría las fuentes de no determinismo. ([SE-428](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-428-datos-deterministas-y-gestion-de-fixtures/README.md))
+El determinismo total es caro y a veces innecesario: un sistema distribuido con relojes y redes reales no lo ofrece de gratis. Es una propiedad respecto de las entradas *declaradas*; si se declara poco, vale poco. Y no implica corrección: un programa puede ser determinista y estar mal.
 
 ## Relación con otros conceptos
 

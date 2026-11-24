@@ -2,54 +2,40 @@
 
 [↑ Glosario](../../README.md) · [← Cuarentena](./cuarentena.md) · [Cubeta de fichas →](./cubeta-de-fichas.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 24](../../../classes/part-24-software-especializado-y-dominios/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 24](../../../classes/part-24-software-especializado-y-dominios/README.md)
 
 ## Definición
 
-Dato que no identifica por sí solo pero sí en combinación con otros.
-
-Definición de trabajo de [SE-488 — Entornos preview y datos seguros](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-488-entornos-preview-y-datos-seguros/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-295 — Salud, datos sensibles y sistemas regulados](../../../classes/part-24-software-especializado-y-dominios/se-295-salud-datos-sensibles-y-sistemas-regulados/README.md): Atributo que no identifica por sí solo pero sí en combinación con otros (edad, sexo, código postal).
-- En [SE-463 — Privacidad por diseño y minimización](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-463-privacidad-por-diseno-y-minimizacion/README.md): Atributo que no identifica a una persona por sí solo y sí combinado con otros o con una fuente auxiliar.
-- En [SE-369 — Gobierno, privacidad y retención de datos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-369-gobierno-privacidad-y-retencion-de-datos/README.md): Atributo que, combinado con otros, puede identificar a una persona.
+Un **cuasi-identificador** es un dato que no identifica a una persona por sí solo pero sí en combinación con otros. Es la definición de [SE-488](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-488-entornos-preview-y-datos-seguros/README.md) (entornos preview y datos seguros), con el mismo núcleo en [SE-295](../../../classes/part-24-software-especializado-y-dominios/se-295-salud-datos-sensibles-y-sistemas-regulados/README.md) (edad, sexo, código postal), [SE-463](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-463-privacidad-por-diseno-y-minimizacion/README.md) (combinado con otros o con una fuente auxiliar) y [SE-369](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-369-gobierno-privacidad-y-retencion-de-datos/README.md). Se contrapone al **identificador directo** (nombre, correo), que señala a la persona por sí solo.
 
 ## Por qué importa
 
-En [SE-488 — Entornos preview y datos seguros](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-488-entornos-preview-y-datos-seguros/README.md), el tema «Reidentificación» importa porque quitar el nombre no anonimiza; los cuasi-identificadores sí identifican.
+Quitar el nombre no anonimiza. Es la idea central de [SE-488](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-488-entornos-preview-y-datos-seguros/README.md): en un entorno de revisión con datos «enmascarados», los cuasi-identificadores siguen presentes y pueden devolver la identidad. Cambia la decisión de qué se copia a un entorno no productivo y qué se considera dato personal.
 
 ## Cómo funciona
 
-Según [SE-488 — Entornos preview y datos seguros](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-488-entornos-preview-y-datos-seguros/README.md):
+[SE-488](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-488-entornos-preview-y-datos-seguros/README.md) lo explica con la investigación de Sweeney: una gran parte de la población estadounidense era única por fecha de nacimiento, código postal y género. El mecanismo es el **ataque de vinculación**:
 
-Un **identificador directo** (nombre, correo) señala a una persona. Un **cuasi-identificador** es un dato que por sí solo no identifica pero que, combinado con otros, sí: fecha de nacimiento, código postal, género, curso. La investigación de Sweeney mostró que una gran parte de la población estadounidense era única por esos tres datos. En un **ataque de vinculación** se cruza el conjunto «anonimizado» con otra fuente que sí contiene nombres y los mismos cuasi-identificadores; donde la combinación es única en ambos, la identidad se recupera. La defensa técnica más sencilla es **generalizar** (año en lugar de fecha completa, tres dígitos del código postal) y **suprimir** los grupos pequeños, hasta que cada combinación corresponda a al menos *k* personas (k-anonimato).
+1. El conjunto «anonimizado» conserva cuasi-identificadores (fecha de nacimiento, código postal, género, curso).
+2. Otra fuente accesible contiene nombres y esos mismos atributos.
+3. Se cruzan; donde la combinación es única en ambas, la identidad se recupera.
 
-Según [SE-488 — Entornos preview y datos seguros](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-488-entornos-preview-y-datos-seguros/README.md):
-
-Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** una persona ajena identifica a un estudiante en un entorno de revisión. **Hipótesis rivales:** (a) el enmascarado falló en algún campo; (b) alguien filtró el nombre; (c) la combinación de datos corrientes es única y permite la vinculación. **Prueba:** cuenta cuántos registros comparten cada combinación de cuasi-identificadores; si el 97,6 % es único y existe una lista externa con los mismos datos, la causa es la combinación. **Conclusión:** quitar el nombre no era anonimizar; la fecha completa, el código postal y el género identifican. **Regresión:** generaliza a año y tres dígitos, suprime los grupos de menos de cinco y añade una prueba que calcule la unicidad y falle si supera el 1 %.
+La defensa técnica más sencilla es **generalizar** (el año en lugar de la fecha completa; tres dígitos del código postal) y **suprimir** los grupos pequeños, hasta que cada combinación corresponda a al menos *k* personas, que es el k-anonimato. Para saber si hay riesgo, se cuenta cuántos registros comparten cada combinación de cuasi-identificadores.
 
 ## Ejemplo
 
-Ejemplo de [SE-295 — Salud, datos sensibles y sistemas regulados](../../../classes/part-24-software-especializado-y-dominios/se-295-salud-datos-sensibles-y-sistemas-regulados/README.md) (sección «Preguntas frecuentes»):
-
-No: es una seudonimización parcial. Los cuasi-identificadores pueden identificar por combinación, y la unicidad medida lo muestra. Para considerar un conjunto desidentificado hay que seguir un método reconocido por la norma aplicable.
+En el caso de [SE-488](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-488-entornos-preview-y-datos-seguros/README.md), una persona ajena identifica a un estudiante en un entorno de revisión. Hipótesis rivales: (a) falló el enmascarado de un campo; (b) alguien filtró el nombre; (c) la combinación de datos corrientes es única y permite la vinculación. Al contar registros por combinación, el 97,6 % es único; con una lista externa que tiene los mismos datos, la causa es (c), y la corrección es generalizar y suprimir, no enmascarar el nombre otra vez. El porcentaje es de los datos sintéticos de la clase.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Una persona es identificable en un entorno de pruebas** — causa: cuasi-identificadores sin generalizar. Corrección: medir la unicidad; generalizar y suprimir grupos pequeños. ([SE-488](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-488-entornos-preview-y-datos-seguros/README.md))
-- **Un conjunto sin nombre identifica a personas** — causa: cuasi-identificadores sin generalizar. Corrección: medir la unicidad y generalizar hasta una clase mínima declarada. ([SE-295](../../../classes/part-24-software-especializado-y-dominios/se-295-salud-datos-sensibles-y-sistemas-regulados/README.md))
-- **Se reidentifica un conjunto sin nombres** — causa: combinación de cuasi-identificadores única. Corrección: medir unicidad y generalizar o publicar agregados. ([SE-463](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-463-privacidad-por-diseno-y-minimizacion/README.md))
+- **Creer que quitar nombre y correo anonimiza.**
+- **Tratar cada columna por separado:** el riesgo está en la combinación, no en un campo.
+- **Confundirlo con seudonimización:** esta reemplaza el identificador por otro valor, pero los cuasi-identificadores siguen vinculando.
+- **Suponer que k-anonimato basta siempre:** [SE-463](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-463-privacidad-por-diseno-y-minimizacion/README.md) lo trata como una medida entre otras.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un **cuasi-identificador** es un dato que por sí solo no identifica pero que, combinado con otros, sí: fecha de nacimiento, código postal, género, curso. ([SE-488](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-488-entornos-preview-y-datos-seguros/README.md))
-- Traslada el análisis a otro contexto (por ejemplo, un entorno de formación con datos de clientes de una tienda): cambia los cuasi-identificadores disponibles y la lista externa posible, y conserva el procedimiento de medir la unicidad, generalizar hasta un umbral, elegir la técnica de enmascarado por la prueba que se hará y fijar la vida del entorno. ([SE-488](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-488-entornos-preview-y-datos-seguros/README.md))
+El riesgo depende de la fuente auxiliar que tenga el atacante, que no se conoce de antemano. Generalizar pierde precisión y puede inutilizar datos para análisis fino. El 97,6 % no es una cifra extrapolable a otra población. En conjuntos sin atributos combinables (agregados ya generalizados) el concepto pierde peso.
 
 ## Relación con otros conceptos
 

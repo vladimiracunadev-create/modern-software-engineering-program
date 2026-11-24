@@ -2,44 +2,40 @@
 
 [↑ Glosario](../../README.md) · [← Borde](./borde.md) · [BPF_PROG_TEST_RUN →](./bpf-prog-test-run.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md)
 
 ## Definición
 
-Conjunto de puntos de ejecución cercanos al usuario que ejecutan cómputo o sirven datos sin pasar por el origen.
-
-Definición de trabajo de [SE-331 — Arquitecturas serverless, edge y peer-to-peer](../../../classes/part-27-arquitectura-de-software-y-dominio/se-331-arquitecturas-serverless-edge-y-peer-to-peer/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-273 — Edge, gateways y procesamiento local](../../../classes/part-22-embedded-iot-y-tiempo-real/se-273-edge-gateways-y-procesamiento-local/README.md): Conjunto de dispositivos y pasarelas cercanos a la fuente de los datos, donde se procesa antes de enviar a la nube.
+El **borde de la red** (*edge*) es el conjunto de puntos de ejecución cercanos al usuario que ejecutan cómputo o sirven datos sin pasar por el origen. Es el sentido de [SE-331](../../../classes/part-27-arquitectura-de-software-y-dominio/se-331-arquitecturas-serverless-edge-y-peer-to-peer/README.md). [SE-273](../../../classes/part-22-embedded-iot-y-tiempo-real/se-273-edge-gateways-y-procesamiento-local/README.md) lo usa con un matiz del mundo embebido: dispositivos y pasarelas cercanos a la fuente de los datos, donde se procesa antes de enviar a la nube. En ambos, la idea es la misma: acercar el trabajo a quien lo origina o lo consume.
 
 ## Por qué importa
 
-En [SE-331 — Arquitecturas serverless, edge y peer-to-peer](../../../classes/part-27-arquitectura-de-software-y-dominio/se-331-arquitecturas-serverless-edge-y-peer-to-peer/README.md), el tema «Borde de la red» importa porque acerca el cómputo y los datos al usuario a cambio de consistencia y de otra operación.
+La decisión es qué piezas viven lejos y cuáles cerca. Acercar reduce la latencia de ida y vuelta y descarga el origen; a cambio cuesta consistencia, operación y limitaciones del entorno. [SE-331](../../../classes/part-27-arquitectura-de-software-y-dominio/se-331-arquitecturas-serverless-edge-y-peer-to-peer/README.md) lo trata como un trade-off, no como mejora gratuita.
 
 ## Cómo funciona
 
-Según [SE-331 — Arquitecturas serverless, edge y peer-to-peer](../../../classes/part-27-arquitectura-de-software-y-dominio/se-331-arquitecturas-serverless-edge-y-peer-to-peer/README.md), en la sección «Borde de la red»:
+[SE-331](../../../classes/part-27-arquitectura-de-software-y-dominio/se-331-arquitecturas-serverless-edge-y-peer-to-peer/README.md) describe tres beneficios y tres costos:
 
-El **borde** acerca parte del cómputo y de los datos al usuario (cachés, funciones en puntos de presencia, procesamiento local). Reduce la latencia de ida y vuelta y descarga el origen, y es natural para contenido que cambia poco o para decisiones que se pueden tomar con datos locales. Cuesta consistencia (copias que pueden estar desactualizadas), operación (muchos puntos que desplegar y observar) y limitaciones del entorno de ejecución. Una pieza se lleva al borde si su escenario es de latencia o de disponibilidad local y si puede tolerar datos algo viejos; el estado autoritativo sigue en el origen.
+- **Beneficios:** menor latencia, menos carga en el origen, y funcionamiento con datos locales cuando el origen está lejos o inaccesible.
+- **Costos:** *consistencia* (las copias pueden estar desactualizadas); *operación* (muchos puntos que desplegar y observar); *limitaciones del entorno de ejecución* (lo que puede correr en el borde es menos que en el origen).
+
+Por eso una pieza se lleva al borde si su escenario es de latencia o de disponibilidad local y si tolera datos algo viejos. Es natural para contenido que cambia poco o para decisiones con datos locales. El **estado autoritativo sigue en el origen**.
+
+En [SE-273](../../../classes/part-22-embedded-iot-y-tiempo-real/se-273-edge-gateways-y-procesamiento-local/README.md) (IoT), el borde son dispositivos y pasarelas que filtran, agregan o deciden localmente antes de subir datos, lo que ahorra ancho de banda y permite seguir operando sin conexión.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-331 — Arquitecturas serverless, edge y peer-to-peer](../../../classes/part-27-arquitectura-de-software-y-dominio/se-331-arquitecturas-serverless-edge-y-peer-to-peer/README.md):
-
-El equipo asigna cada pieza de la plataforma a un estilo con su escenario.
+[SE-331](../../../classes/part-27-arquitectura-de-software-y-dominio/se-331-arquitecturas-serverless-edge-y-peer-to-peer/README.md) asigna cada pieza de la plataforma de entregas a un estilo según su escenario: unas funciones bajo demanda, otras en servidor, y las que sirven contenido estable cerca del usuario. Un ejemplo ilustrativo (no de la clase): una página de ayuda que cambia una vez al mes se sirve desde el borde; el saldo de una cuenta, no, porque una copia vieja daría una respuesta incorrecta.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-331 — Arquitecturas serverless, edge y peer-to-peer](../../../classes/part-27-arquitectura-de-software-y-dominio/se-331-arquitecturas-serverless-edge-y-peer-to-peer/README.md)) son:
-
-- **Lentitud solo en los primeros segundos de un pico** — causa: arranque en frío concentrado. Corrección: aprovisionar instancias en la ventana crítica o reducir la inicialización.
-- **La factura de funciones supera a un servidor** — causa: tráfico sostenido y alto con función pesada. Corrección: calcular el equilibrio y volver a un servidor.
+- **Llevar al borde estado que exige consistencia fuerte:** copias viejas dan respuestas erróneas.
+- **Subestimar la operación:** desplegar y observar muchos puntos es trabajo propio.
+- **Confundir el borde de [SE-331](../../../classes/part-27-arquitectura-de-software-y-dominio/se-331-arquitecturas-serverless-edge-y-peer-to-peer/README.md) (puntos de presencia de una red) con el de [SE-273](../../../classes/part-22-embedded-iot-y-tiempo-real/se-273-edge-gateways-y-procesamiento-local/README.md) (pasarelas y dispositivos):** comparten el principio, no la infraestructura.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-331 — Arquitecturas serverless, edge y peer-to-peer](../../../classes/part-27-arquitectura-de-software-y-dominio/se-331-arquitecturas-serverless-edge-y-peer-to-peer/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ningún proveedor, función, red ni precio real: los tiempos de arranque, los precios y las redes de pares son construcciones del autor. La siguiente clase convierte los umbrales de estas decisiones en pruebas continuas de la arquitectura.
+No conviene cuando el dato cambia constantemente y debe leerse al instante, cuando el entorno limitado no soporta la lógica, o cuando el volumen de tráfico no justifica operar muchos puntos. Las simulaciones de [SE-331](../../../classes/part-27-arquitectura-de-software-y-dominio/se-331-arquitecturas-serverless-edge-y-peer-to-peer/README.md) no midieron ningún proveedor real; sus tiempos y precios son construcciones del autor.
 
 ## Relación con otros conceptos
 

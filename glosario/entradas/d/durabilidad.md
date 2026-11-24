@@ -2,50 +2,39 @@
 
 [↑ Glosario](../../README.md) · [← Duplicación de conocimiento](./duplicacion-de-conocimiento.md) · [Duración inclusiva →](./duracion-inclusiva.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 21](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 21](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md)
 
 ## Definición
 
-Probabilidad de no perder un dato durante un periodo.
-
-Definición de trabajo de [SE-440 — Disponibilidad, durabilidad y recuperación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-256 — Almacenamiento local y sincronización](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-256-almacenamiento-local-y-sincronizacion/README.md): Propiedad de que una escritura confirmada sobreviva a una caída; su coste crece con la frecuencia con que se fuerza la sincronización con el almacenamiento.
+La **durabilidad** es la probabilidad de no perder un dato durante un periodo ([SE-440](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md), disponibilidad, durabilidad y recuperación). [SE-256](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-256-almacenamiento-local-y-sincronizacion/README.md) usa el término con un matiz de almacenamiento local: la propiedad de que una escritura confirmada sobreviva a una caída, cuyo costo crece con la frecuencia con que se fuerza la sincronización con el almacenamiento. En la «D» de ACID es la misma idea vista desde una transacción.
 
 ## Por qué importa
 
-En [SE-440 — Disponibilidad, durabilidad y recuperación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md), el tema «Durabilidad» importa porque el tiempo de reparación pesa más que el número de copias.
-
-En [SE-600 — Proyecto: sistema con LLM evaluado y operable](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-600-proyecto-sistema-con-llm-evaluado-y-operable/README.md), el tema «Durabilidad» importa porque sin diario y clave hay duplicados.
+Se confunde con la disponibilidad y no es lo mismo. Un sistema puede estar caído una hora sin perder nada, o estar siempre disponible y perder el 0,01 % de los datos al año ([SE-440](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md)). La decisión que cambia es dónde se invierte: copias, velocidad de reparación, diario de operaciones y claves de idempotencia.
 
 ## Cómo funciona
 
-Según [SE-440 — Disponibilidad, durabilidad y recuperación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md), en la sección «Durabilidad»:
+[SE-440](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md) modela un objeto con N réplicas independientes que fallan con tasa anual λ y se reparan en R horas. Se pierde el objeto cuando fallan todas durante la ventana de reparación. La aproximación de primer orden es 8 760 · N · (λ/8 760)ᴺ · Rᴺ⁻¹. Dos conclusiones:
 
-La **durabilidad** es la probabilidad de no perder un dato en un periodo, y no coincide con la disponibilidad: un sistema puede estar caído una hora y no perder nada, o estar siempre disponible y perder el 0,01 % de los datos al año. Con N réplicas independientes que fallan con una tasa anual λ y se reparan en R horas, se pierde el objeto cuando fallan todas durante la ventana de reparación. La aproximación de primer orden es 8 760 · N · (λ/8 760)ᴺ · Rᴺ⁻¹: crece con el cubo de la tasa para tres réplicas, pero también con el cuadrado del tiempo de reparación.
+- La pérdida crece con λᴺ: tres réplicas hacen la tasa de pérdida proporcional al cubo de la tasa de fallo.
+- Pero también crece con Rᴺ⁻¹: con tres copias, con el cuadrado del tiempo de reparación. Por eso el tiempo de reparación pesa más que el número de copias.
+
+En el almacenamiento local de [SE-256](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-256-almacenamiento-local-y-sincronizacion/README.md), la durabilidad de una escritura exige forzar la sincronización con el disco; hacerlo en cada escritura cuesta rendimiento, y hacerlo menos expone a perder lo reciente ante una caída. En [SE-600](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-600-proyecto-sistema-con-llm-evaluado-y-operable/README.md), sin diario de operaciones y clave de idempotencia, un reinicio produce duplicados.
 
 ## Ejemplo
 
-Ejemplo de [SE-440 — Disponibilidad, durabilidad y recuperación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md) (sección «Ejemplo profesional»):
-
-El equipo escribe el presupuesto de fiabilidad de la plataforma. Para disponibilidad prometen el 99,5 % mensual en el horario de entregas (unos 3,6 horas de caída al mes) y lo desglosan: web 99,95 %, aplicación 99,9 %, base de datos 99,9 %, con una causa común declarada de despliegue: cuatro al año, con un procedimiento de reversión en diez minutos como mitigación. Para durabilidad, tres réplicas en dominios de fallo distintos y un tiempo de reparación objetivo de 24 h, con una prueba mensual que restaura una copia en un entorno aparte.
+El equipo de [SE-440](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md) escribe el presupuesto de fiabilidad: promete 99,5 % de disponibilidad mensual en el horario de entregas (unas 3,6 horas de caída al mes) y lo desglosa por capa, declarando una causa común de despliegue. Ilustración propia de durabilidad: si una réplica tarda 24 h en reconstruirse y otra falla en ese intervalo, el objeto sigue vivo con la tercera; si la reparación tarda dos semanas, la ventana de riesgo crece mucho.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-440 — Disponibilidad, durabilidad y recuperación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md)) son:
-
-- **El sistema cae más de lo que da la cuenta** — causa: fallos en serie ignorados o causa común. Corrección: calcular con todas las capas y listar lo que comparten las réplicas.
-- **Duplicar un componente no mejora nada** — causa: la limitación está en otra capa. Corrección: mejorar el eslabón más débil de la serie.
-
-Según [SE-440](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md): **Punto profesional.** La clase existe para que distingas tres promesas que se confunden bajo la palabra «fiable»: que el servicio responda (disponibilidad), que los datos no se pierdan (durabilidad) y que, si algo se rompe, se vuelva a un estado conocido en un tiempo y con una pérdida acotados (recuperación).
+- **Equiparar durabilidad con disponibilidad.**
+- **Contar réplicas como independientes** cuando comparten una causa común.
+- **Creer que más copias bastan:** si la reparación es lenta, no.
+- **Confirmar una escritura antes de que sea durable** en almacenamiento local ([SE-256](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-256-almacenamiento-local-y-sincronizacion/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La **durabilidad** es la probabilidad de no perder un dato en un periodo, y no coincide con la disponibilidad: un sistema puede estar caído una hora y no perder nada, o estar siempre disponible y perder el 0,01 % de los datos al año. ([SE-440](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md))
+El modelo supone fallos independientes y tasas constantes; no cubre corrupción silenciosa ni errores humanos (borrar por error), que una copia replicada propaga. Las cifras de [SE-440](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md) son del presupuesto ilustrativo de la clase. No sustituye las copias de seguridad ni las pruebas de restauración.
 
 ## Relación con otros conceptos
 

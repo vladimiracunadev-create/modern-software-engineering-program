@@ -2,52 +2,43 @@
 
 [↑ Glosario](../../README.md) · [← Interfaz de secuencia](./interfaz-de-secuencia.md) · [Intermediario →](./intermediario.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 23](../../../classes/part-23-runtimes-y-plataformas-modernas/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 23](../../../classes/part-23-runtimes-y-plataformas-modernas/README.md)
 
 ## Definición
 
-Efecto de una carga sobre la latencia o el éxito de otra que comparte recursos.
-
-Definición de trabajo de [SE-361 — Del dato operacional al analítico](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-361-del-dato-operacional-al-analitico/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-437 — Perfiles, benchmarks y errores de medición](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion/README.md): Efecto sobre una medición de actividad ajena al programa, como otro proceso o un cambio de frecuencia.
-- En [SE-284 — Computación cuántica para ingenieros de software](../../../classes/part-23-runtimes-y-plataformas-modernas/se-284-computacion-cuantica-para-ingenieros-de-software/README.md): Suma de amplitudes que se refuerzan o se cancelan.
+La **interferencia** es el efecto de una carga sobre la latencia o el éxito de otra que comparte recursos. Es el sentido de [SE-361](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-361-del-dato-operacional-al-analitico/README.md) (del dato operacional al analítico): una lectura larga puede bloquear escrituras. Dos usos más del programa comparten solo el nombre: en [SE-437](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion/README.md), la actividad ajena al programa que contamina una medición (otro proceso, un cambio de frecuencia); en [SE-284](../../../classes/part-23-runtimes-y-plataformas-modernas/se-284-computacion-cuantica-para-ingenieros-de-software/README.md), en computación cuántica, la suma de amplitudes que se refuerzan o se cancelan. Esta entrada desarrolla el primero y menciona los otros para no confundirlos.
 
 ## Por qué importa
 
-En [SE-361 — Del dato operacional al analítico](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-361-del-dato-operacional-al-analitico/README.md), el tema «Interferencia» importa porque una lectura larga puede bloquear escrituras.
+Cuando análisis y operación comparten la misma base, una consulta pesada degrada los pedidos reales. Reconocer la interferencia permite decidir si separar los sistemas vale su costo, o si basta una solución más barata.
 
 ## Cómo funciona
 
-Según [SE-361 — Del dato operacional al analítico](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-361-del-dato-operacional-al-analitico/README.md):
+El mecanismo es competencia por un recurso: bloqueos, entrada/salida, memoria o CPU. Una consulta analítica que recorre muchas filas retiene recursos y retrasa las escrituras del sistema operacional.
 
-Un sistema con pocos miles de filas, preguntas poco frecuentes y un equipo que responde a mano no necesita una plataforma de datos. Una réplica de lectura o una vista materializada resuelven la interferencia sin añadir procesos. La separación empieza a compensar cuando se cumplen a la vez tres cosas: el volumen hace que las preguntas analíticas compitan con la operación, la historia se necesita y se está perdiendo, y varias personas o sistemas piden los mismos números. Si solo ocurre una, suele bastar una solución local. Una plataforma que no se usa es un costo que se paga todos los meses.
+[SE-361](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-361-del-dato-operacional-al-analitico/README.md) ordena las soluciones por costo creciente:
 
-Según [SE-361 — Del dato operacional al analítico](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-361-del-dato-operacional-al-analitico/README.md):
+1. **Réplica de lectura o vista materializada:** resuelve la interferencia sin añadir procesos. No resuelve la historia (la réplica guarda solo el estado actual) ni la forma (recorre filas completas).
+2. **Separación con una plataforma de datos:** compensa cuando se cumplen a la vez tres cosas: el volumen hace que las preguntas analíticas compitan con la operación; la historia se necesita y se está perdiendo; varias personas o sistemas piden los mismos números.
 
-Resuelve la interferencia y no la historia ni la forma. Para volúmenes pequeños y preguntas sobre el presente, basta; para preguntas sobre el pasado o agregados sobre años, la réplica sigue guardando solo el estado actual y recorriendo filas completas.
+Si solo ocurre una, suele bastar una solución local. Una plataforma que no se usa es un costo mensual.
+
+En mediciones ([SE-437](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion/README.md)), la interferencia exige aislar el entorno y repetir para distinguir el efecto del ruido.
 
 ## Ejemplo
 
-Ejemplo de [SE-361 — Del dato operacional al analítico](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-361-del-dato-operacional-al-analitico/README.md) (sección «Preguntas frecuentes»):
-
-Resuelve la interferencia y no la historia ni la forma. Para volúmenes pequeños y preguntas sobre el presente, basta; para preguntas sobre el pasado o agregados sobre años, la réplica sigue guardando solo el estado actual y recorriendo filas completas.
+Un sistema de entregas con pocos miles de filas, preguntas poco frecuentes y un equipo que responde a mano no necesita una plataforma de datos ([SE-361](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-361-del-dato-operacional-al-analitico/README.md)). Ilustración propia: un informe mensual que tarda minutos y bloquea las escrituras justo al cierre de plazo se redirige a una réplica de lectura, con lo que la interferencia desaparece.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Una mejora desaparece al repetir** — causa: ejecución única en un proceso con interferencias. Corrección: repetir en varios procesos con un estadístico robusto. ([SE-437](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion/README.md))
-- **Dos copias idénticas «difieren»** — causa: pocas repeticiones o media con interferencias. Corrección: prueba A/A y mediana con más repeticiones. ([SE-437](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion/README.md))
+- **Montar una plataforma analítica para un problema de interferencia pequeño.**
+- **Creer que la réplica resuelve la necesidad de historia o agregados sobre años.**
+- **Confundir el sentido de carga compartida con el de medición o el cuántico.**
+- **Medir rendimiento mientras otra carga corre en el mismo equipo.**
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Una réplica de lectura o una vista materializada resuelven la interferencia sin añadir procesos. ([SE-361](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-361-del-dato-operacional-al-analitico/README.md))
-- Resuelve la interferencia y no la historia ni la forma. ([SE-361](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-361-del-dato-operacional-al-analitico/README.md))
+La réplica retrasa los datos (lag) y no sirve cuando el análisis exige el último valor. Si el problema es una consulta mal escrita, separar sistemas no lo corrige. Las decisiones de [SE-361](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-361-del-dato-operacional-al-analitico/README.md) dependen del volumen real; los umbrales de la clase son criterios, no fronteras fijas.
 
 ## Relación con otros conceptos
 

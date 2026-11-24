@@ -2,46 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Instalación atómica](./instalacion-atomica.md) · [Instancia por petición →](./instancia-por-peticion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 21](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 21](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md)
 
 ## Definición
 
-Copia de la aplicación en ejecución; un modelo puede permitir varias a la vez o una sola.
-
-Definición de trabajo de [SE-253 — Modelos de aplicación móvil y de escritorio](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-253-modelos-de-aplicacion-movil-y-de-escritorio/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-277 — WebAssembly y WASI](../../../classes/part-23-runtimes-y-plataformas-modernas/se-277-webassembly-y-wasi/README.md): Módulo con su memoria y sus importaciones ya enlazadas.
+En el sentido principal de [SE-253](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-253-modelos-de-aplicacion-movil-y-de-escritorio/README.md) (modelos de aplicación móvil y de escritorio), una **instancia** es una copia de la aplicación en ejecución; un modelo puede permitir varias a la vez o una sola. [SE-277](../../../classes/part-23-runtimes-y-plataformas-modernas/se-277-webassembly-y-wasi/README.md) usa el término de otra manera: en WebAssembly, una instancia es un módulo con su memoria y sus importaciones ya enlazadas. «Instancia» también aparece en la expresión «instancia de un servicio», que se acerca al sentido principal.
 
 ## Por qué importa
 
-En [SE-253 — Modelos de aplicación móvil y de escritorio](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-253-modelos-de-aplicacion-movil-y-de-escritorio/README.md), el tema «Instancia» importa porque permitir varias copias convierte cada archivo local en un recurso compartido con varios escritores.
+Permitir varias copias convierte cada archivo local en un recurso compartido con varios escritores. Decidir si la aplicación admite una o varias instancias es decidir si hay un problema de concurrencia sobre los archivos que usa, aunque nadie escriba código concurrente.
 
 ## Cómo funciona
 
-Según [SE-253 — Modelos de aplicación móvil y de escritorio](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-253-modelos-de-aplicacion-movil-y-de-escritorio/README.md), en la sección «Instancia»:
+[SE-253](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-253-modelos-de-aplicacion-movil-y-de-escritorio/README.md): un escritorio permite abrir la misma aplicación varias veces, salvo que se prohíba; un teléfono normalmente presenta una sola. Cuando hay varias, el archivo del borrador tiene dos escritores que no se conocen, y la última escritura pisa a la otra (el mismo mecanismo de la actualización perdida). Hay tres salidas:
 
-Un escritorio permite abrir la misma aplicación varias veces salvo que se prohíba; un teléfono normalmente presenta una sola instancia. Cuando hay varias, el archivo del borrador tiene dos escritores que no se conocen. Las salidas son tres: aceptar la competencia y detectarla, coordinar con un bloqueo o impedir la segunda copia. Electron ofrece un mecanismo para obtener un bloqueo de instancia única, y cada solución añade una regla que hay que explicar a quien usa la aplicación.
+1. **Aceptar la competencia y detectarla** (por ejemplo, con una versión en el archivo).
+2. **Coordinar con un bloqueo** de archivo.
+3. **Impedir la segunda copia.** Electron ofrece un mecanismo para obtener un bloqueo de instancia única.
+
+Cada solución añade una regla que hay que explicar a quien usa la aplicación.
+
+En WebAssembly ([SE-277](../../../classes/part-23-runtimes-y-plataformas-modernas/se-277-webassembly-y-wasi/README.md)), instanciar es enlazar el módulo con su memoria e importaciones; de un mismo módulo pueden crearse varias instancias independientes.
 
 ## Ejemplo
 
-Ejemplo de [SE-253 — Modelos de aplicación móvil y de escritorio](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-253-modelos-de-aplicacion-movil-y-de-escritorio/README.md) (sección «Ejemplo profesional»):
-
-El equipo del cliente de entregas escribe una tabla de supuestos con una fila por modelo (teléfono, escritorio, ventana dividida) y una columna por supuesto: proceso permanente, copia única, ancho mínimo, estado en memoria. Cada celda es «se cumple», «no se cumple» o «depende», con la fuente que lo respalda (la documentación de la plataforma o una medición propia). Las celdas «depende» se vuelven pruebas. La decisión de arquitectura nace de la tabla: guardar el borrador en el disco en cada pausa, impedir la segunda instancia en el escritorio y diseñar a 320 píxeles primero.
+El equipo del cliente de entregas ([SE-253](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-253-modelos-de-aplicacion-movil-y-de-escritorio/README.md)) escribe una tabla de supuestos con una fila por modelo (teléfono, escritorio, ventana dividida) y una columna por supuesto: proceso permanente, copia única, ancho mínimo, estado en memoria. Cada celda es «se cumple», «no se cumple» o «depende», con su fuente; las «depende» se vuelven pruebas. La decisión: guardar el borrador en disco en cada pausa, impedir la segunda instancia en el escritorio y diseñar primero a 320 píxeles.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Dos ventanas guardan el borrador y una de las ediciones se pierde** — causa: dos escritores sin coordinación sobre el mismo archivo. Corrección: bloqueo, instancia única o fusión con detección de conflicto. ([SE-253](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-253-modelos-de-aplicacion-movil-y-de-escritorio/README.md))
-- **La aplicación se comporta bien en el equipo de desarrollo y mal en uso real** — causa: el equipo de desarrollo casi nunca recupera memoria ni abre varias copias. Corrección: forzar el arranque en frío y la segunda instancia en las pruebas. ([SE-253](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-253-modelos-de-aplicacion-movil-y-de-escritorio/README.md))
+- **Suponer una sola instancia en el escritorio:** puede haber varias y compiten por el mismo archivo.
+- **Resolverlo sin avisar a la persona,** que no entiende por qué la segunda ventana no abre.
+- **Confundir instancia con proceso o con hilo,** o con la instancia de una máquina virtual en la nube.
+- **Mezclar los dos sentidos:** instancia de WebAssembly no es una copia de la aplicación.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un escritorio permite abrir la misma aplicación varias veces salvo que se prohíba; un teléfono normalmente presenta una sola instancia. ([SE-253](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-253-modelos-de-aplicacion-movil-y-de-escritorio/README.md))
+La tabla de supuestos describe modelos de plataforma de la fecha de la clase; las reglas de ventanas y de procesos cambian entre versiones. En una aplicación web, cada pestaña es otro contexto y el problema se plantea con otros mecanismos (almacenamiento del navegador).
 
 ## Relación con otros conceptos
 

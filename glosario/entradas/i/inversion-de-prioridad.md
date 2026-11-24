@@ -2,47 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← Inventario físico / reservado / vendible](./inventario-fisico-reservado-vendible.md) · [Invitado →](./invitado.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md)
 
 ## Definición
 
-Situación en que una tarea de alta prioridad espera por una de menor mientras una intermedia se ejecuta.
-
-Definición de trabajo de [SE-268 — Sistemas de tiempo real y deadlines](../../../classes/part-22-embedded-iot-y-tiempo-real/se-268-sistemas-de-tiempo-real-y-deadlines/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-451 — RTOS y planificación de tiempo real](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-451-rtos-y-planificacion-de-tiempo-real/README.md): Situación en la que una tarea de alta prioridad espera por una de menor prioridad que a su vez es desplazada por otra intermedia.
+La **inversión de prioridad** es la situación en que una tarea de alta prioridad espera por una de menor prioridad que, a su vez, es desplazada por otra de prioridad intermedia. Es el sentido de [SE-268](../../../classes/part-22-embedded-iot-y-tiempo-real/se-268-sistemas-de-tiempo-real-y-deadlines/README.md) (sistemas de tiempo real y deadlines) y [SE-451](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-451-rtos-y-planificacion-de-tiempo-real/README.md) (RTOS y planificación). No es que la alta espere un poco: es que su espera depende de una tarea que no es la más urgente ni la que la bloquea.
 
 ## Por qué importa
 
-En [SE-268 — Sistemas de tiempo real y deadlines](../../../classes/part-22-embedded-iot-y-tiempo-real/se-268-sistemas-de-tiempo-real-y-deadlines/README.md), el tema «Inversión de prioridad» importa porque una tarea media puede retrasar a la alta si la baja retiene un recurso.
-
-En [SE-451 — RTOS y planificación de tiempo real](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-451-rtos-y-planificacion-de-tiempo-real/README.md), el tema «Inversión de prioridad» importa porque retrasa a la tarea más urgente sin que haya carga alta.
+Retrasa a la tarea más urgente sin que haya carga alta: el sistema puede parecer holgado y aun así incumplir un plazo. Una tarea media, que ni siquiera usa el recurso, puede hacer fallar a la alta.
 
 ## Cómo funciona
 
-Según [SE-268 — Sistemas de tiempo real y deadlines](../../../classes/part-22-embedded-iot-y-tiempo-real/se-268-sistemas-de-tiempo-real-y-deadlines/README.md), en la sección «Inversión de prioridad»:
+[SE-268](../../../classes/part-22-embedded-iot-y-tiempo-real/se-268-sistemas-de-tiempo-real-y-deadlines/README.md) describe la secuencia:
 
-Una tarea de alta prioridad que necesita un recurso que tiene una de baja queda bloqueada. Si en ese momento una tarea de prioridad media, que no necesita el recurso, se libera, expulsa a la baja y la alta espera además todo el cómputo de la media: es la inversión de prioridad sin acotar. La herencia de prioridad hace que la tarea de baja ejecute con la prioridad de la alta mientras la bloquea, de modo que la media no puede expulsarla y el bloqueo se acota a la sección crítica. Sha, Rajkumar y Lehoczky formalizaron estos protocolos.
+1. La tarea de baja prioridad L toma un recurso (un mutex).
+2. La de alta prioridad H se libera, necesita el recurso y queda bloqueada.
+3. Una tarea de prioridad media M, que no necesita el recurso, se libera y **expulsa a L** (tiene más prioridad que L).
+4. H espera además todo el cómputo de M. Esta es la inversión *sin acotar*.
+
+Remedio: **herencia de prioridad.** Mientras L bloquea a H, L ejecuta con la prioridad de H, de modo que M no puede expulsarla y el bloqueo se acota a la sección crítica de L. Sha, Rajkumar y Lehoczky formalizaron estos protocolos, según cita la clase.
 
 ## Ejemplo
 
-Caso medido en la sección «La inversión de prioridad y la herencia» de [SE-268 — Sistemas de tiempo real y deadlines](../../../classes/part-22-embedded-iot-y-tiempo-real/se-268-sistemas-de-tiempo-real-y-deadlines/README.md):
-
-Tres tareas: H (alta; 2 ms de trabajo y necesita un mutex al empezar), M (media; 8 ms, no usa el mutex) y L (baja; toma el mutex en t = 0 y lo retiene 6 ms de cómputo, más 2 ms después). H se libera en t = 1 ms. M se libera en un instante variable entre 2 y 10 ms. Se simula en pasos de 0,1 ms con y sin herencia de prioridad y se mide el tiempo de respuesta de H.
+[SE-268](../../../classes/part-22-embedded-iot-y-tiempo-real/se-268-sistemas-de-tiempo-real-y-deadlines/README.md) plantea tres tareas: H (alta; 2 ms de trabajo y necesita un mutex al empezar), M (media; 8 ms, no usa el mutex) y L (baja; toma el mutex en t = 0 y lo retiene 6 ms de cómputo, más 2 ms después). H se libera en t = 1 ms; M, en un instante variable entre 2 y 10 ms. Sin herencia, si M llega mientras L tiene el mutex, H espera además los 8 ms de M. Con herencia, L corre con la prioridad de H y M no la interrumpe, de modo que la espera de H queda acotada a lo que le quede a L en su sección crítica.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Una tarea importante se retrasa tras añadir un mutex** — causa: inversión de prioridad. Corrección: activar herencia o techo de prioridad y acotar la sección crítica. ([SE-268](../../../classes/part-22-embedded-iot-y-tiempo-real/se-268-sistemas-de-tiempo-real-y-deadlines/README.md))
+- **Tratar la espera de H como «solo» el tiempo de L:** M puede añadirse.
+- **Confundirla con el interbloqueo:** aquí el sistema avanza, pero tarde.
+- **Creer que subir prioridades a todo evita el problema:** pierde el sentido de la prioridad.
+- **No probarla con la tarea media en el peor instante.**
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Si en ese momento una tarea de prioridad media, que no necesita el recurso, se libera, expulsa a la baja y la alta espera además todo el cómputo de la media: es la inversión de prioridad sin acotar. ([SE-268](../../../classes/part-22-embedded-iot-y-tiempo-real/se-268-sistemas-de-tiempo-real-y-deadlines/README.md))
+La herencia de prioridad acota la inversión, no la elimina: H sigue esperando la sección crítica de L. Con un solo núcleo y recursos sin compartir, el fenómeno no se da. Las duraciones del ejemplo son de la clase, no de un sistema real.
 
 ## Relación con otros conceptos
 

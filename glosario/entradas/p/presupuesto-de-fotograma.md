@@ -2,40 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← Presupuesto de error](./presupuesto-de-error.md) · [Presupuesto de pasos →](./presupuesto-de-pasos.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 24](../../../classes/part-24-software-especializado-y-dominios/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 24](../../../classes/part-24-software-especializado-y-dominios/README.md)
 
 ## Definición
 
-Tiempo disponible para preparar un fotograma, igual al periodo de refresco de la pantalla.
-
-Definición de trabajo de [SE-293 — Gráficos, audio, XR y experiencias inmersivas](../../../classes/part-24-software-especializado-y-dominios/se-293-graficos-audio-xr-y-experiencias-inmersivas/README.md).
+El **presupuesto de fotograma** es el tiempo disponible para preparar un fotograma, igual al periodo de refresco de la pantalla. Es el sentido de [SE-293](../../../classes/part-24-software-especializado-y-dominios/se-293-graficos-audio-xr-y-experiencias-inmersivas/README.md) (gráficos, audio, XR y experiencias inmersivas). Es un caso concreto de plazo duro: la pantalla no espera, de modo que cada fotograma tiene un tiempo máximo y no un tiempo «medio».
 
 ## Por qué importa
 
-En [SE-293 — Gráficos, audio, XR y experiencias inmersivas](../../../classes/part-24-software-especializado-y-dominios/se-293-graficos-audio-xr-y-experiencias-inmersivas/README.md), el tema «Presupuesto de fotograma» importa porque convierte la tasa de refresco en un plazo para el cálculo y el dibujo.
+Convierte la tasa de refresco en un plazo para el cálculo y el dibujo. En experiencias inmersivas un fotograma tardío se nota como tirones, y en realidad virtual puede causar malestar. La decisión que cambia es qué se calcula en cada fotograma y qué se difiere.
 
 ## Cómo funciona
 
-Según [SE-293 — Gráficos, audio, XR y experiencias inmersivas](../../../classes/part-24-software-especializado-y-dominios/se-293-graficos-audio-xr-y-experiencias-inmersivas/README.md), en la sección «Presupuesto de fotograma»:
+[SE-293](../../../classes/part-24-software-especializado-y-dominios/se-293-graficos-audio-xr-y-experiencias-inmersivas/README.md): una pantalla de 90 Hz muestra un fotograma cada 11,1 ms. La aplicación dispone de ese intervalo para entradas, actualización, dibujo y envío. Si un fotograma llega tarde:
 
-Una pantalla de 90 Hz muestra un fotograma cada 11,1 ms. La aplicación dispone de ese intervalo para entradas, actualización, dibujo y envío. Con **sincronización vertical**, un fotograma que llega tarde espera al siguiente refresco: se muestra el doble de tiempo (22,2 ms), y la tasa efectiva baja a la mitad en esos fotogramas. Sin ella, aparecen cortes en la imagen. Por eso lo que importa no es el coste medio sino el percentil alto: un coste medio por debajo del presupuesto puede perder una parte considerable de los fotogramas si la variabilidad es grande.
+- **Con sincronización vertical:** espera al siguiente refresco, así que se muestra el doble de tiempo (22,2 ms) y la tasa efectiva baja a la mitad en esos fotogramas.
+- **Sin sincronización vertical:** aparecen cortes en la imagen (*tearing*).
+
+De ahí la consecuencia estadística, igual a la de la latencia de cola: lo que importa no es el costo medio sino el **percentil alto**. Un costo medio por debajo del presupuesto puede perder una parte considerable de los fotogramas si la variabilidad es grande.
+
+El mismo razonamiento vale para el audio, con un plazo distinto (el tamaño del búfer). [SE-293](../../../classes/part-24-software-especializado-y-dominios/se-293-graficos-audio-xr-y-experiencias-inmersivas/README.md) fija el audio de la sala virtual en 48 kHz con búfer de 256 muestras (5,3 ms) por defecto y 512 para equipos con más fallos, medidos por el propio cliente con un contador de subcargas; si la tasa de bloques tardíos supera el 1 % durante un minuto, sube el búfer un nivel y lo avisa.
 
 ## Ejemplo
 
-Ejemplo de [SE-293 — Gráficos, audio, XR y experiencias inmersivas](../../../classes/part-24-software-especializado-y-dominios/se-293-graficos-audio-xr-y-experiencias-inmersivas/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la plataforma fija el audio de la sala virtual en 48 kHz con búfer de 256 muestras (5,3 ms) como valor por defecto y 512 para equipos con más fallos, medidos por el propio cliente con un contador de subcargas; si la tasa de bloques tardíos supera el 1 % durante un minuto, el cliente sube el búfer un nivel y lo avisa. Antes de muestrear las grabaciones de baja calidad aplica un filtro de paso bajo.
+Ilustración numérica propia con la fórmula de la clase: a 90 Hz el presupuesto es 1 000/90 ≈ 11,1 ms; a 60 Hz, 16,7 ms. Si el cálculo cuesta 9 ms de media pero 14 ms en el 5 % de los fotogramas, a 90 Hz ese 5 % se pasa del presupuesto y aparece como tirón, aunque la media diga que sobra tiempo.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-293 — Gráficos, audio, XR y experiencias inmersivas](../../../classes/part-24-software-especializado-y-dominios/se-293-graficos-audio-xr-y-experiencias-inmersivas/README.md)) son:
-
-- **Chasquidos en el audio** — causa: búfer demasiado pequeño o procesamiento que bloquea. Corrección: medir subcargas, subir el búfer o quitar asignaciones y bloqueos del callback.
-- **Silbidos o tonos que no estaban** — causa: muestreo sin filtro previo. Corrección: filtro de paso bajo antes de muestrear o tasa mayor con filtro.
+- **Chasquidos en el audio:** búfer demasiado pequeño o procesamiento que lo supera; se sube el búfer ([SE-293](../../../classes/part-24-software-especializado-y-dominios/se-293-graficos-audio-xr-y-experiencias-inmersivas/README.md)).
+- **Optimizar el costo medio** e ignorar el percentil alto.
+- **Confundir la tasa de fotogramas por segundo con el tiempo por fotograma:** 60 fps promedio puede esconder fotogramas de 50 ms.
+- **Confundirlo con el presupuesto de recursos,** que fija límites de energía y memoria en un dispositivo.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-293 — Gráficos, audio, XR y experiencias inmersivas](../../../classes/part-24-software-especializado-y-dominios/se-293-graficos-audio-xr-y-experiencias-inmersivas/README.md)) son: Las definiciones son operativas para la sala virtual. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún motor de audio, tarjeta gráfica, casco ni persona: los costes de procesamiento, las distribuciones lognormales y la pantalla de 90 Hz son construcciones del autor, y no se midió confort ni percepción. La siguiente clase pasa al dominio del dinero, donde el error es una cifra.
+Supone una pantalla de tasa fija; con tasas variables el plazo se mueve. No aplica a aplicaciones que no animan de forma continua. Los valores de audio son los de la plataforma simulada de la clase.
 
 ## Relación con otros conceptos
 

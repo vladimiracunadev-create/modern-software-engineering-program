@@ -2,40 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← Estrategia](./estrategia.md) · [Estrategia de pruebas →](./estrategia-de-pruebas.md)
 
-> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 19](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md)
+> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 19](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md)
 
 ## Definición
 
-Regla que decide, para cada petición, si se responde desde la caché, desde la red o desde ambas.
-
-Definición de trabajo de [SE-237 — PWA, caché, offline y sincronización](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-237-pwa-cache-offline-y-sincronizacion/README.md).
+Una **estrategia de caché** es la regla que decide, para cada petición, si se responde desde la caché, desde la red o desde ambas. Es el sentido de [SE-237](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-237-pwa-cache-offline-y-sincronizacion/README.md) (PWA, caché, offline y sincronización), donde se aplica a un *service worker*. No hay una estrategia correcta: cada una intercambia obsolescencia por velocidad y disponibilidad.
 
 ## Por qué importa
 
-En [SE-237 — PWA, caché, offline y sincronización](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-237-pwa-cache-offline-y-sincronizacion/README.md), el tema «Estrategias de caché» importa porque cada estrategia cambia obsolescencia por velocidad y por disponibilidad.
+La estrategia decide qué ve la persona cuando la red es lenta o está caída, y cuán viejo puede ser lo que ve. Elegir mal significa mostrar una calificación desactualizada o dejar una aplicación en blanco sin conexión.
 
 ## Cómo funciona
 
-Según [SE-237 — PWA, caché, offline y sincronización](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-237-pwa-cache-offline-y-sincronizacion/README.md), en la sección «Estrategias de caché»:
+[SE-237](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-237-pwa-cache-offline-y-sincronizacion/README.md) describe cuatro estrategias:
 
-**Solo red** es lo más fresco y no funciona sin conexión. **Caché primero** responde al instante y puede servir contenido viejo indefinidamente. **Red primero con respaldo en caché** da frescura cuando hay red y degrada con elegancia, a costa de esperar el tiempo de espera cuando la red es mala. **Revalidar en segundo plano** (`stale-while-revalidate`) responde desde la caché y renueva para la próxima vez: rápido y casi fresco, con la limitación de mostrar una versión vieja una vez. No hay una estrategia correcta: se elige por tipo de recurso (el esqueleto de la aplicación admite caché primero; los datos de una calificación, no).
+- **Solo red:** lo más fresco; no funciona sin conexión.
+- **Caché primero:** responde al instante y puede servir contenido viejo indefinidamente.
+- **Red primero con respaldo en caché:** frescura cuando hay red y degradación elegante cuando no; a costa de esperar el tiempo de espera cuando la red es mala.
+- **Revalidar en segundo plano** (*stale-while-revalidate*): responde desde la caché y renueva para la próxima vez; rápido y casi fresco, con la limitación de mostrar una versión vieja una vez.
+
+La elección es **por tipo de recurso**: el esqueleto de la aplicación (HTML, CSS, JavaScript, iconos) admite caché primero; los datos de una calificación, no.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-237 — PWA, caché, offline y sincronización](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-237-pwa-cache-offline-y-sincronizacion/README.md):
-
-La aplicación de entregas precarga el esqueleto (HTML, CSS, JavaScript y los iconos) con una revisión por huella y lo sirve con caché primero; los datos de la lista de entregas usan revalidar en segundo plano y las calificaciones, red primero con un tiempo de espera corto. El script del service worker se sirve con `no-cache`, la versión nueva avisa a la persona («hay una versión nueva») y se conserva una generación anterior.
+La aplicación de entregas de [SE-237](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-237-pwa-cache-offline-y-sincronizacion/README.md) precarga el esqueleto con una revisión por huella y lo sirve con caché primero; la lista de entregas usa revalidar en segundo plano; las calificaciones, red primero con tiempo de espera corto. El script del service worker se sirve con `no-cache`, la versión nueva avisa a la persona («hay una versión nueva») y se conserva una generación anterior.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-237 — PWA, caché, offline y sincronización](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-237-pwa-cache-offline-y-sincronizacion/README.md)) son:
-
-- **Nadie ve la versión nueva de la aplicación** — causa: script del service worker servido con caché larga o activación bloqueada por pestañas. Corrección: servirlo con `no-cache` y avisar de la versión nueva.
-- **Cada versión descarga toda la aplicación** — causa: caché con otro nombre en cada versión. Corrección: revisar por huella y descargar solo lo que cambió.
+- **Aplicar una sola estrategia a todo.**
+- **Caché primero para datos que cambian:** se sirve contenido viejo indefinidamente.
+- **Cachear el propio script del service worker,** que impide actualizar.
+- **Confundir estrategia con política de expiración:** la estrategia decide el orden de consulta; la expiración decide cuándo un dato deja de valer.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-237 — PWA, caché, offline y sincronización](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-237-pwa-cache-offline-y-sincronizacion/README.md)) son: Las definiciones son operativas para esta clase y deben contrastarse con las especificaciones enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se ejecutó ningún service worker ni un navegador: la traza, las latencias, las pérdidas de confirmación y los desvíos de reloj son supuestos del autor y las pestañas con versiones mixtas no se midieron. La siguiente clase pregunta cómo hacer que las páginas se encuentren y se entiendan fuera de la aplicación.
+No resuelve la invalidación: saber cuándo un dato cacheado dejó de ser válido es un problema aparte. No aplica a recursos no cacheables (respuestas personalizadas sensibles). Y la estrategia vale en el navegador y el contexto de la clase; otras cachés (de servidor, de CDN) tienen sus propias reglas.
 
 ## Relación con otros conceptos
 

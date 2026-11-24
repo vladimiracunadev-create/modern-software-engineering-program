@@ -2,42 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← Template Method](./template-method.md) · [Tenant →](./tenant.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md)
 
 ## Definición
 
-Temporizador que reinicia el sistema si el firmware no lo reinicia periódicamente.
-
-Definición de trabajo de [SE-274 — Safety, seguridad y vida útil prolongada](../../../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md).
+Un **temporizador de vigilancia** (*watchdog*) es un temporizador que reinicia el sistema si el firmware no lo reinicia periódicamente. Es el sentido de [SE-274](../../../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md) (safety, seguridad y vida útil prolongada). El firmware «lo alimenta» (reinicia su cuenta) mientras funciona; si deja de hacerlo, el temporizador vence y fuerza un reinicio.
 
 ## Por qué importa
 
-En [SE-274 — Safety, seguridad y vida útil prolongada](../../../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md), el tema «Temporizador de vigilancia» importa porque recupera de cuelgues a cambio de reinicios falsos si el plazo es corto.
+Recupera de cuelgues y de bucles infinitos sin intervención humana, algo esencial en dispositivos desplegados sin acceso. A cambio, su plazo es un intercambio de riesgos: corto, recupera rápido pero reinicia sin motivo durante operaciones largas legítimas; largo, casi no se equivoca y deja al dispositivo colgado mucho tiempo.
 
 ## Cómo funciona
 
-Según [SE-274 — Safety, seguridad y vida útil prolongada](../../../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md), en la sección «Temporizador de vigilancia»:
+[SE-274](../../../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md) da dos reglas de diseño:
 
-Un temporizador de vigilancia (watchdog) reinicia el dispositivo si el firmware no lo «alimenta» a tiempo. Recupera de cuelgues y de bucles infinitos. Su plazo es un intercambio: corto, recupera rápido y reinicia sin motivo durante operaciones largas legítimas; largo, casi no se equivoca y deja al dispositivo colgado mucho tiempo. Por eso se fija con la distribución del tiempo de las operaciones más largas y no con la intuición, y la alimentación se hace solo cuando varias comprobaciones de salud pasan, no desde una interrupción que sigue viva aunque el programa principal esté colgado.
+1. **El plazo se fija con la distribución del tiempo de las operaciones más largas,** no con la intuición.
+2. **La alimentación se hace solo cuando varias comprobaciones de salud pasan,** no desde una interrupción que sigue viva aunque el programa principal esté colgado.
+
+La segunda regla es la que más se incumple: si una interrupción de temporizador alimenta el watchdog automáticamente, el sistema puede estar colgado y el watchdog nunca vencer. La alimentación debe depender de pruebas de que las tareas importantes avanzaron.
+
+Se combina con el **estado seguro**: qué hace el dispositivo mientras reinicia y al arrancar.
 
 ## Ejemplo
 
-Ejemplo de [SE-274 — Safety, seguridad y vida útil prolongada](../../../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la plataforma escribe el análisis de peligros del nodo con cuatro filas. Peligro: el extractor no arranca con CO₂ alto. Defensa: dos sensores de principios distintos con comparación, estado seguro «extractor encendido» si discrepan, y prueba por inyección de fallos. Peligro: el firmware se cuelga. Defensa: temporizador de vigilancia con plazo de 5 s, alimentado solo tras una comprobación de salud, y operaciones largas partidas en pasos de 200 ms. Peligro: un contador de tiempo da la vuelta. Defensa: toda comparación de tiempos usa resta sin signo, y una prueba simula el arranque a 49 días. Peligro: un atacante apaga el extractor.
+El análisis de peligros del nodo en [SE-274](../../../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md) incluye: peligro, el firmware se cuelga; defensa, temporizador de vigilancia con plazo de 5 s, alimentado solo tras una comprobación de salud, y operaciones largas partidas en pasos de 200 ms. Así, una operación legítima nunca excede el plazo, y un bucle infinito lo vence en 5 segundos. Los otros peligros de la misma tabla (un contador que da la vuelta, un atacante que apaga el extractor) se tratan con otras defensas.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-274 — Safety, seguridad y vida útil prolongada](../../../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md)) son:
-
-- **«Tenemos tres sensores» y fallan los tres** — causa: causa común. Corrección: diversidad de principio, alimentación y software; analizar la causa común.
-- **El dispositivo se reinicia en operaciones largas** — causa: plazo del temporizador demasiado corto. Corrección: fijarlo con la distribución de las operaciones y partir las largas.
+- **Alimentarlo desde una interrupción,** que hace que nunca venza ante un cuelgue del bucle principal.
+- **Plazo corto que reinicia durante operaciones largas legítimas.**
+- **Usarlo como sustituto de corregir el defecto:** reiniciar oculta el síntoma.
+- **No registrar los reinicios:** pierde la señal de que algo falla.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un temporizador de vigilancia (watchdog) reinicia el dispositivo si el firmware no lo «alimenta» a tiempo. ([SE-274](../../../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md))
+No arregla fallos que sobreviven al reinicio (datos corruptos, hardware dañado). Un reinicio puede ser peligroso en el estado físico del sistema (un actuador a mitad de movimiento), por eso el estado seguro debe estar definido. Los plazos de la clase son los de un nodo ambiental simulado.
 
 ## Relación con otros conceptos
 

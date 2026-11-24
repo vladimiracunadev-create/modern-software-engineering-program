@@ -2,52 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← Inyección de fallas](./inyeccion-de-fallas.md) · [Inyección de prompt →](./inyeccion-de-prompt.md)
 
-> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 18](../../../classes/part-18-cli-tui-servicios-y-automatizacion/README.md)
+> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 18](../../../classes/part-18-cli-tui-servicios-y-automatizacion/README.md)
 
 ## Definición
 
-Introducción deliberada de un fallo en un sistema o su modelo para observar si es detectado y cómo responde.
-
-Definición de trabajo de [SE-275 — Taller: modelar fallos físicos y digitales](../../../classes/part-22-embedded-iot-y-tiempo-real/se-275-taller-modelar-fallos-fisicos-y-digitales/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-443 — Taller: someter un sistema a presión controlada](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-443-taller-someter-un-sistema-a-presion-controlada/README.md): Introducción deliberada de un fallo (latencia, error, caída, carga) para observar la respuesta del sistema.
-- En [SE-227 — Taller: endurecer una automatización frágil](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-227-taller-endurecer-una-automatizacion-fragil/README.md): Provocar deliberadamente una condición de error para observar cómo responde el sistema.
+La **inyección de fallos** es la introducción deliberada de un fallo en un sistema, o en su modelo, para observar si es detectado y cómo responde el sistema. [SE-275](../../../classes/part-22-embedded-iot-y-tiempo-real/se-275-taller-modelar-fallos-fisicos-y-digitales/README.md) la aplica a fallos físicos y digitales en simulación; [SE-443](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-443-taller-someter-un-sistema-a-presion-controlada/README.md) la usa con latencia, error, caída o carga; [SE-227](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-227-taller-endurecer-una-automatizacion-fragil/README.md) la usa para provocar una condición de error en una automatización frágil. El núcleo es el mismo: provocar a propósito lo que «puede pasar» para verlo pasar.
 
 ## Por qué importa
 
-En [SE-275 — Taller: modelar fallos físicos y digitales](../../../classes/part-22-embedded-iot-y-tiempo-real/se-275-taller-modelar-fallos-fisicos-y-digitales/README.md), el tema «Inyección de fallos» importa porque mide si una defensa funciona en lugar de suponerlo.
-
-En [SE-443 — Taller: someter un sistema a presión controlada](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-443-taller-someter-un-sistema-a-presion-controlada/README.md), el tema «Inyección de fallos» importa porque cada tipo de fallo prueba una defensa distinta.
-
-En [SE-227 — Taller: endurecer una automatización frágil](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-227-taller-endurecer-una-automatizacion-fragil/README.md), el tema «Inyección de fallos» importa porque convierte «puede pasar» en «pasa y lo vemos».
+Mide si una defensa funciona en lugar de suponerlo. [SE-227](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-227-taller-endurecer-una-automatizacion-fragil/README.md) lo dice con precisión: convierte «puede pasar» en «pasa y lo vemos». Y [SE-275](../../../classes/part-22-embedded-iot-y-tiempo-real/se-275-taller-modelar-fallos-fisicos-y-digitales/README.md) da el valor práctico: cambia «creemos que lo detecta» por «lo detecta en N de 100 casos», y el resultado informa qué defensa añadir.
 
 ## Cómo funciona
 
-Según [SE-275 — Taller: modelar fallos físicos y digitales](../../../classes/part-22-embedded-iot-y-tiempo-real/se-275-taller-modelar-fallos-fisicos-y-digitales/README.md), en la sección «Inyección de fallos»:
+[SE-275](../../../classes/part-22-embedded-iot-y-tiempo-real/se-275-taller-modelar-fallos-fisicos-y-digitales/README.md) ejemplifica fallos físicos y digitales: congelar la lectura de un sensor, añadir una deriva, invertir un bit, cortar la energía a mitad de una escritura. Hsueh y colaboradores, citados por la clase, clasifican las técnicas según el nivel en que se inyecta: hardware, software o simulación. La clase elige simulación porque es reproducible y barato.
 
-Inyectar un fallo es provocarlo a propósito: congelar la lectura de un sensor, añadir una deriva, invertir un bit, cortar la energía a mitad de una escritura. Hsueh y colaboradores clasifican las técnicas según el nivel en que se inyecta (hardware, software, simulación). Aquí se inyecta en simulación porque es reproducible y barato. El valor es que convierte «creemos que lo detecta» en «lo detecta en N de 100 casos»; y el resultado informa qué defensa añadir.
+[SE-443](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-443-taller-someter-un-sistema-a-presion-controlada/README.md) añade que **cada tipo de fallo ataca una defensa distinta**: la latencia añadida prueba los *timeouts* y los reintentos; los errores prueban el manejo de fallos y el circuit breaker; la caída de una dependencia prueba la degradación; la carga prueba los límites y la contención. El procedimiento general es:
 
-Según [SE-443 — Taller: someter un sistema a presión controlada](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-443-taller-someter-un-sistema-a-presion-controlada/README.md), en la sección «Inyección de fallos»:
-
-Cada tipo de fallo ataca una defensa distinta. La **latencia añadida** (la base responde, pero más lenta) pone a prueba los timeouts, la cola y la capacidad: es el fallo más traicionero porque no produce errores sino colas. Los **errores intermitentes** ponen a prueba los reintentos, los respaldos y la idempotencia. La **caída total** pone a prueba el interruptor, el mamparo y la respuesta degradada. El **aumento de tráfico** pone a prueba el descarte de carga y la capacidad. Un plan que solo inyecte caídas totales (lo que se le ocurre a todo el mundo) ignora que los incidentes reales suelen ser degradaciones parciales. La inyección debe ser parecida a un evento real, controlada (se puede detener) y observable (se sabe cuándo empezó y cuándo terminó).
+1. Definir una hipótesis de comportamiento esperado.
+2. Inyectar un fallo concreto, de alcance acotado.
+3. Observar la respuesta con las métricas definidas.
+4. Comparar con la hipótesis y corregir la defensa o el supuesto.
 
 ## Ejemplo
 
-Caso medido en la sección «Inyección de fallos» de [SE-275 — Taller: modelar fallos físicos y digitales](../../../classes/part-22-embedded-iot-y-tiempo-real/se-275-taller-modelar-fallos-fisicos-y-digitales/README.md):
-
-Inyectar un fallo es provocarlo a propósito: congelar la lectura de un sensor, añadir una deriva, invertir un bit, cortar la energía a mitad de una escritura. Hsueh y colaboradores clasifican las técnicas según el nivel en que se inyecta (hardware, software, simulación). Aquí se inyecta en simulación porque es reproducible y barato. El valor es que convierte «creemos que lo detecta» en «lo detecta en N de 100 casos»; y el resultado informa qué defensa añadir.
+En [SE-275](../../../classes/part-22-embedded-iot-y-tiempo-real/se-275-taller-modelar-fallos-fisicos-y-digitales/README.md), el nodo ambiental recibe un sensor de CO₂ congelado y se mide cuántas veces de 100 lo detecta el comparador de dos sensores. Ilustración propia: en una automatización que descarga archivos, se simula que la segunda descarga devuelve un error 500 para comprobar que la ejecución se detiene y deja un estado recuperable, no a medias.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Se cree que la defensa funciona sin haberla probado** — causa: sin inyección de fallos. Corrección: inyectar y medir la detección por tipo. ([SE-275](../../../classes/part-22-embedded-iot-y-tiempo-real/se-275-taller-modelar-fallos-fisicos-y-digitales/README.md))
+- **Inyectar sin hipótesis ni medición,** que no enseña nada.
+- **Confundirla con una prueba de carga:** la carga es un tipo de fallo entre varios.
+- **Inyectar en producción sin acotar el alcance** ni poder detenerla.
+- **Considerar probada una defensa por un solo caso.**
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-275 — Taller: modelar fallos físicos y digitales](../../../classes/part-22-embedded-iot-y-tiempo-real/se-275-taller-modelar-fallos-fisicos-y-digitales/README.md)) son: Las definiciones son operativas para el nodo de la sala. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se inyectó ningún fallo en hardware ni se hizo un AMFE real: los seis tipos de fallo, la escritura byte a byte y las puntuaciones son construcciones del autor. La siguiente clase reúne todo en un dispositivo simulado operable y actualizable.
+Solo prueba los fallos que alguien imaginó inyectar. La simulación de [SE-275](../../../classes/part-22-embedded-iot-y-tiempo-real/se-275-taller-modelar-fallos-fisicos-y-digitales/README.md) no sustituye a la inyección en hardware real, que descubre fallos que el modelo no recoge. En sistemas sin un comportamiento esperado definido, no hay con qué comparar.
 
 ## Relación con otros conceptos
 

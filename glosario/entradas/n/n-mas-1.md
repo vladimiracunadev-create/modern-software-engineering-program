@@ -2,52 +2,44 @@
 
 [↑ Glosario](../../README.md) · [← Mutante superviviente](../m/mutante-superviviente.md) · [Namespace →](./namespace.md)
 
-> **Tipo:** sigla · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 20](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md)
+> **Tipo:** sigla · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 20](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md)
 
 ## Definición
 
-Patrón en el que una lista de N elementos genera N consultas adicionales además de la inicial.
-
-Definición de trabajo de [SE-243 — RPC, GraphQL y selección de interfaz](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-243-rpc-graphql-y-seleccion-de-interfaz/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-318 — Repository, Unit of Work y Active Record](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-318-repository-unit-of-work-y-active-record/README.md): Patrón en que una consulta inicial desencadena una consulta adicional por cada fila.
-- En [SE-353 — Consultas, índices y patrones de acceso](../../../classes/part-29-datos-persistencia-y-recuperacion/se-353-consultas-indices-y-patrones-de-acceso/README.md): Patrón de una consulta inicial más una consulta por cada elemento de su resultado.
+El **N+1** es el patrón en que una lista de N elementos genera N consultas adicionales además de la inicial: una consulta que trae las filas y una más por cada fila para traer un dato relacionado. Es el sentido de [SE-318](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-318-repository-unit-of-work-y-active-record/README.md) (Repository, Unit of Work y Active Record) y de [SE-353](../../../classes/part-29-datos-persistencia-y-recuperacion/se-353-consultas-indices-y-patrones-de-acceso/README.md) (consultas, índices y patrones de acceso); [SE-243](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-243-rpc-graphql-y-seleccion-de-interfaz/README.md) lo ve en GraphQL: resolver por campo convierte una lista de N en N+1 consultas si no se agrupan.
 
 ## Por qué importa
 
-En [SE-243 — RPC, GraphQL y selección de interfaz](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-243-rpc-graphql-y-seleccion-de-interfaz/README.md), el tema «Resolvedores y N+1» importa porque resolver por campo convierte una lista de N en N+1 consultas si no se agrupan.
+Cada consulta tiene un costo fijo (ida y vuelta, análisis, plan). N consultas pequeñas son mucho más lentas que una consulta que trae todo, y el problema crece con los datos: funciona con 5 elementos en desarrollo y se arrastra con 5 000 en producción. Es uno de los defectos de rendimiento de acceso a datos más comunes.
 
 ## Cómo funciona
 
-Según [SE-318 — Repository, Unit of Work y Active Record](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-318-repository-unit-of-work-y-active-record/README.md):
+El código que lo causa tiene esta forma: se pide una lista (1 consulta) y, al recorrerla, cada elemento accede a algo relacionado que se carga de forma perezosa (N consultas). Ocurre con ORM de carga perezosa, con *Active Record*, y con resolvedores de GraphQL que resuelven un campo por elemento.
 
-**Cómo leer la figura.** Cada barra es el número de sentencias que la base recibió para producir el mismo listado. **Dónde deja de valer:** la base es `sqlite3` en memoria, sin red; con una base remota cada consulta suma una latencia de red y la diferencia se amplifica, y con un ORM que precarga por defecto el problema aparece en otro lugar. El número 201 es el patrón N+1 en un caso, no una constante.
-
-Según [SE-318 — Repository, Unit of Work y Active Record](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-318-repository-unit-of-work-y-active-record/README.md):
-
-Muchos ORM implementan ambos (una sesión que agrupa cambios y un acceso por consulta). El patrón sigue siendo útil como interfaz del dominio que no depende del ORM; y el N+1 sigue pudiendo ocurrir. Mide las consultas de todos modos.
+La figura de [SE-318](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-318-repository-unit-of-work-y-active-record/README.md) cuenta el número de sentencias que la base recibió para producir el mismo listado: el patrón N+1 con 200 filas llega a 201 sentencias, frente a una o dos si se agrupa con una unión (*join*) o con una consulta por lotes (`WHERE id IN (...)`). Remedios: precargar la relación, usar un *join*, agrupar los accesos (en GraphQL, un cargador por lotes), y **medir las consultas** de todos modos.
 
 ## Ejemplo
 
-Ejemplo de [SE-318 — Repository, Unit of Work y Active Record](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-318-repository-unit-of-work-y-active-record/README.md) (sección «Preguntas frecuentes»):
+Esbozo ilustrativo (no de la clase):
 
-Muchos ORM implementan ambos (una sesión que agrupa cambios y un acceso por consulta). El patrón sigue siendo útil como interfaz del dominio que no depende del ORM; y el N+1 sigue pudiendo ocurrir. Mide las consultas de todos modos.
+```python
+pedidos = db.execute("SELECT id FROM pedido").fetchall()      # 1
+for p in pedidos:
+    db.execute("SELECT * FROM linea WHERE pedido_id = ?", (p["id"],))  # N
+```
+
+Con 200 pedidos son 201 sentencias. La forma agrupada pide todas las líneas en una consulta.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La pantalla es lenta con muchos elementos y rápida con pocos** — causa: una consulta por elemento (N+1). Corrección: contar consultas por solicitud y cargar por lotes. ([SE-243](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-243-rpc-graphql-y-seleccion-de-interfaz/README.md))
-- **Un informe tarda minutos y cada consulta es rápida** — causa: patrón N+1. Corrección: una sola consulta agregada o un `JOIN`. ([SE-353](../../../classes/part-29-datos-persistencia-y-recuperacion/se-353-consultas-indices-y-patrones-de-acceso/README.md))
+- **Creer que un ORM lo evita por sí solo:** muchos implementan Repository y Unit of Work, y el N+1 sigue pudiendo ocurrir ([SE-318](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-318-repository-unit-of-work-y-active-record/README.md)).
+- **No contar consultas en las pruebas:** funciona y es lento.
+- **Precargarlo todo siempre:** convierte el problema en traer datos que no se usan.
+- **Confundirlo con un problema de índices:** una consulta con índice repetida N veces sigue siendo N+1.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- El número 201 es el patrón N+1 en un caso, no una constante. ([SE-318](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-318-repository-unit-of-work-y-active-record/README.md))
-- El patrón sigue siendo útil como interfaz del dominio que no depende del ORM; y el N+1 sigue pudiendo ocurrir. ([SE-318](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-318-repository-unit-of-work-y-active-record/README.md))
+El 201 de la clase es un caso, no una constante: la base era `sqlite3` en memoria, sin red. Con una base remota cada consulta suma latencia de red y la diferencia se amplifica; con un ORM que precarga por defecto, el problema aparece en otro lugar. Con N pequeño y fijo, el costo puede ser aceptable.
 
 ## Relación con otros conceptos
 

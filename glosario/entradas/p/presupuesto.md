@@ -2,49 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Prerelease y metadata](./prerelease-y-metadata.md) · [Presupuesto de complejidad →](./presupuesto-de-complejidad.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 19](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 19](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md)
 
 ## Definición
 
-Límite de costo (fichas, tiempo, dinero) del bucle.
-
-Definición de trabajo de [SE-581 — Loops de agentes y criterios de parada](../../../classes/part-48-harness-y-agentic-engineering/se-581-loops-de-agentes-y-criterios-de-parada/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-598 — Costo, latencia y seguridad en sistemas con LLM](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-598-costo-latencia-y-seguridad-en-sistemas-con-llm/README.md): Conjunto de topes de costo, tiempo y capacidades con una acción al excederlos.
+«Presupuesto» es una palabra con varios sentidos técnicos en el programa, unidos por la idea de un **límite que se mide y tiene una acción al excederse**. El sentido principal de esta entrada es el de los agentes con modelos de lenguaje: el límite de costo (fichas, tiempo, dinero) del bucle, que [SE-598](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-598-costo-latencia-y-seguridad-en-sistemas-con-llm/README.md) amplía a un conjunto de topes de costo, tiempo y capacidades con una acción al excederlos. Los otros sentidos tienen entrada propia: el de rendimiento web ([SE-235](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-235-rendimiento-web-y-presupuestos/README.md), ver *presupuesto de rendimiento*), el de recursos de un dispositivo ([SE-261](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-261-rendimiento-bateria-y-recursos-limitados/README.md)) y el de costos de plataformas de datos ([SE-370](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-370-costos-y-operacion-de-plataformas-de-datos/README.md)).
 
 ## Por qué importa
 
-En [SE-235 — Rendimiento web y presupuestos](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-235-rendimiento-web-y-presupuestos/README.md), el tema «Presupuestos» importa porque un número comprobable en cada cambio evita que el rendimiento se degrade sin que nadie lo decida.
-
-En [SE-581 — Loops de agentes y criterios de parada](../../../classes/part-48-harness-y-agentic-engineering/se-581-loops-de-agentes-y-criterios-de-parada/README.md), el tema «Presupuesto» importa porque acota el costo real, no el número de vueltas.
-
-En [SE-370 — Costos y operación de plataformas de datos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-370-costos-y-operacion-de-plataformas-de-datos/README.md), el tema «Presupuestos» importa porque hacen visible el desvío a tiempo.
+Un agente que decide por sí mismo cuántos pasos dar puede no parar. [SE-581](../../../classes/part-48-harness-y-agentic-engineering/se-581-loops-de-agentes-y-criterios-de-parada/README.md) (loops de agentes y criterios de parada) lo plantea así: el presupuesto acota el costo *real*, no el número de vueltas. Dos vueltas pueden costar cien veces más una que otra. En [SE-370](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-370-costos-y-operacion-de-plataformas-de-datos/README.md), los presupuestos hacen visible el desvío de costos de datos a tiempo; en [SE-235](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-235-rendimiento-web-y-presupuestos/README.md), un número comprobable en cada cambio evita que el rendimiento se degrade sin que nadie lo decida.
 
 ## Cómo funciona
 
-Según [SE-235 — Rendimiento web y presupuestos](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-235-rendimiento-web-y-presupuestos/README.md), en la sección «Presupuestos»:
+Un presupuesto de agente fija topes sobre magnitudes concretas:
 
-Un presupuesto de rendimiento es un límite explícito (kilobytes de JavaScript, número de peticiones, LCP en el percentil 75) que se comprueba en cada cambio. Su valor está en que convierte una decisión implícita («añadamos esta biblioteca») en una visible («cuesta 40 KB de los 200 que tenemos»). Debe derivarse de un objetivo (un tiempo en un dispositivo y red de referencia) y revisarse; un presupuesto que nadie hace cumplir es una intención.
+- **Costo:** fichas (*tokens*) o dinero por tarea.
+- **Tiempo:** duración total o por paso.
+- **Capacidades:** cuántas herramientas o llamadas externas puede usar.
+
+Y una **acción al excederlos**: parar, pedir confirmación humana o degradar a un modo más barato. El tope se calibra con datos: en [SE-575](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-575-taller-detener-recuperar-y-evaluar-un-agente/README.md), por ejemplo, el máximo de pasos se calibra con la cola de la distribución de las tareas buenas, no con la media.
+
+Un presupuesto se combina con otros criterios de parada (repeticiones del mismo estado, pasos sin avance), porque un tope de costo solo detiene tarde.
 
 ## Ejemplo
 
-Ejemplo de [SE-235 — Rendimiento web y presupuestos](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-235-rendimiento-web-y-presupuestos/README.md) (sección «Ejemplo profesional»):
-
-El equipo fija presupuestos para la página de entrega: 170 KB de JavaScript comprimido en la ruta de entrada, 15 peticiones y LCP de 2,5 s en el percentil 75 de visitas reales desde un móvil de gama media. Cada cambio pasa un comprobador que falla si el paquete lo supera. El análisis de la cascada muestra que la cadena HTML → script → datos decide el tiempo, así que se envían los datos iniciales en el primer HTML y se pre-carga la fuente; el CSS en línea se descarta por no mover la ruta crítica. Los datos de campo se leen con al menos 300 visitas por segmento.
+Ilustración propia con el patrón de [SE-598](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-598-costo-latencia-y-seguridad-en-sistemas-con-llm/README.md): un agente de envíos tiene presupuesto de 80 pasos, 200 000 fichas y 5 minutos por tarea. Al exceder cualquiera de los tres, para y deja un punto de control con el estado, en vez de seguir gastando. En [SE-235](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-235-rendimiento-web-y-presupuestos/README.md), el equivalente web es un tope de 170 KB de JavaScript que hace fallar la integración.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El peso de la página sube sin que nadie lo decida** — causa: sin presupuesto comprobable. Corrección: fijar límites y hacer que el cambio falle al superarlos. ([SE-235](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-235-rendimiento-web-y-presupuestos/README.md))
+- **Limitar el número de vueltas** y no el costo.
+- **Un presupuesto sin acción definida al excederse.**
+- **Calibrarlo con la media** y cortar tareas legítimas largas.
+- **Mezclar los sentidos:** el presupuesto de agente no es el de error de un SLO (`presupuesto de error`).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un presupuesto de rendimiento es un límite explícito (kilobytes de JavaScript, número de peticiones, LCP en el percentil 75) que se comprueba en cada cambio. ([SE-235](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-235-rendimiento-web-y-presupuestos/README.md))
+Un tope no sustituye vigilar *qué* hace el agente: puede causar daño con poco costo. Las cifras del ejemplo son ilustrativas. Un presupuesto demasiado ajustado interrumpe tareas válidas y uno demasiado holgado no protege.
 
 ## Relación con otros conceptos
 

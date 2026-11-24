@@ -2,40 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← Estado local, compartido y persistente](./estado-local-compartido-y-persistente.md) · [Estado vacío →](./estado-vacio.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md)
 
 ## Definición
 
-Estado en que un sistema con un fallo causa el menor daño posible, definido de antemano.
-
-Definición de trabajo de [SE-274 — Safety, seguridad y vida útil prolongada](../../../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md).
+Un **estado seguro** (*safe state*) es aquel en que un sistema con un fallo causa el menor daño posible, y que se define de antemano. Es el sentido de [SE-274](../../../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md) (safety, seguridad y vida útil prolongada). El adjetivo no significa «seguro» en el sentido de ciberseguridad: se refiere a seguridad funcional (*safety*), es decir, a no causar daño a personas o al entorno cuando algo falla.
 
 ## Por qué importa
 
-En [SE-274 — Safety, seguridad y vida útil prolongada](../../../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md), el tema «Estado seguro» importa porque cada fallo debe llevar a un estado de menor daño definido de antemano.
+Un fallo detectado debe llevar a un lugar conocido, no a un comportamiento improvisado. [SE-274](../../../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md) advierte la razón: quien programa bajo presión elige el estado que facilita probar, no el que minimiza el daño. Definirlo de antemano, por peligro, lo convierte en una decisión de diseño revisable.
 
 ## Cómo funciona
 
-Según [SE-274 — Safety, seguridad y vida útil prolongada](../../../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md), en la sección «Estado seguro»:
+El mecanismo, según [SE-274](../../../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md):
 
-Un fallo detectado debe llevar a un estado definido de antemano cuyo daño sea menor: el extractor encendido si no se sabe el nivel de CO₂, la puerta desbloqueada o bloqueada según el riesgo, el actuador parado. El estado seguro no siempre es «apagado». Se decide por peligro y se documenta, porque quien programa bajo presión elige el estado que facilita probar. Y debe probarse: forzar el fallo (`SE-275`) y comprobar que se alcanza.
+1. **Identificar el peligro** (qué daño puede ocurrir).
+2. **Definir el estado de menor daño** para ese peligro: el extractor encendido si no se sabe el nivel de CO₂, la puerta desbloqueada o bloqueada según el riesgo, el actuador parado. El estado seguro **no siempre es «apagado»**: depende del peligro.
+3. **Documentarlo.**
+4. **Probarlo:** forzar el fallo ([SE-275](../../../classes/part-22-embedded-iot-y-tiempo-real/se-275-taller-modelar-fallos-fisicos-y-digitales/README.md), inyección de fallos) y comprobar que se alcanza.
+
+Se combina con detección de fallos (sensores diversos con comparación, temporizador de vigilancia) y con un análisis de peligros por escrito.
 
 ## Ejemplo
 
-Ejemplo de [SE-274 — Safety, seguridad y vida útil prolongada](../../../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la plataforma escribe el análisis de peligros del nodo con cuatro filas. Peligro: el extractor no arranca con CO₂ alto. Defensa: dos sensores de principios distintos con comparación, estado seguro «extractor encendido» si discrepan, y prueba por inyección de fallos. Peligro: el firmware se cuelga. Defensa: temporizador de vigilancia con plazo de 5 s, alimentado solo tras una comprobación de salud, y operaciones largas partidas en pasos de 200 ms. Peligro: un contador de tiempo da la vuelta. Defensa: toda comparación de tiempos usa resta sin signo, y una prueba simula el arranque a 49 días. Peligro: un atacante apaga el extractor.
+El análisis de peligros del nodo de [SE-274](../../../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md) tiene cuatro filas. Primera: el extractor no arranca con CO₂ alto; defensa: dos sensores de principios distintos con comparación, estado seguro «extractor encendido» si discrepan, y prueba por inyección de fallos. Segunda: el firmware se cuelga; defensa: temporizador de vigilancia con plazo de 5 s, alimentado solo tras una comprobación de salud. Tercera: un contador de tiempo da la vuelta; defensa: restas sin signo y una prueba que simula el arranque a 49 días. Cuarta: un atacante apaga el extractor.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-274 — Safety, seguridad y vida útil prolongada](../../../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md)) son:
-
-- **«Tenemos tres sensores» y fallan los tres** — causa: causa común. Corrección: diversidad de principio, alimentación y software; analizar la causa común.
-- **El dispositivo se reinicia en operaciones largas** — causa: plazo del temporizador demasiado corto. Corrección: fijarlo con la distribución de las operaciones y partir las largas.
+- **Equiparar estado seguro con «apagado».** Apagar un extractor con CO₂ alto es el peligro.
+- **Elegir el estado que facilita probar** en vez del que reduce el daño.
+- **No probar el camino al estado seguro:** un estado seguro nunca alcanzado en pruebas es una suposición.
+- **Confundirlo con seguridad informática,** que protege contra atacantes (aunque el cuarto peligro de la clase une ambas).
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-274 — Safety, seguridad y vida útil prolongada](../../../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md)) son: Las definiciones son operativas para el nodo de la sala. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún sensor, temporizador ni microcontrolador y no se hizo ningún análisis de seguridad funcional: las probabilidades, los tiempos lognormales y los contadores son construcciones del autor. La siguiente clase convierte estos peligros en un taller de modelado de fallos.
+No existe un estado seguro único válido siempre: algunos sistemas (un avión en vuelo) no pueden «parar». El análisis se limita a los peligros identificados. Los números de [SE-274](../../../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md) son un caso didáctico del nodo ambiental, no una certificación de seguridad funcional.
 
 ## Relación con otros conceptos
 

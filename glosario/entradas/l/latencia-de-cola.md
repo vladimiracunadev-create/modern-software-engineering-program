@@ -2,40 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Latencia](./latencia.md) · [Latencia de red →](./latencia-de-red.md)
 
-> **Tipo:** métrica · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 23](../../../classes/part-23-runtimes-y-plataformas-modernas/README.md)
+> **Tipo:** métrica · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 23](../../../classes/part-23-runtimes-y-plataformas-modernas/README.md)
 
 ## Definición
 
-Percentil alto de la latencia, como el p99.
-
-Definición de trabajo de [SE-340 — Microservicios y sus costes reales](../../../classes/part-28-estilos-arquitectonicos/se-340-microservicios-y-sus-costes-reales/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-436 — Latencia, throughput, saturación y capacidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-436-latencia-throughput-saturacion-y-capacidad/README.md): Latencia de las peticiones más lentas, resumida con percentiles altos como el p99.
-- En [SE-281 — Rendimiento y costo en aceleradores](../../../classes/part-23-runtimes-y-plataformas-modernas/se-281-rendimiento-y-costo-en-aceleradores/README.md): Latencia que no supera el p95 o el p99 de las peticiones.
+La **latencia de cola** (*tail latency*) es la latencia de las peticiones más lentas, resumida con un percentil alto como el p99. [SE-436](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-436-latencia-throughput-saturacion-y-capacidad/README.md) (latencia, throughput, saturación y capacidad) la define así; [SE-281](../../../classes/part-23-runtimes-y-plataformas-modernas/se-281-rendimiento-y-costo-en-aceleradores/README.md) la usa para los aceleradores: la latencia que no supera el p95 o el p99 de las peticiones. «Cola» alude a la cola derecha de la distribución de tiempos, no a una cola de espera.
 
 ## Por qué importa
 
-En [SE-340 — Microservicios y sus costes reales](../../../classes/part-28-estilos-arquitectonicos/se-340-microservicios-y-sus-costes-reales/README.md), el tema «Latencia de cola» importa porque esperar a varias llamadas empeora el percentil alto.
+El promedio oculta a quienes más sufren. Si el p99 es diez veces la mediana, una de cada cien peticiones es mucho más lenta, y en sistemas con muchas peticiones por persona esa fracción se alcanza pronto. Es lo que se compromete en un SLO de latencia, no el promedio.
 
 ## Cómo funciona
 
-[SE-340 — Microservicios y sus costes reales](../../../classes/part-28-estilos-arquitectonicos/se-340-microservicios-y-sus-costes-reales/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
+Una distribución de latencias suele tener una masa grande de peticiones rápidas y una cola larga de lentas (por esperas en cola, recolección de basura, reintentos, fallos de caché). Se resume con percentiles: p50 (mediana), p95, p99.
+
+[SE-340](../../../classes/part-28-estilos-arquitectonicos/se-340-microservicios-y-sus-costes-reales/README.md) (microservicios y sus costos reales) añade la **amplificación**: si una petición del usuario espera a varias llamadas internas, basta que una caiga en la cola para que toda la petición sea lenta. Con *n* llamadas independientes, la probabilidad de que al menos una supere su p99 es 1 − 0,99ⁿ; con 100 llamadas, ronda el 63 %. Por eso la latencia de cola de la petición completa empeora con cada servicio añadido, junto con la disponibilidad multiplicada.
 
 ## Ejemplo
 
-Ejemplo de [SE-340 — Microservicios y sus costes reales](../../../classes/part-28-estilos-arquitectonicos/se-340-microservicios-y-sus-costes-reales/README.md) (sección «Caso conductor»):
-
-*Avisos* evalúa separar su cálculo de avisos. Esta clase da el precio: más de mil veces una llamada en proceso, disponibilidad multiplicada, latencia de cola amplificada y un riesgo de acoplamiento por contrato. `SE-341` estudia qué se coloca entre los clientes y esos servicios (un BFF, un gateway, una malla) y cuánto de lo que prometen es evitable con una decisión más simple.
+*Avisos*, en [SE-340](../../../classes/part-28-estilos-arquitectonicos/se-340-microservicios-y-sus-costes-reales/README.md), evalúa separar el cálculo de avisos. La clase da el precio: más de mil veces una llamada en proceso, disponibilidad multiplicada, latencia de cola amplificada y un riesgo de acoplamiento por contrato. Ilustración numérica propia: una página que llama a 20 servicios con p99 de 200 ms cada uno tiene aproximadamente 18 % de probabilidad de que al menos una llamada pase de 200 ms.
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+- **Reportar solo el promedio o la mediana.**
+- **Promediar percentiles de varios servicios:** no se pueden combinar así.
+- **Creer que los percentiles se suman:** el p99 de un flujo no es la suma de los p99 de sus pasos.
+- **Confundirla con el tiempo en cola de espera:** la espera puede causarla, pero no es lo mismo.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-340 — Microservicios y sus costes reales](../../../classes/part-28-estilos-arquitectonicos/se-340-microservicios-y-sus-costes-reales/README.md)) son: El costo de HTTP es el de un servidor de la biblioteca estándar en la misma máquina; la cadena de servicios y la topología son simulaciones con parámetros del autor. No se midió ningún sistema de microservicios, ningún equipo ni el costo humano de operarlos. El siguiente paso, `SE-341`, estudia lo que se interpone entre los clientes y los servicios: el BFF, el gateway y la malla de servicios.
+El p99 solo describe bien con muchas observaciones; con pocas, es ruidoso. La cuenta de amplificación supone llamadas independientes y en paralelo; con dependencias correlacionadas (una causa común) el cálculo cambia. Para sistemas por lotes, donde importa el tiempo total y no cada petición, el percentil por petición es menos relevante.
 
 ## Relación con otros conceptos
 

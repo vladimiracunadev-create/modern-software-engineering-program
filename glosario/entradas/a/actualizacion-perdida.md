@@ -2,44 +2,50 @@
 
 [↑ Glosario](../../README.md) · [← Actualización inalámbrica](./actualizacion-inalambrica.md) · [Actualización y rollback →](./actualizacion-y-rollback.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 20](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 20](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md)
 
 ## Definición
 
-Escritura que se pisa con otra basada en una lectura anterior sin que ninguna falle.
-
-Definición de trabajo de [SE-351 — Transacciones, aislamiento y concurrencia](../../../classes/part-29-datos-persistencia-y-recuperacion/se-351-transacciones-aislamiento-y-concurrencia/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-242 — REST y semántica de recursos](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-242-rest-y-semantica-de-recursos/README.md): Efecto por el que una escritura posterior sobrescribe otra sin haberla visto.
+Una **actualización perdida** (*lost update*) ocurre cuando una escritura se pisa con otra que se basó en una lectura anterior, sin que ninguna de las dos falle. [SE-351](../../../classes/part-29-datos-persistencia-y-recuperacion/se-351-transacciones-aislamiento-y-concurrencia/README.md) la presenta como una anomalía de concurrencia en transacciones; [SE-242](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-242-rest-y-semantica-de-recursos/README.md) usa el mismo término en HTTP: una escritura posterior sobrescribe otra sin haberla visto. El rasgo que la hace peligrosa es el silencio: ningún cliente recibe un error.
 
 ## Por qué importa
 
-En [SE-351 — Transacciones, aislamiento y concurrencia](../../../classes/part-29-datos-persistencia-y-recuperacion/se-351-transacciones-aislamiento-y-concurrencia/README.md), el tema «Actualización perdida» importa porque dos escrituras sobre la misma lectura dejan una sola en silencio.
+Es de los defectos de datos más difíciles de ver, porque el sistema «funciona»: cada petición tiene éxito y aun así el estado final no corresponde a ninguna ejecución ordenada. [SE-351](../../../classes/part-29-datos-persistencia-y-recuperacion/se-351-transacciones-aislamiento-y-concurrencia/README.md) muestra el síntoma típico: un contador queda por debajo de las operaciones confirmadas. La decisión que cambia es dónde se hace el cálculo y qué mecanismo protege el ciclo leer-calcular-escribir.
 
 ## Cómo funciona
 
-Según [SE-351 — Transacciones, aislamiento y concurrencia](../../../classes/part-29-datos-persistencia-y-recuperacion/se-351-transacciones-aislamiento-y-concurrencia/README.md), en la sección «Actualización perdida»:
+Leer un valor, calcular el nuevo y escribirlo son tres pasos. Si dos clientes los intercalan:
 
-Leer un valor, calcular el nuevo y escribirlo es tres pasos; si dos clientes los intercalan, el segundo escribe sobre una lectura vieja y la primera escritura se pierde. Ninguno recibe un error. Hay tres remedios con costos distintos: hacer que la base calcule (`UPDATE ... SET n = n + 1`), comprobar la versión al escribir y reintentar si cambió, o bloquear la fila mientras se calcula. La primera es la más barata cuando el cálculo cabe en una expresión; la segunda, cuando hay un cálculo del lado de la aplicación y los conflictos son raros; la tercera, cuando son frecuentes.
+1. A lee 10. B lee 10.
+2. A escribe 11. B escribe 11.
+3. Debían ser 12; la escritura de A se perdió.
+
+[SE-351](../../../classes/part-29-datos-persistencia-y-recuperacion/se-351-transacciones-aislamiento-y-concurrencia/README.md) da tres remedios con costos distintos:
+
+- **Que la base calcule:** `UPDATE ... SET n = n + 1`. Es la más barata cuando el cálculo cabe en una expresión, porque lectura y escritura ocurren en una sola sentencia.
+- **Comprobar la versión al escribir y reintentar** si cambió. Conviene cuando el cálculo ocurre en la aplicación y los conflictos son raros. En HTTP es la misma idea que [SE-242](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-242-rest-y-semantica-de-recursos/README.md) enseña con una precondición sobre la versión del recurso.
+- **Bloquear la fila** mientras se calcula. Conviene cuando los conflictos son frecuentes, a costa de esperas.
 
 ## Ejemplo
 
-Ejemplo de [SE-351 — Transacciones, aislamiento y concurrencia](../../../classes/part-29-datos-persistencia-y-recuperacion/se-351-transacciones-aislamiento-y-concurrencia/README.md) (sección «Ejemplo mínimo»):
+El ejemplo mínimo de [SE-351](../../../classes/part-29-datos-persistencia-y-recuperacion/se-351-transacciones-aislamiento-y-concurrencia/README.md) ejecuta dos clientes que leen el mismo valor y escriben, y pide predecir el valor final antes de correrlo. Un esbozo ilustrativo (no es código de la clase):
 
-El fragmento muestra una actualización perdida con dos clientes. Antes de ejecutarlo, predice el valor final.
+```sql
+-- Cliente A y B, intercalados: ambos leen n = 10
+UPDATE cuenta SET n = 11 WHERE id = 1; -- A
+UPDATE cuenta SET n = 11 WHERE id = 1; -- B (debía ser 12)
+-- Corrección: UPDATE cuenta SET n = n + 1 WHERE id = 1;
+```
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-351 — Transacciones, aislamiento y concurrencia](../../../classes/part-29-datos-persistencia-y-recuperacion/se-351-transacciones-aislamiento-y-concurrencia/README.md)) son:
-
-- **Un contador queda por debajo de las operaciones confirmadas** — causa: leer-modificar-escribir sin control. Corrección: actualización atómica o comprobación de versión con reintento.
-- **Una transferencia cortada deja cupos perdidos** — causa: sentencias confirmadas por separado. Corrección: envolver los pasos en una transacción e idempotencia.
+- **Contador por debajo de lo confirmado** por leer-modificar-escribir sin control ([SE-351](../../../classes/part-29-datos-persistencia-y-recuperacion/se-351-transacciones-aislamiento-y-concurrencia/README.md)).
+- **Creer que una transacción lo impide siempre.** Depende del nivel de aislamiento y del motor; la clase modela niveles de aislamiento, pero no ejecutó un motor con instantáneas.
+- **Confundirla con una lectura sucia o una condición de carrera en memoria:** aquí cada escritura es válida; lo que falla es la base de la que partió.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-351 — Transacciones, aislamiento y concurrencia](../../../classes/part-29-datos-persistencia-y-recuperacion/se-351-transacciones-aislamiento-y-concurrencia/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idénticos. Las intercalaciones se forzaron en un solo hilo con SQLite; los niveles de aislamiento son un modelo del autor y no se ejecutó PostgreSQL ni otro motor con instantáneas; no se midió rendimiento, contención ni durabilidad ante apagones. Las cifras describen enumeraciones, no frecuencias.
+Solo existe cuando hay lectura previa que alimenta la escritura; una escritura que no depende de lo leído («fija el estado en cerrado») no la sufre, aunque puede decidirse si la última escritura debe ganar. Los experimentos de [SE-351](../../../classes/part-29-datos-persistencia-y-recuperacion/se-351-transacciones-aislamiento-y-concurrencia/README.md) forzaron intercalaciones en un solo hilo con SQLite y no midieron rendimiento ni contención; las cifras describen enumeraciones, no frecuencias reales.
 
 ## Relación con otros conceptos
 

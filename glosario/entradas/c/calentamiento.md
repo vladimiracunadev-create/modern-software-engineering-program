@@ -2,47 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← Caducidad de la evidencia](./caducidad-de-la-evidencia.md) · [Calibración →](./calibracion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 20](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 20](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md)
 
 ## Definición
 
-Periodo en que una instancia nueva llena sus cachés y conexiones antes de rendir con normalidad.
-
-Definición de trabajo de [SE-250 — Health, readiness y shutdown ordenado](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-250-health-readiness-y-shutdown-ordenado/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-437 — Perfiles, benchmarks y errores de medición](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion/README.md): Conjunto de ejecuciones iniciales cuyo tiempo difiere del régimen estable por cachés frías o carga de módulos.
+El **calentamiento** (*warm-up*) es el periodo en que una instancia nueva llena sus cachés y abre sus conexiones antes de rendir con normalidad. Es el sentido de [SE-250](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-250-health-readiness-y-shutdown-ordenado/README.md) (health, readiness y apagado ordenado). [SE-437](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion/README.md) lo usa en mediciones: el conjunto de ejecuciones iniciales cuyo tiempo difiere del régimen estable por cachés frías o carga de módulos. En ambos, lo común es que las primeras operaciones son más lentas que las siguientes.
 
 ## Por qué importa
 
-En [SE-250 — Health, readiness y shutdown ordenado](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-250-health-readiness-y-shutdown-ordenado/README.md), el tema «Calentamiento» importa porque una instancia con caché fría atiende peor que una caliente; el criterio de disponibilidad lo reconoce o lo ignora.
+Una instancia recién arrancada con caché fría atiende peor que una caliente, y el criterio de disponibilidad lo reconoce o lo ignora. Si lo ignora, el balanceador manda tráfico completo a una instancia que no está lista y aparecen errores o lentitud. En mediciones ([SE-437](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion/README.md)), si no se descarta el calentamiento el benchmark mide el arranque y no el comportamiento estable.
 
 ## Cómo funciona
 
-Según [SE-250 — Health, readiness y shutdown ordenado](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-250-health-readiness-y-shutdown-ordenado/README.md), en la sección «Calentamiento»:
+Una instancia nueva tiene la caché vacía, conexiones sin abrir y código sin compilar. [SE-250](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-250-health-readiness-y-shutdown-ordenado/README.md) ofrece tres estrategias para decidir cuándo recibe tráfico completo:
 
-Una instancia nueva tiene la caché fría, conexiones sin abrir y código sin compilar; sus primeras solicitudes son más lentas. Hay tres estrategias: recibir tráfico desde el arranque (simple, con solicitudes lentas), esperar un tiempo fijo (predecible, ignora la velocidad real) o declararse lista al alcanzar un umbral de aciertos (adaptable, exige instrumentar). El calentamiento traslada el costo: las otras instancias absorben más tráfico mientras tanto.
+1. **Recibir tráfico desde el arranque:** simple, con solicitudes lentas al principio.
+2. **Esperar un tiempo fijo:** predecible, pero ignora la velocidad real de calentamiento.
+3. **Declararse lista al alcanzar un umbral de aciertos de caché:** adaptable, pero exige instrumentar.
+
+El calentamiento **traslada el costo**: mientras una instancia se calienta, las otras absorben más tráfico. Por eso conecta con la disponibilidad (readiness): una instancia puede estar viva y aun así no estar lista.
+
+En [SE-437](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion/README.md), el mismo fenómeno obliga a diseñar la medición: ejecuciones de descarte iniciales y análisis solo del régimen estable.
 
 ## Ejemplo
 
-Ejemplo de [SE-250 — Health, readiness y shutdown ordenado](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-250-health-readiness-y-shutdown-ordenado/README.md) (sección «Caso conductor»):
-
-La plataforma de entregas queda con un comportamiento operable: tres sondeos con propósito distinto, calentamiento declarado y apagado ordenado. Recupera `SE-247`: los trabajos largos vuelven a la cola al apagar. La clase siguiente aplica todo lo aprendido a una API deliberadamente defectuosa. Cambia después una sola decisión, el plazo de gracia de 30 a 10 s, y revisa qué artefactos hay que tocar.
+El caso conductor de [SE-250](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-250-health-readiness-y-shutdown-ordenado/README.md) deja la plataforma de entregas con tres sondeos de propósito distinto, calentamiento declarado y apagado ordenado. Cambiar una sola decisión, el plazo de gracia de 30 a 10 segundos, obliga a revisar qué artefactos se tocan. Ilustración propia: si una instancia necesita 80 % de aciertos de caché para rendir, se marca lista al superarlo y no a los 30 segundos fijos.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-250 — Health, readiness y shutdown ordenado](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-250-health-readiness-y-shutdown-ordenado/README.md)) son:
-
-- **Todas las instancias se reinician cuando cae la base de datos** — causa: el sondeo de vida consulta una dependencia externa. Corrección: vida local; dependencias en disponibilidad.
-- **Una instancia recién arrancada responde con errores** — causa: recibe tráfico sin estar lista. Corrección: sondeo de disponibilidad y de arranque.
+- **Instancia recién arrancada que responde con errores:** recibe tráfico sin estar lista; corrección, sondeo de disponibilidad y de arranque ([SE-250](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-250-health-readiness-y-shutdown-ordenado/README.md)).
+- **Reinicio de todas las instancias cuando cae la base de datos:** el sondeo de vida consulta una dependencia externa; la vida debe ser local.
+- **Confundirlo con arranque en frío:** aquel es crear el entorno; el calentamiento es lo que sigue.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- **Dónde deja de valer:** la curva lineal de calentamiento es un supuesto: las cachés reales se calientan según la popularidad de las claves. ([SE-250](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-250-health-readiness-y-shutdown-ordenado/README.md))
-- Traslada el experimento a otro de los dominios persistentes (por ejemplo, un servicio de pagos ficticio): cambia las dependencias y conserva el procedimiento de separar los sondeos, medir el drenaje y elegir el criterio de calentamiento. ([SE-250](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-250-health-readiness-y-shutdown-ordenado/README.md))
+La curva lineal de calentamiento de la clase es un supuesto: las cachés reales se calientan según la popularidad de las claves ([SE-250](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-250-health-readiness-y-shutdown-ordenado/README.md)). Con una aplicación sin caché relevante, la espera no aporta. Y el término de medición ([SE-437](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion/README.md)) no es de operación: no se resuelve con sondeos.
 
 ## Relación con otros conceptos
 

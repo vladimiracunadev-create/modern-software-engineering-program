@@ -2,40 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Subcomando](./subcomando.md) · [Subproblemas superpuestos →](./subproblemas-superpuestos.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 20](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 20](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md)
 
 ## Definición
 
-Protocolo que permite continuar una subida interrumpida desde el último desplazamiento confirmado.
-
-Definición de trabajo de [SE-248 — Archivos, streaming y cargas extensas](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-248-archivos-streaming-y-cargas-extensas/README.md).
+Una **subida reanudable** (*resumable upload*) es un protocolo que permite continuar una subida interrumpida desde el último desplazamiento confirmado. Es el sentido de [SE-248](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-248-archivos-streaming-y-cargas-extensas/README.md) (archivos, streaming y cargas extensas). No es una subida «más rápida»: es una subida que sobrevive a cortes sin repetir lo ya recibido.
 
 ## Por qué importa
 
-En [SE-248 — Archivos, streaming y cargas extensas](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-248-archivos-streaming-y-cargas-extensas/README.md), el tema «Subida reanudable» importa porque con caídas frecuentes, reiniciar multiplica los datos enviados; reanudar los repite solo hasta el último trozo confirmado.
+Con caídas frecuentes (redes móviles, archivos grandes), reiniciar multiplica los datos enviados; reanudar los repite solo hasta el último trozo confirmado. Para quien sube un archivo de cientos de megabytes por una red inestable, es la diferencia entre completar o abandonar.
 
 ## Cómo funciona
 
-Según [SE-248 — Archivos, streaming y cargas extensas](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-248-archivos-streaming-y-cargas-extensas/README.md), en la sección «Subida reanudable»:
+[SE-248](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-248-archivos-streaming-y-cargas-extensas/README.md): si la conexión cae al 80 %, reiniciar descarta 80 MiB ya enviados. En una subida reanudable:
 
-Si la conexión cae al 80 %, reiniciar descarta 80 MiB ya enviados. En una subida **reanudable** el cliente divide el archivo en trozos y el servidor recuerda cuántos bytes recibió; tras un corte, el cliente pregunta el desplazamiento y continúa. Lo que se repite es, como máximo, el trozo en curso. Un trozo grande repite más; uno pequeño exige más confirmaciones. El protocolo tus es un ejemplo publicado de este diseño.
+1. El cliente **divide el archivo en trozos.**
+2. El servidor **recuerda cuántos bytes recibió** (el desplazamiento confirmado).
+3. Tras un corte, el cliente **pregunta el desplazamiento** y continúa desde ahí.
+
+Lo que se repite es, como máximo, el trozo en curso. El tamaño del trozo es un intercambio: un trozo grande repite más al fallar; uno pequeño exige más confirmaciones y más sobrecarga. La clase cita como ejemplo publicado de este diseño el protocolo **tus**, un protocolo abierto para subidas reanudables sobre HTTP.
+
+Dos requisitos de diseño que se derivan: el servidor debe **persistir** el desplazamiento (si lo pierde, no hay reanudación) y debe **verificar la integridad** al final (una suma o huella del archivo completo), porque un trozo mal ensamblado no se vería en el desplazamiento.
 
 ## Ejemplo
 
-Caso medido en la sección «Subida reanudable» de [SE-248 — Archivos, streaming y cargas extensas](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-248-archivos-streaming-y-cargas-extensas/README.md):
-
-Si la conexión cae al 80 %, reiniciar descarta 80 MiB ya enviados. En una subida **reanudable** el cliente divide el archivo en trozos y el servidor recuerda cuántos bytes recibió; tras un corte, el cliente pregunta el desplazamiento y continúa. Lo que se repite es, como máximo, el trozo en curso. Un trozo grande repite más; uno pequeño exige más confirmaciones. El protocolo tus es un ejemplo publicado de este diseño.
+Ilustración numérica propia con la cifra de la clase: un archivo de 100 MiB, con corte al 80 %. Sin reanudación, el reintento envía otros 100 MiB y el total llega a 180 MiB. Con trozos de 5 MiB, el cliente consulta el desplazamiento (80 MiB) y envía los 20 MiB restantes; en el peor caso repite 5 MiB.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-248 — Archivos, streaming y cargas extensas](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-248-archivos-streaming-y-cargas-extensas/README.md)) son:
-
-- **El servidor se queda sin memoria con pocas subidas** — causa: se lee el cuerpo completo. Corrección: procesar por trozos y limitar subidas simultáneas.
-- **Una caída obliga a empezar de cero** — causa: subida sin reanudación. Corrección: trozos confirmados y consulta del desplazamiento.
+- **El servidor se queda sin memoria con pocas subidas:** lee el cuerpo completo. Corrección: procesar por trozos y limitar subidas simultáneas ([SE-248](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-248-archivos-streaming-y-cargas-extensas/README.md)).
+- **Una caída obliga a empezar de cero:** falta el protocolo de reanudación.
+- **No verificar la integridad del archivo ensamblado.**
+- **Dejar sesiones de subida abiertas indefinidamente,** que consumen almacenamiento.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-248 — Archivos, streaming y cargas extensas](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-248-archivos-streaming-y-cargas-extensas/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2): resultados idénticos salvo los tiempos y los nombres con barra invertida. No se usó ningún formato real de archivo ni se midió a ninguna persona: el archivo, la tasa de caídas y los nombres son construcciones del autor. La siguiente clase protege el servicio de la avalancha de solicitudes.
+Para archivos pequeños la sobrecarga de confirmaciones no compensa. Requiere estado en el servidor (sesiones de subida) y una política de caducidad de las incompletas. No resuelve la autorización ni la validación del contenido subido.
 
 ## Relación con otros conceptos
 

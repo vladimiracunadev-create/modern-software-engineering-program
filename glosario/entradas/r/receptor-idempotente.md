@@ -2,49 +2,45 @@
 
 [↑ Glosario](../../README.md) · [← Recarga única](./recarga-unica.md) · [Rechazo implícito →](./rechazo-implicito.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 24](../../../classes/part-24-software-especializado-y-dominios/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 24](../../../classes/part-24-software-especializado-y-dominios/README.md)
 
 ## Definición
 
-Receptor para el que procesar un mensaje repetido no cambia el resultado.
-
-Definición de trabajo de [SE-319 — Enterprise Integration Patterns como lenguaje común](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-319-enterprise-integration-patterns-como-lenguaje-comun/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-298 — Low-code, no-code y automatización visual](../../../classes/part-24-software-especializado-y-dominios/se-298-low-code-no-code-y-automatizacion-visual/README.md): Receptor que, ante un mensaje repetido, no repite el efecto.
+Un **receptor idempotente** es un receptor para el que procesar un mensaje repetido no cambia el resultado: ante un duplicado, no repite el efecto. Es el sentido de [SE-319](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-319-enterprise-integration-patterns-como-lenguaje-comun/README.md) (Enterprise Integration Patterns como lenguaje común) y de [SE-298](../../../classes/part-24-software-especializado-y-dominios/se-298-low-code-no-code-y-automatizacion-visual/README.md) (low-code y automatización visual). Es el patrón que acompaña a un canal de entrega al menos una vez.
 
 ## Por qué importa
 
-En [SE-319 — Enterprise Integration Patterns como lenguaje común](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-319-enterprise-integration-patterns-como-lenguaje-comun/README.md), el tema «Receptor idempotente» importa porque convierte entrega al menos una vez en efecto único
+Convierte «al menos una vez» en efecto único. Un canal que puede duplicar mensajes no es defectuoso: cumple lo que promete. La responsabilidad de que un duplicado no cobre dos veces es del receptor.
 
 ## Cómo funciona
 
-Según [SE-319 — Enterprise Integration Patterns como lenguaje común](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-319-enterprise-integration-patterns-como-lenguaje-comun/README.md):
+[SE-319](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-319-enterprise-integration-patterns-como-lenguaje-comun/README.md) lo muestra con un experimento: 1000 mensajes (60 % pagos, 20 % avisos, 20 % bajas) por un canal al menos una vez que duplica un 20 % y reordena en ventanas de 6. Se entregan 1208 mensajes (208 duplicados).
 
-El experimento simula 1000 mensajes (60 % pagos, 20 % avisos, 20 % bajas) con un canal al menos una vez que duplica un 20 % y reordena en ventanas de 6. Se entregan 1208 mensajes (208 duplicados). La suma real de pagos es **15.682**; sin receptor idempotente, el consumidor suma **18.759**, un error de **+3.077**; con un receptor que guarda los identificadores vistos y descarta los repetidos, suma **15.682**. La clave es que el identificador del mensaje es **estable** (el mismo en cada reenvío); un identificador generado en el receptor no sirve. Guardar los identificadores plantea otra decisión: cuánto tiempo conservarlos. Una ventana finita (por ejemplo, 7 días) acota la memoria y exige que el canal no reenvíe más tarde de esa ventana.
+- La suma real de pagos es **15 682**.
+- Sin receptor idempotente, el consumidor suma **18 759**, un error de **+3 077**.
+- Con un receptor que guarda los identificadores vistos y descarta los repetidos, suma **15 682**.
 
-Según [SE-319 — Enterprise Integration Patterns como lenguaje común](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-319-enterprise-integration-patterns-como-lenguaje-comun/README.md):
+Dos decisiones de diseño:
 
-**Diagnóstico paso a paso.** (1) Se cuenta cuántos identificadores de mensaje aparecen más de una vez: 208 de 1208 entregas. (2) Se comprueba la garantía del proveedor: al menos una vez. (3) La causa no es el código de suma sino la ausencia de un receptor idempotente: el canal hizo lo que prometía.
+1. **El identificador del mensaje debe ser estable:** el mismo en cada reenvío. Un identificador generado en el receptor no sirve, porque cada llegada parecería un mensaje nuevo.
+2. **Cuánto conservar los identificadores.** Una ventana finita (por ejemplo, 7 días) acota la memoria, pero exige que el canal no reenvíe más tarde que esa ventana.
+
+El diagnóstico de la clase es ordenado: contar cuántos identificadores aparecen más de una vez (208 de 1208), comprobar la garantía del proveedor (al menos una vez), y concluir que la causa no es el código de suma sino la ausencia de receptor idempotente.
 
 ## Ejemplo
 
-Ejemplo de [SE-298 — Low-code, no-code y automatización visual](../../../classes/part-24-software-especializado-y-dominios/se-298-low-code-no-code-y-automatizacion-visual/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la plataforma establece cuatro condiciones para aceptar una automatización en producción. Primera: un documento de una página con qué hace, qué datos toca y qué cuota consume. Segunda: un conjunto de pruebas de pares sobre un entorno de prueba con datos sintéticos, con el resultado archivado. Tercera: un receptor idempotente que guarda el identificador del evento durante 24 horas, medido a partir de la cola de re-entregas del proveedor. Cuarta: dos responsables, una revisión trimestral que comprueba que la persona sigue en la organización y las credenciales son las mínimas, y un registro de ejecuciones que se conserva 90 días.
+Ilustración propia: la tabla `procesados(mensaje_id primary key)`. El receptor inserta el identificador en la misma transacción que aplica el efecto; si el `INSERT` choca con la clave, el mensaje ya se procesó y se descarta. Es la *inbox* de [SE-377](../../../classes/part-31-integracion-eventos-y-mensajeria/se-377-outbox-inbox-sagas-y-compensacion/README.md).
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Los avisos se envían dos veces** — causa: disparador al menos una vez sin receptor idempotente. Corrección: guardar identificadores de evento con un tiempo medido. ([SE-298](../../../classes/part-24-software-especializado-y-dominios/se-298-low-code-no-code-y-automatizacion-visual/README.md))
+- **Generar el identificador en el receptor** o derivarlo de datos que cambian en cada reenvío.
+- **Comprobar el identificador y aplicar el efecto en transacciones separadas:** una caída entre ambos rompe la garantía.
+- **Olvidar la caducidad de los identificadores** y quedarse sin memoria.
+- **Confundirlo con la idempotencia de la operación:** puede lograrse de dos modos (la operación es naturalmente idempotente, o el receptor deduplica).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La suma real de pagos es **15.682**; sin receptor idempotente, el consumidor suma **18.759**, un error de **+3.077**; con un receptor que guarda los identificadores vistos y descarta los repetidos, suma **15.682**. ([SE-319](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-319-enterprise-integration-patterns-como-lenguaje-comun/README.md))
+La ventana de retención limita la protección. Si el efecto es sobre un sistema externo sin clave de idempotencia, la deduplicación local no basta. El experimento de [SE-319](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-319-enterprise-integration-patterns-como-lenguaje-comun/README.md) es una simulación con duplicados y reordenamientos construidos por el autor.
 
 ## Relación con otros conceptos
 

@@ -2,40 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← Inventario](./inventario.md) · [Inventario físico / reservado / vendible →](./inventario-fisico-reservado-vendible.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 21](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 21](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md)
 
 ## Definición
 
-Tabla de comportamientos del producto que pueden variar entre plataformas, ejecutados y registrados en cada una.
-
-Definición de trabajo de [SE-263 — Taller: adaptar un producto a dos plataformas](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-263-taller-adaptar-un-producto-a-dos-plataformas/README.md).
+Un **inventario de diferencias** es una tabla de los comportamientos del producto que pueden variar entre plataformas, cada uno ejecutado y registrado en cada plataforma. Es el sentido de [SE-263](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-263-taller-adaptar-un-producto-a-dos-plataformas/README.md) (taller: adaptar un producto a dos plataformas). Lo distintivo es el verbo: no se enumera lo que se recuerda, se *ejecuta* y se registra el resultado.
 
 ## Por qué importa
 
-En [SE-263 — Taller: adaptar un producto a dos plataformas](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-263-taller-adaptar-un-producto-a-dos-plataformas/README.md), el tema «Inventario de diferencias» importa porque las diferencias se miden, no se recuerdan.
+Las diferencias se miden, no se recuerdan. Lo que se recuerda («Linux distingue mayúsculas») suele ser cierto pero incompleto; lo que se mide encuentra lo que nadie recordó. Para adaptar un producto a dos plataformas, el inventario decide qué se comparte, qué se adapta y qué se excluye.
 
 ## Cómo funciona
 
-Según [SE-263 — Taller: adaptar un producto a dos plataformas](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-263-taller-adaptar-un-producto-a-dos-plataformas/README.md), en la sección «Inventario de diferencias»:
+Según [SE-263](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-263-taller-adaptar-un-producto-a-dos-plataformas/README.md):
 
-Un inventario enumera cada comportamiento del producto que puede variar entre plataformas, lo ejecuta en cada una y registra el resultado. Lo que se recuerda («Linux distingue mayúsculas») suele ser cierto pero incompleto; lo que se mide encuentra lo que nadie recordó. El inventario es una tabla viva: cada diferencia nueva descubierta en uso se añade con su prueba.
+1. **Enumerar** cada comportamiento que pueda variar (rutas, mayúsculas en nombres, finales de línea, hora, notificaciones, selección de archivos).
+2. **Ejecutarlo** en cada plataforma, con el mismo programa de prueba.
+3. **Registrar** la salida de cada una en la tabla.
+4. **Mantenerlo vivo:** cada diferencia nueva descubierta en uso se añade con su prueba.
+
+Con el inventario se clasifica cada función como *igual*, *a adaptar* o *ausente*, y se estima el costo con un intervalo. Después se aíslan las diferencias detrás de **puertos** (almacenamiento, hora, notificaciones, selección de archivos) con un contrato ejecutable por puerto, que se corre contra el adaptador real de cada plataforma y contra uno falso.
 
 ## Ejemplo
 
-Ejemplo de [SE-263 — Taller: adaptar un producto a dos plataformas](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-263-taller-adaptar-un-producto-a-dos-plataformas/README.md) (sección «Ejemplo profesional»):
-
-El equipo del cliente de entregas hace el taller en cuatro pasos. Primero ejecuta el inventario de diferencias en los dos sistemas y lo guarda como tabla con la salida de cada uno. Segundo, clasifica cada función como igual, a adaptar o ausente y estima el coste con un intervalo. Tercero, define puertos para almacenamiento, hora, notificaciones y selección de archivos, y escribe un contrato ejecutable por puerto que se corre contra el adaptador real de cada plataforma y contra el falso. Cuarto, escribe qué se comparte (reglas del borrador, sincronización), qué se adapta (rutas, notificaciones) y qué se excluye en una plataforma, con el aviso a la persona.
+El equipo del cliente de entregas hace el taller en cuatro pasos ([SE-263](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-263-taller-adaptar-un-producto-a-dos-plataformas/README.md)): ejecuta el inventario en los dos sistemas y guarda la tabla con la salida de cada uno; clasifica cada función y estima el costo con un intervalo; define puertos y escribe un contrato ejecutable por puerto; y escribe qué se comparte (reglas del borrador, sincronización), qué se adapta (rutas, notificaciones) y qué se excluye en una plataforma, con el aviso a la persona.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-263 — Taller: adaptar un producto a dos plataformas](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-263-taller-adaptar-un-producto-a-dos-plataformas/README.md)) son:
-
-- **Un adjunto no se guarda en una plataforma y sí en otra** — causa: reglas de nombres distintas. Corrección: sanear el nombre en el adaptador y probar en ambas.
-- **Un archivo exportado cambia al abrirlo en otro sistema** — causa: saltos de línea o codificación por defecto distintos. Corrección: fijar codificación y saltos de línea al escribir.
+- **Un adjunto no se guarda en una plataforma** por una diferencia que nadie había registrado (por ejemplo, nombres de archivo); el remedio es añadirla al inventario con su prueba.
+- **Llenar el inventario de memoria** sin ejecutar.
+- **Hacerlo una vez y abandonarlo,** cuando es una tabla viva.
+- **Confundirlo con una matriz de compatibilidad de versiones,** que trata de versiones de un mismo sistema.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-263 — Taller: adaptar un producto a dos plataformas](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-263-taller-adaptar-un-producto-a-dos-plataformas/README.md)) son: Las definiciones son operativas para el cliente de la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): el inventario mostró siete diferencias de siete medidas, y el coste y el contrato dieron salidas idénticas. No se midió ningún teléfono ni macOS, y los estados y costes de las funciones son del autor. La siguiente clase es el proyecto que integra todo.
+Solo cubre las diferencias que alguien pensó en probar; no demuestra ausencia de otras. Mide el comportamiento en las plataformas y versiones concretas ejecutadas. Para un producto de una sola plataforma no hace falta.
 
 ## Relación con otros conceptos
 

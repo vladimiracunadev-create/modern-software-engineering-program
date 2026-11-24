@@ -2,39 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Language server protocol](./language-server-protocol.md) · [Lápida →](./lapida.md)
 
-> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 21](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md)
+> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 21](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md)
 
 ## Definición
 
-Publicación de una versión a una fracción creciente de la base instalada para limitar el efecto de un error.
-
-Definición de trabajo de [SE-259 — Actualizaciones, tiendas y distribución empresarial](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-259-actualizaciones-tiendas-y-distribucion-empresarial/README.md).
+El **lanzamiento por fases** (*phased* o *staged release*) es la publicación de una versión a una fracción creciente de la base instalada para limitar el efecto de un error. Es el sentido de [SE-259](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-259-actualizaciones-tiendas-y-distribucion-empresarial/README.md) (actualizaciones, tiendas y distribución empresarial), donde las tiendas de aplicaciones lo ofrecen como lanzamiento escalonado. Es el mismo principio que el despliegue por etapas de flotas de dispositivos, aplicado al canal de una tienda.
 
 ## Por qué importa
 
-En [SE-259 — Actualizaciones, tiendas y distribución empresarial](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-259-actualizaciones-tiendas-y-distribucion-empresarial/README.md), el tema «Lanzamiento por fases» importa porque publicar a un porcentaje limita el daño de un error que se descubre tarde.
+Publicar a un porcentaje limita el daño de un error que se descubre tarde. En aplicaciones de cliente no se puede «volver atrás» una versión ya instalada con un botón, así que reducir cuántas personas la reciben antes de saber si funciona es la protección principal.
 
 ## Cómo funciona
 
-Según [SE-259 — Actualizaciones, tiendas y distribución empresarial](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-259-actualizaciones-tiendas-y-distribucion-empresarial/README.md), en la sección «Lanzamiento por fases»:
+Las tiendas permiten primero una fracción pequeña y luego más. Si la fracción pequeña revela un error grave, se detiene antes de llegar a todos. [SE-259](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-259-actualizaciones-tiendas-y-distribucion-empresarial/README.md) precisa su naturaleza: es una **red de seguridad, no una prueba**. Solo ve los fallos que aparecen en esa fracción y en el tiempo de espera.
 
-Las tiendas permiten un lanzamiento escalonado: primero una fracción pequeña, luego más. Si la fracción pequeña revela un error grave, se detiene antes de llegar a todos. Es una red de seguridad, no una prueba: solo ve los fallos que aparecen en esa fracción y en el tiempo de espera. El lanzamiento por fases necesita una forma de detectar fallos, como errores y cierres inesperados por versión.
+Y necesita una forma de detectar fallos: errores y cierres inesperados por versión. Sin esa señal, la fase siguiente avanza a ciegas. Las condiciones de avance (porcentaje, tiempo de observación, métrica que debe mantenerse) se escriben antes de publicar.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-259 — Actualizaciones, tiendas y distribución empresarial](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-259-actualizaciones-tiendas-y-distribucion-empresarial/README.md):
-
-El equipo del cliente escribe un plan de lanzamiento: publicar al 5 % en el canal automático y observar errores durante dos días; subir a 25, 50 y 100 % si no hay regresión; declarar una versión mínima soportada con un anuncio dentro de la aplicación; y retirar un campo del servidor solo cuando la telemetría muestre que menos del 1 % de las peticiones lo usa durante 14 días seguidos.
+El plan de lanzamiento del cliente en [SE-259](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-259-actualizaciones-tiendas-y-distribucion-empresarial/README.md): publicar al 5 % en el canal automático y observar errores durante dos días; subir a 25, 50 y 100 % si no hay regresión; declarar una versión mínima soportada con un anuncio dentro de la aplicación; y retirar un campo del servidor solo cuando la telemetría muestre que menos del 1 % de las peticiones lo usa durante 14 días seguidos.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Un error se descubre tras llegar al 100 % de la base** — causa: lanzamiento sin fases ni métricas de parada. Corrección: lanzamiento por fases con errores y cierres por versión. ([SE-259](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-259-actualizaciones-tiendas-y-distribucion-empresarial/README.md))
+- **Descubrir un error tras llegar al 100 % de la base:** el lanzamiento no tenía fases ni métricas de parada; la corrección es lanzar por fases con errores y cierres por versión ([SE-259](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-259-actualizaciones-tiendas-y-distribucion-empresarial/README.md)).
+- **Creer que el 5 % equivale a probar:** solo ve lo que ocurre en esa fracción durante ese tiempo.
+- **Avanzar por calendario** sin mirar las métricas.
+- **Confundirlo con una bandera de funcionalidad:** el lanzamiento por fases controla quién *recibe la versión*; la bandera, quién *ve la función* ya instalada.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-259 — Actualizaciones, tiendas y distribución empresarial](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-259-actualizaciones-tiendas-y-distribucion-empresarial/README.md)) son: Las definiciones son operativas para el cliente de la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se publicó ninguna aplicación ni se midió ninguna base instalada: las probabilidades y el paquete son construcciones del autor. La siguiente clase pregunta qué ocurre cuando el cliente trabaja sin conexión.
+No ayuda con defectos que dependen de un subconjunto no representado en la fracción (un dispositivo o región) ni con errores que tardan en aparecer. Las personas que reciben la versión primero no son una muestra aleatoria si el canal es de adopción rápida. Una corrección urgente de seguridad puede obligar a acelerar las fases. La retirada de campos del servidor, como en el ejemplo, depende de que la versión mínima soportada esté definida.
 
 ## Relación con otros conceptos
 

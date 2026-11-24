@@ -2,42 +2,40 @@
 
 [↑ Glosario](../../README.md) · [← Frontera de validación](./frontera-de-validacion.md) · [Fronteras entre modelos →](./fronteras-entre-modelos.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 21](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 21](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md)
 
 ## Definición
 
-Punto donde el código compartido se comunica con el de una plataforma y cada cruce serializa, copia y cambia de contexto.
-
-Definición de trabajo de [SE-255 — Nativo, híbrido, web wrapper y cross-platform](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md).
+La **frontera entre capas** es el punto donde el código compartido se comunica con el de una plataforma, y donde cada cruce serializa, copia y cambia de contexto. Es el sentido de [SE-255](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md) (nativo, híbrido, web wrapper y cross-platform). No es la frontera arquitectónica genérica entre módulos, sino la costura concreta entre, por ejemplo, la capa de lógica multiplataforma y las interfaces nativas del sistema.
 
 ## Por qué importa
 
-En [SE-255 — Nativo, híbrido, web wrapper y cross-platform](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md), el tema «Frontera entre capas» importa porque cruzar de código compartido a código de plataforma cuesta por cruce, no solo por dato.
+Cruzar de código compartido a código de plataforma cuesta *por cruce*, no solo por dato. Dos diseños con los mismos datos pueden diferir mucho si uno cruza mil veces con mensajes pequeños y el otro una con un mensaje grueso. Es la parte del diseño cuyo costo más se subestima cuando se elige un enfoque de construcción.
 
 ## Cómo funciona
 
-Según [SE-255 — Nativo, híbrido, web wrapper y cross-platform](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md), en la sección «Frontera entre capas»:
+Los enfoques con capa compartida y capa de plataforma tienen esta frontera. Cada cruce:
 
-Los enfoques con capa compartida y capa de plataforma tienen una frontera: cada cruce serializa, copia y cambia de contexto. Cuando se cruza mucho y con mensajes pequeños, el coste domina. La regla práctica es agrupar el trabajo en el lado donde ocurre y cruzar con mensajes gruesos y poco frecuentes, y medir en el marco concreto antes de confiar en ella.
+1. **Serializa** los datos a una forma que ambos lados entienden.
+2. **Copia** los bytes entre espacios de memoria o entornos.
+3. **Cambia de contexto** de ejecución (otro hilo, otro motor, otro runtime).
+
+El costo por cruce es en gran medida fijo, de modo que cuando se cruza mucho y con mensajes pequeños, el costo domina. La regla práctica de [SE-255](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md) es agrupar el trabajo en el lado donde ocurre y cruzar con mensajes gruesos y poco frecuentes, y *medir en el marco concreto antes de confiar en la regla*. Por eso la clase pide un prototipo de la frontera más sensible, es decir, la que cruza más veces por segundo.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-255 — Nativo, híbrido, web wrapper y cross-platform](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md):
-
-El equipo del cliente documenta la elección en cuatro artefactos enlazados: la tabla de criterios con puntuaciones y su fuente, el análisis de sensibilidad (frecuencia con que gana cada opción al sortear pesos), un prototipo de la frontera más sensible (la que cruza más veces por segundo) con su medición, y la lista de capacidades que el cliente necesita y que cada opción ofrece, como disponibles, opcionales o ausentes.
+El equipo del cliente de entregas documenta ([SE-255](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md)) un prototipo de la frontera más sensible con su medición. Ilustración propia: dibujar una lista animada elemento a elemento, enviando cada posición del desplazamiento por la frontera, produce miles de cruces por segundo; calcular la animación completa en el lado de la plataforma y enviar solo el estado final produce uno.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-255 — Nativo, híbrido, web wrapper y cross-platform](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md)) son:
-
-- **La tabla de decisión elige la opción del autor de la tabla** — causa: los pesos se escogieron conociendo el ganador deseado. Corrección: fijar pesos antes de puntuar y mostrar la sensibilidad.
-- **La decisión cambia al cambiar una puntuación en un punto** — causa: las puntuaciones son juicios con incertidumbre no declarada. Corrección: perturbar las puntuaciones y reportar la estabilidad.
+- **Cruzar la frontera en un bucle,** un elemento por mensaje.
+- **Aceptar la tabla de decisión que elige la opción del autor:** los pesos se escogieron conociendo el ganador deseado; la corrección es fijar pesos antes de puntuar y mostrar sensibilidad ([SE-255](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md)).
+- **Suponer que el costo es el mismo en todo marco:** depende de cada uno, por eso se mide.
+- **Confundirla con el costo de red,** que es otra frontera con otras propiedades.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Como proxy de una frontera entre capas se mide solo la serialización: 2000 mensajes pequeños se leen directamente, se serializan y se leen uno a uno con JSON, o se serializan juntos en un lote. ([SE-255](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md))
+No existe en el enfoque nativo puro, donde todo el código está de un lado (aunque hay otras fronteras, como llamadas al sistema). Y en una aplicación que cruza poco (formularios estáticos), el costo es irrelevante. La regla de agrupar tiene excepciones cuando la latencia de un mensaje grueso resulta inaceptable.
 
 ## Relación con otros conceptos
 

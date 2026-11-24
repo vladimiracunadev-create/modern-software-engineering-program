@@ -2,41 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Partida doble](./partida-doble.md) · [Paso ambiguo →](./paso-ambiguo.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md)
 
 ## Definición
 
-Equipo que conecta dispositivos de una red local con una red mayor, traduciendo protocolos y agregando datos.
-
-Definición de trabajo de [SE-273 — Edge, gateways y procesamiento local](../../../classes/part-22-embedded-iot-y-tiempo-real/se-273-edge-gateways-y-procesamiento-local/README.md).
+Una **pasarela** (*gateway*) es un equipo que conecta dispositivos de una red local con una red mayor, traduciendo protocolos y agregando datos. Es el sentido de [SE-273](../../../classes/part-22-embedded-iot-y-tiempo-real/se-273-edge-gateways-y-procesamiento-local/README.md) (edge, gateways y procesamiento local). No debe confundirse con una pasarela de pagos ni con un API gateway de servicios web, que [SE-341](../../../classes/part-28-estilos-arquitectonicos/se-341-bff-api-gateway-y-service-mesh/README.md) trata aparte.
 
 ## Por qué importa
 
-En [SE-273 — Edge, gateways y procesamiento local](../../../classes/part-22-embedded-iot-y-tiempo-real/se-273-edge-gateways-y-procesamiento-local/README.md), el tema «Pasarelas» importa porque concentran confianza, almacenamiento y un punto único de fallo.
+Concentra confianza, almacenamiento y un punto único de fallo. Un diseño con pasarela decide dónde se toman decisiones y qué sigue funcionando cuando cada nivel cae.
 
 ## Cómo funciona
 
-Según [SE-273 — Edge, gateways y procesamiento local](../../../classes/part-22-embedded-iot-y-tiempo-real/se-273-edge-gateways-y-procesamiento-local/README.md), en la sección «Pasarelas»:
+[SE-273](../../../classes/part-22-embedded-iot-y-tiempo-real/se-273-edge-gateways-y-procesamiento-local/README.md): la pasarela es un punto de concentración de confianza y de fallo. Si cae, todos los nodos de su piso quedan incomunicados; si se compromete, expone todos sus datos. Por eso necesita sus propias actualizaciones, identidad, almacenamiento con política y monitorización. De ello se sigue una regla de diseño: los nodos no deben depender de ella para decisiones críticas, y la pasarela debe poder funcionar sin la nube. La arquitectura se decide por *qué debe seguir funcionando cuando cada nivel cae*.
 
-La pasarela es un punto de concentración de confianza y de fallo: si cae, todos los nodos de su piso quedan incomunicados; si se compromete, expone todos sus datos. Necesita sus propias actualizaciones, identidad, almacenamiento con política y monitorización. Por eso los nodos no deben depender de ella para decisiones críticas, y la pasarela debe poder funcionar sin la nube. La arquitectura se decide por qué debe seguir funcionando cuando cada nivel cae.
+Funciones típicas: traducir entre el protocolo del nodo y el de la red mayor, agregar y filtrar datos antes de subirlos (ahorra ancho de banda), guardar mientras la nube no responde, y distribuir configuración y umbrales firmados a los nodos.
 
 ## Ejemplo
 
-Ejemplo de [SE-273 — Edge, gateways y procesamiento local](../../../classes/part-22-embedded-iot-y-tiempo-real/se-273-edge-gateways-y-procesamiento-local/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la plataforma asigna cada decisión a un nivel. La alarma de ventilación se decide en el nodo con un umbral guardado en memoria y un valor seguro por defecto; el nodo informa del evento cuando hay red. La pasarela del piso agrupa los 20 nodos, aplica la banda muerta de 0,5 °C a la temperatura y el promedio por minuto al CO₂ más un evento si hay un pico, almacena hasta tres horas por si cae la nube y envía en lotes de 60 muestras en binario comprimido. La nube guarda el histórico y ajusta umbrales, que la pasarela distribuye a los nodos con firma (`SE-272`).
+El equipo de la plataforma de [SE-273](../../../classes/part-22-embedded-iot-y-tiempo-real/se-273-edge-gateways-y-procesamiento-local/README.md) asigna cada decisión a un nivel. La alarma de ventilación se decide en el nodo, con un umbral guardado en memoria y un valor seguro por defecto. La pasarela del piso agrupa los 20 nodos, aplica la banda muerta de 0,5 °C a la temperatura y el promedio por minuto al CO₂ más un evento si hay un pico, almacena hasta tres horas por si cae la nube y envía en lotes de 60 muestras en binario comprimido. La nube guarda el histórico y ajusta umbrales, que la pasarela distribuye a los nodos con firma ([SE-272](../../../classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md)).
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Una pasarela caída silencia un piso** — causa: punto único de fallo. Corrección: redundancia y alarma de silencio de nodos. ([SE-273](../../../classes/part-22-embedded-iot-y-tiempo-real/se-273-edge-gateways-y-procesamiento-local/README.md))
+- **Una pasarela caída silencia un piso:** punto único de fallo. Corrección: redundancia y alarma de silencio de nodos ([SE-273](../../../classes/part-22-embedded-iot-y-tiempo-real/se-273-edge-gateways-y-procesamiento-local/README.md)).
+- **Poner decisiones críticas solo en la pasarela.**
+- **Tratarla como un equipo sin mantenimiento:** necesita actualizaciones, identidad y monitorización.
+- **Confundirla con el borde de la red** en sentido amplio: la pasarela es una pieza del borde.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La regla práctica: lo que tiene un plazo corto o debe funcionar sin red va al dispositivo; lo que necesita varios sensores o almacenamiento temporal, a la pasarela; lo que necesita el histórico, a la nube. ([SE-273](../../../classes/part-22-embedded-iot-y-tiempo-real/se-273-edge-gateways-y-procesamiento-local/README.md))
+No hace falta cuando los dispositivos hablan directamente con la red mayor y no necesitan traducción ni agregación. Las cifras del ejemplo (20 nodos, tres horas, lotes de 60) son del escenario de la clase. Añadir una pasarela añade un componente que operar y proteger.
 
 ## Relación con otros conceptos
 

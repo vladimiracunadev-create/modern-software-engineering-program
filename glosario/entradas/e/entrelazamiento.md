@@ -2,37 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← Entrega continua](./entrega-continua.md) · [Entrevista como método →](./entrevista-como-metodo.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 23](../../../classes/part-23-runtimes-y-plataformas-modernas/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 23](../../../classes/part-23-runtimes-y-plataformas-modernas/README.md)
 
 ## Definición
 
-Correlación entre qubits que impide describirlos por separado.
-
-Definición de trabajo de [SE-284 — Computación cuántica para ingenieros de software](../../../classes/part-23-runtimes-y-plataformas-modernas/se-284-computacion-cuantica-para-ingenieros-de-software/README.md).
+El **entrelazamiento** (*entanglement*) es una correlación entre qubits que impide describirlos por separado. Es el sentido de [SE-284](../../../classes/part-23-runtimes-y-plataformas-modernas/se-284-computacion-cuantica-para-ingenieros-de-software/README.md) (computación cuántica para ingenieros de software). La clase lo trata con simulaciones didácticas, no con hardware cuántico: lo importante para un ingeniero es qué consecuencia tiene para el modelo de cómputo.
 
 ## Por qué importa
 
-En [SE-284 — Computación cuántica para ingenieros de software](../../../classes/part-23-runtimes-y-plataformas-modernas/se-284-computacion-cuantica-para-ingenieros-de-software/README.md), el tema «Entrelazamiento» importa porque correlaciones que no tienen análogo clásico simple.
+Explica por qué el cómputo cuántico no es solo «probar muchas respuestas a la vez» y por qué simularlo en un computador clásico es caro. [SE-284](../../../classes/part-23-runtimes-y-plataformas-modernas/se-284-computacion-cuantica-para-ingenieros-de-software/README.md) resume la consecuencia: es de modelo, no de uso. El estado de un registro no se puede describir qubit por qubit, y por eso simularlo cuesta una cantidad exponencial de memoria.
 
 ## Cómo funciona
 
-Según [SE-284 — Computación cuántica para ingenieros de software](../../../classes/part-23-runtimes-y-plataformas-modernas/se-284-computacion-cuantica-para-ingenieros-de-software/README.md), en la sección «Entrelazamiento»:
+[SE-284](../../../classes/part-23-runtimes-y-plataformas-modernas/se-284-computacion-cuantica-para-ingenieros-de-software/README.md) construye el caso más simple: se aplica la puerta H al primer qubit y después una puerta CNOT (que invierte el segundo si el primero vale 1). El resultado es el **estado de Bell**: amplitud 0,7071 en `00` y en `11`, y cero en `01` y `10`.
 
-Aplicar H al primer qubit y después una puerta CNOT (que invierte el segundo si el primero es 1) produce el estado de Bell: amplitud 0,7071 en `00` y en `11`, y cero en `01` y `10`. En 1 000 mediciones con semilla 48 salió `00` 514 veces y `11` 486; nunca `01` ni `10`. Un estado GHZ de 5 qubits dio `00000` 492 veces y `11111` 508. Cada resultado individual es aleatorio, pero el conjunto está correlacionado de una forma que no se reproduce con valores predefinidos independientes. Para un ingeniero de software la consecuencia es de modelo, no de uso: el estado de un registro no se puede describir qubit por qubit, y por eso simularlo cuesta una cantidad exponencial de memoria.
+Al medir:
+
+- Cada resultado individual es aleatorio.
+- Pero las dos medidas coinciden siempre: no hay forma de que salgan `01` o `10`.
+
+En 1 000 mediciones con semilla 48, salió `00` 514 veces y `11` 486; nunca `01` ni `10`. Un estado GHZ de 5 qubits dio `00000` 492 veces y `11111` 508. El conjunto está correlacionado de una forma que no se reproduce con valores predefinidos independientes.
 
 ## Ejemplo
 
-Caso medido en la sección «Entrelazamiento» de [SE-284 — Computación cuántica para ingenieros de software](../../../classes/part-23-runtimes-y-plataformas-modernas/se-284-computacion-cuantica-para-ingenieros-de-software/README.md):
-
-Aplicar H al primer qubit y después una puerta CNOT (que invierte el segundo si el primero es 1) produce el estado de Bell: amplitud 0,7071 en `00` y en `11`, y cero en `01` y `10`. En 1 000 mediciones con semilla 48 salió `00` 514 veces y `11` 486; nunca `01` ni `10`. Un estado GHZ de 5 qubits dio `00000` 492 veces y `11111` 508. Cada resultado individual es aleatorio, pero el conjunto está correlacionado de una forma que no se reproduce con valores predefinidos independientes.
+El resultado de [SE-284](../../../classes/part-23-runtimes-y-plataformas-modernas/se-284-computacion-cuantica-para-ingenieros-de-software/README.md) con el estado de Bell es el ejemplo mismo: dos qubits cuyas mediciones coinciden siempre, aunque cada una por separado sea una moneda al aire. Una descripción por qubit («el primero vale 0 con probabilidad ½, el segundo con probabilidad ½») pierde la información clave: que son iguales. Esa pérdida es la razón de que la memoria necesaria crezca exponencialmente con el número de qubits en una simulación.
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+- **Pensar que el entrelazamiento transmite información más rápido que la luz:** las mediciones individuales siguen siendo aleatorias.
+- **Creer que los valores estaban «predefinidos»:** la clase señala que la correlación no se reproduce con valores predefinidos independientes.
+- **Confundirlo con una correlación clásica,** como dos monedas que se guardaron iguales.
+- **Esperar que acelere cualquier programa.**
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-284 — Computación cuántica para ingenieros de software](../../../classes/part-23-runtimes-y-plataformas-modernas/se-284-computacion-cuantica-para-ingenieros-de-software/README.md)) son: Todo se simuló de forma clásica con NumPy; no hubo acceso a hardware cuántico ni se ejecutó ningún SDK; la búsqueda de periodo es la de un número de dos cifras y el modelo de ruido es básico.
+Las cifras de [SE-284](../../../classes/part-23-runtimes-y-plataformas-modernas/se-284-computacion-cuantica-para-ingenieros-de-software/README.md) son de un simulador con semilla fija, no de un equipo cuántico real, donde el ruido y la decoherencia degradan el estado. La clase da el concepto con un nivel de modelo para ingenieros de software; no sustituye el tratamiento físico ni matemático completo. Para el desarrollo habitual, no interviene.
 
 ## Relación con otros conceptos
 

@@ -2,50 +2,43 @@
 
 [↑ Glosario](../../README.md) · [← Identificabilidad](./identificabilidad.md) · [Identificador de sesión →](./identificador-de-sesion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 20](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 20](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md)
 
 ## Definición
 
-Valor que enlaza una respuesta con su solicitud.
-
-Definición de trabajo de [SE-319 — Enterprise Integration Patterns como lenguaje común](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-319-enterprise-integration-patterns-como-lenguaje-comun/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-382 — Observabilidad y seguridad de integraciones](../../../classes/part-31-integracion-eventos-y-mensajeria/se-382-observabilidad-y-seguridad-de-integraciones/README.md): Valor que acompaña a un flujo y permite unir los registros y tramos de componentes distintos.
-- En [SE-244 — Validación, errores y contratos consistentes](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-244-validacion-errores-y-contratos-consistentes/README.md): Valor que une la respuesta al cliente con el registro interno de la misma solicitud.
-- En [SE-494 — Logs estructurados y correlación](../../../classes/part-41-observabilidad-sre-e-incidentes/se-494-logs-estructurados-y-correlacion/README.md): Valor que se propaga entre servicios para unir las líneas y los spans de una misma petición.
-- En [SE-308 — Diseño para cambio, prueba y operación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-308-diseno-para-cambio-prueba-y-operacion/README.md): Valor único de una solicitud que se registra en cada evento que la toca.
+Un **identificador de correlación** es un valor que enlaza una respuesta con su solicitud, o que acompaña a un flujo para unir los registros y tramos de componentes distintos. El programa lo define de formas cercanas: en [SE-319](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-319-enterprise-integration-patterns-como-lenguaje-comun/README.md), asocia respuesta y solicitud sin depender del orden; en [SE-244](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-244-validacion-errores-y-contratos-consistentes/README.md), une la respuesta al cliente con el registro interno de la misma solicitud; en [SE-382](../../../classes/part-31-integracion-eventos-y-mensajeria/se-382-observabilidad-y-seguridad-de-integraciones/README.md), [SE-494](../../../classes/part-41-observabilidad-sre-e-incidentes/se-494-logs-estructurados-y-correlacion/README.md) y [SE-308](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-308-diseno-para-cambio-prueba-y-operacion/README.md), se propaga entre servicios y se registra en cada evento que la solicitud toca.
 
 ## Por qué importa
 
-En [SE-319 — Enterprise Integration Patterns como lenguaje común](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-319-enterprise-integration-patterns-como-lenguaje-comun/README.md), el tema «Identificador de correlación» importa porque asocia respuesta y solicitud sin depender del orden
+Sin él, depurar un incidente distribuido es adivinar qué línea de qué servicio pertenece a qué petición. Con él, a partir de una queja de un cliente («esta petición falló») se recupera toda la historia en todos los componentes.
 
 ## Cómo funciona
 
-Según [SE-382 — Observabilidad y seguridad de integraciones](../../../classes/part-31-integracion-eventos-y-mensajeria/se-382-observabilidad-y-seguridad-de-integraciones/README.md):
+[SE-382](../../../classes/part-31-integracion-eventos-y-mensajeria/se-382-observabilidad-y-seguridad-de-integraciones/README.md) lo explica con trazas. Una **traza** es el recorrido de una petición por varios componentes; cada paso es un **tramo** (*span*) con un padre. Para unir tramos de procesos distintos, cada uno debe recibir y reenviar un identificador o un contexto de traza. W3C Trace Context lo estandariza en un encabezado, `traceparent`, que lleva el identificador de la traza y del tramo padre.
 
-Una **traza** es el recorrido de una petición o de un flujo por varios componentes; cada paso es un **tramo** (span) con un padre. Para unir tramos de procesos distintos hace falta que cada uno reciba y reenvíe un **identificador de correlación** o un contexto de traza. W3C Trace Context estandariza esto en un encabezado, `traceparent`, que lleva el identificador de la traza y del tramo padre. La propiedad crítica es que la cadena se rompe en el primer eslabón que no reenvía el contexto: un solo servicio que lo ignora hace que las trazas posteriores aparezcan como flujos independientes. Por eso la propagación se prueba, no se supone.
+Cómo se usa en la práctica:
 
-Según [SE-382 — Observabilidad y seguridad de integraciones](../../../classes/part-31-integracion-eventos-y-mensajeria/se-382-observabilidad-y-seguridad-de-integraciones/README.md):
+1. **Generar** el identificador en el borde, si la petición no lo trae.
+2. **Propagarlo** en cada llamada saliente (encabezado o metadato del mensaje).
+3. **Registrarlo** en cada línea de log ([SE-494](../../../classes/part-41-observabilidad-sre-e-incidentes/se-494-logs-estructurados-y-correlacion/README.md), logs estructurados).
+4. **Devolverlo** al cliente en la respuesta o en el error ([SE-244](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-244-validacion-errores-y-contratos-consistentes/README.md)), para que lo cite al reportar un problema.
 
-Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** en la herramienta de trazas, la entrega aparece en dos flujos distintos y la segunda mitad no tiene origen. **Hipótesis rivales:** (a) el mensaje fue enviado dos veces; (b) se perdió un tramo por muestreo; (c) un servicio generó una correlación nueva. **Prueba:** busca en cada servicio el identificador de correlación de la entrega; si el segundo servicio registra otro identificador para el mismo mensaje, la causa es la regeneración. **Conclusión:** el servicio no propagó el contexto recibido. **Regresión:** extraer el contexto del mensaje y reenviarlo, y una prueba de integración que publique un mensaje con un identificador conocido y compruebe que aparece idéntico en los registros de todos los servicios.
+La propiedad crítica: la cadena se rompe en el primer eslabón que no reenvía el contexto; un solo servicio que lo ignore hace que las trazas posteriores aparezcan como flujos independientes. Por eso la propagación se prueba, no se supone.
 
 ## Ejemplo
 
-Ejemplo de [SE-382 — Observabilidad y seguridad de integraciones](../../../classes/part-31-integracion-eventos-y-mensajeria/se-382-observabilidad-y-seguridad-de-integraciones/README.md) (sección «Ejemplo mínimo»):
-
-El fragmento inyecta un identificador de correlación en un mensaje y lo extrae en el consumidor. Antes de ejecutarlo, predice qué ocurre si el productor olvida inyectarlo.
+Ilustración propia: la persona recibe un error con `id: 7f3a…`; soporte busca ese valor en los registros del gateway, del servicio de entregas y de la cola, y reconstruye en un solo vistazo dónde se detuvo. En mensajería ([SE-319](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-319-enterprise-integration-patterns-como-lenguaje-comun/README.md)), una respuesta lleva el identificador de la solicitud, y quien la recibe sabe a cuál pertenece aunque lleguen desordenadas.
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+- **Un servicio que no propaga el contexto,** y la traza se corta.
+- **Usar datos personales como identificador:** debe ser opaco.
+- **Confundirlo con un identificador de idempotencia:** aquel agrupa los registros de un flujo; este evita repetir un efecto.
+- **No devolverlo al cliente,** de modo que no puede citarlo.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Para unir tramos de procesos distintos hace falta que cada uno reciba y reenvíe un **identificador de correlación** o un contexto de traza. ([SE-382](../../../classes/part-31-integracion-eventos-y-mensajeria/se-382-observabilidad-y-seguridad-de-integraciones/README.md))
+Une lo que se registró, pero no registra lo que nadie registró. Una petición que se fragmenta en trabajo asíncrono exige decidir si hereda el identificador o crea uno nuevo enlazado. Generarlo y propagarlo consume algo de ancho de banda; con un solo servicio su valor es menor.
 
 ## Relación con otros conceptos
 

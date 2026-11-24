@@ -2,46 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← Raíz](./raiz.md) · [Rama por abstracción →](./rama-por-abstraccion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 23](../../../classes/part-23-runtimes-y-plataformas-modernas/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 23](../../../classes/part-23-runtimes-y-plataformas-modernas/README.md)
 
 ## Definición
 
-Clave o dato que el verificador da por bueno sin comprobarlo.
-
-Definición de trabajo de [SE-473 — Firmas, checksums y verificación](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-283 — Hardware seguro: TEE y atestación](../../../classes/part-23-runtimes-y-plataformas-modernas/se-283-hardware-seguro-tee-y-atestacion/README.md): Componente (normalmente de hardware) del que se parte sin verificación adicional.
+La **raíz de confianza** (*root of trust*) es la clave o el dato que el verificador da por bueno sin comprobarlo. Es el sentido de [SE-473](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md) (firmas, checksums y verificación); [SE-283](../../../classes/part-23-runtimes-y-plataformas-modernas/se-283-hardware-seguro-tee-y-atestacion/README.md) (hardware seguro: TEE y atestación) lo aplica al hardware: el componente del que se parte sin verificación adicional. Toda cadena de verificación termina en algo así: no existe verificación sin un punto de partida aceptado.
 
 ## Por qué importa
 
-En [SE-473 — Firmas, checksums y verificación](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md), el tema «Raíz de confianza» importa porque la clave fijada es el punto que debe protegerse.
+La clave fijada es el punto que debe protegerse. Una firma impecable no vale nada si el atacante controla la clave pública con la que se comprueba. Por eso la pregunta útil no es «¿está firmado?» sino «¿de dónde obtuvo el verificador la clave, y quién puede alterarla?».
 
 ## Cómo funciona
 
-Según [SE-473 — Firmas, checksums y verificación](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md), en la sección «Raíz de confianza»:
+[SE-473](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md) contrasta dos situaciones:
 
-Toda verificación termina en algo que se da por bueno sin comprobarlo: la **raíz de confianza**. Si la clave pública llega con el archivo, la raíz es el sitio de descarga y el atacante que controla el sitio controla la raíz. Si la clave se **fija de antemano** (viene en el instalador anterior, en el sistema operativo, en un repositorio de claves independiente, en el propio cliente), el atacante tiene que comprometer esa distribución anterior. Mover la raíz a un lugar más pequeño, de actualización rara y mejor vigilado es la estrategia: no se elimina la confianza, se la confina. Por eso los sistemas de actualización robustos distinguen claves por rol (raíz, objetivos, marca de tiempo) y guardan las de mayor valor fuera de línea.
+- **La clave pública llega con el archivo:** la raíz es el sitio de descarga, y el atacante que controla el sitio controla la raíz. La firma no aporta nada.
+- **La clave se fija de antemano** (viene en el instalador anterior, en el sistema operativo, en un repositorio de claves independiente, en el propio cliente): el atacante tiene que comprometer esa distribución anterior.
+
+La estrategia es **mover la raíz a un lugar más pequeño, de actualización rara y mejor vigilado**. No se elimina la confianza, se la confina. Por eso los sistemas de actualización robustos distinguen claves por rol (raíz, objetivos, marca de tiempo) y guardan las de mayor valor fuera de línea.
+
+En hardware ([SE-283](../../../classes/part-23-runtimes-y-plataformas-modernas/se-283-hardware-seguro-tee-y-atestacion/README.md)), la raíz es un componente, normalmente de silicio, cuyo comportamiento se asume correcto; la atestación demuestra a un tercero que el código arrancó sobre esa raíz.
 
 ## Ejemplo
 
-Ejemplo de [SE-473 — Firmas, checksums y verificación](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md) (sección «Preguntas frecuentes»):
-
-Desplaza el problema: ya no custodias una clave de larga vida, pero confías en el proveedor de identidad y en un registro público que permita auditar. Cambia la superficie de ataque y la raíz de confianza; no las elimina. Evalúa qué raíz es más fácil de proteger para tu caso.
+[SE-473](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md) compara con una alternativa que no usa claves de larga vida: se confía en un proveedor de identidad y en un registro público auditable. Eso desplaza el problema: ya no custodias una clave de larga vida, pero confías en el proveedor y en el registro. Cambia la superficie de ataque y la raíz; no las elimina. La recomendación de la clase es evaluar qué raíz es más fácil de proteger en tu caso.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-473 — Firmas, checksums y verificación](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md)) son:
-
-- **El atacante firma con su clave y pasa** — causa: clave de verificación descargada de la misma página. Corrección: clave fijada de antemano en una fuente independiente.
-- **Se acepta una versión antigua vulnerable** — causa: sin secuencia ni caducidad en lo firmado. Corrección: número monótono firmado y recordado por el cliente.
+- **Verificar una firma con una clave obtenida del mismo canal que el archivo.**
+- **Creer que firmar elimina la confianza:** solo cambia su ubicación.
+- **Una sola clave para todo:** un compromiso lo expone todo; se separan por rol.
+- **Confundirla con un certificado de servidor TLS,** que se verifica contra raíces preinstaladas, que son a su vez la raíz.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Toda verificación termina en algo que se da por bueno sin comprobarlo: la **raíz de confianza**. ([SE-473](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md))
+Una raíz fija es difícil de rotar: si se compromete, hay que actualizarla por un canal que ya no es de fiar; por eso se planifica la rotación y la revocación antes de necesitarlas. En hardware, un defecto de la raíz es irreparable sin reemplazar el dispositivo.
 
 ## Relación con otros conceptos
 

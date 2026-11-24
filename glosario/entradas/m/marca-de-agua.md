@@ -2,47 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Máquina virtual](./maquina-virtual.md) · [Margen →](./margen.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 24](../../../classes/part-24-software-especializado-y-dominios/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 24](../../../classes/part-24-software-especializado-y-dominios/README.md)
 
 ## Definición
 
-Instante de llegada hasta el que se espera a los rezagados de una ventana.
-
-Definición de trabajo de [SE-362 — Ingesta batch y streaming](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-362-ingesta-batch-y-streaming/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-290 — Ingeniería de datos y procesamiento analítico](../../../classes/part-24-software-especializado-y-dominios/se-290-ingenieria-de-datos-y-procesamiento-analitico/README.md): Estimación del tiempo del evento hasta el cual se espera que hayan llegado todos los datos.
+La **marca de agua** (*watermark*) es el instante hasta el que se decide esperar a los rezagados de una ventana de un flujo de datos. [SE-362](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-362-ingesta-batch-y-streaming/README.md) (ingesta batch y streaming) la presenta como «la ventana de las 10:00 se cierra cuando el reloj de llegada pasa de las 11:10»; [SE-290](../../../classes/part-24-software-especializado-y-dominios/se-290-ingenieria-de-datos-y-procesamiento-analitico/README.md) la define como la estimación del tiempo del evento hasta el cual se espera que hayan llegado todos los datos. No es la marca de agua de imágenes ni de documentos.
 
 ## Por qué importa
 
-En [SE-362 — Ingesta batch y streaming](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-362-ingesta-batch-y-streaming/README.md), el tema «Marca de agua» importa porque fija cuánto se espera y qué se declara tardío.
+Un flujo no sabe si ya llegó todo lo de una ventana. La marca de agua fija cuánto se espera y qué se declara tardío. Es una decisión de compromiso entre resultados completos y resultados a tiempo, no un detalle técnico.
 
 ## Cómo funciona
 
-Según [SE-362 — Ingesta batch y streaming](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-362-ingesta-batch-y-streaming/README.md):
+Cada evento tiene dos tiempos: cuándo *ocurrió* y cuándo *llegó* ([SE-290](../../../classes/part-24-software-especializado-y-dominios/se-290-ingenieria-de-datos-y-procesamiento-analitico/README.md)). Contar «entregas por minuto» con el tiempo de llegada mezcla minutos; contarlas con el tiempo del evento exige decidir cuándo una ventana está completa. Los eventos que llegan después de la marca son **tardíos** y se descartan, se aplican como corrección o se envían a un canal aparte. La **tolerancia de retraso** fija el compromiso: esperar más da resultados más completos y más tardíos.
 
-Un flujo no sabe si ya llegó todo lo de una ventana. La marca de agua es el instante hasta el que se decide esperar rezagados: «la ventana de las 10:00 se cierra cuando el reloj de llegada pasa de las 11:10». Lo que llega después es tardío. En el laboratorio, un flujo sin tolerancia dejó fuera de su ventana a 315 de 10 000 eventos (3,15 % del total); con 1 minuto de tolerancia, 262; con 10 minutos, 257; con 1 hora, 229; con 6 horas, 0. La curva es plana mientras la tolerancia es menor que el retraso típico de los rezagados y cae de golpe cuando la supera: los tardíos no se reparten, están concentrados entre 1 y 6 horas.
-
-Según [SE-290 — Ingeniería de datos y procesamiento analítico](../../../classes/part-24-software-especializado-y-dominios/se-290-ingenieria-de-datos-y-procesamiento-analitico/README.md):
-
-Cada evento tiene dos tiempos: cuándo ocurrió y cuándo llegó. Contar «entregas por minuto» con el tiempo de llegada mezcla minutos; contarlas con el tiempo del evento exige decidir cuándo una ventana está completa. La **marca de agua** es la estimación de hasta qué tiempo del evento se espera que hayan llegado todos los datos; los que llegan después son **tardíos** y se descartan, se aplican como corrección o se envían a un canal aparte. La tolerancia de retraso fija ese compromiso: esperar más da resultados más completos y más tardíos. No existe una tolerancia correcta general: depende de la distribución de retrasos y de lo que cueste mostrar un número que luego cambia.
+El laboratorio de [SE-362](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-362-ingesta-batch-y-streaming/README.md) muestra la forma de la curva: un flujo sin tolerancia dejó fuera de su ventana 315 de 10 000 eventos (3,15 %); con 1 minuto de tolerancia, 262; con 10 minutos, 257; con 1 hora, 229; con 6 horas, 0. La curva es plana mientras la tolerancia sea menor que el retraso típico de los rezagados y cae de golpe cuando lo supera, porque los tardíos están concentrados entre 1 y 6 horas.
 
 ## Ejemplo
 
-Caso medido en la sección «La marca de agua es una apuesta declarada» de [SE-362 — Ingesta batch y streaming](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-362-ingesta-batch-y-streaming/README.md):
-
-Un flujo no sabe si ya llegó todo lo de una ventana. La marca de agua es el instante hasta el que se decide esperar rezagados: «la ventana de las 10:00 se cierra cuando el reloj de llegada pasa de las 11:10». Lo que llega después es tardío. En el laboratorio, un flujo sin tolerancia dejó fuera de su ventana a 315 de 10 000 eventos (3,15 % del total); con 1 minuto de tolerancia, 262; con 10 minutos, 257; con 1 hora, 229; con 6 horas, 0.
+Con los datos de la clase, una tolerancia de 10 minutos casi no mejora lo que logra la de 1 minuto (257 frente a 262 tardíos), y cuesta diez veces más latencia; subir a 6 horas elimina los tardíos pero retrasa cada resultado seis horas. La decisión depende de quién consume el número y cuánto vale la exactitud frente a la frescura.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Los informes mezclan minutos** — causa: se agrupa por tiempo de llegada. Corrección: usar el tiempo del evento y declarar la marca de agua. ([SE-290](../../../classes/part-24-software-especializado-y-dominios/se-290-ingenieria-de-datos-y-procesamiento-analitico/README.md))
+- **Usar el tiempo de llegada como tiempo del evento.**
+- **Elegir una tolerancia sin mirar la distribución de retrasos reales.**
+- **Descartar los tardíos sin registrarlos,** perdiendo la evidencia de que ocurrieron.
+- **Esperar que exista una tolerancia universal correcta:** [SE-290](../../../classes/part-24-software-especializado-y-dominios/se-290-ingenieria-de-datos-y-procesamiento-analitico/README.md) dice que no existe.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-362 — Ingesta batch y streaming](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-362-ingesta-batch-y-streaming/README.md)) son: La mezcla de retrasos, el 3 % de tardíos y el 2 % de reentregas son construcciones del autor; la simulación procesa los eventos en orden de llegada con ventanas de una hora y no reproduce un motor de flujo con estado, activadores ni ventanas por sesión. No se midió ninguna fuente real ni ningún corredor de mensajes.
+La marca de agua es una *estimación*; un evento puede llegar después de cualquier tolerancia. Los datos de [SE-362](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-362-ingesta-batch-y-streaming/README.md) son sintéticos, con retrasos concentrados entre 1 y 6 horas por construcción. En procesamiento por lotes, donde la ventana se cierra por calendario y se reprocesa, el problema se aborda con reprocesos.
 
 ## Relación con otros conceptos
 

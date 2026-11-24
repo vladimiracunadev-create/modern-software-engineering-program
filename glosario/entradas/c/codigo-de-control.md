@@ -2,40 +2,40 @@
 
 [↑ Glosario](../../README.md) · [← Código de conducta](./codigo-de-conducta.md) · [Código de estado →](./codigo-de-estado.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md)
 
 ## Definición
 
-Bits redundantes añadidos a una trama para detectar errores; la paridad, la suma y el CRC son ejemplos.
-
-Definición de trabajo de [SE-266 — Microcontroladores, periféricos y buses](../../../classes/part-22-embedded-iot-y-tiempo-real/se-266-microcontroladores-perifericos-y-buses/README.md).
+Un **código de control** (también «código de detección de errores») son bits redundantes que se añaden a una trama para detectar errores de transmisión. La paridad, la suma de verificación y el CRC son los ejemplos de [SE-266](../../../classes/part-22-embedded-iot-y-tiempo-real/se-266-microcontroladores-perifericos-y-buses/README.md) (microcontroladores, periféricos y buses). Detectar no es corregir: el código dice que algo está mal, no qué bit lo está.
 
 ## Por qué importa
 
-En [SE-266 — Microcontroladores, periféricos y buses](../../../classes/part-22-embedded-iot-y-tiempo-real/se-266-microcontroladores-perifericos-y-buses/README.md), el tema «Códigos de control» importa porque paridad, suma y CRC detectan clases de error distintas.
+Un bus o un radioenlace corrompe bits; sin control, el receptor actúa sobre datos falsos. Pero los tres códigos de la clase detectan *clases distintas* de error, y elegir el equivocado deja pasar tramas absurdas. La decisión profesional es qué errores se espera detectar y qué código los cubre, y declararlo.
 
 ## Cómo funciona
 
-Según [SE-266 — Microcontroladores, periféricos y buses](../../../classes/part-22-embedded-iot-y-tiempo-real/se-266-microcontroladores-perifericos-y-buses/README.md), en la sección «Códigos de control»:
+Según [SE-266](../../../classes/part-22-embedded-iot-y-tiempo-real/se-266-microcontroladores-perifericos-y-buses/README.md):
 
-Un código de control añade bits redundantes para detectar errores. La paridad es un bit que hace par el número de unos: detecta cualquier cantidad impar de bits invertidos y ninguna cantidad par. La suma de 8 bits detecta muchos errores pero puede cancelarse: dos bits invertidos en posiciones iguales de dos bytes, en sentidos opuestos, dejan la suma igual. Un CRC trata la trama como un polinomio y divide por uno generador: con un polinomio de grado 8 detecta toda ráfaga de hasta 8 bits y, para tramas cortas, todo error de uno a tres bits. Koopman y Chakravarty muestran que la elección del polinomio decide cuántos errores de varios bits detecta.
+- **Paridad.** Un bit que hace par el número de unos. Detecta cualquier cantidad *impar* de bits invertidos y ninguna cantidad par: dos bits invertidos pasan sin ser vistos.
+- **Suma de 8 bits.** Detecta muchos errores, pero puede cancelarse: dos bits invertidos en posiciones iguales de dos bytes, en sentidos opuestos, dejan la suma igual.
+- **CRC** (comprobación de redundancia cíclica). Trata la trama como un polinomio y la divide por uno generador; el resto se envía como control. Con un polinomio de grado 8 detecta toda ráfaga de hasta 8 bits y, en tramas cortas, todo error de uno a tres bits. Koopman y Chakravarty, citados por la clase, muestran que la elección del polinomio decide cuántos errores de varios bits se detectan.
+
+El receptor recalcula el control sobre lo recibido y lo compara con el que llegó; si difieren, descarta la trama o pide reenvío.
 
 ## Ejemplo
 
-Ejemplo de [SE-266 — Microcontroladores, periféricos y buses](../../../classes/part-22-embedded-iot-y-tiempo-real/se-266-microcontroladores-perifericos-y-buses/README.md) (sección «Caso conductor»):
-
-El nodo ambiental de una sala de estudio continúa como caso conductor de la [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md). Esta clase deja el segundo artefacto: la lectura de cada sensor con su eficiencia de bus, su código de control y su factor de sobremuestreo justificados. `SE-267` convertirá esas decisiones en energía y memoria. Cambia después una sola cosa, el tamaño de lectura del sensor de CO₂, y observa cuánto cambia el tiempo despierto.
+El nodo ambiental de la sala de estudio (caso conductor de la [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md)) deja en [SE-266](../../../classes/part-22-embedded-iot-y-tiempo-real/se-266-microcontroladores-perifericos-y-buses/README.md) la lectura de cada sensor con su eficiencia de bus, su código de control y su factor de sobremuestreo justificados. Ilustración propia: un bit de paridad sobre el byte `0110 0101` (cuatro unos) con paridad par es 0; si el ruido invierte dos bits, la paridad sigue siendo correcta y el error pasa; un CRC-8 sí lo detectaría.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-266 — Microcontroladores, periféricos y buses](../../../classes/part-22-embedded-iot-y-tiempo-real/se-266-microcontroladores-perifericos-y-buses/README.md)) son:
-
-- **El bus «es lento» aunque el reloj es alto** — causa: lecturas de un byte con mucho encabezado. Corrección: leer varios bytes por transacción y calcular la eficiencia.
-- **Tramas absurdas pasan el control** — causa: paridad o suma para errores de varios bits. Corrección: usar un CRC y declarar qué errores cubre.
+- **Tramas absurdas pasan el control:** se usó paridad o suma para errores de varios bits. Corrección: usar un CRC y declarar qué errores cubre ([SE-266](../../../classes/part-22-embedded-iot-y-tiempo-real/se-266-microcontroladores-perifericos-y-buses/README.md)).
+- **Confundir detectar con corregir:** para corregir hacen falta códigos distintos, que añaden más redundancia.
+- **Confundirlo con una firma o un hash criptográfico:** un CRC detecta errores accidentales; no protege contra un atacante que recalcula el control.
+- **El bus «es lento» aunque el reloj es alto:** es otro problema de la clase (lecturas de un byte con mucho encabezado), no del control.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-266 — Microcontroladores, periféricos y buses](../../../classes/part-22-embedded-iot-y-tiempo-real/se-266-microcontroladores-perifericos-y-buses/README.md)) son: Las definiciones son operativas para el nodo de la sala. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún bus, sensor ni convertidor: la cuenta de ciclos, los errores inyectados y el ruido gaussiano son construcciones del autor. La siguiente clase pasa de la lectura de un dato a su coste en memoria, energía y cómputo.
+Ningún código de control detecta *todos* los errores: un CRC bien elegido deja una probabilidad residual de que un error pase. No sirve como autenticación (esa pertenece a la firma digital y a la raíz de confianza). Y añade bits a cada trama, lo que reduce la eficiencia del bus; en tramas muy cortas el control puede ser una fracción grande del total.
 
 ## Relación con otros conceptos
 

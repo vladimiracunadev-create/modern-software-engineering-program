@@ -4,7 +4,7 @@
 
 35 entradas que empiezan por N.
 
-- [N+1](../entradas/n/n-mas-1.md) — sigla · troncal · [SE-243](../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-243-rpc-graphql-y-seleccion-de-interfaz/README.md). Patrón en el que una lista de N elementos genera N consultas adicionales además de la inicial.
+- [N+1](../entradas/n/n-mas-1.md) — sigla · troncal · [SE-243](../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-243-rpc-graphql-y-seleccion-de-interfaz/README.md). El N+1 es el patrón en que una lista de N elementos genera N consultas adicionales además de la inicial: una consulta que trae las filas y una…
 - [Namespace](../entradas/n/namespace.md) — concepto · apoyo · [SE-034](../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-034-virtualizacion-wsl-y-aislamiento-local/README.md). Mecanismo que proporciona a procesos una vista aislada de un recurso del kernel.
 - [NaN](../entradas/n/nan.md) — concepto · apoyo · [SE-016](../../classes/part-01-computadores-y-representacion-de-informacion/se-016-enteros-coma-flotante-precision-y-errores-numericos/README.md). Valor especial para resultados no numéricos.
 - [Narrativa y verificación](../entradas/n/narrativa-y-verificacion.md) — concepto · apoyo · [SE-101](../../classes/part-08-entornos-herramientas-y-depuracion/se-101-repl-notebooks-y-desarrollo-exploratorio/README.md). Una explicación ordena pregunta, método, resultado y límite.

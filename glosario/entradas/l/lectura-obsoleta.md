@@ -2,48 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Lectura estática de la configuración](./lectura-estatica-de-la-configuracion.md) · [Lectura partida →](./lectura-partida.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 20](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 20](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md)
 
 ## Definición
 
-Lectura que devuelve datos anteriores a una escritura ya confirmada.
-
-Definición de trabajo de [SE-510 — Fallos de datos y de estado: réplicas, particiones y corrupción](../../../classes/part-42-ingenieria-del-caos/se-510-fallos-de-datos-y-de-estado-replicas-particiones-y-corrupcion/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-249 — Caching, rate limiting y protección](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-249-caching-rate-limiting-y-proteccion/README.md): Lectura de una caché cuyo dato ya cambió en el origen.
+Una **lectura obsoleta** (*stale read*) es una lectura que devuelve datos anteriores a una escritura ya confirmada. [SE-510](../../../classes/part-42-ingenieria-del-caos/se-510-fallos-de-datos-y-de-estado-replicas-particiones-y-corrupcion/README.md) la trata en réplicas y particiones: una réplica sana puede devolver datos viejos. [SE-249](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-249-caching-rate-limiting-y-proteccion/README.md) la usa para cachés: la lectura de una caché cuyo dato ya cambió en el origen, es decir, un acierto cuya versión ya cambió.
 
 ## Por qué importa
 
-En [SE-510 — Fallos de datos y de estado: réplicas, particiones y corrupción](../../../classes/part-42-ingenieria-del-caos/se-510-fallos-de-datos-y-de-estado-replicas-particiones-y-corrupcion/README.md), el tema «Lecturas obsoletas» importa porque una réplica sana puede devolver datos viejos.
+No es un error del sistema, sino una consecuencia de copiar datos: cada réplica o caché tarda en enterarse. La decisión que cambia es dónde la persona *no puede* ver un dato viejo (leer su propia escritura, un saldo) y dónde sí (un historial).
 
 ## Cómo funciona
 
-Según [SE-510 — Fallos de datos y de estado: réplicas, particiones y corrupción](../../../classes/part-42-ingenieria-del-caos/se-510-fallos-de-datos-y-de-estado-replicas-particiones-y-corrupcion/README.md):
+Una escritura se confirma en un nodo y se propaga a otros con un retraso. Una lectura que llega a una réplica antes de que reciba el dato lo ve viejo. [SE-510](../../../classes/part-42-ingenieria-del-caos/se-510-fallos-de-datos-y-de-estado-replicas-particiones-y-corrupcion/README.md) mide la fracción de lecturas obsoletas contra el retraso de replicación, modelando el tiempo entre escritura y lectura como exponencial con media de 50 ms: con 5 ms, el 10 % de las lecturas llegan antes de que la réplica tenga el dato; con 20 ms, el 35 %; con 100 ms, el 85 %; con 500 ms, casi todas.
 
-**Cómo leer la figura.** El eje horizontal es el retraso de replicación en escala logarítmica y el vertical, el porcentaje de lecturas obsoletas. Con 5 ms, 10 % de las lecturas llegan antes de que la réplica tenga el dato; con 20 ms, 35 %; con 100 ms, 85 %; con 500 ms, casi todas. **Dónde deja de valer:** el tiempo entre la escritura y la lectura se modeló exponencial con media de 50 ms; si la interfaz espera la respuesta de la escritura antes de recargar, ese tiempo es mayor y la fracción baja. El experimento correcto no mide «cuántas lecturas son viejas» en el vacío sino cuántas lo son en el flujo de la persona: «leer tu propia escritura».
+La clase advierte un límite del modelo: si la interfaz espera la respuesta de la escritura antes de recargar, ese tiempo es mayor y la fracción baja. El experimento correcto mide cuántas lecturas son viejas *en el flujo de la persona*: «leer tu propia escritura».
 
-Según [SE-249 — Caching, rate limiting y protección](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-249-caching-rate-limiting-y-proteccion/README.md):
-
-Se generan 200 000 lecturas (100 por segundo) de 5 000 entregas con popularidad Zipf de exponente 1,0 (semilla 249); cada entrega cambia cada 300 a 900 s. Una caché LRU con capacidad de 50, 500 o 2 500 entradas y TTL de 10, 60 o 600 s cuenta aciertos y lecturas obsoletas (un acierto cuya versión ya cambió).
+En cachés ([SE-249](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-249-caching-rate-limiting-y-proteccion/README.md)), el experimento genera 200 000 lecturas de 5 000 entregas con popularidad Zipf; cada entrega cambia cada 300 a 900 s; una caché LRU de 50, 500 o 2 500 entradas con TTL de 10, 60 o 600 s cuenta aciertos y lecturas obsoletas. Un TTL más largo sube los aciertos y también las lecturas obsoletas.
 
 ## Ejemplo
 
-Caso medido en la sección «Lecturas obsoletas: la réplica sana también falla» de [SE-510 — Fallos de datos y de estado: réplicas, particiones y corrupción](../../../classes/part-42-ingenieria-del-caos/se-510-fallos-de-datos-y-de-estado-replicas-particiones-y-corrupcion/README.md):
-
-Una réplica con retraso responde sin error, con datos anteriores. Si una persona sube una entrega y recarga la lista, la lectura puede ir a una réplica que aún no la tiene y mostrarla vacía. No es una falla de la réplica: es **consistencia eventual** funcionando como está diseñada, y por eso solo se distingue de un defecto inyectando el retraso. Se simula la probabilidad de que la lectura de una persona, hecha un tiempo aleatorio después de su escritura (media de 50 ms), llegue antes que la replicación.
+Ilustración propia del flujo: una persona edita su perfil, la escritura va al nodo principal y la página recarga leyendo de una réplica con 100 ms de retraso; ve su dato anterior. Remedios habituales: leer del principal tras escribir, o enviar la versión escrita y esperar a que la réplica la alcance.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-510 — Fallos de datos y de estado: réplicas, particiones y corrupción](../../../classes/part-42-ingenieria-del-caos/se-510-fallos-de-datos-y-de-estado-replicas-particiones-y-corrupcion/README.md)) son:
-
-- **Escrituras confirmadas desaparecen tras una conmutación** — causa: replicación asíncrona con RPO declarado de cero. Corrección: medir la pérdida y elegir replicación semisíncrona o ajustar el RPO.
-- **Una persona no ve lo que acaba de subir** — causa: lectura desde una réplica atrasada. Corrección: leer del primario tras escribir o devolver el estado en la escritura.
+- **Pensar que una réplica obsoleta está dañada:** está sana y atrasada.
+- **Medir «cuántas lecturas son viejas» sin referirse al flujo del usuario.**
+- **Subir el TTL para ganar aciertos sin contar el costo en obsolescencia.**
+- **Confundirla con lectura sucia** (leer un dato no confirmado).
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-510 — Fallos de datos y de estado: réplicas, particiones y corrupción](../../../classes/part-42-ingenieria-del-caos/se-510-fallos-de-datos-y-de-estado-replicas-particiones-y-corrupcion/README.md)) son: Las definiciones son operativas para el almacenamiento de las entregas y su modelo. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes enlazadas. Se ejecutaron tres experimentos con tiempo virtual y semillas fijas en Windows y Ubuntu (WSL2) con resultados idénticos.
+Las cifras vienen de modelos con parámetros del autor, no de un sistema medido. En un sistema de una sola copia con lecturas del principal no existe. Y para datos que cambian poco o toleran edad, no es un problema.
 
 ## Relación con otros conceptos
 

@@ -2,47 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← Reidentificación](./reidentificacion.md) · [Relación →](./relacion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 18](../../../classes/part-18-cli-tui-servicios-y-automatizacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 18](../../../classes/part-18-cli-tui-servicios-y-automatizacion/README.md)
 
 ## Definición
 
-Repetir una llamada fallida con la esperanza de que una falla transitoria no se repita.
-
-Definición de trabajo de [SE-320 — Resiliencia: timeout, retry con jitter y circuit breaker](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-320-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/README.md).
+Los **reintentos** consisten en repetir una llamada fallida con la esperanza de que una falla transitoria no se repita. El programa lo trata en varios contextos: en pruebas ([SE-430](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-430-flakiness-diagnostico-y-mantenimiento/README.md), flakiness), en códigos de salida y errores ([SE-220](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-220-codigos-de-salida-errores-y-diagnostico/README.md)) y en ejecución durable ([SE-596](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-596-ejecucion-durable-reintentos-e-idempotencia/README.md)). La palabra no implica por sí sola ninguna política: cuántas veces, con qué espera y para qué errores son las decisiones que importan.
 
 ## Por qué importa
 
-En [SE-430 — Flakiness, diagnóstico y mantenimiento](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-430-flakiness-diagnostico-y-mantenimiento/README.md), el tema «Reintentos» importa porque silencian la espuria y también el defecto real intermitente.
-
-En [SE-596 — Ejecución durable, reintentos e idempotencia](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-596-ejecucion-durable-reintentos-e-idempotencia/README.md), el tema «Reintentos» importa porque un reintento sin retroceso aleatorio daña al servicio.
-
-En [SE-220 — Códigos de salida, errores y diagnóstico](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-220-codigos-de-salida-errores-y-diagnostico/README.md), el tema «Reintentos» importa porque reintentar lo permanente gasta recursos y retrasa el aviso.
+Es la primera defensa contra fallos transitorios, y también una fuente de problemas: reintentar lo permanente gasta recursos y retrasa el aviso ([SE-220](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-220-codigos-de-salida-errores-y-diagnostico/README.md)); reintentar sin retroceso aleatorio daña al servicio ([SE-596](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-596-ejecucion-durable-reintentos-e-idempotencia/README.md)); y reintentar una prueba silencia el defecto real intermitente ([SE-430](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-430-flakiness-diagnostico-y-mantenimiento/README.md)).
 
 ## Cómo funciona
 
-Según [SE-430 — Flakiness, diagnóstico y mantenimiento](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-430-flakiness-diagnostico-y-mantenimiento/README.md), en la sección «Reintentos»:
+[SE-430](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-430-flakiness-diagnostico-y-mantenimiento/README.md) da los números del costo en pruebas. Para una prueba con 2 % de fallo espurio, un reintento la deja en verde el 99,96 % de las veces: el ruido desaparece. Pero un defecto real que ocurre en el 30 % de las ejecuciones también termina en verde el 91,2 % de las veces con un reintento y el 97,3 % con dos. El reintento no distingue entre los dos. Si se reintenta, se registra cada reintento y se revisa la tasa.
 
-Reintentar una prueba que falla es una decisión sobre qué errores se toleran. Para una prueba con 2 % de fallo espurio, un reintento la deja en verde el 99,96 % de las veces: el ruido desaparece. Pero un defecto real que ocurre en el 30 % de las ejecuciones también termina en verde el 91,2 % de las veces con un reintento y el 97,3 % con dos. El reintento no distingue entre los dos, y la diferencia importa: lo que se silencia puede ser el defecto que llegará a producción. Si se reintenta, se registra cada reintento y se revisa la tasa.
+Para llamadas a servicios, la política mínima es:
+
+1. **Reintentar solo errores transitorios** (tiempo agotado, servicio no disponible), no los permanentes (petición inválida, no autorizado).
+2. **Limitar intentos** y tiempo total.
+3. **Espera creciente con dispersión** (retroceso exponencial con jitter), para no sincronizar a los clientes.
+4. **Idempotencia** de lo que se repite, porque un reintento puede duplicar un efecto.
 
 ## Ejemplo
 
-Ejemplo de [SE-430 — Flakiness, diagnóstico y mantenimiento](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-430-flakiness-diagnostico-y-mantenimiento/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la plataforma guarda el historial de cada prueba (resultado, hora, carga, versión y pruebas anteriores del mismo trabajador) en una tabla y calcula cada semana la tasa de fallo espurio por prueba y por suite. Una prueba con más de 0,1 % de fallo espurio entra en cuarentena: sigue ejecutándose pero no bloquea, y tiene un responsable, una fecha de revisión a 14 días y un criterio de salida (300 ejecuciones sin fallo tras la corrección). Los reintentos están desactivados por defecto: se activan por prueba con un registro de cuántas veces se usaron, y la tasa de reintentos se publica.
+El equipo de [SE-430](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-430-flakiness-diagnostico-y-mantenimiento/README.md) guarda el historial de cada prueba y calcula cada semana la tasa de fallo espurio por prueba y suite. Una prueba con más de 0,1 % de fallo espurio entra en cuarentena: sigue ejecutándose pero no bloquea, con responsable, fecha de revisión a 14 días y criterio de salida de 300 ejecuciones sin fallo tras la corrección. Los reintentos están desactivados para no esconder defectos reales.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Un defecto real se descarta como «intermitente»** — causa: reintentos sin registro. Corrección: registrar cada reintento y revisar su tasa. ([SE-430](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-430-flakiness-diagnostico-y-mantenimiento/README.md))
-- **El reintento repite un fallo permanente** — causa: todos los errores devuelven el mismo código. Corrección: distinguir un código temporal del resto. ([SE-220](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-220-codigos-de-salida-errores-y-diagnostico/README.md))
+- **Reintentar errores permanentes.**
+- **Reintentar sin dispersión,** provocando oleadas sincronizadas.
+- **Reintentar operaciones no idempotentes** (cobros, envíos).
+- **Usar el reintento de pruebas como solución a la inestabilidad,** en lugar de diagnosticarla.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- El reintento no distingue entre los dos, y la diferencia importa: lo que se silencia puede ser el defecto que llegará a producción. ([SE-430](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-430-flakiness-diagnostico-y-mantenimiento/README.md))
-- Traslada el experimento a otra herramienta (por ejemplo, un cliente de copias que usa un planificador): diseña su tabla de cinco códigos, mide qué ve el planificador ante cada uno y decide qué política de reintento corresponde. ([SE-220](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-220-codigos-de-salida-errores-y-diagnostico/README.md))
+No ayuda cuando la dependencia está caída por un periodo largo: ahí actúa el circuit breaker. Multiplica la carga sobre un servicio ya saturado. Los porcentajes de [SE-430](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-430-flakiness-diagnostico-y-mantenimiento/README.md) suponen intentos independientes; si la causa es persistente, el reintento no ayuda.
 
 ## Relación con otros conceptos
 

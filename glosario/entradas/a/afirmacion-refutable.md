@@ -2,40 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Afirmación](./afirmacion.md) · [Agencia excesiva →](./agencia-excesiva.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 24](../../../classes/part-24-software-especializado-y-dominios/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 24](../../../classes/part-24-software-especializado-y-dominios/README.md)
 
 ## Definición
 
-Enunciado con objeto, medida, umbral y población que un resultado concreto podría contradecir.
-
-Definición de trabajo de [SE-300 — Proyecto: diseño profundo de un dominio elegido](../../../classes/part-24-software-especializado-y-dominios/se-300-proyecto-diseno-profundo-de-un-dominio-elegido/README.md).
+Una **afirmación refutable** es un enunciado con objeto, medida, umbral y población, de modo que un resultado concreto podría contradecirlo. [SE-300](../../../classes/part-24-software-especializado-y-dominios/se-300-proyecto-diseno-profundo-de-un-dominio-elegido/README.md) la usa en el proyecto de diseño profundo de un dominio: la unidad de lo que el dosier declara es una afirmación que puede resultar falsa, no un tema. El sentido es el del método científico aplicado al diseño: lo que no puede ser falso no informa.
 
 ## Por qué importa
 
-En [SE-300 — Proyecto: diseño profundo de un dominio elegido](../../../classes/part-24-software-especializado-y-dominios/se-300-proyecto-diseno-profundo-de-un-dominio-elegido/README.md), el tema «Afirmación refutable» importa porque convierte un tema en algo que puede ser falso.
+Un dosier puede estar completo en forma y vacío en sentido. [SE-300](../../../classes/part-24-software-especializado-y-dominios/se-300-proyecto-diseno-profundo-de-un-dominio-elegido/README.md) lo nombra como error: validar la forma y no el sentido. Exigir afirmaciones refutables cambia la revisión: en lugar de preguntar «¿tiene la sección?», se pregunta «¿qué resultado me haría cambiar de opinión, y dónde está el experimento?».
 
 ## Cómo funciona
 
-Según [SE-300 — Proyecto: diseño profundo de un dominio elegido](../../../classes/part-24-software-especializado-y-dominios/se-300-proyecto-diseno-profundo-de-un-dominio-elegido/README.md), en la sección «Afirmación refutable»:
+[SE-300](../../../classes/part-24-software-especializado-y-dominios/se-300-proyecto-diseno-profundo-de-un-dominio-elegido/README.md) contrasta un tema con una afirmación. «Pagos» es un tema: nada puede contradecirlo. «El libro mayor conserva el dinero en 10 000 corridas aleatorias y detecta 5 de 5 fallos inyectados» es una afirmación: una sola corrida que pierda dinero, o un fallo inyectado no detectado, la refuta.
 
-Un tema («pagos») no se puede refutar; una afirmación («el libro mayor conserva el dinero en 10 000 corridas aleatorias y detecta 5 de 5 fallos inyectados») sí: basta una corrida que la contradiga. Una buena afirmación nombra el objeto, la medida, el umbral y la población sobre la que se hace, y va acompañada de lo que la haría falsa. Evita las afirmaciones que ningún resultado podría desmentir («el diseño es robusto») y las que dependen de datos que no tienes. Cada afirmación del dosier debe enlazar con el experimento que la sostiene.
+Una buena afirmación nombra cuatro cosas:
+
+1. **Objeto:** qué se examina (el libro mayor).
+2. **Medida:** qué se observa (conserva el dinero; detecta fallos).
+3. **Umbral:** a partir de cuánto se cumple (10 000 corridas; 5 de 5).
+4. **Población:** sobre qué casos vale (corridas aleatorias, fallos inyectados).
+
+Y viene con lo que la haría falsa. Cada afirmación del dosier se enlaza con el experimento que la sostiene; sin enlace, es una opinión.
 
 ## Ejemplo
 
-Caso medido en la sección «Afirmación refutable» de [SE-300 — Proyecto: diseño profundo de un dominio elegido](../../../classes/part-24-software-especializado-y-dominios/se-300-proyecto-diseno-profundo-de-un-dominio-elegido/README.md):
-
-Un tema («pagos») no se puede refutar; una afirmación («el libro mayor conserva el dinero en 10 000 corridas aleatorias y detecta 5 de 5 fallos inyectados») sí: basta una corrida que la contradiga. Una buena afirmación nombra el objeto, la medida, el umbral y la población sobre la que se hace, y va acompañada de lo que la haría falsa. Evita las afirmaciones que ningún resultado podría desmentir («el diseño es robusto») y las que dependen de datos que no tienes. Cada afirmación del dosier debe enlazar con el experimento que la sostiene.
+Reformulación basada en [SE-300](../../../classes/part-24-software-especializado-y-dominios/se-300-proyecto-diseno-profundo-de-un-dominio-elegido/README.md): «el diseño es robusto» no se puede desmentir. Se reescribe como «ante 10 000 corridas con orden de mensajes aleatorio, el saldo total no cambia y cada una de 5 mutaciones del código es detectada por al menos una prueba». Ahora hay objeto (saldo total), medida, umbral y población, y existe un resultado que la derriba.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-300 — Proyecto: diseño profundo de un dominio elegido](../../../classes/part-24-software-especializado-y-dominios/se-300-proyecto-diseno-profundo-de-un-dominio-elegido/README.md)) son:
-
-- **Un dosier completo con afirmaciones sin evidencia** — causa: se valida la forma y no el sentido. Corrección: revisión de contenido por una persona ajena, con enlace de cada afirmación a su experimento.
-- **«Es robusto» como conclusión** — causa: afirmación no refutable. Corrección: reformular con objeto, medida, umbral y población.
+- **«Es robusto» como conclusión:** afirmación no refutable; se reformula con objeto, medida, umbral y población ([SE-300](../../../classes/part-24-software-especializado-y-dominios/se-300-proyecto-diseno-profundo-de-un-dominio-elegido/README.md)).
+- **Dosier completo con afirmaciones sin evidencia:** se validó la forma. La corrección que propone la clase es la revisión de contenido por una persona ajena, con enlace de cada afirmación a su experimento.
+- **Confundir refutable con refutada:** una afirmación refutable que sobrevive a su prueba no queda demostrada para siempre; solo no ha sido contradicha en esa población.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-300 — Proyecto: diseño profundo de un dominio elegido](../../../classes/part-24-software-especializado-y-dominios/se-300-proyecto-diseno-profundo-de-un-dominio-elegido/README.md)) son: Las definiciones son operativas para el proyecto. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se auditó ningún sistema real, norma ni proveedor y no hubo revisión de una persona experta en ningún dominio: el dosier de ejemplo, el modelo de coste, los rangos y las mutaciones son construcciones del autor. La siguiente parte, la 24, vuelve al diseño del código con cohesión, acoplamiento y encapsulación.
+Refutable no significa importante: se puede formular una afirmación precisa y trivial. Tampoco todo lo valioso en diseño se expresa así (una decisión de estilo o de legibilidad). Y depende de datos que se tengan: [SE-300](../../../classes/part-24-software-especializado-y-dominios/se-300-proyecto-diseno-profundo-de-un-dominio-elegido/README.md) pide evitar afirmaciones que dependan de datos que no tienes. El dosier de ejemplo, el modelo de costo y las mutaciones de la clase son construcciones del autor, sin revisión de una persona experta en el dominio.
 
 ## Relación con otros conceptos
 

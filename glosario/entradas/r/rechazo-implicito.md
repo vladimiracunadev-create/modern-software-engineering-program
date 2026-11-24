@@ -2,37 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Receptor idempotente](./receptor-idempotente.md) · [Recomendación condicionada →](./recomendacion-condicionada.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 23](../../../classes/part-23-runtimes-y-plataformas-modernas/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 23](../../../classes/part-23-runtimes-y-plataformas-modernas/README.md)
 
 ## Definición
 
-Devolver un secreto distinto en lugar de un error ante un texto cifrado inválido.
-
-Definición de trabajo de [SE-285 — Criptografía poscuántica y migración](../../../classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion/README.md).
+El **rechazo implícito** (*implicit rejection*) consiste en devolver un secreto distinto, en lugar de un error, ante un texto cifrado inválido. Es el sentido de [SE-285](../../../classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion/README.md) (criptografía poscuántica y migración), donde se presenta como propiedad de ML-KEM. No es «rechazar sin avisar» en sentido general: es una decisión de diseño criptográfico para que el fallo no sea observable.
 
 ## Por qué importa
 
-En [SE-285 — Criptografía poscuántica y migración](../../../classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion/README.md), el tema «Rechazo implícito» importa porque evita señales por errores de descifrado.
+Evita señales por errores de descifrado. Y cambia cómo se integra la biblioteca: el código no puede apoyarse en «si falla, lo sabré».
 
 ## Cómo funciona
 
-Según [SE-285 — Criptografía poscuántica y migración](../../../classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion/README.md), en la sección «Rechazo implícito»:
+[SE-285](../../../classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion/README.md): en ML-KEM, descapsular un texto cifrado alterado no devuelve un error: devuelve otro secreto aparentemente válido. En el laboratorio, un bit cambiado en el primer byte del texto cifrado produjo un secreto distinto del original sin ninguna excepción.
 
-En ML-KEM, descapsular un texto cifrado alterado no devuelve un error: devuelve otro secreto aparentemente válido. En el laboratorio, un bit cambiado en el primer byte del texto cifrado produjo un secreto distinto del original sin ninguna excepción. La razón es de seguridad: si el descifrado fallara con un error observable, un atacante podría usar esos fallos como oráculo para aprender información sobre la clave privada. El rechazo implícito vuelve inobservable la diferencia. Consecuencia para el software: la integración no puede apoyarse en «si falla, lo sabré»; la detección ocurre más adelante, cuando los dos extremos derivan claves distintas y la autenticación del canal falla. Es una razón para usar siempre los protocolos que autentican el canal y no inventar los propios.
+La razón es de seguridad: si el descifrado fallara con un error observable, un atacante podría usar esos fallos como **oráculo** para aprender información sobre la clave privada. El rechazo implícito vuelve inobservable la diferencia entre un texto válido y uno inválido.
+
+La consecuencia para el software: la detección no ocurre en la llamada. Ocurre más adelante, cuando los dos extremos derivan claves distintas y la autenticación del canal falla. Por eso [SE-285](../../../classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion/README.md) recomienda usar siempre los protocolos que autentican el canal y no inventar los propios.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-285 — Criptografía poscuántica y migración](../../../classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion/README.md):
-
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+Con los datos del laboratorio de [SE-285](../../../classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion/README.md): se cifra, se cambia un bit del texto cifrado y se descapsula. La llamada no lanza excepción y devuelve un secreto de la misma longitud que el original. Quien compare ambos ve que son distintos; quien no compare, nunca se entera, hasta que el mensaje cifrado con esa clave no se descifra o la autenticación falla.
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+- **Esperar una excepción** ante un texto cifrado manipulado.
+- **Capturar un «fallo de descifrado» para reportar errores detallados:** justamente lo que el diseño evita.
+- **Implementar comprobaciones propias** que reintroducen una señal observable.
+- **Confundirlo con una vulnerabilidad:** es la defensa, no el defecto.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-285 — Criptografía poscuántica y migración](../../../classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion/README.md)) son: Se ejecutaron implementaciones de estudio de ML-KEM y ML-DSA con sus tamaños reales, una firma de Lamport y cálculos de Mosca con valores del autor; no se ejecutó SLH-DSA, ningún saludo TLS real ni rendimiento de producción. El siguiente paso, `SE-286`, aplica la confianza cero: decidir cada petición con identidad, contexto y política en lugar de confiar en la red, con tokens de vida corta y credenciales limitadas.
+Protege contra una clase de ataques de oráculo sobre el descifrado, no contra manipulaciones que el protocolo no autentica. Depende de que la implementación respete la propiedad (sin diferencias de tiempo observables). Los resultados de la clase son de un laboratorio local, no de una prueba de seguridad de una biblioteca real.
 
 ## Relación con otros conceptos
 

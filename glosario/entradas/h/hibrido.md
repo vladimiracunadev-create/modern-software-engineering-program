@@ -2,50 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Heurística de prueba](./heuristica-de-prueba.md) · [Hidratación →](./hidratacion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 23](../../../classes/part-23-runtimes-y-plataformas-modernas/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 23](../../../classes/part-23-runtimes-y-plataformas-modernas/README.md)
 
 ## Definición
 
-Combinación de un algoritmo clásico y uno poscuántico en una misma clave de sesión.
-
-Definición de trabajo de [SE-285 — Criptografía poscuántica y migración](../../../classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-589 — Workflows frente a agentes: cuándo no usar un agente](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-589-workflows-frente-a-agentes-cuando-no-usar-un-agente/README.md): Arquitectura donde un enrutador manda cada solicitud al workflow o al agente que le corresponde.
+«Híbrido» tiene en el programa dos sentidos que conviene no mezclar. El principal, de [SE-285](../../../classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion/README.md) (criptografía poscuántica y migración), es la **combinación de un algoritmo clásico y uno poscuántico en una misma clave de sesión**. El segundo, de [SE-589](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-589-workflows-frente-a-agentes-cuando-no-usar-un-agente/README.md) (workflows frente a agentes), es una **arquitectura donde un enrutador manda cada solicitud al workflow o al agente que le corresponde**. (En [SE-255](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md) aparece además «híbrido en contenedor», una web dentro de una aplicación; ese es otro asunto, tratado en el enfoque de construcción.)
 
 ## Por qué importa
 
-En [SE-285 — Criptografía poscuántica y migración](../../../classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion/README.md), el tema «Híbrido» importa porque protege si cualquiera de los dos resiste.
-
-En [SE-589 — Workflows frente a agentes: cuándo no usar un agente](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-589-workflows-frente-a-agentes-cuando-no-usar-un-agente/README.md), el tema «Híbrido» importa porque permite pagar el agente solo donde aporta.
+En criptografía, el híbrido protege si cualquiera de los dos resiste: si el algoritmo poscuántico resulta tener un defecto, el clásico sigue protegiendo, y si un computador cuántico rompe el clásico, el poscuántico sigue protegiendo. En agentes, permite pagar el agente solo donde aporta, y usar un workflow determinista para el resto.
 
 ## Cómo funciona
 
-Según [SE-285 — Criptografía poscuántica y migración](../../../classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion/README.md):
+**Criptográfico ([SE-285](../../../classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion/README.md)).** El saludo de TLS intercambia, entre otras cosas, una clave pública del cliente y un texto cifrado o clave pública del servidor. El tamaño importa:
 
-Un saludo de TLS intercambia, entre otras cosas, una clave pública del cliente y un texto cifrado o clave pública del servidor. Con X25519, el intercambio ocupa unos 64 bytes y cabe en un segmento de red. Con ML-KEM-768 solo, 1 184 + 1 088 = 2 272 bytes: dos segmentos de 1 460 bytes. Con el híbrido (X25519 más ML-KEM-768), 2 336 bytes: también dos. Dos segmentos en lugar de uno significa una probabilidad mayor de fragmentación y de pérdida, y en redes con dispositivos intermedios que esperan que el primer mensaje del saludo quepa en un paquete, errores reales de conexión. El RFC 10024 define tres mecanismos híbridos para TLS 1.3 (X25519MLKEM768, SecP256r1MLKEM768 y SecP384r1MLKEM1024) y es lo que los clientes y servidores modernos implementan.
+- X25519: unos 64 bytes; cabe en un segmento de red.
+- ML-KEM-768 solo: 1 184 + 1 088 = 2 272 bytes; dos segmentos de 1 460 bytes.
+- Híbrido (X25519 más ML-KEM-768): 2 336 bytes; también dos.
 
-Según [SE-285 — Criptografía poscuántica y migración](../../../classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion/README.md):
+Dos segmentos en lugar de uno aumentan la probabilidad de fragmentación y de pérdida y, en redes con dispositivos intermedios que esperan el primer mensaje en un paquete, causan errores reales de conexión. El RFC 10024 define tres mecanismos híbridos para TLS 1.3 (X25519MLKEM768, SecP256r1MLKEM768 y SecP384r1MLKEM1024).
 
-El equipo de *Avisos* hace el inventario y encuentra 31 usos de criptografía de clave pública: TLS entre cliente y servicio, TLS entre servicios, firmas de artefactos, tokens de sesión, certificados de dispositivos de aulas, cifrado de copias de seguridad con una clave pública y la firma de los informes que se entregan a las universidades. Clasifica por vida útil: las copias de seguridad y los historiales (25 años) son lo más urgente por la amenaza de almacenar ahora; los tokens de sesión (minutos) son lo menos urgente. El primer cambio es de agilidad: el formato de las copias identifica el algoritmo en una cabecera.
+**De arquitectura ([SE-589](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-589-workflows-frente-a-agentes-cuando-no-usar-un-agente/README.md)).** Un enrutador clasifica cada solicitud y la manda al flujo fijo (workflow) cuando el camino es conocido, o al agente cuando exige decidir.
 
 ## Ejemplo
 
-Ejemplo de [SE-285 — Criptografía poscuántica y migración](../../../classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion/README.md) (sección «Ejemplo profesional»):
-
-El equipo de *Avisos* hace el inventario y encuentra 31 usos de criptografía de clave pública: TLS entre cliente y servicio, TLS entre servicios, firmas de artefactos, tokens de sesión, certificados de dispositivos de aulas, cifrado de copias de seguridad con una clave pública y la firma de los informes que se entregan a las universidades. Clasifica por vida útil: las copias de seguridad y los historiales (25 años) son lo más urgente por la amenaza de almacenar ahora; los tokens de sesión (minutos) son lo menos urgente. El primer cambio es de agilidad: el formato de las copias identifica el algoritmo en una cabecera.
+El equipo de *Avisos* en [SE-285](../../../classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion/README.md) hace un inventario y encuentra 31 usos de criptografía de clave pública (TLS entre cliente y servicio y entre servicios, firmas de artefactos, tokens de sesión, certificados de dispositivos, cifrado de copias con clave pública…), y los prioriza para migrar. Ilustración de [SE-589](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-589-workflows-frente-a-agentes-cuando-no-usar-un-agente/README.md): solicitudes frecuentes y predecibles van al workflow; las raras y abiertas, al agente.
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+- **Pasar a poscuántico solo y perder la protección clásica,** sin necesidad.
+- **Ignorar el tamaño del saludo:** la fragmentación puede romper conexiones por dispositivos intermedios.
+- **Confundir «híbrido» cripto con «híbrido» de aplicación o de nube,** que no tienen relación.
+- **Usar un agente para todo** en lugar de enrutar ([SE-589](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-589-workflows-frente-a-agentes-cuando-no-usar-un-agente/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un esquema híbrido combina un algoritmo clásico y uno poscuántico: ambos producen un secreto y la clave de sesión se deriva de los dos. ([SE-285](../../../classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion/README.md))
-- Para tres usos, calcula la desigualdad de Mosca con tus valores, decide si hace falta un híbrido, escribe qué tamaño nuevo aparece (clave, texto cifrado, firma, certificado) y qué límite conocido podría romper. ([SE-285](../../../classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion/README.md))
+El híbrido criptográfico no resuelve el inventario ni la migración de los demás usos (firmas, certificados). Los tamaños son los de [SE-285](../../../classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion/README.md) para esos algoritmos; otros parámetros difieren. El enrutador de agentes añade su propio punto de fallo: clasificar mal una solicitud.
 
 ## Relación con otros conceptos
 

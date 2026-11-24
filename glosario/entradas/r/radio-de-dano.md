@@ -2,41 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Qubit lógico y físico](../q/qubit-logico-y-fisico.md) · [Radio de efecto →](./radio-de-efecto.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 23](../../../classes/part-23-runtimes-y-plataformas-modernas/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 23](../../../classes/part-23-runtimes-y-plataformas-modernas/README.md)
 
 ## Definición
 
-Conjunto de recursos alcanzables con una credencial comprometida.
-
-Definición de trabajo de [SE-286 — Confianza cero en la práctica](../../../classes/part-23-runtimes-y-plataformas-modernas/se-286-confianza-cero-en-la-practica/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-569 — Agentes, herramientas, permisos y límites de autoridad](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-569-agentes-herramientas-permisos-y-limites-de-autoridad/README.md): Conjunto de efectos que una acción errónea o maliciosa puede causar con la autoridad disponible.
+El **radio de daño** (*blast radius*) es el conjunto de recursos alcanzables con una credencial comprometida. Es el sentido de [SE-286](../../../classes/part-23-runtimes-y-plataformas-modernas/se-286-confianza-cero-en-la-practica/README.md) (confianza cero en la práctica). [SE-569](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-569-agentes-herramientas-permisos-y-limites-de-autoridad/README.md) lo extiende a agentes: el conjunto de efectos que una acción errónea o maliciosa puede causar con la autoridad disponible. Es una medida de lo que se puede perder, no de la probabilidad de que ocurra.
 
 ## Por qué importa
 
-En [SE-286 — Confianza cero en la práctica](../../../classes/part-23-runtimes-y-plataformas-modernas/se-286-confianza-cero-en-la-practica/README.md), el tema «Radio de daño» importa porque es la métrica que importa.
+Según [SE-286](../../../classes/part-23-runtimes-y-plataformas-modernas/se-286-confianza-cero-en-la-practica/README.md), es la métrica que importa. No importa cuántos controles tiene un sistema, sino *cuántos servicios alcanza una credencial robada y durante cuánto tiempo*. Pasa la pregunta de «¿nos pueden entrar?» a «si entran, ¿hasta dónde llegan?».
 
 ## Cómo funciona
 
-Según [SE-286 — Confianza cero en la práctica](../../../classes/part-23-runtimes-y-plataformas-modernas/se-286-confianza-cero-en-la-practica/README.md), en la sección «Radio de daño»:
+[SE-286](../../../classes/part-23-runtimes-y-plataformas-modernas/se-286-confianza-cero-en-la-practica/README.md) modela 200 servicios en 5 segmentos y una credencial robada de un servicio elegido al azar (5 000 repeticiones, semilla 48):
 
-Con el modelo de 200 servicios en 5 segmentos y una credencial robada de un servicio elegido al azar (5 000 repeticiones, semilla 48): en una red plana de confianza interna, el atacante alcanza 200 servicios; con segmentación de red en cinco partes, 40; con credenciales limitadas por destinatario a las 3 dependencias autorizadas del servicio, 3. Son valores del modelo, no medidas, pero la estructura es la importante: segmentar divide por el número de segmentos, y limitar por destinatario reduce al grado de dependencia del servicio comprometido. Ambas se combinan: la segmentación contiene lo que la política no previó. La métrica del trabajo no es «cuántos controles hay» sino *cuántos servicios alcanza una credencial robada y durante cuánto tiempo*, y ese número se calcula para tu sistema.
+- **Red plana de confianza interna:** el atacante alcanza 200 servicios.
+- **Segmentación de red en cinco partes:** 40.
+- **Credenciales limitadas por destinatario** a las 3 dependencias autorizadas del servicio: 3.
+
+Son valores del modelo, no medidas, pero la estructura es el punto: segmentar divide por el número de segmentos, y limitar por destinatario reduce el alcance al grado de dependencia del servicio comprometido. Ambas se combinan: la segmentación contiene lo que la política no previó. Para tu sistema, la cifra se calcula con el mapa real de dependencias.
+
+En agentes ([SE-569](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-569-agentes-herramientas-permisos-y-limites-de-autoridad/README.md)), el radio es lo que el agente *podría* hacer con las herramientas y permisos que tiene; se reduce con mínimo privilegio y confirmación humana para efectos graves.
 
 ## Ejemplo
 
-Ejemplo de [SE-286 — Confianza cero en la práctica](../../../classes/part-23-runtimes-y-plataformas-modernas/se-286-confianza-cero-en-la-practica/README.md) (sección «Ejemplo profesional»):
-
-Tras el incidente, el equipo de *Avisos* hace tres cambios por orden de rendimiento. Primero, mapea los flujos entre servicios y descubre que el servicio de informes llamaba a doce servicios cuando solo necesitaba dos: reduce permisos por destinatario y el radio de daño de una credencial de ese servicio pasa de doce a dos. Segundo, sustituye las credenciales de larga vida (tokens de 30 días en variables de entorno) por credenciales emitidas por un servicio de identidad con vida de 15 minutos y destinatario; para ello debe resolver la renovación automática y descubre dos servicios que guardaban el token en un archivo de configuración.
+Tras un incidente, el equipo de *Avisos* hace en [SE-286](../../../classes/part-23-runtimes-y-plataformas-modernas/se-286-confianza-cero-en-la-practica/README.md) tres cambios por orden de rendimiento. Primero, mapea los flujos entre servicios y descubre que el servicio de informes llamaba a doce servicios cuando solo necesitaba dos: reduce permisos por destinatario y el radio de daño de una credencial de ese servicio pasa de doce a dos.
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+- **Medir cuántos controles hay** en vez de cuánto alcanza una credencial robada.
+- **Credenciales amplias «por comodidad»,** compartidas entre servicios.
+- **Confundirlo con la probabilidad de intrusión:** reduce el impacto, no la ocurrencia.
+- **No acotar la duración:** una credencial que no caduca amplía el radio en el tiempo.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-286 — Confianza cero en la práctica](../../../classes/part-23-runtimes-y-plataformas-modernas/se-286-confianza-cero-en-la-practica/README.md)) son: Se verificaron tokens firmados con HMAC y se modelaron el radio de daño y la ventana de uso indebido con supuestos del autor; no se ejecutó ningún emisor de identidad, punto de decisión, malla de servicios ni revocación. El siguiente paso, `SE-287`, es el taller: una batería de comportamientos hostiles contra tres formas de ejecutar código ajeno, con el resultado a la vista.
+El número del modelo es de una simulación, no una medida de un sistema. El radio de daño solo contempla lo alcanzable con la credencial; no cubre daños por otros medios (ingeniería social, fallos de lógica). Reducirlo tiene costo operativo: más credenciales, más rotación y más reglas que mantener.
 
 ## Relación con otros conceptos
 

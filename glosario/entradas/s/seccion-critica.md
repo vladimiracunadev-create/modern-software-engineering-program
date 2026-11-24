@@ -2,52 +2,46 @@
 
 [↑ Glosario](../../README.md) · [← Sdk](./sdk.md) · [Seccionamiento →](./seccionamiento.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md)
 
 ## Definición
 
-Tramo de código que accede a un dato compartido y se protege para que ningún otro contexto lo interrumpa.
-
-Definición de trabajo de [SE-269 — Interrupciones, concurrencia y estado compartido](../../../classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-386 — Memoria compartida, locks y condiciones de carrera](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-386-memoria-compartida-locks-y-condiciones-de-carrera/README.md): Tramo de código que debe ejecutarse sin que otro hilo acceda al mismo dato.
-- En [SE-305 — Patrones funcionales, reactivos y concurrentes](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-305-patrones-funcionales-reactivos-y-concurrentes/README.md): Fragmento que accede a un dato compartido y debe ejecutarse sin interferencia.
+Una **sección crítica** es un tramo de código que accede a un dato compartido y se protege para que ningún otro contexto lo interrumpa o acceda al mismo dato a la vez. [SE-269](../../../classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md) (interrupciones, concurrencia y estado compartido) la presenta en microcontroladores, donde el otro contexto es una interrupción; [SE-386](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-386-memoria-compartida-locks-y-condiciones-de-carrera/README.md) y [SE-305](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-305-patrones-funcionales-reactivos-y-concurrentes/README.md) la presentan en hilos: el tramo debe ejecutarse sin que otro hilo acceda al mismo dato.
 
 ## Por qué importa
 
-La clase donde se define, [SE-269 — Interrupciones, concurrencia y estado compartido](../../../classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md), existe con este propósito: la clase existe para que compartas datos entre una interrupción y el bucle principal sin perder incrementos, sin leer valores partidos y sin desbordar búferes, y para que sepas qué defectos de concurrencia encuentra una prueba corta y cuáles solo encuentra una enumeración de todos los intercalados.
+Es la herramienta básica para que el estado compartido no se corrompa: sin perder incrementos, sin leer valores partidos y sin desbordar búferes ([SE-269](../../../classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md)). La decisión práctica es qué protege exactamente y por cuánto tiempo.
 
 ## Cómo funciona
 
-Según [SE-269 — Interrupciones, concurrencia y estado compartido](../../../classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md):
+El mecanismo depende del contexto:
 
-En un procesador de 8 bits, un valor de 16 bits se lee en dos instrucciones. Si la interrupción lo actualiza entre ambas, el programa obtiene un byte alto antiguo y uno bajo nuevo. El resultado es casi siempre inocuo: si el valor solo se incrementa en uno y el byte bajo no pasa de 255 a 0, el valor leído es el nuevo. Pero cuando el incremento cruza un límite de byte, el valor leído difiere en 255 o 256: un salto grande, rarísimo y casi irreproducible. Se evita con una sección crítica, con lectura doble hasta que dos lecturas coincidan o con un número de secuencia que la interrupción incrementa antes y después de escribir.
+- **Con una interrupción (microcontrolador):** se desactivan las interrupciones durante el tramo, o se usa una instrucción atómica. [SE-269](../../../classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md) lo ofrece, junto a la lectura doble y al número de secuencia, como defensa contra la lectura partida.
+- **Con hilos ([SE-386](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-386-memoria-compartida-locks-y-condiciones-de-carrera/README.md)):** se usa un cerrojo (*lock*) que un solo hilo puede tener a la vez; los demás esperan.
 
-Según [SE-269 — Interrupciones, concurrencia y estado compartido](../../../classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md):
+Principios de diseño:
 
-El equipo de la plataforma escribe una regla de datos compartidos del nodo. El contador de pulsaciones lo escribe solo la interrupción y el bucle lo lee con una sección crítica de dos instrucciones, de modo que el bucle nunca lo escribe. La temperatura de 16 bits la escribe la interrupción con un número de secuencia: se incrementa antes y después de escribir; el bucle repite la lectura hasta ver el mismo número par dos veces. Las lecturas del sensor van a un búfer de 128 muestras (el doble de lo necesario para una parada de 100 ms) con un contador de pérdidas que se envía con los datos. Además, la duración máxima de las secciones críticas (6 µs) forma parte del análisis de plazos de `SE-268`.
+1. **Mantenerla corta.** Cuanto más dura, más latencia de interrupción (en embebidos) o más contención (en hilos).
+2. **Proteger el dato, no el código:** cada dato compartido debe tener un único cerrojo asociado.
+3. **No bloquear dentro:** esperar entrada/salida con el cerrojo tomado bloquea a todos.
+4. **Ordenar los cerrojos** si hay varios, para evitar interbloqueos.
+
+[SE-269](../../../classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md) añade que una prueba corta encuentra algunos defectos de concurrencia y solo una **enumeración de todos los intercalados** encuentra otros.
 
 ## Ejemplo
 
-Ejemplo de [SE-269 — Interrupciones, concurrencia y estado compartido](../../../classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la plataforma escribe una regla de datos compartidos del nodo. El contador de pulsaciones lo escribe solo la interrupción y el bucle lo lee con una sección crítica de dos instrucciones, de modo que el bucle nunca lo escribe. La temperatura de 16 bits la escribe la interrupción con un número de secuencia: se incrementa antes y después de escribir; el bucle repite la lectura hasta ver el mismo número par dos veces. Las lecturas del sensor van a un búfer de 128 muestras (el doble de lo necesario para una parada de 100 ms) con un contador de pérdidas que se envía con los datos.
+El equipo de la plataforma en [SE-269](../../../classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md) escribe una regla de datos compartidos del nodo: qué datos comparte la interrupción con el bucle principal y cómo se protege cada uno. Ilustración propia del caso de lectura partida: el programa principal desactiva las interrupciones, copia el valor de 16 bits, las reactiva, y trabaja con la copia.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Un contador pierde incrementos de forma intermitente** — causa: lectura-modificación-escritura sin protección. Corrección: un solo escritor o sección crítica. ([SE-269](../../../classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md))
-- **Un valor muestra saltos grandes rarísimos** — causa: lectura partida de varios bytes. Corrección: sección crítica, lectura doble o número de secuencia. ([SE-269](../../../classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md))
-- **Una sección crítica rompe plazos** — causa: duración no acotada. Corrección: medirla y acotarla, o cambiar a un diseño sin bloqueo. ([SE-269](../../../classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md))
+- **Proteger solo algunos accesos** al dato; uno sin protección rompe todo.
+- **Secciones críticas largas** que bloquean la interrupción o a otros hilos.
+- **Confundirla con una operación atómica:** la atómica la hace el hardware en una instrucción; la sección crítica protege varios pasos.
+- **Tomar dos cerrojos en distinto orden** en rutas diferentes.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Se ejecuta la vuelta para cada posición, sin y con una sección crítica que enmascara las interrupciones entre `load` y `store` (la rutina se atiende al salir). ([SE-269](../../../classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md))
+No ayuda con datos que no se comparten. Desactivar interrupciones no protege de otros núcleos. En lugar de proteger, a veces conviene evitar el compartir (pasar mensajes, copiar). Una sección crítica correcta no garantiza el rendimiento: la contención se mide aparte.
 
 ## Relación con otros conceptos
 

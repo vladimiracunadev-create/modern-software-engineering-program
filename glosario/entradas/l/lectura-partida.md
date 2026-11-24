@@ -2,39 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Lectura obsoleta](./lectura-obsoleta.md) · [Legacy Modernization Engineer →](./legacy-modernization-engineer.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md)
 
 ## Definición
 
-Lectura de un valor de varios bytes que mezcla partes de dos escrituras distintas.
-
-Definición de trabajo de [SE-269 — Interrupciones, concurrencia y estado compartido](../../../classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md).
+Una **lectura partida** (*torn read*) es la lectura de un valor de varios bytes que mezcla partes de dos escrituras distintas. Es el sentido de [SE-269](../../../classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md) (interrupciones, concurrencia y estado compartido) en microcontroladores. Aparece cuando la lectura no es atómica y algo (una interrupción) cambia el valor entre sus pasos.
 
 ## Por qué importa
 
-En [SE-269 — Interrupciones, concurrencia y estado compartido](../../../classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md), el tema «Lecturas partidas» importa porque un valor de varios bytes puede leerse mitad antiguo y mitad nuevo.
+Es un defecto casi invisible: casi siempre da un resultado correcto, y de vez en cuando uno absurdo, rarísimo y casi irreproducible. Quien no conoce el mecanismo atribuye el síntoma al ruido del sensor.
 
 ## Cómo funciona
 
-Según [SE-269 — Interrupciones, concurrencia y estado compartido](../../../classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md), en la sección «Lecturas partidas»:
+[SE-269](../../../classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md) da el caso: en un procesador de 8 bits, un valor de 16 bits se lee en dos instrucciones (byte alto y byte bajo). Si la interrupción actualiza el valor entre ambas, el programa obtiene un byte alto antiguo y uno bajo nuevo, o al revés.
 
-En un procesador de 8 bits, un valor de 16 bits se lee en dos instrucciones. Si la interrupción lo actualiza entre ambas, el programa obtiene un byte alto antiguo y uno bajo nuevo. El resultado es casi siempre inocuo: si el valor solo se incrementa en uno y el byte bajo no pasa de 255 a 0, el valor leído es el nuevo. Pero cuando el incremento cruza un límite de byte, el valor leído difiere en 255 o 256: un salto grande, rarísimo y casi irreproducible. Se evita con una sección crítica, con lectura doble hasta que dos lecturas coincidan o con un número de secuencia que la interrupción incrementa antes y después de escribir.
+El resultado suele ser inocuo: si el valor solo se incrementa en uno y el byte bajo no pasa de 255 a 0, el valor leído coincide con el nuevo. Pero cuando el incremento cruza un límite de byte, el valor leído difiere en 255 o 256: un salto grande.
+
+Tres defensas de la clase:
+
+1. **Sección crítica:** desactivar las interrupciones mientras se lee.
+2. **Lectura doble:** leer hasta que dos lecturas consecutivas coincidan.
+3. **Número de secuencia:** la interrupción lo incrementa antes y después de escribir; el lector repite si cambió o es impar.
 
 ## Ejemplo
 
-Caso medido en la sección «Lecturas partidas» de [SE-269 — Interrupciones, concurrencia y estado compartido](../../../classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md):
-
-En un procesador de 8 bits, un valor de 16 bits se lee en dos instrucciones. Si la interrupción lo actualiza entre ambas, el programa obtiene un byte alto antiguo y uno bajo nuevo. El resultado es casi siempre inocuo: si el valor solo se incrementa en uno y el byte bajo no pasa de 255 a 0, el valor leído es el nuevo. Pero cuando el incremento cruza un límite de byte, el valor leído difiere en 255 o 256: un salto grande, rarísimo y casi irreproducible.
+Ilustración numérica: el contador vale `0x00FF` y la interrupción lo sube a `0x0100`. El programa lee el byte alto (`0x00`), llega la interrupción y escribe `0x0100`; luego lee el byte bajo (`0x00`). El valor obtenido es `0x0000`: un salto de 255 hacia atrás, que en un registro de tiempo parecería un reloj que retrocede. Es el tipo de síntoma que [SE-269](../../../classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md) describe como saltos grandes rarísimos.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Un valor muestra saltos grandes rarísimos** — causa: lectura partida de varios bytes. Corrección: sección crítica, lectura doble o número de secuencia. ([SE-269](../../../classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md))
+- **Un valor muestra saltos grandes rarísimos:** causa, lectura partida de un valor de varios bytes; corrección, una de las tres defensas ([SE-269](../../../classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md)).
+- **Pensar que se resuelve con `volatile`:** impide que el compilador reutilice el valor, pero no hace atómica la lectura.
+- **Aplicarla solo a microcontroladores de 8 bits:** puede ocurrir cada vez que el ancho del valor supera lo que el procesador lee de una vez.
+- **Confundirla con una condición de carrera completa:** es una de sus formas.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-269 — Interrupciones, concurrencia y estado compartido](../../../classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md)) son: Las definiciones son operativas para el nodo de la sala. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún procesador, ensamblador ni analizador de interrupciones: las posiciones, la probabilidad de 1/20 y el proceso de llegadas del búfer son construcciones del autor. La siguiente clase saca esos datos del dispositivo por una red que se corta.
+En procesadores que leen el valor completo en una instrucción atómica no ocurre. La lectura doble supone que el valor deja de cambiar entre lecturas; si cambia más rápido que el bucle de lectura, no termina. La sección crítica introduce latencia de interrupción: debe ser corta.
 
 ## Relación con otros conceptos
 

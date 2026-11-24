@@ -2,40 +2,46 @@
 
 [↑ Glosario](../../README.md) · [← Paquete de migración](./paquete-de-migracion.md) · [Paquete diagnóstico →](./paquete-diagnostico.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md)
 
 ## Definición
 
-Documento que reúne las decisiones de identidad, versiones, reversión, claves, umbrales, reintentos, despliegue, vigilancia, responsabilidad y revisión de un dispositivo.
-
-Definición de trabajo de [SE-276 — Proyecto: dispositivo simulado operable y actualizable](../../../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md).
+El **paquete del dispositivo** es un documento que reúne las decisiones de identidad, versiones, reversión, claves, umbrales, reintentos, despliegue, vigilancia, responsabilidad y revisión de un dispositivo. Es el artefacto de [SE-276](../../../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md) (proyecto: dispositivo simulado operable y actualizable). No es un paquete de software ni un instalador: es la documentación de decisiones que hace revisable al dispositivo.
 
 ## Por qué importa
 
-En [SE-276 — Proyecto: dispositivo simulado operable y actualizable](../../../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md), el tema «Paquete del dispositivo» importa porque reúne decisiones dispersas en un lugar revisable.
+Reúne decisiones dispersas en un lugar revisable. En un dispositivo que vivirá años, esas decisiones se toman en clases, piezas de código y conversaciones distintas; si no se reúnen, nadie ve el conjunto ni detecta las que se contradicen. [SE-276](../../../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md) precisa que no sustituye al código: lo hace revisable.
 
 ## Cómo funciona
 
-Según [SE-276 — Proyecto: dispositivo simulado operable y actualizable](../../../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md), en la sección «Paquete del dispositivo»:
+El paquete tiene **nueve secciones**, que responden:
 
-El paquete es un documento que dice, en nueve secciones, cómo se identifica el dispositivo, qué versión corre y cómo vuelve atrás, cómo rota sus claves, qué umbrales usa, cómo reintenta, cómo se despliega una versión, cuál es el plazo de su temporizador de vigilancia, quién responde por él y cuándo se revisa. No sustituye al código: lo hace revisable. Sigue el espíritu de NISTIR 8259A, que enumera capacidades que un dispositivo debe ofrecer, y de los registros breves de decisión de Nygard.
+1. Cómo se **identifica** el dispositivo.
+2. Qué **versión** corre y cómo **vuelve atrás**.
+3. Cómo **rota sus claves**.
+4. Qué **umbrales** usa.
+5. Cómo **reintenta**.
+6. Cómo se **despliega** una versión.
+7. Cuál es el plazo de su **temporizador de vigilancia**.
+8. **Quién responde** por él.
+9. **Cuándo se revisa.**
+
+La clase lo apoya en dos fuentes: NISTIR 8259A, que enumera capacidades que un dispositivo debe ofrecer, y los registros breves de decisión de Nygard. Tiene un **validador** que comprueba la forma, y una **simulación** que prueba que las decisiones funcionan juntas.
 
 ## Ejemplo
 
-Ejemplo de [SE-276 — Proyecto: dispositivo simulado operable y actualizable](../../../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md) (sección «Caso conductor»):
-
-El nodo ambiental de una sala de estudio cierra aquí su caso conductor de la [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md). El proyecto deja el duodécimo artefacto: el paquete del dispositivo operable y actualizable, con su validador, su simulación y sus límites, que reúne los once anteriores. La [Parte 24](../../../classes/part-24-software-especializado-y-dominios/README.md) deja el dispositivo y pasa a los dominios especializados, empezando por el software científico y la reproducibilidad. Cambia después una sola decisión, el tamaño de la primera etapa, y observa qué fallos dejan de detectarse.
+El nodo ambiental de una sala de estudio cierra en [SE-276](../../../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md) su caso conductor de la [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md). El proyecto deja el duodécimo artefacto: el paquete del dispositivo operable y actualizable, con su validador, su simulación y sus límites, que reúne los once anteriores. Cambiar una sola decisión, el tamaño de la primera etapa del despliegue, muestra qué fallos dejan de detectarse.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-276 — Proyecto: dispositivo simulado operable y actualizable](../../../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md)) son:
-
-- **El paquete pasa el validador y falla en la flota** — causa: validador de forma sin reglas de sentido. Corrección: añadir reglas de sentido y una revisión humana.
-- **Nadie sabe qué hacer ante un nodo mudo** — causa: sin procedimiento operativo. Corrección: escribir los procedimientos de los incidentes frecuentes.
+- **Un paquete que pasa el validador y falla en la flota:** el validador comprueba forma; hacen falta reglas de sentido y revisión humana ([SE-276](../../../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md)).
+- **Escribirlo una vez y no revisarlo:** la novena sección existe por eso.
+- **Tratarlo como sustituto del código o de las pruebas.**
+- **Confundirlo con la operabilidad:** esta es la propiedad; el paquete es el documento que la hace revisable.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-276 — Proyecto: dispositivo simulado operable y actualizable](../../../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md)) son: Las definiciones son operativas para el nodo de la sala. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se simuló ningún componente real ni se actualizó un dispositivo: las probabilidades de cuelgue, de corte y de fallo, el informe y la reparación del 90 % y las 200 mutaciones son construcciones del autor, y el validador se afinó con los mismos casos que lo evalúan.
+Es un documento sobre un dispositivo *simulado*: no demuestra que un dispositivo físico cumpla lo escrito. Para productos sin dispositivos desplegables a largo plazo, algunas secciones pierden sentido. Su valor depende de que lo escrito se mantenga al día con el código.
 
 ## Relación con otros conceptos
 

@@ -2,40 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Ventana de reproceso](./ventana-de-reproceso.md) · [Ventana de reversión limpia →](./ventana-de-reversion-limpia.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 20](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 20](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md)
 
 ## Definición
 
-Tiempo durante el cual el servidor recuerda una clave y su respuesta.
-
-Definición de trabajo de [SE-246 — Idempotencia, reintentos y deduplicación](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md).
+La **ventana de retención** es el tiempo durante el cual el servidor recuerda una clave de idempotencia y su respuesta. Es el sentido de [SE-246](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md) (idempotencia, reintentos y deduplicación). [SE-319](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-319-enterprise-integration-patterns-como-lenguaje-comun/README.md) usa la misma idea para los identificadores de mensaje de un receptor idempotente, con una ventana finita (por ejemplo, 7 días). No es un periodo de conservación legal de datos, aunque comparta el nombre con él.
 
 ## Por qué importa
 
-En [SE-246 — Idempotencia, reintentos y deduplicación](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md), el tema «Ventana de retención» importa porque una clave que caduca antes del reintento más tardío deja pasar el duplicado.
+Una clave que caduca antes del reintento más tardío deja pasar el duplicado. El servidor no puede recordar claves para siempre, y de la ventana depende que la protección contra duplicados sea real.
 
 ## Cómo funciona
 
-Según [SE-246 — Idempotencia, reintentos y deduplicación](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md), en la sección «Ventana de retención»:
+[SE-246](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md): el servidor guarda, por cada clave, la huella de la carga y la respuesta, y las retiene un tiempo. El tiempo de vida debe cubrir **el reintento más tardío que un cliente legítimo pueda hacer**. Una aplicación móvil sin conexión puede reintentar horas o días después. Si la clave caduca antes, el reintento crea un duplicado indistinguible de una solicitud nueva.
 
-El servidor no puede recordar claves para siempre. El tiempo de vida debe cubrir el reintento más tardío que un cliente legítimo pueda hacer (una aplicación móvil sin conexión puede reintentar horas o días después). Si la clave caduca antes, el reintento crea un duplicado indistinguible de una solicitud nueva. Alargar la ventana cuesta almacenamiento, y se compensa con claves compactas y limpieza periódica.
+Alargar la ventana cuesta almacenamiento, y se compensa con claves compactas y limpieza periódica. Por eso la decisión es un cálculo de dos extremos: el reintento legítimo más tardío (cota inferior) y el costo de guardar (cota superior).
+
+En un receptor idempotente ([SE-319](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-319-enterprise-integration-patterns-como-lenguaje-comun/README.md)), la misma lógica fija cuánto tiempo se conservan los identificadores vistos y exige que el canal no reenvíe un mensaje más tarde que esa ventana.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-246 — Idempotencia, reintentos y deduplicación](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md):
-
-La plataforma exige `Idempotency-Key` en `POST /entregas` y en `POST /entregas/{id}/apelaciones`; guarda la clave, la huella de la carga y la respuesta en la misma transacción que el efecto; devuelve 422 si la clave llega con otra carga; la retiene 7 días, el reintento más tardío del cliente móvil. El cliente reintenta solo 429, 503 y tiempos agotados, con retroceso exponencial, jitter total, un máximo de 5 intentos y respeto de `Retry-After`.
+La plataforma de [SE-246](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md) exige `Idempotency-Key` en `POST /entregas` y en `POST /entregas/{id}/apelaciones`; guarda la clave, la huella de la carga y la respuesta en la misma transacción que el efecto; devuelve 422 si la clave llega con otra carga; y la retiene 7 días, que es el reintento más tardío del cliente móvil. El cliente reintenta solo 429, 503 y tiempos agotados, con retroceso exponencial, jitter total, un máximo de 5 intentos y respeto de `Retry-After`.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-246 — Idempotencia, reintentos y deduplicación](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md)) son:
-
-- **Entregas duplicadas tras un error de red** — causa: POST sin clave de idempotencia. Corrección: clave por intención y restricción única.
-- **El servicio vuelve a caer al recuperarse** — causa: reintentos sincronizados sin jitter. Corrección: retroceso exponencial con jitter y límite de intentos.
+- **Entregas duplicadas tras un error de red:** POST sin clave de idempotencia; corrección, clave por intención y restricción única ([SE-246](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md)).
+- **Ventana menor que el reintento más tardío.**
+- **Guardar la clave sin la huella de la carga:** una clave reutilizada con otra carga pasa inadvertida.
+- **Confundirla con el TTL de una caché:** aquí un olvido produce un duplicado, no un dato viejo.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-246 — Idempotencia, reintentos y deduplicación](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ningún servicio, cliente ni red reales: las pérdidas, la capacidad y los retardos son construcciones del autor. La siguiente clase pregunta qué pasa cuando el trabajo ocurre fuera de la solicitud y se entrega al menos una vez.
+La ventana no protege contra un reintento posterior a ella; hace falta que el cliente deje de reintentar antes. Si el cliente puede reenviar indefinidamente (una cola persistente), la ventana debe alinearse con esa política. El valor de 7 días es de la plataforma de la clase, no una recomendación general.
 
 ## Relación con otros conceptos
 

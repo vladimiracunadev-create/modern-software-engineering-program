@@ -2,51 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Tóxico](./toxico.md) · [Trabajo →](./trabajo.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 18](../../../classes/part-18-cli-tui-servicios-y-automatizacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 18](../../../classes/part-18-cli-tui-servicios-y-automatizacion/README.md)
 
 ## Definición
 
-Proceso que toma trabajos de una cola y los ejecuta.
-
-Definición de trabajo de [SE-247 — Jobs, colas y procesamiento diferido](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-247-jobs-colas-y-procesamiento-diferido/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-591 — Orquestador-trabajadores y evaluador-optimizador](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-591-orquestador-trabajadores-y-evaluador-optimizador/README.md): Componente con contexto y herramientas mínimas que resuelve una subtarea.
-- En [SE-223 — Schedulers, workers y trabajos por lotes](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-223-schedulers-workers-y-trabajos-por-lotes/README.md): Proceso o hilo que toma trabajos de una cola y los ejecuta.
+Un **trabajador** (*worker*) es un proceso o hilo que toma trabajos de una cola y los ejecuta. Es el sentido de [SE-223](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-223-schedulers-workers-y-trabajos-por-lotes/README.md) (schedulers, workers y trabajos por lotes) y de [SE-247](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-247-jobs-colas-y-procesamiento-diferido/README.md) (jobs, colas y procesamiento diferido). [SE-591](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-591-orquestador-trabajadores-y-evaluador-optimizador/README.md) (orquestador-trabajadores y evaluador-optimizador) le da un sentido propio en sistemas de agentes: un componente con contexto y herramientas mínimas que resuelve una subtarea. En ambos, el trabajador hace la unidad de trabajo que otro le asigna.
 
 ## Por qué importa
 
-En [SE-247 — Jobs, colas y procesamiento diferido](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-247-jobs-colas-y-procesamiento-diferido/README.md), el tema «Cola y visibilidad» importa porque el tiempo de visibilidad convierte la caída de un trabajador en una repetición controlada en vez de en una pérdida.
+Separa *recibir* una petición de *ejecutarla*: la petición responde rápido y el trabajo pesado ocurre aparte. Pero introduce una pregunta de fiabilidad: ¿qué pasa si el trabajador cae a mitad de un trabajo? [SE-247](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-247-jobs-colas-y-procesamiento-diferido/README.md) responde con el tiempo de visibilidad.
 
 ## Cómo funciona
 
-Según [SE-247 — Jobs, colas y procesamiento diferido](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-247-jobs-colas-y-procesamiento-diferido/README.md):
+[SE-247](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-247-jobs-colas-y-procesamiento-diferido/README.md): una cola guarda trabajos pendientes. Cuando un trabajador toma uno, **no lo borra**: lo oculta durante un **tiempo de visibilidad** y lo borra al confirmar. Si el trabajador cae, el tiempo vence y el trabajo reaparece para otro. Así no se pierde trabajo ante caídas.
 
-Una cola guarda trabajos pendientes. Cuando un trabajador toma uno no lo borra: lo oculta durante un **tiempo de visibilidad** y lo borra al confirmar. Si el trabajador cae, el tiempo vence y el trabajo reaparece para otro. Es la forma de no perder trabajo ante caídas. El tiempo de visibilidad debe superar la duración máxima razonable de un trabajo: si es menor, el trabajo reaparece mientras el primer trabajador aún lo ejecuta y se duplica sin que nadie caiga.
+La condición crítica: el tiempo de visibilidad debe superar la duración máxima razonable de un trabajo. Si es menor, el trabajo reaparece mientras el primer trabajador aún lo ejecuta, y se duplica sin que nadie haya caído. Por eso el efecto debe ser idempotente.
 
-Según [SE-247 — Jobs, colas y procesamiento diferido](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-247-jobs-colas-y-procesamiento-diferido/README.md):
-
-La plataforma encola un trabajo de calificación por entrega mediante outbox (`SE-241`). El trabajo tiene identificador, estados consultables en `/trabajos/{id}`, un plazo máximo de 10 minutos, tres intentos con retroceso y jitter, y una cola de muertos con alerta cuando crece. El handler registra la nota con restricción única por identificador de trabajo. Se dimensiona con λ, μ y un objetivo de utilización máxima de 0,7 en el cierre de plazo. Compara con el original en tres casos: un trabajador que se reinicia, la hora del cierre de plazo y un archivo corrupto.
+En [SE-591](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-591-orquestador-trabajadores-y-evaluador-optimizador/README.md), un trabajador de agentes recibe del orquestador una subtarea con el contexto y las herramientas mínimas necesarias; esto limita su radio de acción y facilita evaluar su resultado.
 
 ## Ejemplo
 
-Ejemplo de [SE-247 — Jobs, colas y procesamiento diferido](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-247-jobs-colas-y-procesamiento-diferido/README.md) (sección «Ejemplo profesional»):
-
-La plataforma encola un trabajo de calificación por entrega mediante outbox (`SE-241`). El trabajo tiene identificador, estados consultables en `/trabajos/{id}`, un plazo máximo de 10 minutos, tres intentos con retroceso y jitter, y una cola de muertos con alerta cuando crece. El handler registra la nota con restricción única por identificador de trabajo. Se dimensiona con λ, μ y un objetivo de utilización máxima de 0,7 en el cierre de plazo. Compara con el original en tres casos: un trabajador que se reinicia, la hora del cierre de plazo y un archivo corrupto.
+La plataforma de [SE-247](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-247-jobs-colas-y-procesamiento-diferido/README.md) encola un trabajo de calificación por entrega mediante outbox ([SE-241](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-241-responsabilidades-y-fronteras-del-backend/README.md)). El trabajo tiene identificador, estados consultables en `/trabajos/{id}`, plazo máximo de 10 minutos, tres intentos con retroceso y jitter, y una cola de muertos con alerta cuando crece. El manejador registra la nota con restricción única por identificador de trabajo, de modo que una repetición no duplica. Se dimensiona con la tasa de llegada λ, la de servicio μ y un objetivo de utilización máxima de 0,7 en el cierre de plazo.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-247 — Jobs, colas y procesamiento diferido](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-247-jobs-colas-y-procesamiento-diferido/README.md)) son:
-
-- **La nota se registra dos veces** — causa: handler no idempotente con entrega al menos una vez. Corrección: restricción única por identificador de trabajo.
-- **Un trabajo se ejecuta dos veces sin caídas** — causa: tiempo de visibilidad menor que la duración del trabajo. Corrección: ajustar la visibilidad al máximo razonable y renovarla.
+- **Un tiempo de visibilidad menor que la duración del trabajo,** que causa duplicados sin caída.
+- **Confirmar el trabajo antes de terminarlo:** se pierde si cae.
+- **Efectos no idempotentes en el manejador.**
+- **Confundirlo con un hilo del servidor web** o con un trabajador de agentes: el contexto cambia.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Cuando un trabajador toma uno no lo borra: lo oculta durante un **tiempo de visibilidad** y lo borra al confirmar. ([SE-247](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-247-jobs-colas-y-procesamiento-diferido/README.md))
+Para tareas rápidas que el usuario espera, una cola añade complejidad innecesaria. El tamaño del grupo de trabajadores sigue las leyes de colas (utilización alta dispara la espera). Un trabajador envenenado por un trabajo que siempre falla requiere una cola de muertos.
 
 ## Relación con otros conceptos
 

@@ -2,47 +2,58 @@
 
 [↑ Glosario](../../README.md) · [← Confinamiento](./confinamiento.md) · [Confirmación →](./confirmacion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 21](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 21](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md)
 
 ## Definición
 
-Comprobación de que una ruta resuelta queda dentro de una carpeta permitida, tras normalizarla.
-
-Definición de trabajo de [SE-262 — Firma, sandbox y seguridad del cliente](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-262-firma-sandbox-y-seguridad-del-cliente/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-570 — Skills, plugins, hooks y entornos aislados](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md): Comprobación de que una ruta resuelta queda dentro de un directorio base.
-- En [SE-579 — Herramientas, permisos y superficies de acción](../../../classes/part-48-harness-y-agentic-engineering/se-579-herramientas-permisos-y-superficies-de-accion/README.md): Resolver una ruta y comprobar que queda dentro de la raíz permitida.
+El **confinamiento de rutas** (*path confinement*) es la comprobación de que una ruta resuelta queda dentro de una carpeta permitida, tras normalizarla. [SE-262](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-262-firma-sandbox-y-seguridad-del-cliente/README.md) (firma, sandbox y seguridad del cliente) lo presenta como defensa de la debilidad CWE-22 (recorrido de rutas); [SE-570](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md) y [SE-579](../../../classes/part-48-harness-y-agentic-engineering/se-579-herramientas-permisos-y-superficies-de-accion/README.md) lo reutilizan para el agente: resolver la ruta y comprobar que queda dentro de la raíz permitida.
 
 ## Por qué importa
 
-En [SE-262 — Firma, sandbox y seguridad del cliente](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-262-firma-sandbox-y-seguridad-del-cliente/README.md), el tema «Confinamiento de rutas» importa porque una ruta recibida de fuera debe normalizarse y compararse con la raíz, no filtrarse por apariencia.
-
-En [SE-570 — Skills, plugins, hooks y entornos aislados](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md), el tema «Confinamiento de rutas» importa porque es el control más repetido y el que más se escribe mal.
+Cuando una aplicación construye una ruta con una entrada externa (un nombre de archivo, un parámetro de una herramienta), esa entrada puede escapar de la carpeta prevista. [SE-262](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-262-firma-sandbox-y-seguridad-del-cliente/README.md) insiste en que una ruta recibida de fuera debe normalizarse y compararse con la raíz, no filtrarse por apariencia. [SE-570](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md) lo llama el control más repetido y el que más se escribe mal.
 
 ## Cómo funciona
 
-Según [SE-262 — Firma, sandbox y seguridad del cliente](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-262-firma-sandbox-y-seguridad-del-cliente/README.md), en la sección «Confinamiento de rutas»:
+La debilidad CWE-22 consiste en construir una ruta con entrada externa sin limitarla a una carpeta. Las defensas ingenuas fallan:
 
-La debilidad CWE-22 consiste en construir una ruta con entrada externa sin limitarla a una carpeta. Las defensas ingenuas (comprobar el prefijo, rechazar los dos puntos) fallan ante carpetas con nombre parecido, separadores distintos y rutas absolutas. La defensa correcta normaliza la ruta resultante y comprueba que está dentro de la raíz con el separador, y se prueba con una lista de casos. En un disco real, los enlaces simbólicos exigen una comprobación adicional del destino.
+- **Comprobar el prefijo:** `/datos/curso` también es prefijo de `/datos/curso-secreto`; la carpeta con nombre parecido pasa.
+- **Rechazar `..`:** no cubre separadores distintos (`\` frente a `/`) ni rutas absolutas que reemplazan la base.
+
+La defensa correcta, según [SE-262](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-262-firma-sandbox-y-seguridad-del-cliente/README.md):
+
+1. **Normalizar** la ruta resultante (resolver `.`, `..` y separadores).
+2. **Comprobar que está dentro de la raíz usando el separador**, es decir, que la raíz seguida del separador es prefijo, o que la ruta es la propia raíz.
+3. **Probar con una lista de casos** de entradas hostiles.
+
+En un disco real, los **enlaces simbólicos** exigen una comprobación adicional: hay que resolver el destino real del enlace y comprobarlo, porque un enlace dentro de la carpeta puede apuntar fuera.
 
 ## Ejemplo
 
-Ejemplo de [SE-570 — Skills, plugins, hooks y entornos aislados](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md) (sección «Caso conductor»):
+Esbozo ilustrativo en Python (no es código de la clase):
 
-El servicio *Avisos* es el caso conductor de la [Parte 47](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md). Esta clase deja el sexto artefacto: los controles del agente —ganchos con modo de fallo, habilidades con descripciones probadas y confinamiento de rutas— y la declaración del entorno donde se ejecuta. `SE-571` examina los servidores de herramientas y recursos que el agente consume a través del protocolo MCP y qué confianza merecen. Cambia después un solo dato, el número de caídas del gancho, y observa a partir de cuántas el modo abierto deja de ser una opción razonable para tu proyecto.
+```python
+from pathlib import Path
+
+def confinar(raiz: str, pedida: str) -> Path:
+    base = Path(raiz).resolve()
+    destino = (base / pedida).resolve()
+    if destino != base and base not in destino.parents:
+        raise ValueError("ruta fuera de la raíz")
+    return destino
+```
+
+[SE-570](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md) lo aplica a los controles del agente del servicio *Avisos*: ganchos, habilidades y confinamiento de rutas, junto con la declaración del entorno donde se ejecuta.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-262 — Firma, sandbox y seguridad del cliente](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-262-firma-sandbox-y-seguridad-del-cliente/README.md)) son:
-
-- **El cliente acepta un paquete modificado con su hash correcto** — causa: el hash viaja con el paquete y el atacante lo recalcula. Corrección: firma asimétrica con clave pública en el cliente.
-- **Una ruta con dos puntos lee un archivo de configuración** — causa: se filtró por prefijo en lugar de normalizar. Corrección: normalizar y comparar con la raíz y un separador.
+- **Comprobar solo el prefijo de texto**, que acepta carpetas de nombre parecido.
+- **Filtrar «..» como cadena**, que ignora rutas absolutas y otros separadores.
+- **Olvidar los enlaces simbólicos** en un disco real ([SE-262](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-262-firma-sandbox-y-seguridad-del-cliente/README.md)).
+- **Creer que el confinamiento reemplaza al sandbox:** es una capa, no el aislamiento del proceso.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-262 — Firma, sandbox y seguridad del cliente](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-262-firma-sandbox-y-seguridad-del-cliente/README.md)) son: Las definiciones son operativas para el cliente de la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos ficticios en Windows y Ubuntu (WSL2) con resultados idénticos. No se firmó ningún paquete con criptografía asimétrica, no se analizó ningún binario real y las doce rutas no agotan las variantes. La siguiente clase aplica todo esto al adaptar el producto a dos plataformas.
+La comprobación se hace en un momento y el sistema de archivos puede cambiar después (una condición de carrera entre comprobar y usar). No protege contra lo que la propia carpeta permitida ya contiene. En la clase se probó con una lista de casos, no sobre un disco con enlaces reales; esa parte la advierte la clase como comprobación adicional.
 
 ## Relación con otros conceptos
 

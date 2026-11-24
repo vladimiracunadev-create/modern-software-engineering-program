@@ -2,51 +2,43 @@
 
 [↑ Glosario](../../README.md) · [← MicroVM](./microvm.md) · [Migración reversible →](./migracion-reversible.md)
 
-> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 21](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md)
+> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 21](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md)
 
 ## Definición
 
-Cambio versionado del esquema o de los datos que se aplica en orden y deja registro de que se aplicó.
-
-Definición de trabajo de [SE-354 — Migraciones compatibles y evolución de esquema](../../../classes/part-29-datos-persistencia-y-recuperacion/se-354-migraciones-compatibles-y-evolucion-de-esquema/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-254 — Ciclo de vida, suspensión y reanudación](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-254-ciclo-de-vida-suspension-y-reanudacion/README.md): Transformación explícita de un estado guardado por una versión anterior a la forma que espera la versión actual.
+Una **migración** es un cambio versionado del esquema o de los datos que se aplica en orden y deja registro de que se aplicó. Es el sentido principal de la clase [SE-558](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-558-generacion-de-pruebas-documentacion-y-migraciones/README.md) (generación de pruebas, documentación y migraciones). [SE-254](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-254-ciclo-de-vida-suspension-y-reanudacion/README.md) lo usa en aplicaciones: la transformación explícita de un estado guardado por una versión anterior a la forma que espera la versión actual. El común es que algo guardado con una forma antigua debe pasar a una nueva sin perderse.
 
 ## Por qué importa
 
-En [SE-558 — Generación de pruebas, documentación y migraciones](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-558-generacion-de-pruebas-documentacion-y-migraciones/README.md), el tema «Migraciones» importa porque una conversión sin error no es una conversión correcta
+Una conversión sin error no es una conversión correcta. El riesgo está en los valores que no encajan, y esos pasan las comprobaciones habituales. Cambia la decisión de qué se verifica después de migrar: no basta que el script termine.
 
 ## Cómo funciona
 
-Según [SE-558 — Generación de pruebas, documentación y migraciones](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-558-generacion-de-pruebas-documentacion-y-migraciones/README.md):
+[SE-558](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-558-generacion-de-pruebas-documentacion-y-migraciones/README.md) describe el mecanismo del fallo silencioso: SQLite convierte con `CAST` el prefijo numérico de un texto y devuelve cero si no hay ninguno, sin error ni aviso; otros motores lanzan error o devuelven nulos, y cada uno tiene sus reglas. Un script generado sin conocer los valores reales convierte «NP», cadenas vacías o «5,5,0» en ceros o en números parciales plausibles, y el recuento de filas coincide: las comprobaciones habituales no lo ven.
 
-Una migración mueve datos de una forma a otra, y su riesgo está en los valores que no encajan. SQLite convierte con `CAST` el prefijo numérico de un texto y devuelve cero si no hay ninguno, sin error ni aviso; otros motores lanzan error o devuelven nulos, y cada uno tiene sus reglas. Un script generado sin conocer los valores reales convierte «NP», cadenas vacías o «5,5,0» en ceros o en números parciales plausibles, y el recuento de filas coincide, de modo que las comprobaciones habituales no lo ven.
+De ahí un procedimiento defendible:
 
-Según [SE-558 — Generación de pruebas, documentación y migraciones](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-558-generacion-de-pruebas-documentacion-y-migraciones/README.md):
+1. **Perfilar** los valores reales antes de escribir la conversión.
+2. **Definir** qué hacer con cada clase de valor que no encaja (rechazar, marcar, mapear).
+3. **Aplicar en orden**, con registro de versión aplicada.
+4. **Verificar** contra reglas del dominio, no solo recuentos.
 
-Escenario hipotético, construido para la clase y sin datos reales. El equipo del módulo de calificaciones recibe del asistente doce pruebas para `nota_final`. Antes de aceptarlas, ejecuta ocho mutantes: las doce pruebas detectan cuatro. Pide entonces al asistente casos a partir del reglamento (sin darle el código) y un revisor humano calcula a mano los esperados; la suite pasa a detectar ocho. Para la documentación exige ejemplos ejecutables y los añade a la integración continua; las docstrings en prosa llevan la versión en que se redactaron.
+En [SE-254](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-254-ciclo-de-vida-suspension-y-reanudacion/README.md), al reanudar una aplicación, el estado guardado por una versión anterior pasa por una migración explícita antes de usarse.
 
 ## Ejemplo
 
-Ejemplo de [SE-558 — Generación de pruebas, documentación y migraciones](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-558-generacion-de-pruebas-documentacion-y-migraciones/README.md) (sección «Ejemplo profesional»):
-
-Escenario hipotético, construido para la clase y sin datos reales. El equipo del módulo de calificaciones recibe del asistente doce pruebas para `nota_final`. Antes de aceptarlas, ejecuta ocho mutantes: las doce pruebas detectan cuatro. Pide entonces al asistente casos a partir del reglamento (sin darle el código) y un revisor humano calcula a mano los esperados; la suite pasa a detectar ocho. Para la documentación exige ejemplos ejecutables y los añade a la integración continua; las docstrings en prosa llevan la versión en que se redactaron.
+Ilustración propia basada en el riesgo de la clase: una columna de notas en texto, con valores «NP» (no presentó) y «5,5». Una conversión directa a número las transforma en 0 o en 5, y el número de filas sigue igual. Una migración cuidada trata «NP» como ausencia, normaliza la coma y falla con un informe de las filas no convertibles.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La migración termina sin errores y hay ceros inesperados** — causa: `CAST` sobre valores inválidos. Corrección: validar con patrón y apartar en cuarentena. ([SE-558](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-558-generacion-de-pruebas-documentacion-y-migraciones/README.md))
-- **El panel se congela al ejecutar una migración** — causa: actualización de muchas filas en una transacción. Corrección: relleno por lotes idempotente y reanudable. ([SE-354](../../../classes/part-29-datos-persistencia-y-recuperacion/se-354-migraciones-compatibles-y-evolucion-de-esquema/README.md))
-- **La aplicación se cierra al abrirla tras actualizar** — causa: la lectura estricta rechaza el estado de la versión anterior. Corrección: versión en el archivo, migraciones y prueba por versión. ([SE-254](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-254-ciclo-de-vida-suspension-y-reanudacion/README.md))
+- **Confiar en que el recuento de filas valida la migración.**
+- **Aplicar un script generado sin revisar los valores reales** ([SE-558](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-558-generacion-de-pruebas-documentacion-y-migraciones/README.md)).
+- **Migrar sin versión registrada,** de modo que no se sabe qué se aplicó.
+- **Confundirla con una reescritura o con el cambio de plataforma.**
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Una migración mueve datos de una forma a otra, y su riesgo está en los valores que no encajan. ([SE-558](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-558-generacion-de-pruebas-documentacion-y-migraciones/README.md))
+Una migración que modifica datos no siempre es reversible; conviene copia previa y plan de vuelta atrás. Las reglas de conversión dependen del motor concreto. Y para esquemas que cambian de forma compatible (añadir una columna opcional), el costo es menor, pero sigue necesitando orden y registro.
 
 ## Relación con otros conceptos
 

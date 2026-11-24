@@ -2,46 +2,44 @@
 
 [↑ Glosario](../../README.md) · [← Validador de estructura](./validador-de-estructura.md) · [Validador de paquete →](./validador-de-paquete.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 22](../../../classes/part-22-embedded-iot-y-tiempo-real/README.md)
 
 ## Definición
 
-Programa que comprueba la estructura y las referencias de un dossier, no su sentido.
-
-Definición de trabajo de [SE-336 — Proyecto: arquitectura defendible y verificable](../../../classes/part-27-arquitectura-de-software-y-dominio/se-336-proyecto-arquitectura-defendible-y-verificable/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-408 — Proyecto: plataforma mínima reproducible](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-408-proyecto-plataforma-minima-reproducible/README.md): Comprobador que decide si un paquete está completo y es coherente en su estructura, sin interpretar su contenido.
-- En [SE-276 — Proyecto: dispositivo simulado operable y actualizable](../../../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md): Programa que comprueba la estructura de un documento sin entender su sentido.
+Un **validador de forma** es un programa que comprueba la estructura y las referencias de un dosier, no su sentido. [SE-408](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-408-proyecto-plataforma-minima-reproducible/README.md) (proyecto: plataforma mínima reproducible) lo define como un comprobador que decide si un paquete está completo y es coherente en su estructura, sin interpretar su contenido; [SE-276](../../../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md) lo describe como un programa que comprueba la estructura de un documento sin entender su sentido; [SE-336](../../../classes/part-27-arquitectura-de-software-y-dominio/se-336-proyecto-arquitectura-defendible-y-verificable/README.md) lo usa en el dosier de arquitectura.
 
 ## Por qué importa
 
-En [SE-336 — Proyecto: arquitectura defendible y verificable](../../../classes/part-27-arquitectura-de-software-y-dominio/se-336-proyecto-arquitectura-defendible-y-verificable/README.md), el tema «Validador de forma» importa porque impide dossiers rotos sin pretender evaluarlos.
-
-En [SE-408 — Proyecto: plataforma mínima reproducible](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-408-proyecto-plataforma-minima-reproducible/README.md), el tema «Validador de forma» importa porque detecta lo estructural y deja pasar lo que exige interpretar.
+Impide dosieres rotos sin pretender evaluarlos. Es barato y se ejecuta en cada cambio. Pero conviene no confundir un validador en verde con un dosier correcto: detecta lo estructural y deja pasar lo que exige interpretar.
 
 ## Cómo funciona
 
-Según [SE-336 — Proyecto: arquitectura defendible y verificable](../../../classes/part-27-arquitectura-de-software-y-dominio/se-336-proyecto-arquitectura-defendible-y-verificable/README.md), en la sección «Validador de forma»:
+[SE-336](../../../classes/part-27-arquitectura-de-software-y-dominio/se-336-proyecto-arquitectura-defendible-y-verificable/README.md) enumera reglas típicas de un validador:
 
-Un validador comprueba reglas locales y de referencia: identificadores únicos, referencias que existen, umbrales numéricos con unidad, al menos dos alternativas por ADR, estados válidos, vistas con los mismos componentes, y cobertura (todo driver tiene un escenario, todo escenario una decisión, todo escenario alto una función de aptitud o una excepción). Es barato y se ejecuta en cada cambio. Su límite está en el nombre: valida la *forma*. No sabe si un umbral es razonable, si una función de aptitud comprueba lo que dice o si una decisión contradice a otra.
+- Identificadores únicos.
+- Referencias que existen.
+- Umbrales numéricos con unidad.
+- Al menos dos alternativas por ADR.
+- Estados válidos.
+- Vistas con los mismos componentes.
+- **Cobertura:** todo driver tiene un escenario, todo escenario una decisión, y todo escenario alto una función de aptitud o una excepción.
+
+Son reglas locales y de referencia que un programa puede comprobar mecánicamente. Su límite está en el nombre: valida la *forma*. No sabe si un umbral es razonable, si una función de aptitud comprueba lo que dice o si una decisión contradice a otra. Para esas cosas hace falta revisión humana. Esta división de trabajo (máquina para lo estructural, personas para el sentido) es la que sostiene la entrega.
 
 ## Ejemplo
 
-Ejemplo de [SE-336 — Proyecto: arquitectura defendible y verificable](../../../classes/part-27-arquitectura-de-software-y-dominio/se-336-proyecto-arquitectura-defendible-y-verificable/README.md) (sección «Ejemplo profesional»):
-
-El equipo entrega `architecture-dossier/` con un `modelo.yaml` del que se generan las cuatro vistas, doce escenarios, cuatro ADR y seis funciones de aptitud que corren en CI (dominio sin importaciones de infraestructura, p95 del recorrido de entrega, capacidad del pico, presupuesto de disponibilidad, uso por unidad y fallo inyectado del antivirus). El validador de forma corre en cada cambio y rechaza referencias rotas.
+En [SE-336](../../../classes/part-27-arquitectura-de-software-y-dominio/se-336-proyecto-arquitectura-defendible-y-verificable/README.md), el equipo entrega `architecture-dossier/` con un `modelo.yaml` del que se generan las cuatro vistas, doce escenarios y cuatro ADR. El validador comprueba que cada driver tenga escenario y que cada escenario alto tenga función de aptitud. En [SE-276](../../../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md), el paquete del dispositivo pasa su validador y aun así puede fallar en la flota si falta una regla de sentido.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El paquete pasa el validador y falla en la flota** — causa: validador de forma sin reglas de sentido. Corrección: añadir reglas de sentido y una revisión humana. ([SE-276](../../../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md))
+- **El paquete pasa el validador y falla en la flota:** validador de forma sin reglas de sentido; corrección, reglas de sentido y revisión humana ([SE-276](../../../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md)).
+- **Tomar «validado» por «correcto».**
+- **Un dosier completo con afirmaciones sin evidencia** ([SE-300](../../../classes/part-24-software-especializado-y-dominios/se-300-proyecto-diseno-profundo-de-un-dominio-elegido/README.md)).
+- **Añadir reglas que parecen de sentido pero solo comprueban presencia.**
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-336 — Proyecto: arquitectura defendible y verificable](../../../classes/part-27-arquitectura-de-software-y-dominio/se-336-proyecto-arquitectura-defendible-y-verificable/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres análisis con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se desplegó ni se midió ningún sistema: el dossier, las mutaciones, las caídas, el 30 % de causa común, los picos y el grafo de impacto son construcciones del autor, y el validador se escribió mirando las mismas mutaciones que lo evalúan.
+Cuanto más rica la estructura, más útil el validador; para documentos sin estructura formal, no hay mucho que comprobar. Y no sustituye las pruebas del comportamiento del sistema descrito. Agregar reglas de sentido tiene un límite: lo que requiere juicio queda en manos de personas.
 
 ## Relación con otros conceptos
 

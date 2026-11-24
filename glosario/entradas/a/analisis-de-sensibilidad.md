@@ -2,51 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← Análisis de impacto](./analisis-de-impacto.md) · [Análisis de sensibilidad global →](./analisis-de-sensibilidad-global.md)
 
-> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 21](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md)
+> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 21](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md)
 
 ## Definición
 
-Estudio de cuánto cambia el resultado de un modelo al variar uno de sus parámetros.
-
-Definición de trabajo de [SE-526 — Economía de reescribir frente a evolucionar](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-526-economia-de-reescribir-frente-a-evolucionar/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-255 — Nativo, híbrido, web wrapper y cross-platform](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md): Repetición de una decisión variando sus supuestos para medir con qué frecuencia el resultado se mantiene.
-- En [SE-333 — Trade-offs, ADR y evaluación de alternativas](../../../classes/part-27-arquitectura-de-software-y-dominio/se-333-trade-offs-adr-y-evaluacion-de-alternativas/README.md): Estudio de cuánto cambian los pesos o los supuestos para que otra alternativa gane.
+El **análisis de sensibilidad** estudia cuánto cambia el resultado de un modelo al variar uno de sus parámetros. [SE-526](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-526-economia-de-reescribir-frente-a-evolucionar/README.md) es la clase donde se define, aplicado a la decisión de reescribir o evolucionar. El programa lo usa con matices: en [SE-255](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md) es repetir una decisión variando sus supuestos para medir con qué frecuencia el resultado se mantiene; en [SE-333](../../../classes/part-27-arquitectura-de-software-y-dominio/se-333-trade-offs-adr-y-evaluacion-de-alternativas/README.md) es estudiar cuánto deben moverse pesos o supuestos para que otra alternativa gane.
 
 ## Por qué importa
 
-La clase donde se define, [SE-526 — Economía de reescribir frente a evolucionar](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-526-economia-de-reescribir-frente-a-evolucionar/README.md), existe con este propósito: la clase existe para que la pregunta «¿reescribimos o seguimos con esto?» deje de decidirse por cansancio, por entusiasmo por una tecnología o por quien habla más fuerte, y se decida con un modelo de costos explícito, con incertidumbre y con las condiciones en que la respuesta cambia.
+Convierte una discusión de preferencias en una pregunta medible. [SE-526](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-526-economia-de-reescribir-frente-a-evolucionar/README.md) existe para que la pregunta «¿reescribimos o seguimos?» no se decida por cansancio, por entusiasmo tecnológico o por quien habla más fuerte, sino con un modelo de costos explícito, con incertidumbre y con las condiciones en que la respuesta cambia. El análisis dice *qué parámetro vale la pena medir antes de comprometerse*.
 
 ## Cómo funciona
 
-Según [SE-526 — Economía de reescribir frente a evolucionar](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-526-economia-de-reescribir-frente-a-evolucionar/README.md):
+Un modelo con siete parámetros inciertos no es igual de sensible a todos. La versión más simple, según [SE-526](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-526-economia-de-reescribir-frente-a-evolucionar/README.md):
 
-Cuando un modelo tiene siete parámetros inciertos, no todos pesan lo mismo en el resultado. El análisis de sensibilidad más simple mueve un parámetro cada vez entre un valor bajo y uno alto, deja los demás con sus distribuciones y mide cuánto cambia la diferencia entre las opciones. El parámetro con mayor recorrido es el que domina la decisión y el que merece medirse antes de comprometerse. La utilidad es práctica: en lugar de discutir qué opción es mejor, se discute cuánto costará construir, y esa pregunta se puede responder con una estimación mejor, con un prototipo o con el historial de proyectos previos. Si el parámetro dominante no se puede medir hasta empezar, la decisión debe diseñarse para poder abandonarla cuando se mida.
+1. Se toma cada parámetro por separado y se mueve entre un valor bajo y uno alto.
+2. Los demás conservan sus distribuciones.
+3. Se mide cuánto cambia la diferencia entre las opciones.
 
-Según [SE-526 — Economía de reescribir frente a evolucionar](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-526-economia-de-reescribir-frente-a-evolucionar/README.md):
+El parámetro con mayor recorrido domina la decisión. La utilidad es práctica: en vez de discutir qué opción es mejor, se discute cuánto costará construir, pregunta que se responde con una estimación mejor, un prototipo o el historial. Si el parámetro dominante no puede medirse hasta empezar, la decisión debe diseñarse para poder abandonarse cuando se mida.
 
-Escenario hipotético, construido para la clase y sin datos reales. El equipo no discute las dos propuestas: las convierte en parámetros. Del historial de la empresa obtiene que la última reescritura costó 1,8 veces su presupuesto y duró 1,5 veces lo previsto; mide el crecimiento del costo del módulo en los últimos tres años (un 9 % anual); revisa cuántas peticiones modificaron el módulo antiguo en el último año para estimar la deriva. Con eso ejecuta la simulación: el análisis de sensibilidad dice que el costo de construir domina, así que decide hacer un prototipo de una rebanada (`SE-521`) para medirlo antes de comprometer el resto.
+En [SE-333](../../../classes/part-27-arquitectura-de-software-y-dominio/se-333-trade-offs-adr-y-evaluacion-de-alternativas/README.md) la variante mueve los pesos de una matriz de decisión; en [SE-255](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md), repite la decisión muchas veces con supuestos variados y cuenta cuántas veces gana la misma opción.
 
 ## Ejemplo
 
-Ejemplo de [SE-526 — Economía de reescribir frente a evolucionar](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-526-economia-de-reescribir-frente-a-evolucionar/README.md) (sección «Ejemplo profesional»):
-
-Escenario hipotético, construido para la clase y sin datos reales. El equipo no discute las dos propuestas: las convierte en parámetros. Del historial de la empresa obtiene que la última reescritura costó 1,8 veces su presupuesto y duró 1,5 veces lo previsto; mide el crecimiento del costo del módulo en los últimos tres años (un 9 % anual); revisa cuántas peticiones modificaron el módulo antiguo en el último año para estimar la deriva. Con eso ejecuta la simulación: el análisis de sensibilidad dice que el costo de construir domina, así que decide hacer un prototipo de una rebanada (`SE-521`) para medirlo antes de comprometer el resto.
+Escenario hipotético de [SE-526](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-526-economia-de-reescribir-frente-a-evolucionar/README.md), sin datos reales. El equipo toma de su historial que la última reescritura costó 1,8 veces su presupuesto y duró 1,5 veces lo previsto, mide un crecimiento del costo del módulo de 9 % anual y cuenta las peticiones que tocaron el módulo antiguo. Al simular, el análisis muestra que el costo de construir domina; deciden hacer un prototipo de una rebanada ([SE-521](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md)) para medirlo antes de comprometer el resto.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-526 — Economía de reescribir frente a evolucionar](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-526-economia-de-reescribir-frente-a-evolucionar/README.md)) son:
-
-- **Se aprueba una reescritura con un solo número** — causa: falta incertidumbre y términos ocultos. Corrección: modelar con distribuciones y todos los términos.
-- **El costo real duplica el presupuesto** — causa: no se presupuestó la deriva ni el legado paralelo. Corrección: añadir esos términos y medir la deriva.
+- **Aprobar una reescritura con un solo número** ([SE-526](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-526-economia-de-reescribir-frente-a-evolucionar/README.md)): una estimación puntual oculta qué parámetro la sostiene.
+- **Mover todos los parámetros a la vez** y no poder atribuir el efecto.
+- **Confundirlo con un intervalo de confianza:** el análisis no mide el error de estimación, mide la influencia de cada entrada.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- El análisis de sensibilidad más simple mueve un parámetro cada vez entre un valor bajo y uno alto, deja los demás con sus distribuciones y mide cuánto cambia la diferencia entre las opciones. ([SE-526](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-526-economia-de-reescribir-frente-a-evolucionar/README.md))
+Mover un parámetro cada vez ignora interacciones entre parámetros. El resultado es tan bueno como el modelo: si falta un costo, ninguna variación lo revela. Los datos de [SE-526](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-526-economia-de-reescribir-frente-a-evolucionar/README.md) son un escenario construido para la clase. Y cuando la decisión es barata o reversible, el análisis cuesta más que equivocarse.
 
 ## Relación con otros conceptos
 

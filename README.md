@@ -1353,7 +1353,7 @@ Edición del 2026-11-24 (commit `e6575e51`, release [`pdf-2026-11-24-e6575e51`](
   (612 clases, 32 casos y glosario) y se comprueban abriéndolas y contando su contenido con
   [`scripts/verify_apps.py`](scripts/verify_apps.py): instalador, MSI, portable y ejecutable único
   de Windows, y APK de Android, con sumas SHA-256 por plataforma. Descarga, instalación, verificación y
-  límites en [`docs/APPS.md`](docs/APPS.md); pendiente de publicar el primer release.
+  límites en [`docs/APPS.md`](docs/APPS.md). Release [`v0.1.0`](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/tag/v0.1.0): [instalador](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/download/v0.1.0/Ingenieria-Software-Moderna-0.1.0-setup-windows-x64.exe) · [MSI](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/download/v0.1.0/Ingenieria-Software-Moderna-0.1.0-windows-x64.msi) · [portable](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/download/v0.1.0/Ingenieria-Software-Moderna-0.1.0-portable-windows-x64.zip) · [ejecutable único](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/download/v0.1.0/Ingenieria-Software-Moderna-0.1.0-windows-x64.exe) · [APK](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/download/v0.1.0/Ingenieria-Software-Moderna-0.1.0-android.apk); sumas en `SHA256SUMS-windows.txt` y `SHA256SUMS-android.txt`.
 <!-- apps-downloads:end -->
 
 No se anuncian como disponibles seguimiento personal ni certificación. Los PDF y las aplicaciones no se

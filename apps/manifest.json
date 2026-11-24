@@ -1,0 +1,43 @@
+{
+  "version": "0.1.0",
+  "tag": "v0.1.0",
+  "date": "2026-11-24",
+  "commit": "87b9c8c5",
+  "assets": [
+    {
+      "name": "Ingenieria-Software-Moderna-0.1.0-android.apk",
+      "bytes": 33770080,
+      "sha256": "e7b83077cbe1bc2f21ec9bca3659c865d562b14a0ecc6815f90f2fbcb38298be"
+    },
+    {
+      "name": "Ingenieria-Software-Moderna-0.1.0-portable-windows-x64.zip",
+      "bytes": 38309895,
+      "sha256": "dd36fd2f7abbc42f3f8249793d9a63faa6341ff7f1fbf829e232f1625dd932c4"
+    },
+    {
+      "name": "Ingenieria-Software-Moderna-0.1.0-setup-windows-x64.exe",
+      "bytes": 19042419,
+      "sha256": "434bc8ba7a5a88e378c8b967ac121987724aaaf9e74975266eb7c475e0630c9c"
+    },
+    {
+      "name": "Ingenieria-Software-Moderna-0.1.0-windows-x64.exe",
+      "bytes": 36603484,
+      "sha256": "e8fc68ffde00873b0b2feccc046e98ab693cd4dab06749e122f8c97b8708fd14"
+    },
+    {
+      "name": "Ingenieria-Software-Moderna-0.1.0-windows-x64.msi",
+      "bytes": 23310067,
+      "sha256": "6f4af3766c8b5557d559390f6d6fc51aa63450d37673ac1498f31a5273a037a4"
+    },
+    {
+      "name": "SHA256SUMS-android.txt",
+      "bytes": 112,
+      "sha256": "f5d70444d76bafb314ca876f14ba26249f84075ad7e9448f3f39771037be62b7"
+    },
+    {
+      "name": "SHA256SUMS-windows.txt",
+      "bytes": 479,
+      "sha256": "5a21d0a976dda14d636454bff905286d1e17a6f51cd08acb1c6fd4bd0388a7de"
+    }
+  ]
+}

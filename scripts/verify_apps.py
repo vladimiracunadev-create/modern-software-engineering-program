@@ -283,7 +283,8 @@ def arch_of(name: str) -> str | None:
 def run_if_native(binary: Path | None, label: str, path: Path, ctx: dict, report: Report, workdir: Path) -> None:
     """Ejecuta --self-check solo si el binario es de la arquitectura del equipo."""
     wanted = arch_of(path.name)
-    if binary is None or wanted != host_arch():
+    same = {"arm64": "aarch64", "aarch64": "aarch64"}.get(wanted, wanted) == {"arm64": "aarch64"}.get(host_arch(), host_arch()) \n        if sys.platform == "linux" else wanted == host_arch()
+    if binary is None or not same:
         report.add(path.name, label, SKIP, f"el equipo es {sys.platform}/{host_arch()}, el artefacto es {wanted}")
         return
     problems = self_check(binary, ctx["digest"], workdir)

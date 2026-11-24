@@ -2,40 +2,45 @@
 
 [↑ Glosario](../../README.md) · [← Build & Release Engineer](./build-release-engineer.md) · [Build hermético →](./build-hermetico.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 09](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 09](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md)
 
 ## Definición
 
-El backend se ejecuta con requisitos de build declarados, evitando depender del entorno del autor.
-
-Definición de trabajo de [SE-112 — Paquetes, módulos y publicación](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md).
+Un **build aislado** es una construcción de paquete que se ejecuta con los **requisitos de build declarados** en el proyecto, en lugar de usar lo que casualmente haya instalado en la máquina de quien construye. En [SE-112](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md) aparece junto al backend de construcción: el proyecto declara qué herramientas necesita para construirse (por ejemplo en `[build-system]` de `pyproject.toml`) y el constructor las instala en un entorno temporal. Es distinto de un build **reproducible**, que además exige que el resultado sea idéntico byte a byte; aislar es condición necesaria, no suficiente.
 
 ## Por qué importa
 
-En [SE-112 — Paquetes, módulos y publicación](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md), el tema «Build aislado» importa porque el backend se ejecuta con requisitos de build declarados, evitando depender del entorno del autor.
+Si un paquete se construye con el entorno del autor, el resultado depende de detalles invisibles: una versión de herramienta instalada hace meses, una variable de entorno, un archivo local. Otra persona (o el servidor de integración) obtiene otro artefacto o un fallo. La decisión que cambia es qué se considera «el build»: no «lo que sale en mi máquina», sino «lo que sale de las entradas declaradas». Así, los requisitos faltantes se convierten en un error inmediato y no en un defecto que aparece en el equipo de un consumidor.
 
 ## Cómo funciona
 
-Según [SE-112 — Paquetes, módulos y publicación](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md), en la sección «Build aislado»:
+El mecanismo tiene tres elementos:
 
-El backend se ejecuta con requisitos de build declarados, evitando depender del entorno del autor. Builds reproducibles requieren más: timestamps, orden y toolchain pueden variar. Hash igual solo se afirma tras comparar bytes bajo protocolo declarado.
+- **Declaración.** El proyecto lista los requisitos de construcción y el backend que los usa.
+- **Entorno temporal vacío.** El constructor crea un entorno limpio, instala solo lo declarado y ejecuta el backend allí. Cualquier módulo no declarado produce un error de importación en lugar de resolverse con lo que hubiera disponible.
+- **Resultado como función de las entradas declaradas.** Lo producido (sdist, wheel) depende de fuentes y requisitos, no del entorno del autor.
+
+[SE-112](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md) marca el límite de la idea: aislar no vuelve reproducible. Marcas de tiempo dentro de los archivos, orden de los miembros del archivo comprimido y versión de la cadena de herramientas pueden variar entre construcciones y cambiar los hashes aunque el contenido sea equivalente. Por eso solo se afirma «hash igual» después de **comparar bytes bajo un protocolo declarado** (mismas entradas, misma fecha fijada, mismo entorno), no por haber ejecutado dos veces.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-112 — Paquetes, módulos y publicación](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md):
+En el producto reutilizable con SDK y CLI, el release debe contener artefactos inmutables y procedencia. Un fallo típico que el aislamiento revela es el de un archivo de datos que existe en el árbol de trabajo pero no entra en el paquete: aparece como `FileNotFoundError` solo tras instalar, y la corrección es declarar el archivo en `package-data` y comprobar el contenido de la rueda contra una lista esperada. Otro caso de [SE-112](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md): `import json` devuelve un objeto raro porque un `json.py` local tapa la biblioteca estándar; se detecta ejecutando con `-I` (modo aislado) o `-P`.
 
-En el producto reutilizable con SDK y CLI, un release contiene contrato público, artefactos inmutables, dependencias, procedencia, ejemplos, errores y ruta de migración. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```bash
+python -m build            # aísla por defecto: crea un entorno temporal
+python -I -c "import json; print(json.__file__)"
+```
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-112 — Paquetes, módulos y publicación](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md)) son:
-
-- **`FileNotFoundError` solo tras instalar** — causa: el archivo de datos no está en `package-data`. Corrección: declararlo y comprobar el contenido de la rueda contra una lista esperada.
-- **`import json` devuelve un objeto raro en un directorio concreto** — causa: un `json.py` local tapa la biblioteca estándar. Corrección: renombrar el archivo y ejecutar con `-I` o `-P` para comprobar.
+- **Tomar «aislado» por «reproducible».** Dos construcciones aisladas pueden producir hashes distintos por marcas de tiempo.
+- **Declarar solo dependencias de ejecución.** Las herramientas de construcción también deben declararse, o el build depende del entorno del autor.
+- **Afirmar igualdad de hashes sin comparar.** Debe compararse el contenido bajo un protocolo escrito.
+- **Dejar archivos locales en la ruta de importación.** Un módulo local con nombre de la biblioteca estándar altera el resultado.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-112 — Paquetes, módulos y publicación](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md)) son: Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Un paquete instalado todavía necesita una interfaz operable y estable. La siguiente clase diseña CLI, configuración, streams y códigos de salida como API pública.
+Un paquete instalado todavía necesita una interfaz operable y estable ([SE-112](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md)). Un build aislado no protege frente a una dependencia comprometida: instala lo que se declara desde donde se declara, sin verificar procedencia. Y para un script personal que nunca se distribuye, el costo de declarar y aislar construcciones no se compensa. El grado de rigor debería corresponder a cuántas personas consumirán el artefacto.
 
 ## Relación con otros conceptos
 

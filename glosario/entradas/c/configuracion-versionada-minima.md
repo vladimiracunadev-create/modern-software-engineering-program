@@ -2,40 +2,47 @@
 
 [↑ Glosario](../../README.md) · [← Configuración por capas](./configuracion-por-capas.md) · [Configuración y precedencia →](./configuracion-y-precedencia.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 08](../../../classes/part-08-entornos-herramientas-y-depuracion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 08](../../../classes/part-08-entornos-herramientas-y-depuracion/README.md)
 
 ## Definición
 
-Se versionan manifest, lock cuando aplica, contenedor y configuración compartible del editor.
-
-Definición de trabajo de [SE-108 — Proyecto: entorno de desarrollo autocontenido](../../../classes/part-08-entornos-herramientas-y-depuracion/se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md).
+La **configuración versionada mínima** es, en el proyecto de [SE-108](../../../classes/part-08-entornos-herramientas-y-depuracion/se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md), el conjunto más pequeño de archivos de entorno que se guardan en el control de versiones para que otra persona reconstruya el entorno de trabajo: el **manifest** (qué dependencias y qué versión del lenguaje), el **lock** cuando aplica (las versiones exactas resueltas), la definición del **contenedor** y la **configuración compartible del editor**. «Mínima» es parte de la definición: lo que no es necesario para reconstruir no se versiona.
 
 ## Por qué importa
 
-En [SE-108 — Proyecto: entorno de desarrollo autocontenido](../../../classes/part-08-entornos-herramientas-y-depuracion/se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md), el tema «Configuración versionada mínima» importa porque se versionan manifest, lock cuando aplica, contenedor y configuración compartible del editor.
+Un entorno que solo existe en la máquina de quien lo montó no se puede reproducir: el siguiente que investigue un fallo pierde tiempo averiguando qué versión, qué extensión o qué variable se usó. Versionar demasiado produce el problema contrario: tokens, rutas locales y preferencias personales terminan en el repositorio. La decisión que cambia es dónde pasa la frontera: lo que define el entorno entra; lo que describe a la persona o a la máquina, no. Con eso el diagnóstico de [SE-108](../../../classes/part-08-entornos-herramientas-y-depuracion/se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md) (síntoma, entorno, reproducción, hipótesis, causa, corrección, regresión) puede repetirse.
 
 ## Cómo funciona
 
-Según [SE-108 — Proyecto: entorno de desarrollo autocontenido](../../../classes/part-08-entornos-herramientas-y-depuracion/se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md), en la sección «Configuración versionada mínima»:
+Cada archivo versionado cubre una causa distinta de irreproducibilidad:
 
-Se versionan manifest, lock cuando aplica, contenedor y configuración compartible del editor. Se excluyen tokens, rutas locales y preferencias no necesarias. Un default ayuda, pero existe ruta CLI independiente del IDE.
+- **Manifest:** declara lo que el proyecto necesita (dependencias y rangos, versión del lenguaje).
+- **Lock** (si el ecosistema lo ofrece): fija las versiones exactas resueltas, de modo que dos instalaciones obtengan lo mismo.
+- **Contenedor:** fija el sistema base y las herramientas, para que no dependan del equipo.
+- **Configuración del editor** compartible (formateo, extensiones recomendadas): reduce diferencias triviales entre personas.
+
+Se **excluyen** tokens, rutas locales y preferencias que no son necesarias. Hay además una regla de independencia: un default del editor ayuda, pero debe existir una **ruta de línea de comandos independiente del IDE**; quien use otro editor, o el servidor de integración, debe poder levantar el mismo entorno con un comando. [SE-108](../../../classes/part-08-entornos-herramientas-y-depuracion/se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md) añade dos comprobaciones concretas: el entorno debe reconstruirse en otra máquina con un comando probado **desde cero**, y los hashes no deben cambiar entre construcciones por detalles como marcas de tiempo (se fija el archivo instalado en lugar de reconstruirlo).
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-108 — Proyecto: entorno de desarrollo autocontenido](../../../classes/part-08-entornos-herramientas-y-depuracion/se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md):
+En el entorno reproducible de diagnóstico de [SE-108](../../../classes/part-08-entornos-herramientas-y-depuracion/se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md), el repositorio contiene un manifest, un lock, la definición del contenedor y un archivo con ajustes comunes del editor, y un script que lo levanta todo:
 
-En el entorno reproducible de diagnóstico, una investigación conserva síntoma, entorno, reproducción, hipótesis, observaciones, causa, corrección y regresión. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```bash
+./bootstrap.sh      # crea el entorno desde cero y ejecuta la prueba de humo
+```
+
+Se descubre que «el entorno no se reconstruye en otra máquina» por pasos manuales no documentados; la corrección es un único comando probado desde cero. Un archivo `.env` con un token queda fuera del repositorio y se reemplaza por un `.env.example` sin valores.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-108 — Proyecto: entorno de desarrollo autocontenido](../../../classes/part-08-entornos-herramientas-y-depuracion/se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md)) son:
-
-- **El entorno no se reconstruye en otra máquina** — causa: pasos manuales no documentados. Corrección: un comando que recree todo, probado desde cero.
-- **Los hashes de la rueda cambian entre construcciones** — causa: marcas de tiempo en el archivo. Corrección: fijar el archivo instalado, no reconstruirlo.
+- **Versionar secretos.** Un token en el repositorio es una filtración; se guarda un ejemplo sin valores.
+- **Versionar todo el directorio del editor.** Mezcla preferencias personales con configuración necesaria.
+- **Depender del IDE.** Si el entorno solo se levanta desde un editor concreto, el servidor de integración y otras personas no lo reproducen.
+- **Manifest sin lock.** Dos instalaciones en fechas distintas pueden resolver versiones diferentes.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-108 — Proyecto: entorno de desarrollo autocontenido](../../../classes/part-08-entornos-herramientas-y-depuracion/se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md)) son: Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. El entorno reduce variabilidad conocida, no congela hardware, red o servicios externos. La [Parte 9](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) convertirá la capacidad de la biblioteca de estructuras y algoritmos en una biblioteca, paquete, SDK y CLI con contratos públicos y compatibilidad verificable.
+El entorno reduce la variabilidad conocida, no congela hardware, red ni servicios externos ([SE-108](../../../classes/part-08-entornos-herramientas-y-depuracion/se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md)). Un lock no es aplicable en todos los ecosistemas ni en todas las bibliotecas (una biblioteca publicada suele declarar rangos, no versiones exactas). Para un script de una sola vez, la sobrecarga de versionar entorno no se justifica. Y esta práctica no sustituye la reproducción del propio defecto.
 
 ## Relación con otros conceptos
 

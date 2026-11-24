@@ -2,40 +2,61 @@
 
 [↑ Glosario](../../README.md) · [← Encapsulación](./encapsulacion.md) · [Encargo →](./encargo.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 06](../../../classes/part-06-paradigmas-de-programacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 06](../../../classes/part-06-paradigmas-de-programacion/README.md)
 
 ## Definición
 
-Encapsular no significa esconder campos con getters equivalentes.
-
-Definición de trabajo de [SE-075 — Orientación a objetos, mensajes y encapsulación](../../../classes/part-06-paradigmas-de-programacion/se-075-orientacion-a-objetos-mensajes-y-encapsulacion/README.md).
+**Encapsulación como protección** es el sentido que [SE-075](../../../classes/part-06-paradigmas-de-programacion/se-075-orientacion-a-objetos-mensajes-y-encapsulacion/README.md) da a encapsular: impedir **transiciones inválidas** del estado de un objeto y exponer **operaciones del dominio** (como `record_observation` o `close`) en lugar de campos. La clase aclara por qué lo plantea así: encapsular **no significa** esconder campos detrás de *getters* y *setters* equivalentes. Si cada campo privado tiene un acceso público que lo lee y lo escribe sin condiciones, el objeto no protege nada; solo ha movido la sintaxis.
 
 ## Por qué importa
 
-En [SE-075 — Orientación a objetos, mensajes y encapsulación](../../../classes/part-06-paradigmas-de-programacion/se-075-orientacion-a-objetos-mensajes-y-encapsulacion/README.md), el tema «Encapsulación como protección» importa porque encapsular no significa esconder campos con getters equivalentes.
+Un objeto vale por las garantías que mantiene: un pedido cerrado no admite líneas nuevas, un saldo no baja de cierto límite. Si cualquiera puede reconstruir el estado interno a voluntad, la **invariante** (la regla que siempre debe cumplirse) sigue **fuera del objeto**, repartida entre quienes lo usan, y basta que uno la olvide. La decisión que cambia es dónde vive la regla: dentro del objeto, en un lugar único, o en cada consumidor. Con la primera opción, cambiar la regla es local.
 
 ## Cómo funciona
 
-Según [SE-075 — Orientación a objetos, mensajes y encapsulación](../../../classes/part-06-paradigmas-de-programacion/se-075-orientacion-a-objetos-mensajes-y-encapsulacion/README.md), en la sección «Encapsulación como protección»:
+La protección se logra con tres decisiones:
 
-Encapsular no significa esconder campos con getters equivalentes. Significa impedir transiciones inválidas y exponer operaciones del dominio como `record_observation` o `close`. Si el consumidor puede reconstruir libremente el estado interno, la invariante sigue fuera del objeto.
+- **Operaciones del dominio, no acceso a campos.** En lugar de `pedido.estado = "cerrado"`, se ofrece `pedido.cerrar()`, que comprueba si es legal cerrarlo y actualiza lo necesario de forma coherente.
+- **Validación en el punto de escritura.** Toda vía que cambia el estado pasa por un método que verifica la invariante. En Python, la privacidad por convención (un guion bajo) no impide asignar un valor inválido, como señala [SE-075](../../../classes/part-06-paradigmas-de-programacion/se-075-orientacion-a-objetos-mensajes-y-encapsulacion/README.md); hay que validar en el método que escribe o usar una **propiedad** con *setter* que valide.
+- **Sin filtrar estructura mutable.** Devolver la lista interna permite alterarla desde fuera y saltarse la validación; se devuelve una copia o una vista de solo lectura.
+
+La causa de que funcione es que el objeto controla **todas** las rutas por las que su estado cambia. Cada ruta que escapa es un hueco por el que la invariante puede romperse. Por eso la clase condiciona el beneficio: los objetos reducen estados inválidos **solo si sus fronteras son reales**.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-075 — Orientación a objetos, mensajes y encapsulación](../../../classes/part-06-paradigmas-de-programacion/se-075-orientacion-a-objetos-mensajes-y-encapsulacion/README.md):
+Una observación en el motor de reglas solo puede registrarse mientras el caso está abierto:
 
-En el motor de reglas comparado, una recomendación contiene acción, evidencia usada, versión de política y explicación. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si devuelve una cadena: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```python
+class Caso:
+    def __init__(self):
+        self._observaciones = []
+        self._abierto = True
+
+    def record_observation(self, texto):
+        if not self._abierto:
+            raise ValueError("el caso está cerrado")
+        self._observaciones.append(texto)
+
+    def close(self):
+        self._abierto = False
+
+    @property
+    def observaciones(self):
+        return tuple(self._observaciones)    # copia inmutable
+```
+
+Quien use `Caso` no puede registrar en un caso cerrado ni modificar la lista desde fuera. Con un `get_observaciones()` que devolviera la lista interna y un `set_abierto(True)` público, la protección sería solo aparente.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-075 — Orientación a objetos, mensajes y encapsulación](../../../classes/part-06-paradigmas-de-programacion/se-075-orientacion-a-objetos-mensajes-y-encapsulacion/README.md)) son:
-
-- **Un método de la base se ejecuta dos veces o nunca** — causa: `A.m(self)` en lugar de `super().m()` en herencia múltiple. Corrección: usar `super()` en todas las clases del diamante.
-- **Se asigna un valor inválido a un atributo «privado»** — causa: la privacidad era un guion bajo. Corrección: validar en el método que escribe o usar una propiedad con setter.
+- **Getters y setters que no validan.** Es acceso directo con otro nombre.
+- **Creer que `_atributo` protege.** Es una convención; el lenguaje no lo impide.
+- **Devolver colecciones internas.** Permite mutar el estado sin pasar por los métodos.
+- **Exponer operaciones técnicas en vez de operaciones del dominio.** Obliga a cada consumidor a conocer el orden correcto de pasos.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-075 — Orientación a objetos, mensajes y encapsulación](../../../classes/part-06-paradigmas-de-programacion/se-075-orientacion-a-objetos-mensajes-y-encapsulacion/README.md)) son: Las definiciones son operativas para el motor de reglas comparado. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Los objetos reducen estados inválidos solo si sus fronteras son reales. La siguiente clase elimina identidad innecesaria y razona mediante valores y composición funcional.
+La protección depende de que las fronteras sean reales ([SE-075](../../../classes/part-06-paradigmas-de-programacion/se-075-orientacion-a-objetos-mensajes-y-encapsulacion/README.md)): en un lenguaje sin privacidad aplicada, un consumidor determinado siempre puede saltársela, por lo que sostiene el contrato, no la seguridad. Para estructuras de datos simples sin reglas (un registro de configuración), encapsular cada campo añade código sin proteger nada; un tipo de datos con validación al construirse puede bastar. Y la encapsulación no resuelve invariantes que involucran a varios objetos; eso exige coordinar a nivel de un agregado o de un servicio.
 
 ## Relación con otros conceptos
 

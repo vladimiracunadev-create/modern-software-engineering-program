@@ -2,40 +2,47 @@
 
 [↑ Glosario](../../README.md) · [← Contrato inteligente](./contrato-inteligente.md) · [Contrato publicado →](./contrato-publicado.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 09](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 09](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md)
 
 ## Definición
 
-El proyecto publica api python, cli y protocolo de plugin con versiones y errores alineados.
-
-Definición de trabajo de [SE-120 — Proyecto: SDK y CLI con compatibilidad verificada](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md).
+Un **contrato multicapa** es, en el proyecto de [SE-120](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md), la publicación conjunta de varias superficies públicas de un mismo producto, con **versiones y errores alineados**: la **API de Python**, la **CLI** y el **protocolo de plugin**. Cada capa tiene sus propios consumidores y su propia compatibilidad, pero se gobiernan con un único documento que enumera lo público. El término lo introduce el programa para este proyecto; no es un nombre estándar.
 
 ## Por qué importa
 
-En [SE-120 — Proyecto: SDK y CLI con compatibilidad verificada](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md), el tema «Contrato multicapa» importa porque el proyecto publica API Python, CLI y protocolo de plugin con versiones y errores alineados.
+Un producto reutilizable rara vez tiene una sola puerta. Quien programa usa la API; quien automatiza usa la CLI; quien extiende usa el protocolo de plugins. Cada puerta tiene dependientes distintos, y romper una sin avisar rompe a un grupo que quizá no lee las notas de las otras. La decisión que cambia es **cuándo se clasifica un cambio**: [SE-120](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md) pide que un documento enumere la superficie pública *antes*, para que el equipo no clasifique los cambios *después* de haber roto algo, cuando la clasificación se vuelve una justificación.
 
 ## Cómo funciona
 
-Según [SE-120 — Proyecto: SDK y CLI con compatibilidad verificada](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md), en la sección «Contrato multicapa»:
+El contrato se construye con tres decisiones:
 
-El proyecto publica API Python, CLI y protocolo de plugin con versiones y errores alineados. Cada capa tiene consumidores y compatibilidad propias. Un documento enumera superficie pública para impedir que el equipo clasifique cambios después de romper.
+1. **Enumerar capas y superficie.** Para cada una, qué es público: funciones exportadas en la API, comandos y opciones en la CLI, mensajes y registro en el protocolo de plugin. Un `__all__` o una lista pública acota lo que se compara.
+2. **Alinear versiones y errores.** Una versión del producto que significa lo mismo en todas las capas, y errores coherentes: un fallo de configuración se manifiesta como excepción en la API, como código de salida y mensaje en la CLI, y como respuesta definida en el protocolo.
+3. **Verificar cada capa desde su consumidor.** Pruebas de contrato escritas desde quien consume, no desde quien implementa, cubren cada puerta; el comparador de API solo mira lo declarado público.
+
+La causa de que el documento sea necesario es la asimetría: es fácil romper una capa creyendo que se tocó «solo código interno», porque otra capa dependía del comportamiento.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-120 — Proyecto: SDK y CLI con compatibilidad verificada](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md):
+En el producto SDK+CLI de [SE-120](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md), la API Python expone `choose_next`, la CLI invoca lo mismo con códigos de salida definidos, y el plugin se registra con un protocolo versionado. Un cambio «interno» que rompe a un consumidor sin que ninguna prueba falle tiene como causa que la promesa no estaba escrita como prueba de contrato; la corrección es escribir la prueba desde el consumidor. Un esquema del documento (ilustración):
 
-En el producto reutilizable con SDK y CLI, un release contiene contrato público, artefactos inmutables, dependencias, procedencia, ejemplos, errores y ruta de migración. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```text
+Capa      Superficie pública                 Compatibilidad
+API       engineering_sdk.__all__            semver de paquete
+CLI       comandos y opciones documentados   semver + códigos de salida
+Plugin    protocolo v2 (registro, hooks)     versión de protocolo propia
+```
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-120 — Proyecto: SDK y CLI con compatibilidad verificada](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md)) son:
-
-- **Un cambio «interno» rompe a un consumidor sin que ninguna prueba falle** — causa: la promesa no estaba escrita como prueba de contrato. Corrección: escribir la prueba desde el consumidor y añadirla al conjunto.
-- **La comparación de API marca un cambio que no importa** — causa: se compara toda la superficie sin distinguir lo público. Corrección: definir `__all__` o una lista pública y comparar solo eso.
+- **Versionar una sola capa.** La CLI cambia de formato de salida y nadie sube la versión porque la API no cambió.
+- **Comparar toda la superficie.** El comparador marca cambios que no importan; se define lo público y se compara solo eso.
+- **Errores incoherentes entre capas.** El mismo fallo se describe de tres formas y los consumidores no pueden tratarlo de modo uniforme.
+- **Clasificar el cambio al final.** Se rompe y luego se decide si «contaba».
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-120 — Proyecto: SDK y CLI con compatibilidad verificada](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md)) son: Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. El proyecto acredita un release candidato dentro de su matriz, no disponibilidad, seguridad o soporte productivo. La [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md) cambiará el foco desde construir correctamente hacia descubrir qué problema y resultado de producto justifican la siguiente inversión.
+El proyecto acredita un release candidato dentro de su matriz, no disponibilidad, seguridad ni soporte productivo ([SE-120](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md)). Un contrato multicapa tiene un costo de mantenimiento real: más documentos, más pruebas, más decisiones de versión. Si el producto tiene una sola capa o un único consumidor controlado, el esfuerzo no compensa; basta una API pública bien definida.
 
 ## Relación con otros conceptos
 

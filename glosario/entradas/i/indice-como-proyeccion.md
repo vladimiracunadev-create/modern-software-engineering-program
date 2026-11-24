@@ -2,40 +2,50 @@
 
 [↑ Glosario](../../README.md) · [← Índice](./indice.md) · [Índice compuesto →](./indice-compuesto.md)
 
-> **Tipo:** métrica · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 07](../../../classes/part-07-estructuras-de-datos-y-algoritmos/README.md)
+> **Tipo:** métrica · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 07](../../../classes/part-07-estructuras-de-datos-y-algoritmos/README.md)
 
 ## Definición
 
-Todo índice duplica una vista derivada y puede quedar desincronizado.
-
-Definición de trabajo de [SE-093 — Índices, probabilísticas y estructuras persistentes](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-093-indices-probabilisticas-y-estructuras-persistentes/README.md).
+Decir que un **índice es una proyección** es afirmar, con [SE-093](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-093-indices-probabilisticas-y-estructuras-persistentes/README.md), que **todo índice duplica una vista derivada de los datos** y por eso **puede quedar desincronizado**. El índice no es la fuente de verdad: es una copia organizada para responder rápido a cierta consulta (por ejemplo, ordenada por una columna). La palabra «proyección» expresa que contiene una parte o una reorganización de la información original, calculada a partir de ella. Es un enfoque del programa para hablar de índices, no un término normalizado.
 
 ## Por qué importa
 
-En [SE-093 — Índices, probabilísticas y estructuras persistentes](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-093-indices-probabilisticas-y-estructuras-persistentes/README.md), el tema «Índice como proyección» importa porque todo índice duplica una vista derivada y puede quedar desincronizado.
+Los índices aceleran las consultas, y es fácil olvidar que tienen un costo y un riesgo. El costo: ocupan espacio y hay que actualizarlos en cada escritura. El riesgo: si el índice y los datos discrepan, las consultas indexadas devuelven resultados distintos que un recorrido completo, sin ningún error visible. La decisión que cambia es cómo se trata un índice: como una derivación cuya consistencia hay que **diseñar y comprobar**, no como una propiedad que se obtiene gratis al crearla.
 
 ## Cómo funciona
 
-Según [SE-093 — Índices, probabilísticas y estructuras persistentes](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-093-indices-probabilisticas-y-estructuras-persistentes/README.md), en la sección «Índice como proyección»:
+Para que un índice sea de fiar, tres cosas deben estar definidas ([SE-093](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-093-indices-probabilisticas-y-estructuras-persistentes/README.md)):
 
-Todo índice duplica una vista derivada y puede quedar desincronizado. Se define quién lo actualiza, cómo se reconstruye y qué ocurre ante fallo parcial. La biblioteca de estructuras y algoritmos prueba equivalencia entre consulta indexada y escaneo para fixtures pequeños.
+- **Quién lo actualiza:** el propio motor de la base de datos (en un índice de base de datos, de forma transaccional), o el código de la aplicación (en un índice en memoria que mantiene el programa). Si lo mantiene el código, cada ruta de escritura debe pasar por el mismo punto.
+- **Cómo se reconstruye:** como es derivado, siempre debe poder recrearse desde los datos. Si no, un error no tiene remedio.
+- **Qué ocurre ante un fallo parcial:** si la escritura de datos tuvo éxito y la del índice falló (o al revés), ¿qué estado queda y cómo se detecta?
+
+La biblioteca de estructuras y algoritmos del programa **prueba equivalencia** entre la consulta indexada y el escaneo completo en conjuntos de prueba pequeños: ambos caminos deben devolver lo mismo. Esa prueba es la forma práctica de verificar que la proyección representa a los datos.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-093 — Índices, probabilísticas y estructuras persistentes](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-093-indices-probabilisticas-y-estructuras-persistentes/README.md):
+Un índice en memoria que asocia identificador de caso con posición. Si se borra un caso de la lista pero no del índice, la consulta indexada devuelve una posición obsoleta. La prueba de equivalencia lo detecta:
 
-En la biblioteca de estructuras y algoritmos, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```python
+def test_indice_equivale_a_escaneo(casos, indice):
+    for clave in claves_de_prueba:
+        por_indice = indice.get(clave)
+        por_escaneo = next((c for c in casos if c.id == clave), None)
+        assert por_indice == por_escaneo
+```
+
+[SE-093](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-093-indices-probabilisticas-y-estructuras-persistentes/README.md) documenta además un síntoma asociado: la consulta sigue lenta tras crear el índice porque la selectividad es baja o el planificador no lo usa; se lee `EXPLAIN QUERY PLAN` y se mide con y sin índice. El índice puede existir y no usarse: crearlo no basta.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-093 — Índices, probabilísticas y estructuras persistentes](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-093-indices-probabilisticas-y-estructuras-persistentes/README.md)) son:
-
-- **La consulta sigue lenta tras crear el índice** — causa: poca selectividad o el planificador no lo usa. Corrección: leer `EXPLAIN QUERY PLAN` y medir con y sin índice.
-- **Un filtro de Bloom reporta «posiblemente» demasiado a menudo** — causa: pocos bits por elemento o demasiadas inserciones. Corrección: dimensionar `m` y `k` según el error objetivo y verificar con ausentes.
+- **Tratar el índice como fuente de verdad.** Es derivado; ante discrepancia, mandan los datos.
+- **Actualizarlo desde varios lugares.** Aumenta la probabilidad de olvidar uno.
+- **Suponer que se usará.** El planificador puede ignorarlo si no es selectivo.
+- **No medir.** Sin comparar con y sin índice, no se sabe si ayuda.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-093 — Índices, probabilísticas y estructuras persistentes](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-093-indices-probabilisticas-y-estructuras-persistentes/README.md)) son: Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Una garantía teórica no predice constantes, asignaciones ni distribución real. La siguiente clase diseña medición empírica y perfilado sin sesgos obvios.
+Una garantía teórica no predice constantes, asignaciones ni la distribución real de los datos ([SE-093](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-093-indices-probabilisticas-y-estructuras-persistentes/README.md)). Para tablas pequeñas, un escaneo completo es más rápido que consultar un índice. Si la carga es de muchas escrituras y pocas lecturas, el costo de mantener el índice puede superar su beneficio. En bases de datos que mantienen los índices transaccionalmente, el riesgo de desincronización es menor, pero el costo de espacio y de escritura sigue ahí.
 
 ## Relación con otros conceptos
 

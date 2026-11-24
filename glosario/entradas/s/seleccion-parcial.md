@@ -2,40 +2,51 @@
 
 [↑ Glosario](../../README.md) · [← Selección de campos](./seleccion-de-campos.md) · [Selección por cliente →](./seleccion-por-cliente.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 07](../../../classes/part-07-estructuras-de-datos-y-algoritmos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 07](../../../classes/part-07-estructuras-de-datos-y-algoritmos/README.md)
 
 ## Definición
 
-Para top-k, un heap de tamaño `k` evita ordenar todo y usa espacio acotado.
-
-Definición de trabajo de [SE-090 — Búsqueda, ordenamiento y selección](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md).
+La **selección parcial** es obtener solo una parte del orden de una colección sin ordenarla toda: los *k* mayores (*top-k*), el elemento que ocuparía la posición *k* (la mediana, por ejemplo) o los primeros resultados. En [SE-090](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md) se presentan dos técnicas: un **montículo (*heap*) de tamaño *k*** y **quickselect**. La idea común es que para responder «¿cuáles son los 10 mejores de un millón?» no hace falta ordenar el millón.
 
 ## Por qué importa
 
-En [SE-090 — Búsqueda, ordenamiento y selección](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md), el tema «Selección parcial» importa porque para top-k, un heap de tamaño `k` evita ordenar todo y usa espacio acotado.
+Ordenar *n* elementos cuesta `O(n log n)`. Si solo se necesitan unos pocos, ese trabajo es en gran parte inútil. La decisión que cambia es qué se calcula: el resultado que se necesita y no más. Con *k* pequeño frente a *n*, la selección parcial es sensiblemente más barata en tiempo y, con el montículo, en memoria. Además, permite procesar datos que llegan como flujo sin guardarlos todos.
 
 ## Cómo funciona
 
-Según [SE-090 — Búsqueda, ordenamiento y selección](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md), en la sección «Selección parcial»:
+Hay dos mecanismos con compromisos distintos:
 
-Para top-k, un heap de tamaño `k` evita ordenar todo y usa espacio acotado. Quickselect ofrece selección esperada lineal bajo pivotes adecuados. La mejor opción depende de si llegan datos en streaming, si k cambia y si se necesita salida ordenada.
+- **Montículo de tamaño *k*:** se mantiene un montículo mínimo con los *k* mejores vistos hasta el momento. Para cada elemento nuevo, si es mejor que el menor del montículo, lo reemplaza. Cada operación cuesta `O(log k)`, y el total es `O(n log k)`. Usa **espacio acotado** (*k* elementos) y funciona con datos **en flujo**, sin conocer *n* de antemano. En Python, `heapq.nlargest` lo implementa.
+- **Quickselect:** igual que el *quicksort*, elige un pivote y reparte, pero **solo continúa en el lado que contiene la posición buscada**. El costo esperado es **lineal** `O(n)` con pivotes adecuados, aunque el peor caso es `O(n²)` si los pivotes son malos (pivote aleatorio lo evita en la práctica). Modifica o necesita copia de los datos y no encaja con flujos.
+
+La elección depende, como indica [SE-090](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md), de **si llegan datos en flujo, si *k* cambia y si se necesita la salida ordenada**. El montículo da los *k* mejores pero no ordenados entre sí sin un paso final; quickselect da la partición, no el orden.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-090 — Búsqueda, ordenamiento y selección](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md):
+Obtener los 5 casos más urgentes de una lista grande:
 
-En la biblioteca de estructuras y algoritmos, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```python
+import heapq
+
+# O(n log k), memoria O(k); no ordena todo
+top5 = heapq.nsmallest(5, casos, key=lambda c: c["prioridad"])
+
+# lo equivalente, pero ordenando todo: O(n log n)
+top5_lento = sorted(casos, key=lambda c: c["prioridad"])[:5]
+```
+
+Con *n* grande y *k* = 5, la primera forma hace mucho menos trabajo. Si los casos llegan por un flujo (no se pueden guardar todos), el montículo es la única de las dos opciones viable. Para la mediana de datos en memoria, quickselect (o `statistics.median`, que ordena) son alternativas con costos distintos. Esta nota coincide con los defectos que la clase asocia al ordenamiento: pivote fijo en un *quicksort* ingenuo es lento con datos casi ordenados, y `NaN` o un comparador no transitivo dejan un resultado «ordenado» que no lo está; la selección parcial hereda ambos riesgos.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-090 — Búsqueda, ordenamiento y selección](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md)) son:
-
-- **El ordenamiento propio es lento con datos casi ordenados** — causa: pivote fijo en un quicksort ingenuo. Corrección: usar `sorted` o un pivote aleatorio; probar con entrada ordenada.
-- **El resultado «ordenado» no está ordenado** — causa: hay NaN o un comparador no transitivo. Corrección: normalizar el criterio y verificar con una prueba de orden total.
+- **Ordenar todo para quedarse con unos pocos.** Trabajo desperdiciado.
+- **Suponer que el resultado del montículo está ordenado.** Hay que ordenarlo al final si se necesita.
+- **Usar quickselect con un pivote fijo.** Degrada con entradas ordenadas.
+- **Ignorar el contrato de comparación.** Con `NaN`, el resultado es incorrecto.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-090 — Búsqueda, ordenamiento y selección](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md)) son: Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Elegir top-k no resuelve decisiones secuenciales con subproblemas o restricciones. La siguiente clase compara estrategias voraces y programación dinámica.
+Elegir *top-k* no resuelve decisiones secuenciales con subproblemas o restricciones ([SE-090](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md)): seleccionar los mejores uno a uno no equivale a elegir el mejor conjunto cuando los elementos interactúan; ahí entran las estrategias voraces y la programación dinámica. Si *k* es comparable a *n*, ordenar todo es igual de bueno y más simple. Y para colecciones pequeñas la diferencia es irrelevante.
 
 ## Relación con otros conceptos
 

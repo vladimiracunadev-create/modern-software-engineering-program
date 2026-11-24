@@ -2,40 +2,50 @@
 
 [↑ Glosario](../../README.md) · [← Prorrateo](./prorrateo.md) · [Prototipo →](./prototipo.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 06](../../../classes/part-06-paradigmas-de-programacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 06](../../../classes/part-06-paradigmas-de-programacion/README.md)
 
 ## Definición
 
-Un mensaje necesita tipo, datos, correlación y respuesta esperada.
-
-Definición de trabajo de [SE-081 — Programación concurrente y actores](../../../classes/part-06-paradigmas-de-programacion/se-081-programacion-concurrente-y-actores/README.md).
+Un **protocolo de mensajes** es, en [SE-081](../../../classes/part-06-paradigmas-de-programacion/se-081-programacion-concurrente-y-actores/README.md), el acuerdo sobre la forma y el significado de los mensajes que intercambian los componentes de un modelo concurrente, como los actores. Un mensaje necesita **tipo, datos, correlación y respuesta esperada**. Quien envía y quien recibe no comparten variables: se comunican solo por mensajes, así que el protocolo es el contrato completo entre ellos. Cambiar la forma de un mensaje equivale a cambiar un contrato.
 
 ## Por qué importa
 
-En [SE-081 — Programación concurrente y actores](../../../classes/part-06-paradigmas-de-programacion/se-081-programacion-concurrente-y-actores/README.md), el tema «Protocolos de mensajes» importa porque un mensaje necesita tipo, datos, correlación y respuesta esperada.
+En un modelo de actores se evitan los datos compartidos mutables (fuente de condiciones de carrera) sustituyéndolos por mensajes. Pero el problema no desaparece: se traslada a los protocolos. [SE-081](../../../classes/part-06-paradigmas-de-programacion/se-081-programacion-concurrente-y-actores/README.md) lo dice: los actores **desplazan los problemas hacia protocolos, supervisión y entrega**. La decisión que cambia es dónde se ponen el cuidado y las pruebas: en el diseño de los mensajes (qué significan, qué orden asumen, qué pasa si no llegan) y no solo en cerrojos.
 
 ## Cómo funciona
 
-Según [SE-081 — Programación concurrente y actores](../../../classes/part-06-paradigmas-de-programacion/se-081-programacion-concurrente-y-actores/README.md), en la sección «Protocolos de mensajes»:
+Los cuatro elementos de un mensaje cumplen funciones distintas:
 
-Un mensaje necesita tipo, datos, correlación y respuesta esperada. Cambiar su forma es cambiar un contrato. Los mensajes mutables o con referencias compartidas erosionan aislamiento; en runtimes distribuidos también deben serializarse y fallar ante versiones distintas.
+- **Tipo:** qué clase de petición o hecho es; permite al receptor decidir cómo tratarlo.
+- **Datos:** la información necesaria, y solo ella.
+- **Correlación:** un identificador que enlaza una respuesta con su petición, imprescindible cuando varias peticiones están en vuelo y las respuestas pueden llegar en otro orden.
+- **Respuesta esperada:** si hay respuesta, de qué forma, en qué plazo y qué ocurre si no llega.
+
+Hay riesgos específicos. Los **mensajes mutables o con referencias compartidas erosionan el aislamiento**: si emisor y receptor comparten el mismo objeto, vuelven los problemas de datos compartidos; por eso los mensajes se tratan como valores inmutables o se copian. Y en entornos **distribuidos**, los mensajes deben **serializarse** (convertirse en bytes) y **fallar de forma clara ante versiones distintas**: dos nodos con versiones diferentes del protocolo no pueden asumir que se entienden.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-081 — Programación concurrente y actores](../../../classes/part-06-paradigmas-de-programacion/se-081-programacion-concurrente-y-actores/README.md):
+Un actor que gestiona un contador. El protocolo define dos mensajes con correlación:
 
-En el motor de reglas comparado, una recomendación contiene acción, evidencia usada, versión de política y explicación. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si devuelve una cadena: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```python
+# mensajes inmutables (tuplas con nombre)
+Incrementar = namedtuple("Incrementar", "cantidad")
+Consultar   = namedtuple("Consultar",   "id_correlacion")
+Valor       = namedtuple("Valor",       "id_correlacion total")
+```
+
+El actor procesa un mensaje a la vez desde su buzón, así que no hay carrera interna. El cliente envía `Consultar("c-17")` y espera `Valor("c-17", total)`; si llegan dos respuestas, la correlación dice a cuál petición corresponde. [SE-081](../../../classes/part-06-paradigmas-de-programacion/se-081-programacion-concurrente-y-actores/README.md) contrasta el enfoque con los defectos de datos compartidos: totales distintos entre ejecuciones por leer-modificar-escribir sin exclusión mutua (se corrige con cerrojo, cola con dueño único u operación atómica) y cuatro hilos que no aceleran un cálculo por el bloqueo global del intérprete (se usan procesos o se libera el GIL en código nativo).
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-081 — Programación concurrente y actores](../../../classes/part-06-paradigmas-de-programacion/se-081-programacion-concurrente-y-actores/README.md)) son:
-
-- **Totales distintos entre ejecuciones** — causa: leer-modificar-escribir sin exclusión mutua. Corrección: cerrojo, cola con dueño único u operación atómica.
-- **Cuatro hilos no aceleran un cálculo** — causa: bloqueo global del intérprete. Corrección: usar procesos o liberar el GIL en código nativo.
+- **Mensajes sin correlación.** No se sabe a qué petición responde cada respuesta.
+- **Mensajes mutables compartidos.** Reintroducen la carrera de datos.
+- **Cambiar la forma del mensaje sin versionar.** Rompe a los receptores antiguos.
+- **Suponer entrega y orden garantizados.** Un protocolo debe decir qué pasa con pérdidas, duplicados y reordenamientos.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-081 — Programación concurrente y actores](../../../classes/part-06-paradigmas-de-programacion/se-081-programacion-concurrente-y-actores/README.md)) son: Las definiciones son operativas para el motor de reglas comparado. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Actores desplazan problemas hacia protocolos, supervisión y entrega; no vuelven distribuido ni resiliente cualquier programa. La siguiente clase construye un criterio para combinar modelos sin collage arquitectónico.
+Los actores no vuelven distribuido ni resiliente cualquier programa ([SE-081](../../../classes/part-06-paradigmas-de-programacion/se-081-programacion-concurrente-y-actores/README.md)): añaden la necesidad de supervisión (qué ocurre si un actor falla), de gestión de buzones llenos y de pruebas de protocolo. Para un cálculo de un solo hilo, o para estado compartido pequeño bien protegido con un cerrojo, el modelo es más complejo de lo necesario. La clase siguiente construye un criterio para combinar modelos sin un collage arquitectónico.
 
 ## Relación con otros conceptos
 

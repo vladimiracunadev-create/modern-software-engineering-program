@@ -2,44 +2,53 @@
 
 [↑ Glosario](../../README.md) · [← Semántica](./semantica.md) · [Semánticas de entrega →](./semanticas-de-entrega.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 06](../../../classes/part-06-paradigmas-de-programacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 06](../../../classes/part-06-paradigmas-de-programacion/README.md)
 
 ## Definición
 
-Dos implementaciones son comparables si aceptan el mismo dominio y producen resultados equivalentes para normal, límite y error.
-
-Definición de trabajo de [SE-082 — Selección y combinación responsable de paradigmas](../../../classes/part-06-paradigmas-de-programacion/se-082-seleccion-y-combinacion-responsable-de-paradigmas/README.md).
+**Semántica antes que sintaxis** es el principio de comparación de [SE-082](../../../classes/part-06-paradigmas-de-programacion/se-082-seleccion-y-combinacion-responsable-de-paradigmas/README.md): **dos implementaciones son comparables si aceptan el mismo dominio y producen resultados equivalentes para casos normales, límite y de error**. La semántica es lo que el programa *significa* (qué devuelve, qué rechaza, en qué orden resuelve un empate); la sintaxis, cómo está escrito. Antes de comparar la longitud, la elegancia o el estilo de dos soluciones, hay que haber establecido que hacen lo mismo.
 
 ## Por qué importa
 
-En [SE-082 — Selección y combinación responsable de paradigmas](../../../classes/part-06-paradigmas-de-programacion/se-082-seleccion-y-combinacion-responsable-de-paradigmas/README.md), el tema «Semántica antes que sintaxis» importa porque dos implementaciones son comparables si aceptan el mismo dominio y producen resultados equivalentes para normal, límite y error.
+Es fácil comparar implementaciones por lo visible: cuántas líneas tienen, cuántos *tokens*. Pero [SE-082](../../../classes/part-06-paradigmas-de-programacion/se-082-seleccion-y-combinacion-responsable-de-paradigmas/README.md) advierte que **contar líneas o *tokens* sin verificar la semántica premia las omisiones**: la versión más corta puede serlo porque no valida entradas, no maneja el empate o ignora un caso de error. La decisión que cambia es el orden de las preguntas: primero «¿hacen lo mismo?» y solo si la respuesta es sí, «¿cuál es más clara, corta o mantenible?».
 
 ## Cómo funciona
 
-Según [SE-082 — Selección y combinación responsable de paradigmas](../../../classes/part-06-paradigmas-de-programacion/se-082-seleccion-y-combinacion-responsable-de-paradigmas/README.md), en la sección «Semántica antes que sintaxis»:
+El procedimiento de la clase es:
 
-Dos implementaciones son comparables si aceptan el mismo dominio y producen resultados equivalentes para normal, límite y error. Contar líneas o tokens sin verificar semántica premia omisiones. El motor de reglas comparado usa fixtures comunes y normaliza solo diferencias de presentación.
+1. **Congelar el contrato:** la entrada aceptada, la salida, el **orden de empate**, los errores y los casos (normales, límite, error).
+2. **Buscar una representación equivalente** en cada modelo. [SE-082](../../../classes/part-06-paradigmas-de-programacion/se-082-seleccion-y-combinacion-responsable-de-paradigmas/README.md) da ejemplos de mapeos: `None` puede corresponder a `Option`; una excepción recuperable, a `Result`; un diccionario heterogéneo, a un registro con campos (*struct*).
+3. **Juzgar la equivalencia por comportamiento, no por parecido textual,** con fixtures comunes. Solo se normalizan diferencias de **presentación** (formato de un texto de salida), no de decisión.
 
-Según [SE-071 — Taller: transferir una solución entre lenguajes](../../../classes/part-05-fundamentos-de-programacion/se-071-taller-transferir-una-solucion-entre-lenguajes/README.md), en la sección «Semántica antes que sintaxis»:
-
-Primero se congela entrada, salida, orden de empate, errores y casos. Luego se busca una representación equivalente. `None` puede mapear a `Option`; excepción recuperable a `Result`; dict heterogéneo a struct. La equivalencia se juzga por comportamiento, no por parecido textual.
+La razón de fondo es que los lenguajes y paradigmas representan el mismo concepto de maneras distintas, y un parecido textual engaña: dos funciones que se parecen mucho pueden diferir en un caso límite, y dos que no se parecen nada pueden ser equivalentes. Solo ejecutar el mismo conjunto de casos lo revela.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-082 — Selección y combinación responsable de paradigmas](../../../classes/part-06-paradigmas-de-programacion/se-082-seleccion-y-combinacion-responsable-de-paradigmas/README.md):
+Dos versiones de una regla de aprobación:
 
-En el motor de reglas comparado, una recomendación contiene acción, evidencia usada, versión de política y explicación. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si devuelve una cadena: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```python
+# A: corta
+def aprobar(c): return c["puntaje"] > 60
+
+# B: más larga, maneja los casos de borde
+def aprobar_b(c):
+    if "puntaje" not in c or not isinstance(c["puntaje"], (int, float)):
+        raise ValueError("puntaje inválido")
+    return c["puntaje"] > 60
+```
+
+A es tres veces más corta y pierde frente a B en solidez: ante un caso sin puntaje, A lanza `KeyError`, y ante un puntaje de texto, `TypeError`; el contrato congelado decía que debía lanzar `ValueError("puntaje inválido")`. Con el fixture común (que incluye «dato inválido») las dos no son comparables hasta que A cumpla el mismo contrato. Solo entonces tiene sentido comparar longitud y claridad. [SE-082](../../../classes/part-06-paradigmas-de-programacion/se-082-seleccion-y-combinacion-responsable-de-paradigmas/README.md) documenta dos riesgos relacionados: elegir un paradigma por moda, por falta de criterios explícitos, y que la comparación favorezca al paradigma conocido porque las reglas son simples y no ejercitan lo propio de otros (se incluye una regla que dependa de otra o de estado).
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-082 — Selección y combinación responsable de paradigmas](../../../classes/part-06-paradigmas-de-programacion/se-082-seleccion-y-combinacion-responsable-de-paradigmas/README.md)) son:
-
-- **Se elige un paradigma por moda** — causa: falta de criterios explícitos. Corrección: escribir criterios y la evidencia de cada uno.
-- **La comparación favorece al paradigma que se conoce** — causa: reglas simples que no ejercen lo propio de otros. Corrección: incluir una regla que dependa de otra o de estado.
+- **Comparar por líneas o *tokens*.** Premia omitir casos.
+- **Juzgar equivalencia por parecido.** Solo la ejecución común lo establece.
+- **Normalizar diferencias de decisión.** Solo se normalizan las de presentación.
+- **Casos solo felices.** Sin límite ni error, la equivalencia es aparente.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-082 — Selección y combinación responsable de paradigmas](../../../classes/part-06-paradigmas-de-programacion/se-082-seleccion-y-combinacion-responsable-de-paradigmas/README.md)) son: Las definiciones son operativas para el motor de reglas comparado. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Una matriz organiza juicio, no sustituye un prototipo ni datos de mantenimiento. El taller siguiente implementa una regla en cinco modelos y obliga a contrastar sus trazas.
+Una matriz organiza el juicio, no sustituye un prototipo ni datos de mantenimiento ([SE-082](../../../classes/part-06-paradigmas-de-programacion/se-082-seleccion-y-combinacion-responsable-de-paradigmas/README.md)). La equivalencia total es difícil en la práctica: los paradigmas expresan ciertos casos con dificultad o no los expresan, y esa imposibilidad es información, no un defecto del método. Para decisiones de estilo puro, donde ambas versiones ya son equivalentes y probadas, la comparación sintáctica es legítima.
 
 ## Relación con otros conceptos
 

@@ -2,40 +2,51 @@
 
 [↑ Glosario](../../README.md) · [← Falta de progreso](./falta-de-progreso.md) · [Fanout →](./fanout.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 07](../../../classes/part-07-estructuras-de-datos-y-algoritmos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 07](../../../classes/part-07-estructuras-de-datos-y-algoritmos/README.md)
 
 ## Definición
 
-Merge sort garantiza `n log n` y usa memoria adicional; quicksort depende de pivote y puede degradar; heapsort acota tiempo y opera con otros compromisos.
-
-Definición de trabajo de [SE-090 — Búsqueda, ordenamiento y selección](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md).
+Las **familias de ordenamiento** son los grandes enfoques para ordenar una colección por comparaciones, que [SE-090](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md) agrupa por sus garantías y compromisos: **merge sort** (ordenamiento por mezcla) garantiza `O(n log n)` y usa memoria adicional; **quicksort** depende de la elección del **pivote** y puede degradar a `O(n²)`; **heapsort** acota el tiempo a `O(n log n)` y opera con otros compromisos (en el sitio, sin memoria adicional significativa, pero con peor localidad y sin estabilidad). El programa las usa para que quien programa no infiera la implementación a partir del nombre `sort`.
 
 ## Por qué importa
 
-En [SE-090 — Búsqueda, ordenamiento y selección](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md), el tema «Familias de ordenamiento» importa porque merge sort garantiza `n log n` y usa memoria adicional; quicksort depende de pivote y puede degradar; heapsort acota tiempo y opera con otros compromisos.
+Llamar a `sort` es una de las operaciones más frecuentes, y es fácil creer que el nombre dice cómo funciona. No lo dice: cada biblioteca elige un algoritmo (a menudo un **híbrido**) con sus garantías de tiempo, memoria y estabilidad. La decisión que cambia es cuándo escribir un ordenamiento propio y qué suponer del ordenamiento de la plataforma. Casi siempre se usa el de la biblioteca; saber las familias sirve para entender qué se promete, qué no y cuándo un rendimiento inesperado tiene explicación.
 
 ## Cómo funciona
 
-Según [SE-090 — Búsqueda, ordenamiento y selección](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md), en la sección «Familias de ordenamiento»:
+Cada familia obtiene `O(n log n)` por un camino distinto:
 
-Merge sort garantiza `n log n` y usa memoria adicional; quicksort depende de pivote y puede degradar; heapsort acota tiempo y opera con otros compromisos. Runtimes usan híbridos; comprenderlos evita inferir implementación desde el nombre `sort`.
+- **Merge sort:** divide la entrada en mitades, ordena cada una y las **mezcla**. El tiempo es `O(n log n)` incluso en el peor caso; el precio es memoria auxiliar `O(n)` para mezclar. Es estable.
+- **Quicksort:** elige un **pivote**, reparte los elementos en menores y mayores y ordena cada parte. En promedio es `O(n log n)` y muy rápido en la práctica por su buena localidad; pero si el pivote es sistemáticamente malo (por ejemplo, el primer elemento en una entrada ya ordenada), las particiones quedan desbalanceadas y el costo pasa a `O(n²)`. No es estable en su forma clásica.
+- **Heapsort:** construye un **montículo** (heap) y extrae el máximo repetidamente. Su tiempo está acotado a `O(n log n)` en todos los casos y funciona en el sitio, pero accede a la memoria de forma dispersa y no es estable.
+
+Los entornos de ejecución usan **híbridos**: por ejemplo, el ordenamiento de Python (Timsort) combina mezcla con inserción y aprovecha tramos ya ordenados, y otros usan quicksort con cambio a heapsort si la recursión se vuelve profunda. Comprenderlos evita suponer.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-090 — Búsqueda, ordenamiento y selección](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md):
+[SE-090](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md) documenta el síntoma clásico: un ordenamiento propio es lento con datos casi ordenados porque usa un quicksort ingenuo con pivote fijo. La corrección es usar `sorted` o un pivote aleatorio, y probar con entrada ya ordenada.
 
-En la biblioteca de estructuras y algoritmos, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```python
+def quicksort_ingenuo(a):               # pivote fijo: el primero
+    if len(a) <= 1: return a
+    p, resto = a[0], a[1:]
+    return (quicksort_ingenuo([x for x in resto if x < p]) + [p] +
+            quicksort_ingenuo([x for x in resto if x >= p]))
+# con a ya ordenada: particiones de tamaño 0 y n-1 -> O(n^2) y recursión profunda
+```
+
+Ante la misma entrada, `sorted(a)` detecta el tramo ordenado y termina en tiempo lineal.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-090 — Búsqueda, ordenamiento y selección](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md)) son:
-
-- **El ordenamiento propio es lento con datos casi ordenados** — causa: pivote fijo en un quicksort ingenuo. Corrección: usar `sorted` o un pivote aleatorio; probar con entrada ordenada.
-- **El resultado «ordenado» no está ordenado** — causa: hay NaN o un comparador no transitivo. Corrección: normalizar el criterio y verificar con una prueba de orden total.
+- **Inferir el algoritmo del nombre.** `sort` no dice si es estable, si usa memoria extra ni cuál es su peor caso.
+- **Escribir un quicksort sin pensar en el pivote.** Los datos casi ordenados son frecuentes.
+- **Ignorar el contrato de comparación.** Con `NaN` o un comparador no transitivo, el resultado «ordenado» no lo está.
+- **Creer que `O(n log n)` es la última palabra.** Las constantes y la localidad deciden entre algoritmos de igual cota.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-090 — Búsqueda, ordenamiento y selección](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md)) son: Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Elegir top-k no resuelve decisiones secuenciales con subproblemas o restricciones. La siguiente clase compara estrategias voraces y programación dinámica.
+Las cotas de `O(n log n)` valen para ordenamiento **por comparación**; para claves enteras acotadas o cadenas existen algoritmos que no comparan (conteo, radix) con otras cotas. Elegir los *k* mejores no requiere ordenar todo y no resuelve decisiones secuenciales con subproblemas o restricciones ([SE-090](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md)). Para colecciones pequeñas, la diferencia práctica entre familias es irrelevante frente a la claridad.
 
 ## Relación con otros conceptos
 

@@ -2,40 +2,56 @@
 
 [↑ Glosario](../../README.md) · [← Impacto habilitado](./impacto-habilitado.md) · [Implicación →](./implicacion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 06](../../../classes/part-06-paradigmas-de-programacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 06](../../../classes/part-06-paradigmas-de-programacion/README.md)
 
 ## Definición
 
-Equivalencia no exige traducir línea por línea.
-
-Definición de trabajo de [SE-083 — Taller: una regla de negocio en cinco paradigmas](../../../classes/part-06-paradigmas-de-programacion/se-083-taller-una-regla-de-negocio-en-cinco-paradigmas/README.md).
+Una **implementación idiomática** es una solución escrita con los mecanismos propios del paradigma o del lenguaje en que se expresa, no una traducción línea por línea de otra. En el taller de [SE-083](../../../classes/part-06-paradigmas-de-programacion/se-083-taller-una-regla-de-negocio-en-cinco-paradigmas/README.md), donde la misma regla de negocio se implementa en cinco paradigmas, el principio es: **equivalencia no exige traducir línea por línea**. Lo que debe ser igual es el comportamiento observable (el fixture compartido); lo que debe ser distinto es la forma en que cada modelo lo logra. «Idiomático» significa «a la manera natural de ese modelo».
 
 ## Por qué importa
 
-En [SE-083 — Taller: una regla de negocio en cinco paradigmas](../../../classes/part-06-paradigmas-de-programacion/se-083-taller-una-regla-de-negocio-en-cinco-paradigmas/README.md), el tema «Implementaciones idiomáticas» importa porque equivalencia no exige traducir línea por línea.
+Si se traduce mecánicamente una solución a otro paradigma, el resultado conserva la forma del original y pierde las ventajas del nuevo: un código funcional escrito con bucles y variables mutables, una clase que solo envuelve una función. La comparación entonces mide la traducción, no el paradigma. La decisión que cambia es cómo se escribe cada candidato en una comparación: cada uno como lo escribiría alguien que domina ese modelo, siempre bajo el mismo contrato de comportamiento.
 
 ## Cómo funciona
 
-Según [SE-083 — Taller: una regla de negocio en cinco paradigmas](../../../classes/part-06-paradigmas-de-programacion/se-083-taller-una-regla-de-negocio-en-cinco-paradigmas/README.md), en la sección «Implementaciones idiomáticas»:
+[SE-083](../../../classes/part-06-paradigmas-de-programacion/se-083-taller-una-regla-de-negocio-en-cinco-paradigmas/README.md) enumera el mecanismo propio de cada versión:
 
-Equivalencia no exige traducir línea por línea. Cada versión usa el mecanismo propio: transición explícita, objeto que protege invariantes, composición de valores, tabla de reglas o evento correlacionado. Aun así, no puede inventar una política distinta para lucir mejor.
+- **Transición explícita** (estilo imperativo): una secuencia de pasos que cambia el estado, con precondiciones y postcondiciones.
+- **Objeto que protege invariantes** (orientado a objetos): el estado y las operaciones juntos, con el objeto responsable de rechazar transiciones inválidas.
+- **Composición de valores** (funcional): funciones puras que transforman datos y se combinan.
+- **Tabla de reglas** (declarativo): las reglas como datos que un intérprete evalúa.
+- **Evento correlacionado** (reactivo): hechos que llegan en el tiempo y se relacionan para producir una conclusión.
+
+Hay una restricción: ninguna versión puede **inventar una política distinta para lucir mejor**. Si una implementación cambia lo que decide (por ejemplo, resuelve un empate de otra forma porque su modelo lo hace natural), ya no compite en las mismas condiciones. El fixture semántico común es el árbitro: todas deben producir los mismos resultados para los mismos casos, y un caso que un modelo no puede expresar es un hallazgo, no un motivo para cambiarlo.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-083 — Taller: una regla de negocio en cinco paradigmas](../../../classes/part-06-paradigmas-de-programacion/se-083-taller-una-regla-de-negocio-en-cinco-paradigmas/README.md):
+La regla «aprobar si el puntaje supera el umbral y hay autorización» se escribe de dos formas idiomáticas:
 
-En el motor de reglas comparado, una recomendación contiene acción, evidencia usada, versión de política y explicación. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si devuelve una cadena: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```python
+# funcional: composición de valores
+def decidir(caso, umbral):
+    return "aprobar" if caso["autorizado"] and caso["puntaje"] > umbral else "rechazar"
+
+# declarativo: tabla de reglas
+REGLAS = [(lambda c: not c["autorizado"], "rechazar"),
+          (lambda c: c["puntaje"] > UMBRAL, "aprobar")]
+def decidir_tabla(caso):
+    return next((r for cond, r in REGLAS if cond(caso)), "rechazar")
+```
+
+Ambas pasan el mismo fixture. La versión con tabla expone el orden de las reglas como dato; la funcional lo deja en una expresión. Ninguna es una transcripción de la otra.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-083 — Taller: una regla de negocio en cinco paradigmas](../../../classes/part-06-paradigmas-de-programacion/se-083-taller-una-regla-de-negocio-en-cinco-paradigmas/README.md)) son:
-
-- **Las pruebas pasan pero un defecto plantado sobrevive** — causa: falta el caso que ejercita esa regla. Corrección: añadir el caso mínimo y comprobar que el mutante falla.
-- **Dos versiones divergen solo con ciertos tipos** — causa: el contrato no define tipos inválidos. Corrección: ampliar el contrato y los casos fijos.
+- **Traducir línea por línea.** El resultado conserva la forma del paradigma original.
+- **Cambiar la política para encajar en el modelo.** La comparación deja de ser válida.
+- **Tomar «idiomático» como sinónimo de «conciso».** Se trata de usar bien el mecanismo propio.
+- **Defectos que sobreviven a las pruebas.** Si falta el caso que ejercita una regla, un defecto plantado sobrevive; se añade el caso mínimo y se comprueba que el mutante falla ([SE-083](../../../classes/part-06-paradigmas-de-programacion/se-083-taller-una-regla-de-negocio-en-cinco-paradigmas/README.md)).
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-083 — Taller: una regla de negocio en cinco paradigmas](../../../classes/part-06-paradigmas-de-programacion/se-083-taller-una-regla-de-negocio-en-cinco-paradigmas/README.md)) son: Las definiciones son operativas para el motor de reglas comparado. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. El taller compara un cambio y una carga pequeña; no demuestra mantenibilidad a largo plazo. El proyecto siguiente amplía pruebas, criterios y reporte para una comparación defendible.
+El taller compara un cambio y una carga pequeña, y no demuestra mantenibilidad a largo plazo ([SE-083](../../../classes/part-06-paradigmas-de-programacion/se-083-taller-una-regla-de-negocio-en-cinco-paradigmas/README.md)). Lo «idiomático» depende de la comunidad y del lenguaje y puede ser discutible; no hay una autoridad única. Y en un equipo con experiencia desigual, la solución más idiomática puede no ser la más mantenible para quienes la leerán.
 
 ## Relación con otros conceptos
 

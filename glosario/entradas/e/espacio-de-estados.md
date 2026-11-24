@@ -2,40 +2,50 @@
 
 [↑ Glosario](../../README.md) · [← Escudo](./escudo.md) · [Espacio de interpretaciones →](./espacio-de-interpretaciones.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 07](../../../classes/part-07-estructuras-de-datos-y-algoritmos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 07](../../../classes/part-07-estructuras-de-datos-y-algoritmos/README.md)
 
 ## Definición
 
-Cada nodo representa una decisión parcial y cada arista una elección.
-
-Definición de trabajo de [SE-092 — Backtracking, divide y vencerás](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md).
+El **espacio de estados** es el conjunto de todas las situaciones parciales por las que puede pasar la resolución de un problema, organizado como un grafo: en [SE-092](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md), **cada nodo representa una decisión parcial y cada arista una elección**. Antes de programar una búsqueda se define el **estado**, las **acciones** posibles, el **objetivo** y qué hace a un estado **inválido**. El backtracking y otras exploraciones recorren este espacio sin construirlo entero en memoria; existe como una forma de pensar el problema.
 
 ## Por qué importa
 
-En [SE-092 — Backtracking, divide y vencerás](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md), el tema «Espacio de estados» importa porque cada nodo representa una decisión parcial y cada arista una elección.
+Un problema de búsqueda parece un montón de combinaciones sin estructura hasta que se modela. Definir el espacio de estados dice qué se está contando, dónde se puede podar y cuándo dos caminos son el mismo. La decisión que cambia es qué se escribe antes del código: una definición explícita de estado, acciones, objetivo e invalidez. Un modelo mal definido produce errores que ninguna optimización arregla; uno bien definido muestra el costo (cuántos nodos) y las oportunidades (qué se repite).
 
 ## Cómo funciona
 
-Según [SE-092 — Backtracking, divide y vencerás](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md), en la sección «Espacio de estados»:
+Cuatro piezas definen el modelo:
 
-Cada nodo representa una decisión parcial y cada arista una elección. Antes de programar se define estado, acciones, objetivo e invalidez. Si dos rutas producen el mismo estado relevante, pueden memoizarse; si no, fusionarlas pierde historia necesaria.
+- **Estado:** la información mínima necesaria para continuar. Si se omite algo relevante, el algoritmo pierde la capacidad de decidir bien; si se incluye de más, se multiplican estados sin necesidad.
+- **Acciones:** las elecciones disponibles desde un estado, que producen sucesores.
+- **Objetivo:** cómo se reconoce un estado final válido.
+- **Invalidez:** cómo se reconoce que un estado parcial ya no puede completarse, base de la **poda**.
+
+El tamaño del espacio suele ser exponencial en el número de decisiones. Lo que lo hace abordable es la estructura: si **dos rutas distintas llegan al mismo estado relevante**, se pueden **memoizar** y resolver una vez; si no, fusionarlas **pierde historia necesaria** (por ejemplo, el camino recorrido importa para el resultado). Esa pregunta, «¿el estado incluye lo suficiente para que el futuro no dependa del pasado?», decide entre la programación dinámica (estados repetidos y finitos) y la exploración con retroceso (el camino importa).
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-092 — Backtracking, divide y vencerás](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md):
+En [SE-092](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md), el orden de resolución de casos con dependencias se modela así (ilustración):
 
-En la biblioteca de estructuras y algoritmos, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```text
+estado:      (casos ya resueltos, caso pendiente actual)
+acciones:    elegir un caso pendiente cuyas dependencias estén resueltas
+objetivo:    todos los casos resueltos
+invalidez:   no quedan casos elegibles pero faltan casos por resolver
+```
+
+Si el resultado depende solo de **qué** casos están resueltos y no del orden en que se resolvieron, dos caminos con el mismo conjunto son el mismo estado: se memoiza por conjunto. Si el orden altera el costo, hay que conservar el camino. Para validar la poda, la clase pide contrastar el conteo con una enumeración completa en un `n` pequeño.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-092 — Backtracking, divide y vencerás](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md)) son:
-
-- **El algoritmo encuentra menos soluciones que la fuerza bruta** — causa: poda que elimina una rama válida. Corrección: contrastar el conteo con enumeración completa en n pequeño.
-- **La búsqueda es lenta aunque el algoritmo es correcto** — causa: orden de decisiones desfavorable. Corrección: probar el orden de variables más restringidas primero y medir nodos.
+- **Programar sin definir el estado.** Cada elección parece lógica, pero el algoritmo no sabe cuándo repite trabajo.
+- **Fusionar estados que difieren en algo relevante.** Pierde historia y da respuestas incorrectas sin error.
+- **Podar con una condición demasiado agresiva.** Elimina soluciones válidas; el síntoma es encontrar menos soluciones que la fuerza bruta.
+- **Culpar al algoritmo por la lentitud.** A menudo es el orden de decisiones: probar primero las variables más restringidas reduce nodos.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-092 — Backtracking, divide y vencerás](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md)) son: Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. La exploración exacta puede seguir siendo intratable. La siguiente clase presenta índices, estructuras probabilísticas y persistentes con garantías explícitas, no magia de rendimiento.
+La exploración exacta puede seguir siendo intratable ([SE-092](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md)): modelar bien el espacio no reduce su tamaño si no hay estados repetidos ni poda eficaz. Cuando el espacio es continuo o no se puede enumerar, otros métodos (optimización, aproximación) son más apropiados. Modelar un problema trivial como un grafo de estados puede ser más formal de lo necesario; la técnica se justifica cuando hay decisiones encadenadas.
 
 ## Relación con otros conceptos
 

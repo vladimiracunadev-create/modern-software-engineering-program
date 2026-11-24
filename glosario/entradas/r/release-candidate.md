@@ -2,40 +2,52 @@
 
 [↑ Glosario](../../README.md) · [← Relación de contraste](./relacion-de-contraste.md) · [Relevo →](./relevo.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 09](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 09](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md)
 
 ## Definición
 
-El rc usa artefactos inmutables, changelog, hashes y guía de migración.
-
-Definición de trabajo de [SE-120 — Proyecto: SDK y CLI con compatibilidad verificada](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md).
+Un **release candidate** (RC, candidato a versión) es, en el proyecto de [SE-120](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md), una versión **candidata a publicarse tal cual**: se construye con **artefactos inmutables**, con *changelog*, **hashes** y **guía de migración**, y se somete a verificación completa. Si no aparecen problemas, ese mismo artefacto es el que se publica como versión final. En versionado semántico, un RC se publica como *prerelease* (por ejemplo `1.3.0rc1`). Es un uso estándar del término en distribución de software; el programa añade el rigor de verificar exactamente lo que se entrega.
 
 ## Por qué importa
 
-En [SE-120 — Proyecto: SDK y CLI con compatibilidad verificada](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md), el tema «Release candidate» importa porque el RC usa artefactos inmutables, changelog, hashes y guía de migración.
+El fallo clásico de un lanzamiento es probar una cosa y publicar otra: la suite pasó sobre un árbol de trabajo, pero el artefacto que se sube se construyó después, con otro entorno, y difiere. La decisión que cambia es qué se prueba: **se instala exactamente el artefacto que se pretende publicar**. Y qué ocurre si algo cambia: según [SE-120](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md), **si cambia un byte tras la prueba, se genera otro *prerelease***, no se «arregla» silenciosamente el anterior.
 
 ## Cómo funciona
 
-Según [SE-120 — Proyecto: SDK y CLI con compatibilidad verificada](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md), en la sección «Release candidate»:
+El proceso de un RC tiene un orden:
 
-El RC usa artefactos inmutables, changelog, hashes y guía de migración. Se instala exactamente el artefacto que se pretende publicar. Si cambia un byte tras la prueba, se genera otro prerelease.
+1. **Congelar** el contenido: etiqueta de versión y artefactos construidos una vez (rueda y fuente), que no se reconstruyen.
+2. **Calcular y publicar hashes** de cada artefacto, para poder demostrar después que lo probado es lo entregado.
+3. **Verificar el artefacto**, no el árbol: instalarlo en un entorno limpio, ejecutar la matriz de compatibilidad, la prueba de consumidor y la aceptación.
+4. **Documentar:** *changelog* con cambios y clasificación de compatibilidad, y guía de migración si hay cambios incompatibles.
+5. **Decidir:** si todo pasa, promover ese artefacto; si algo cambia, otro RC y se repite.
+
+La inmutabilidad es lo que da sentido a todo: un artefacto que puede cambiar tras la verificación hace que el resultado de la prueba no se aplique a lo publicado. Los hashes permiten comprobarlo mecánicamente.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-120 — Proyecto: SDK y CLI con compatibilidad verificada](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md):
+El SDK del programa prepara la versión 1.3.0:
 
-En el producto reutilizable con SDK y CLI, un release contiene contrato público, artefactos inmutables, dependencias, procedencia, ejemplos, errores y ruta de migración. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```bash
+python -m build                                   # una sola construcción
+sha256sum dist/* > dist/SHA256SUMS                # hashes de los artefactos
+python -m venv .venv-rc && . .venv-rc/bin/activate  # entorno limpio
+pip install dist/engineering_sdk-1.3.0rc1-py3-none-any.whl
+python -m pytest tests_consumidor/                # prueba desde el consumidor
+```
+
+Si una corrección de última hora cambia un archivo, el artefacto cambia, los hashes cambian y se publica `1.3.0rc2`; los resultados de `rc1` ya no se aplican. Si `rc2` pasa todas las verificaciones, se promueve exactamente `rc2` (con el mismo hash) a `1.3.0`. Dos fallos documentados que este procedimiento busca evitar: un cambio «interno» que rompe a un consumidor sin que ninguna prueba falle (la promesa no estaba escrita como prueba de contrato) y la comparación de API que marca un cambio que no importa (se compara solo la lista pública).
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-120 — Proyecto: SDK y CLI con compatibilidad verificada](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md)) son:
-
-- **Un cambio «interno» rompe a un consumidor sin que ninguna prueba falle** — causa: la promesa no estaba escrita como prueba de contrato. Corrección: escribir la prueba desde el consumidor y añadirla al conjunto.
-- **La comparación de API marca un cambio que no importa** — causa: se compara toda la superficie sin distinguir lo público. Corrección: definir `__all__` o una lista pública y comparar solo eso.
+- **Reconstruir tras probar.** El artefacto publicado no es el verificado.
+- **«Corregir» un RC sin cambiar su identificador.** Nadie sabe qué RC se probó.
+- **Omitir la guía de migración.** Los consumidores descubren la ruptura al actualizar.
+- **Tratar el RC como etiqueta.** Es el artefacto lo que se verifica, no el nombre.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-120 — Proyecto: SDK y CLI con compatibilidad verificada](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md)) son: Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. El proyecto acredita un release candidato dentro de su matriz, no disponibilidad, seguridad o soporte productivo. La [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md) cambiará el foco desde construir correctamente hacia descubrir qué problema y resultado de producto justifican la siguiente inversión.
+El proyecto acredita un RC dentro de su matriz, no disponibilidad, seguridad ni soporte productivo ([SE-120](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md)). Un RC no sustituye la observación posterior a la publicación (monitoreo, reversión). Para bibliotecas de uso interno con un solo consumidor que se actualiza a la vez, el ritual completo puede ser excesivo; se justifica cuando hay consumidores externos que no controlas.
 
 ## Relación con otros conceptos
 

@@ -2,48 +2,50 @@
 
 [↑ Glosario](../../README.md) · [← Matriz de autorización](./matriz-de-autorizacion.md) · [Matriz de compromisos →](./matriz-de-compromisos.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 09](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 09](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md)
 
 ## Definición
 
-Se prueba runtime mínimo/máximo, instalación desde wheel/sdist, consumidor anterior con release nuevo y plugin compatible/incompatible.
-
-Definición de trabajo de [SE-120 — Proyecto: SDK y CLI con compatibilidad verificada](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md).
+Una **matriz de compatibilidad** es una tabla de combinaciones que se **ejecutan de verdad** para comprobar qué funciona con qué. En el proyecto SDK y CLI de [SE-120](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md) se prueban: la versión **mínima y la máxima** del *runtime*, la instalación desde **wheel y sdist**, un **consumidor anterior con el release nuevo** y un **plugin compatible e incompatible**. En [SE-441](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-441-compatibilidad-portabilidad-e-interoperabilidad/README.md) el mismo instrumento se aplica a versiones de un mensaje entre productores y lectores. Lo que define a la matriz es que cada celda es un resultado observado, no una suposición.
 
 ## Por qué importa
 
-En [SE-120 — Proyecto: SDK y CLI con compatibilidad verificada](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md), el tema «Matriz de compatibilidad» importa porque se prueba runtime mínimo/máximo, instalación desde wheel/sdist, consumidor anterior con release nuevo y plugin compatible/incompatible.
+Afirmar «es compatible con Python 3.9 a 3.12» sin haber ejecutado cada caso es una promesa vacía. La matriz convierte esa promesa en evidencia y, además, delimita su alcance. La decisión que cambia es qué puede decirse en la documentación: [SE-120](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md) establece que **una matriz verde respalda solo las combinaciones ejecutadas; las demás se marcan como no verificadas**. Se declara lo comprobado y se admite lo que no lo está, en lugar de implicar soporte universal.
 
 ## Cómo funciona
 
-Según [SE-120 — Proyecto: SDK y CLI con compatibilidad verificada](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md), en la sección «Matriz de compatibilidad»:
+Se eligen **dimensiones** que importan para el producto y se ejecutan las combinaciones relevantes:
 
-Se prueba runtime mínimo/máximo, instalación desde wheel/sdist, consumidor anterior con release nuevo y plugin compatible/incompatible. Una matriz verde respalda solo combinaciones ejecutadas; las demás se marcan no verificadas.
+- **Versión del *runtime*:** mínima y máxima soportadas, porque los extremos suelen romperse primero.
+- **Forma de instalación:** desde la rueda (*wheel*) y desde el código fuente (*sdist*), que recorren caminos de construcción distintos.
+- **Consumidor anterior con release nuevo:** comprueba la compatibilidad hacia atrás.
+- **Plugin compatible e incompatible:** el compatible debe funcionar y el incompatible debe **rechazarse con un mensaje claro**, no fallar de forma opaca.
 
-Según [SE-441 — Compatibilidad, portabilidad e interoperabilidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-441-compatibilidad-portabilidad-e-interoperabilidad/README.md), en la sección «Matriz de compatibilidad»:
-
-Se definen cinco versiones de un mensaje: v1 con identificador, estudiante y nota numérica; v2 añade un comentario opcional; v3 renombra «estudiante» a «alumno»; v4 cambia la nota a texto; v5 añade un estado. Cada versión tiene un productor y un lector. Un lector estricto exige exactamente los campos de su versión y rechaza los desconocidos y los estados que no conoce; uno tolerante exige solo los campos que necesita e ignora los demás. Se ejecutan los 25 pares con mensajes producidos de verdad.
-
-El lector estricto es compatible en 7 pares de 25 y el tolerante en 9. El tolerante gana dos: leer un mensaje v2 con un lector v1 (campo añadido) y leer un v5 con un lector v4. Los cambios v3 (renombrar) y v4 (cambiar el tipo) rompen con los dos tipos de lector: la tolerancia absorbe lo aditivo y no lo destructivo. Para una evolución sin ruptura, un renombrado necesita el patrón expandir-contraer de `SE-354`: durante un periodo el productor emite los dos nombres y los lectores migran antes de quitar el viejo.
-
-**Cómo leer la figura.** Cada grupo es la versión que produce el mensaje y cada barra, cuántos de los cinco lectores lo aceptan: en rojo con lector estricto y en verde con tolerante. Mira primero en qué grupos la barra verde supera a la roja: solo en los cambios aditivos. **Dónde deja de valer:** son cinco versiones sintéticas con cuatro cambios elegidos para ilustrar cada clase; un esquema real tiene campos anidados, valores por defecto, enumeraciones que crecen y consumidores que dependen del orden. Un lector tolerante que ignora un campo requerido en secreto pasaría esta matriz sin avisar.
+[SE-441](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-441-compatibilidad-portabilidad-e-interoperabilidad/README.md) muestra el poder de este método con un experimento: cinco versiones de un mensaje (v1 a v5) y cinco lectores, con los 25 pares ejecutados con mensajes producidos de verdad. Un lector **estricto** (exige exactamente los campos de su versión) es compatible en 7 de 25 pares, y uno **tolerante** (exige solo lo que necesita e ignora el resto) en 9. La tolerancia absorbe cambios **aditivos** (un campo nuevo) pero no los **destructivos** (renombrar un campo o cambiar su tipo rompen con ambos). Los números son de ese experimento sintético, no una regla general.
 
 ## Ejemplo
 
-Ejemplo de [SE-441 — Compatibilidad, portabilidad e interoperabilidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-441-compatibilidad-portabilidad-e-interoperabilidad/README.md) (sección «Ejemplo profesional»):
+Una matriz mínima para un SDK (ilustración, valores inventados):
 
-El equipo escribe el contrato del mensaje de entrega que consumen el portal, el sistema de calificaciones y un script de los docentes. El contrato fija: identificadores como cadenas, texto en UTF-8 normalizado a NFC en el borde, nota como entero en décimas, fechas en ISO 8601 con zona, `schema_version` en cada mensaje y la política de lectura: los consumidores ignoran campos desconocidos y rechazan estados que no conocen con un valor por defecto «desconocido». El productor emite siempre el campo viejo y el nuevo durante dos versiones.
+```text
+                      py3.9   py3.12   consumidor 1.2 + SDK 1.3   plugin v2   plugin v1
+wheel                  ok      ok               ok                  ok        rechazado (claro)
+sdist                  ok      ok               ok                  ok        rechazado (claro)
+py3.8                  no verificado (fuera de soporte declarado)
+```
+
+Cada celda es un resultado de ejecución en integración continua. Las combinaciones no ejecutadas aparecen como «no verificado» y no como «ok». Para el caso del mensaje de [SE-441](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-441-compatibilidad-portabilidad-e-interoperabilidad/README.md), un renombrado se evoluciona con el patrón expandir y contraer: durante un periodo el productor emite los dos nombres y los lectores migran antes de quitar el viejo.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-120 — Proyecto: SDK y CLI con compatibilidad verificada](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md)) son:
-
-- **Un cambio «interno» rompe a un consumidor sin que ninguna prueba falle** — causa: la promesa no estaba escrita como prueba de contrato. Corrección: escribir la prueba desde el consumidor y añadirla al conjunto.
-- **La comparación de API marca un cambio que no importa** — causa: se compara toda la superficie sin distinguir lo público. Corrección: definir `__all__` o una lista pública y comparar solo eso.
+- **Llenar la tabla con supuestos.** Una celda sin ejecución no es «ok».
+- **Probar solo la última versión.** Los extremos soportados y el consumidor anterior son donde ocurre la ruptura.
+- **Creer que la tolerancia basta.** Absorbe lo aditivo, no lo destructivo; un lector tolerante que ignora en secreto un campo requerido pasaría la matriz sin avisar.
+- **No probar el rechazo.** Que lo incompatible falle limpiamente también es parte del contrato.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-120 — Proyecto: SDK y CLI con compatibilidad verificada](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md)) son: Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. El proyecto acredita un release candidato dentro de su matriz, no disponibilidad, seguridad o soporte productivo. La [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md) cambiará el foco desde construir correctamente hacia descubrir qué problema y resultado de producto justifican la siguiente inversión.
+El proyecto acredita un release candidato dentro de su matriz, no disponibilidad, seguridad ni soporte productivo ([SE-120](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md)). Las matrices crecen de forma multiplicativa con cada dimensión; hay que elegir las que importan y no el producto cartesiano completo. En [SE-441](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-441-compatibilidad-portabilidad-e-interoperabilidad/README.md), las versiones son sintéticas con cuatro cambios elegidos: un esquema real tiene campos anidados, valores por defecto, enumeraciones que crecen y consumidores que dependen del orden.
 
 ## Relación con otros conceptos
 

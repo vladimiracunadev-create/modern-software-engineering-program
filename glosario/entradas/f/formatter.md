@@ -2,40 +2,46 @@
 
 [↑ Glosario](../../README.md) · [← Formato columnar](./formato-columnar.md) · [Forward proxy →](./forward-proxy.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 08](../../../classes/part-08-entornos-herramientas-y-depuracion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 08](../../../classes/part-08-entornos-herramientas-y-depuracion/README.md)
 
 ## Definición
 
-Un formatter transforma presentación bajo reglas deterministas y reduce discusiones de estilo.
-
-Definición de trabajo de [SE-100 — Compiladores, linters, formatters y análisis estático](../../../classes/part-08-entornos-herramientas-y-depuracion/se-100-compiladores-linters-formatters-y-analisis-estatico/README.md).
+Un **formatter** (formateador) es una herramienta que **transforma la presentación del código fuente bajo reglas deterministas**: sangrías, espacios, saltos de línea, orden de importaciones, comillas. Dada la misma entrada y la misma configuración produce siempre la misma salida. En [SE-100](../../../classes/part-08-entornos-herramientas-y-depuracion/se-100-compiladores-linters-formatters-y-analisis-estatico/README.md) se presenta junto al compilador, el *linter* y el análisis estático, con un papel acotado: reducir las discusiones de estilo, sin juzgar el contenido. Que sea determinista es lo que lo distingue de una guía de estilo que se aplica a mano.
 
 ## Por qué importa
 
-En [SE-100 — Compiladores, linters, formatters y análisis estático](../../../classes/part-08-entornos-herramientas-y-depuracion/se-100-compiladores-linters-formatters-y-analisis-estatico/README.md), el tema «Formatter» importa porque un formatter transforma presentación bajo reglas deterministas y reduce discusiones de estilo.
+Sin un formateador común, los cambios de código arrastran ruido: sangrías distintas, líneas reflujadas, estilos que dependen de cada editor, y las revisiones se llenan de comentarios de estilo. Con uno, el formato deja de ser tema de conversación y los *diffs* muestran solo cambios de significado. La decisión que cambia es quién decide el estilo: la herramienta, con una configuración versionada, en lugar de cada persona o de cada revisión. También permite **reproducir el formato en integración continua**, de modo que un cambio mal formateado se detecte automáticamente.
 
 ## Cómo funciona
 
-Según [SE-100 — Compiladores, linters, formatters y análisis estático](../../../classes/part-08-entornos-herramientas-y-depuracion/se-100-compiladores-linters-formatters-y-analisis-estatico/README.md), en la sección «Formatter»:
+El formateador analiza el código a un árbol sintáctico (o a una representación que conserva el significado) y lo **vuelve a imprimir** con sus reglas, descartando el formato original. Por eso el resultado no depende de cómo estaba escrito, y por eso es idempotente: formatear lo ya formateado no cambia nada. Dos usos típicos:
 
-Un formatter transforma presentación bajo reglas deterministas y reduce discusiones de estilo. No mejora nombres, cohesión ni corrección. Versionarlo evita diffs masivos por cambios de regla y permite reproducir formato en CI.
+- **Escribir:** se ejecuta al guardar o antes de confirmar un cambio.
+- **Comprobar:** en integración continua se ejecuta en modo de verificación, que falla si algún archivo cambiaría.
+
+Dos precauciones se desprenden de [SE-100](../../../classes/part-08-entornos-herramientas-y-depuracion/se-100-compiladores-linters-formatters-y-analisis-estatico/README.md). Primero, un formateador **no mejora nombres, cohesión ni corrección**: ordena la apariencia, no el diseño. Segundo, hay que **versionarlo**: un cambio en las reglas de una versión nueva reformatea muchos archivos y produce *diffs* masivos sin cambio de comportamiento; fijar versión y configuración en el repositorio lo evita y permite que el editor y la integración continua den el mismo resultado.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-100 — Compiladores, linters, formatters y análisis estático](../../../classes/part-08-entornos-herramientas-y-depuracion/se-100-compiladores-linters-formatters-y-analisis-estatico/README.md):
+Un proyecto fija la herramienta y su versión, y verifica en integración continua:
 
-En el entorno reproducible de diagnóstico, una investigación conserva síntoma, entorno, reproducción, hipótesis, observaciones, causa, corrección y regresión. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```bash
+python -m black --check src tests     # falla si algún archivo cambiaría
+python -m black src tests             # reformatea
+```
+
+Si dos personas escriben el mismo código con estilos diferentes, tras formatear ambas versiones son idénticas y la revisión se concentra en la lógica. Si la herramienta se actualiza sin fijar versión, un cambio de regla puede reescribir cientos de líneas en un solo cambio; fijar la versión convierte esa actualización en una decisión explícita, con su propio cambio dedicado.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-100 — Compiladores, linters, formatters y análisis estático](../../../classes/part-08-entornos-herramientas-y-depuracion/se-100-compiladores-linters-formatters-y-analisis-estatico/README.md)) son:
-
-- **El código pasa mypy y falla al ejecutar** — causa: `Any` o falta de anotaciones. Corrección: reducir `Any` en las fronteras y probar con datos reales.
-- **El linter pasa pero hay un defecto conocido** — causa: la regla no está activa. Corrección: revisar el conjunto de reglas y activar la relevante.
+- **Creer que el formateador mejora el código.** Solo ordena la presentación.
+- **No fijar versión.** Los cambios de regla producen diffs masivos y discrepancias entre editor e integración continua.
+- **Confundirlo con el linter.** El linter detecta patrones sospechosos (variables sin uso, comparaciones erróneas); el formateador no juzga. A veces se solapan (orden de importaciones), pero son herramientas distintas.
+- **Mezclar reformateos y cambios funcionales.** Dificulta la revisión; el reformateo masivo va en su propio cambio.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-100 — Compiladores, linters, formatters y análisis estático](../../../classes/part-08-entornos-herramientas-y-depuracion/se-100-compiladores-linters-formatters-y-analisis-estatico/README.md)) son: Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. La señal estática no sustituye experimentación y puede ser ruidosa durante exploración. La siguiente clase diseña REPL y notebooks con una ruta explícita hacia artefactos reproducibles.
+La señal estática no sustituye experimentación y puede ser ruidosa durante la exploración ([SE-100](../../../classes/part-08-entornos-herramientas-y-depuracion/se-100-compiladores-linters-formatters-y-analisis-estatico/README.md)): formatear a cada paso un cuaderno de pruebas puede estorbar. El formateador impone un estilo único, que a veces resulta menos legible en un caso concreto (una tabla alineada a mano); la mayoría de las herramientas permiten desactivarlo por bloque. Y en equipos con una guía de estilo ya aplicada y poco cambio, el beneficio marginal es menor.
 
 ## Relación con otros conceptos
 

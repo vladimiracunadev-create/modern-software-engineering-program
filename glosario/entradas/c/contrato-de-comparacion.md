@@ -2,40 +2,52 @@
 
 [↑ Glosario](../../README.md) · [← Contrato de bootstrap](./contrato-de-bootstrap.md) · [Contrato de consumidor →](./contrato-de-consumidor.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 07](../../../classes/part-07-estructuras-de-datos-y-algoritmos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 07](../../../classes/part-07-estructuras-de-datos-y-algoritmos/README.md)
 
 ## Definición
 
-Ordenar requiere una relación consistente, normalmente total o una clave total derivada.
-
-Definición de trabajo de [SE-090 — Búsqueda, ordenamiento y selección](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md).
+El **contrato de comparación** es el conjunto de propiedades que una relación de orden debe cumplir para que ordenar tenga sentido. [SE-090](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md) lo enuncia así: ordenar requiere una relación **consistente**, normalmente **total**, o una **clave total derivada** a partir de los datos. Importan la antisimetría, la transitividad y el tratamiento de los iguales. Quien pasa un comparador o una clave a un algoritmo de ordenamiento está firmando este contrato, aunque el lenguaje no lo compruebe.
 
 ## Por qué importa
 
-En [SE-090 — Búsqueda, ordenamiento y selección](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md), el tema «Contrato de comparación» importa porque ordenar requiere una relación consistente, normalmente total o una clave total derivada.
+Los algoritmos de ordenamiento se demuestran correctos **bajo el supuesto** de que la comparación es un orden bien definido. Si el supuesto falla, el resultado deja de estar garantizado: puede quedar «ordenado» sin estarlo, o variar según el algoritmo o la versión del lenguaje, sin ningún error visible. La decisión que cambia es dónde se invierte la atención al ordenar: no solo en elegir el algoritmo, sino en definir y probar la relación. La mayoría de los defectos de ordenamiento viven en el comparador, no en el algoritmo.
 
 ## Cómo funciona
 
-Según [SE-090 — Búsqueda, ordenamiento y selección](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md), en la sección «Contrato de comparación»:
+Las propiedades exigidas, para elementos `a`, `b`, `c`:
 
-Ordenar requiere una relación consistente, normalmente total o una clave total derivada. Antisimetría, transitividad y tratamiento de iguales importan. Fechas sin zona o valores ausentes deben normalizarse antes del comparador.
+- **Total:** para todo par, `a ≤ b` o `b ≤ a`. Si hay pares incomparables, no hay orden total.
+- **Antisimétrica:** si `a ≤ b` y `b ≤ a`, entonces son iguales según el criterio.
+- **Transitiva:** si `a ≤ b` y `b ≤ c`, entonces `a ≤ c`.
+- **Iguales definidos:** qué pasa con elementos equivalentes (¿se conserva su orden original? Un ordenamiento **estable** lo garantiza).
+
+Los problemas reales vienen de datos que violan estas propiedades. Los valores no numéricos de punto flotante (`NaN`) no son menores, mayores ni iguales a nada, así que rompen la totalidad. Fechas sin zona horaria pueden representar instantes distintos con la misma etiqueta; valores ausentes (`None`) no se comparan con números. Por eso [SE-090](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md) indica que deben **normalizarse antes del comparador**: se construye una **clave total derivada** (por ejemplo, la fecha en UTC y la ausencia convertida a un valor definido) y se ordena por ella.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-090 — Búsqueda, ordenamiento y selección](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md):
+En [SE-090](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md), un resultado «ordenado» que no lo está tiene como causa la presencia de `NaN` o un comparador no transitivo, y la corrección es normalizar el criterio y verificar con una prueba de orden total. Ilustración:
 
-En la biblioteca de estructuras y algoritmos, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```python
+datos = [3.0, float("nan"), 1.0, 2.0]
+sorted(datos)          # el resultado depende de dónde cae el NaN
+
+def clave(x):          # clave total derivada: NaN al final, de forma explícita
+    return (x != x, x if x == x else 0.0)
+sorted(datos, key=clave)   # [1.0, 2.0, 3.0, nan]
+```
+
+Una prueba de orden total comprueba, sobre un conjunto de muestras, que para todo par se cumpla la totalidad y para toda terna la transitividad; falla si el comparador las rompe.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-090 — Búsqueda, ordenamiento y selección](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md)) son:
-
-- **El ordenamiento propio es lento con datos casi ordenados** — causa: pivote fijo en un quicksort ingenuo. Corrección: usar `sorted` o un pivote aleatorio; probar con entrada ordenada.
-- **El resultado «ordenado» no está ordenado** — causa: hay NaN o un comparador no transitivo. Corrección: normalizar el criterio y verificar con una prueba de orden total.
+- **Comparador que devuelve «menor» en un sentido y en el otro.** Viola la antisimetría y puede hacer entrar en bucle a algunos algoritmos.
+- **Restar para comparar.** `a - b` puede desbordar o redondear en flotantes y producir inconsistencias.
+- **Ignorar los ausentes y los `NaN`.** Rompen la totalidad sin error evidente.
+- **Esperar estabilidad sin pedirla.** Si se necesita conservar el orden de iguales, hay que usar un algoritmo estable o añadir un desempate explícito.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-090 — Búsqueda, ordenamiento y selección](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md)) son: Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Elegir top-k no resuelve decisiones secuenciales con subproblemas o restricciones. La siguiente clase compara estrategias voraces y programación dinámica.
+Elegir los *k* mejores no resuelve decisiones secuenciales con subproblemas o restricciones; ahí la relación de orden no basta y se pasa a estrategias voraces o programación dinámica ([SE-090](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md)). Para órdenes parciales (dependencias entre tareas) se usa ordenamiento topológico, no un comparador. Y si el orden depende de contexto cambiante (preferencias del usuario), no existe un contrato único estable.
 
 ## Relación con otros conceptos
 

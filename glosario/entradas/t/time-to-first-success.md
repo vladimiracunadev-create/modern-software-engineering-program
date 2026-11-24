@@ -2,40 +2,50 @@
 
 [↑ Glosario](../../README.md) · [← Tiempo, plazos y zonas](./tiempo-plazos-y-zonas.md) · [Timeout →](./timeout.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 09](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 09](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md)
 
 ## Definición
 
-Un camino mínimo debe producir resultado significativo con precondiciones explícitas.
-
-Definición de trabajo de [SE-118 — Diseño de experiencia para desarrolladores](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-118-diseno-de-experiencia-para-desarrolladores/README.md).
+El **time to first success** (tiempo hasta el primer éxito) es el tiempo que una persona nueva necesita, desde que decide probar un producto técnico hasta que obtiene **un resultado significativo**. [SE-118](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-118-diseno-de-experiencia-para-desarrolladores/README.md) lo plantea como un requisito sobre el **camino mínimo**: debe producir un resultado que le importe a quien lo ejecuta, con **precondiciones explícitas**. Es una medida de experiencia de desarrollo (DX), la segunda etapa del recorrido tras evaluar el producto y la primera que se puede cronometrar.
 
 ## Por qué importa
 
-En [SE-118 — Diseño de experiencia para desarrolladores](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-118-diseno-de-experiencia-para-desarrolladores/README.md), el tema «Time to first success» importa porque un camino mínimo debe producir resultado significativo con precondiciones explícitas.
+Los primeros minutos con una biblioteca o API deciden si se sigue usando. Si el primer resultado tarda horas o exige conocimiento no documentado, muchas personas abandonan antes de la primera llamada. [SE-118](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-118-diseno-de-experiencia-para-desarrolladores/README.md) documenta ese síntoma: los usuarios abandonan por demasiados pasos o requisitos previos ocultos, y la corrección es medir el recorrido con alguien nuevo y eliminar pasos o dar valores por defecto. La decisión que cambia es qué se optimiza primero: el camino de menor fricción hacia algo que funcione, no la cobertura completa de funciones.
 
 ## Cómo funciona
 
-Según [SE-118 — Diseño de experiencia para desarrolladores](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-118-diseno-de-experiencia-para-desarrolladores/README.md), en la sección «Time to first success»:
+La medida se sostiene en tres reglas:
 
-Un camino mínimo debe producir resultado significativo con precondiciones explícitas. Reducir pasos mediante magia oculta puede empeorar diagnóstico. Se mide con usuario o entorno nuevo y se registra dónde solicita contexto no documentado.
+- **Resultado significativo.** No basta con «imprimir hola»: debe ser algo que muestre el valor real del producto (una consulta con datos de ejemplo, un caso resuelto).
+- **Precondiciones explícitas.** Qué hace falta antes de empezar (versión del lenguaje, credenciales, permisos) se declara al inicio, no se descubre al fallar.
+- **Medición con alguien nuevo.** Se observa a una persona o un entorno nuevo recorriendo el camino, cronometrando y anotando **dónde pide contexto no documentado**. Quien construyó el producto no puede medirlo porque ya conoce los atajos.
+
+Hay un riesgo que [SE-118](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-118-diseno-de-experiencia-para-desarrolladores/README.md) señala: **reducir pasos mediante «magia oculta» puede empeorar el diagnóstico**. Si el producto adivina la configuración, crea archivos o elige valores sin decirlo, el primer éxito llega rápido, pero cuando algo falla, la persona no sabe qué ocurrió ni cómo corregirlo. El objetivo no es el menor número de pasos a toda costa, sino un camino corto y comprensible.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-118 — Diseño de experiencia para desarrolladores](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-118-diseno-de-experiencia-para-desarrolladores/README.md):
+El *quickstart* del SDK del programa, medido con alguien nuevo (ilustración, tiempos inventados):
 
-En el producto reutilizable con SDK y CLI, un release contiene contrato público, artefactos inmutables, dependencias, procedencia, ejemplos, errores y ruta de migración. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```text
+00:00  lee la página de inicio
+01:10  pip install engineering-sdk                    (precondición: Python >= 3.9, declarada)
+02:30  copia el ejemplo y lo ejecuta -> error: falta el archivo casos.json
+       (contexto no documentado: el ejemplo no lo incluía)
+04:40  añade el archivo de ejemplo al paquete -> resultado: "siguiente caso: #2"
+```
+
+El tiempo hasta el primer éxito fue 4 min 40 s, y el bloqueo se registra con su causa. La corrección es incluir el archivo de datos de ejemplo en el paquete o generar uno al ejecutar con un mensaje que lo diga, no adivinarlo en silencio.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-118 — Diseño de experiencia para desarrolladores](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-118-diseno-de-experiencia-para-desarrolladores/README.md)) son:
-
-- **Los usuarios abandonan antes de la primera llamada** — causa: demasiados pasos o requisitos previos ocultos. Corrección: medir el recorrido con alguien nuevo y eliminar pasos o dar valores por defecto.
-- **Los reportes de error son «no funciona» sin datos** — causa: el mensaje no dice qué faltó ni cómo arreglarlo. Corrección: excepción propia con causa, solución y atributos estructurados.
+- **Medirlo el propio equipo.** Conoce los atajos y subestima el tiempo.
+- **Un primer éxito trivial.** Si no muestra valor, no cuenta.
+- **Esconder pasos con magia.** Acelera el inicio y daña el diagnóstico posterior.
+- **Optimizar solo el inicio.** El recorrido completo incluye integrar, depurar y actualizar.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-118 — Diseño de experiencia para desarrolladores](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-118-diseno-de-experiencia-para-desarrolladores/README.md)) son: Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Una evaluación interna de DX no sustituye investigación diversa ni soporte real. El taller siguiente empaqueta una capacidad y obliga a consumirla fuera del repositorio.
+Una evaluación interna de DX no sustituye investigación diversa ni soporte real ([SE-118](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-118-diseno-de-experiencia-para-desarrolladores/README.md)): el tiempo de una persona no es el de todas. La métrica captura el inicio, no la experiencia sostenida con el producto. En productos con una sola población conocida y entrenada (una herramienta interna), el esfuerzo de optimizarlo puede ser innecesario; se justifica donde la adopción es una decisión libre de quien usa.
 
 ## Relación con otros conceptos
 

@@ -2,40 +2,52 @@
 
 [↑ Glosario](../../README.md) · [← Efecto único](./efecto-unico.md) · [Eficiencia de un bus →](./eficiencia-de-un-bus.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 06](../../../classes/part-06-paradigmas-de-programacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 06](../../../classes/part-06-paradigmas-de-programacion/README.md)
 
 ## Definición
 
-El núcleo calcula una recomendación y los adaptadores leen json o escriben texto.
-
-Definición de trabajo de [SE-074 — Programación procedural y descomposición funcional](../../../classes/part-06-paradigmas-de-programacion/se-074-programacion-procedural-y-descomposicion-funcional/README.md).
+**Efectos en los bordes** es el patrón de diseño por el que el **núcleo** de un programa calcula una decisión a partir de valores, mientras los **adaptadores** situados en los límites leen entradas y escriben salidas. En [SE-074](../../../classes/part-06-paradigmas-de-programacion/se-074-programacion-procedural-y-descomposicion-funcional/README.md) el ejemplo es: el núcleo calcula una recomendación y los adaptadores leen JSON o escriben texto. El término designa tanto la separación como el lugar donde se confinan los efectos: el borde del sistema, no su interior.
 
 ## Por qué importa
 
-En [SE-074 — Programación procedural y descomposición funcional](../../../classes/part-06-paradigmas-de-programacion/se-074-programacion-procedural-y-descomposicion-funcional/README.md), el tema «Efectos en los bordes» importa porque el núcleo calcula una recomendación y los adaptadores leen JSON o escriben texto.
+Si el cálculo y el contacto con el exterior están mezclados, repetir una decisión implica repetir su efecto: reenviar el correo, escribir otra vez el archivo, volver a consultar el servicio. [SE-074](../../../classes/part-06-paradigmas-de-programacion/se-074-programacion-procedural-y-descomposicion-funcional/README.md) lo plantea como la razón práctica de la separación: permite **repetir la decisión sin repetir un efecto**. La decisión profesional que cambia es cómo se prueba y se reproduce el comportamiento: el núcleo se prueba con valores y se vuelve reproducible; los adaptadores, más delgados, se prueban aparte con dobles o con pruebas de integración.
 
 ## Cómo funciona
 
-Según [SE-074 — Programación procedural y descomposición funcional](../../../classes/part-06-paradigmas-de-programacion/se-074-programacion-procedural-y-descomposicion-funcional/README.md), en la sección «Efectos en los bordes»:
+La estructura tiene tres zonas:
 
-El núcleo calcula una recomendación y los adaptadores leen JSON o escriben texto. Esta separación permite repetir la decisión sin repetir un efecto. El límite falla cuando una función supuestamente pura consulta el reloj, el entorno o un singleton sin declararlo.
+1. **Adaptador de entrada:** lee el archivo, la solicitud o el mensaje y lo convierte en valores del dominio (el parseo del dominio).
+2. **Núcleo:** funciones que reciben esos valores y devuelven un resultado. No abren archivos, no consultan el reloj, no hacen red.
+3. **Adaptador de salida:** convierte el resultado en texto, archivo o llamada y lo envía.
+
+El mecanismo que lo hace valer es que **todo lo que el núcleo necesita llega como argumento**. Si necesita la hora, se le pasa como valor; si necesita datos, se le pasan. Así, la misma entrada produce siempre la misma decisión. [SE-074](../../../classes/part-06-paradigmas-de-programacion/se-074-programacion-procedural-y-descomposicion-funcional/README.md) señala dónde se rompe el límite: cuando una función **supuestamente pura** consulta el reloj, el entorno o un *singleton* sin declararlo. La dependencia oculta devuelve al núcleo la imprevisibilidad que se quería dejar fuera. La separación también se conoce como núcleo funcional con cáscara imperativa (*functional core, imperative shell*) en la literatura de diseño; aquí se usa el nombre del programa.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-074 — Programación procedural y descomposición funcional](../../../classes/part-06-paradigmas-de-programacion/se-074-programacion-procedural-y-descomposicion-funcional/README.md):
+El motor de reglas del programa decide una recomendación. Sin separación, la función lee un JSON, consulta la hora, decide y escribe en pantalla. Con separación:
 
-En el motor de reglas comparado, una recomendación contiene acción, evidencia usada, versión de política y explicación. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si devuelve una cadena: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```python
+def recomendar(caso, politica, ahora):      # núcleo: valores in, valor out
+    return "revisar" if caso["monto"] > politica["umbral"] else "aprobar"
+
+def main(ruta):                              # borde: lee y escribe
+    caso = json.load(open(ruta))
+    resultado = recomendar(caso, POLITICA, datetime.now())
+    print(f"Recomendación: {resultado}")
+```
+
+Para reproducir una decisión pasada se llama a `recomendar` con el mismo caso, la misma política y la misma hora registrada, sin tocar archivos ni reloj. El tiempo entra como argumento (`ahora`), no se consulta dentro.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-074 — Programación procedural y descomposición funcional](../../../classes/part-06-paradigmas-de-programacion/se-074-programacion-procedural-y-descomposicion-funcional/README.md)) son:
-
-- **`RecursionError` en un recorrido largo** — causa: descomposición recursiva sobre una entrada lineal. Corrección: convertir a bucle con acumulador o pila explícita.
-- **Un efecto «desaparece» tras añadir `lru_cache`** — causa: se memoizó una función con efectos. Corrección: memoizar solo la parte pura.
+- **Dependencias ocultas en el núcleo.** El reloj, el entorno o un *singleton* leído en medio del cálculo.
+- **Memoizar la parte con efectos.** Tras añadir un caché, un efecto «desaparece» porque ya no se ejecuta.
+- **Adaptadores con lógica de negocio.** La decisión se filtra al borde y vuelve a mezclarse.
+- **Separar por capas sin separar efectos.** Tener carpetas `servicios` y `repositorios` no impide que el núcleo abra archivos.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-074 — Programación procedural y descomposición funcional](../../../classes/part-06-paradigmas-de-programacion/se-074-programacion-procedural-y-descomposicion-funcional/README.md)) son: Las definiciones son operativas para el motor de reglas comparado. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. La descomposición procedural no define por sí misma cómo representar entidades con identidad o ciclos de vida largos. La siguiente clase contrasta objetos y mensajes.
+La descomposición procedural no define por sí misma cómo representar entidades con identidad o ciclos de vida largos ([SE-074](../../../classes/part-06-paradigmas-de-programacion/se-074-programacion-procedural-y-descomposicion-funcional/README.md)): el patrón supone transformaciones de datos. En programas cuyo propósito principal son los efectos (copiar archivos, sincronizar servicios), el «núcleo» es casi vacío y la separación aporta poco. Y cuando el cálculo depende de datos que solo se saben a mitad del proceso (consultas encadenadas), pasar todo como argumento antes de empezar no siempre es posible.
 
 ## Relación con otros conceptos
 

@@ -2,40 +2,52 @@
 
 [↑ Glosario](../../README.md) · [← Diseño de errores](./diseno-de-errores.md) · [Diseño pareado →](./diseno-pareado.md)
 
-> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 09](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md)
+> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 09](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md)
 
 ## Definición
 
-La prueba se escribe desde un directorio externo usando solo imports públicos.
-
-Definición de trabajo de [SE-119 — Taller: empaquetar una capacidad reusable](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-119-taller-empaquetar-una-capacidad-reusable/README.md).
+El **diseño desde consumidor** es, en el taller de [SE-119](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-119-taller-empaquetar-una-capacidad-reusable/README.md), la práctica de escribir la prueba de un paquete **desde un directorio externo al repositorio, usando solo imports públicos**, y sin *mocks* de internals. La prueba se coloca en la posición de quien consume el producto: no conoce la estructura interna, no puede importar módulos privados y depende solo de lo que el paquete publica. Es una técnica del programa asociada a las pruebas de contrato escritas «desde el consumidor».
 
 ## Por qué importa
 
-En [SE-119 — Taller: empaquetar una capacidad reusable](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-119-taller-empaquetar-una-capacidad-reusable/README.md), el tema «Diseño desde consumidor» importa porque la prueba se escribe desde un directorio externo usando solo imports públicos.
+Quien escribe una biblioteca sabe cosas que el consumidor ignora: qué módulo contiene cada función, qué argumentos tienen valores razonables por defecto, qué excepción se espera. Esas suposiciones se cuelan en las pruebas hechas desde dentro, que pasan aunque el uso real sea incómodo o imposible. La decisión que cambia es qué prueba cuenta como evidencia de que el paquete es usable: la que ejecuta alguien que solo tiene lo público. [SE-119](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-119-taller-empaquetar-una-capacidad-reusable/README.md) dice que esto revela **nombres, defaults, errores y documentación** que el autor daba por supuestos.
 
 ## Cómo funciona
 
-Según [SE-119 — Taller: empaquetar una capacidad reusable](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-119-taller-empaquetar-una-capacidad-reusable/README.md), en la sección «Diseño desde consumidor»:
+Cuatro reglas hacen que la prueba sea de consumidor de verdad:
 
-La prueba se escribe desde un directorio externo usando solo imports públicos. Mocks de internals no participan. Esto revela nombres, defaults, errores y documentación que el autor daba por supuestos.
+- **Directorio externo.** La prueba vive fuera del árbol de código del paquete, para que Python no resuelva imports contra el código fuente y se use el paquete **instalado**.
+- **Solo imports públicos.** Se importa lo que la API declara; si hace falta entrar a un módulo interno para algo corriente, falta un símbolo público.
+- **Sin mocks de internals.** Si se simulan funciones privadas, se prueba la implementación, no la promesa. Se pueden simular recursos externos (red, disco), pero no el interior del paquete.
+- **Entorno limpio.** Se instala el artefacto en un entorno vacío, de modo que una dependencia no declarada aparezca como fallo.
+
+Cada fricción que aparece es información: un nombre confuso, un parámetro obligatorio que debería tener valor por defecto, un error que no dice qué hacer. La causa de que el método encuentre esto es que elimina el conocimiento privilegiado del autor.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-119 — Taller: empaquetar una capacidad reusable](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-119-taller-empaquetar-una-capacidad-reusable/README.md):
+En el taller de [SE-119](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-119-taller-empaquetar-una-capacidad-reusable/README.md), la prueba del paquete reutilizable vive fuera del repositorio y solo hace esto:
 
-En el producto reutilizable con SDK y CLI, un release contiene contrato público, artefactos inmutables, dependencias, procedencia, ejemplos, errores y ruta de migración. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```python
+# prueba_consumidor.py  (en un directorio aparte, con el paquete instalado)
+from engineering_sdk import choose_next      # único import: público
+
+def test_elige_el_mas_urgente():
+    casos = [{"id": 1, "prioridad": 2}, {"id": 2, "prioridad": 1}]
+    assert choose_next(casos)["id"] == 2
+```
+
+Si para escribirla hace falta importar `engineering_sdk._interno.reglas`, o pasar cinco argumentos que el autor siempre usa igual, el diseño tiene un defecto de uso. Los dos fallos documentados por la clase aparecen aquí: el archivo de datos no encontrado (falta `package-data`) y el `ModuleNotFoundError` solo en entorno limpio (dependencia no declarada).
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-119 — Taller: empaquetar una capacidad reusable](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-119-taller-empaquetar-una-capacidad-reusable/README.md)) son:
-
-- **El paquete instalado no encuentra su archivo de datos** — causa: falta `package-data`. Corrección: declararlo y comparar `namelist()` con una lista esperada.
-- **`ModuleNotFoundError` solo en un entorno limpio** — causa: dependencia usada pero no declarada. Corrección: declararla en `dependencies` y ejecutar la prueba de humo en un entorno vacío.
+- **Prueba dentro del paquete.** Importa por rutas relativas y oculta problemas de instalación.
+- **Mockear internals.** La prueba pasa aunque el comportamiento público esté roto.
+- **Usar el código fuente en lugar del instalado.** El resultado no representa lo que recibe el consumidor.
+- **Reescribir la prueba del autor y llamarla de consumidor.** Si usa los mismos atajos, no aporta información nueva.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-119 — Taller: empaquetar una capacidad reusable](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-119-taller-empaquetar-una-capacidad-reusable/README.md)) son: Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. El taller verifica una versión y un entorno principal. El proyecto siguiente construye una matriz de compatibilidad, plugin, automatización y procedencia para SDK+CLI.
+El taller verifica una versión y un entorno principal ([SE-119](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-119-taller-empaquetar-una-capacidad-reusable/README.md)); no cubre otros sistemas ni versiones de dependencias, tarea de la matriz de compatibilidad. La prueba de consumidor encuentra problemas de usabilidad en lo que ejercita, pero no sustituye las pruebas unitarias del interior, que localizan defectos con más precisión. Para módulos internos no publicados, que nadie consume desde fuera, el enfoque no tiene sentido.
 
 ## Relación con otros conceptos
 

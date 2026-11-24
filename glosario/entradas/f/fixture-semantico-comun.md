@@ -2,40 +2,48 @@
 
 [↑ Glosario](../../README.md) · [← Fixture](./fixture.md) · [Flujo →](./flujo.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 06](../../../classes/part-06-paradigmas-de-programacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 06](../../../classes/part-06-paradigmas-de-programacion/README.md)
 
 ## Definición
 
-El taller comienza por entradas y salidas canónicas, no por código.
-
-Definición de trabajo de [SE-083 — Taller: una regla de negocio en cinco paradigmas](../../../classes/part-06-paradigmas-de-programacion/se-083-taller-una-regla-de-negocio-en-cinco-paradigmas/README.md).
+Un **fixture semántico común** es, en el taller de [SE-083](../../../classes/part-06-paradigmas-de-programacion/se-083-taller-una-regla-de-negocio-en-cinco-paradigmas/README.md), el conjunto de **entradas y salidas canónicas** compartido por todas las implementaciones de una misma regla de negocio. El taller **comienza por él, no por el código**: antes de escribir la regla en cinco paradigmas, se fijan los casos con sus resultados esperados. «Semántico» indica que describe el *significado* de la regla (qué debe resultar de qué), con independencia de cómo cada paradigma lo calcule. Es un término propio del programa; *fixture* en pruebas suele designar datos de preparación, y aquí abarca además los resultados esperados.
 
 ## Por qué importa
 
-En [SE-083 — Taller: una regla de negocio en cinco paradigmas](../../../classes/part-06-paradigmas-de-programacion/se-083-taller-una-regla-de-negocio-en-cinco-paradigmas/README.md), el tema «Fixture semántico común» importa porque el taller comienza por entradas y salidas canónicas, no por código.
+Si cada implementación nace con sus propios ejemplos, nada garantiza que estén resolviendo el mismo problema; comparar sus diffs o su legibilidad entonces compara cosas distintas. El fixture fija **qué es correcto** antes de discutir **cómo expresarlo**. La decisión que cambia es el orden de trabajo: primero el acuerdo sobre el comportamiento, después las soluciones. Y sirve de árbitro: cuando dos versiones difieren, el fixture dice cuál se equivoca o qué caso el contrato no cubría.
 
 ## Cómo funciona
 
-Según [SE-083 — Taller: una regla de negocio en cinco paradigmas](../../../classes/part-06-paradigmas-de-programacion/se-083-taller-una-regla-de-negocio-en-cinco-paradigmas/README.md), en la sección «Fixture semántico común»:
+El fixture debe cubrir, como mínimo, los casos que ponen a prueba la regla ([SE-083](../../../classes/part-06-paradigmas-de-programacion/se-083-taller-una-regla-de-negocio-en-cinco-paradigmas/README.md)): **autorización falsa**, **evidencia vacía**, **empate** y **dato inválido**. Cada caso es una entrada con su salida esperada, expresada en términos del dominio (no del lenguaje). Todas las implementaciones se ejecutan contra el mismo fixture.
 
-El taller comienza por entradas y salidas canónicas, no por código. Cada implementación debe cubrir autorización falsa, evidencia vacía, empate y dato inválido. Si un modelo no puede representar un caso, esa imposibilidad es un hallazgo y no se elimina del fixture.
+Hay una regla importante sobre lo que no se puede expresar: si un modelo **no puede representar un caso**, esa imposibilidad es **un hallazgo** y no se elimina del fixture. Por ejemplo, un paradigma que no distingue «evidencia vacía» de «evidencia ausente» muestra una limitación real de ese modelo para esta regla. Quitar el caso para que todas pasen escondería justo lo que la comparación quería descubrir.
+
+La causa de que funcione es la misma que la de los *tests* de caracterización: un oráculo común convierte la comparación en un experimento controlado, con una sola variable (el paradigma).
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-083 — Taller: una regla de negocio en cinco paradigmas](../../../classes/part-06-paradigmas-de-programacion/se-083-taller-una-regla-de-negocio-en-cinco-paradigmas/README.md):
+Para la regla del motor de reglas de [SE-083](../../../classes/part-06-paradigmas-de-programacion/se-083-taller-una-regla-de-negocio-en-cinco-paradigmas/README.md), el fixture podría ser una tabla de casos (ilustración; los valores son inventados):
 
-En el motor de reglas comparado, una recomendación contiene acción, evidencia usada, versión de política y explicación. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si devuelve una cadena: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```text
+caso                       entrada                          salida
+autorización falsa         {autorizado: false, ...}         rechazar
+evidencia vacía            {evidencia: []}                  pedir más datos
+empate entre dos reglas    {puntaje_a: 5, puntaje_b: 5}     elegir por prioridad
+dato inválido              {monto: "abc"}                   error de validación
+```
+
+Dos de los defectos documentados en la clase se descubren por el fixture: pruebas que pasan pero un defecto plantado sobrevive, porque falta el caso que ejercita esa regla (se añade el caso mínimo y se comprueba que el mutante falla), y dos versiones que divergen solo con ciertos tipos, porque el contrato no definía tipos inválidos (se amplían el contrato y los casos fijos).
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-083 — Taller: una regla de negocio en cinco paradigmas](../../../classes/part-06-paradigmas-de-programacion/se-083-taller-una-regla-de-negocio-en-cinco-paradigmas/README.md)) son:
-
-- **Las pruebas pasan pero un defecto plantado sobrevive** — causa: falta el caso que ejercita esa regla. Corrección: añadir el caso mínimo y comprobar que el mutante falla.
-- **Dos versiones divergen solo con ciertos tipos** — causa: el contrato no define tipos inválidos. Corrección: ampliar el contrato y los casos fijos.
+- **Escribir primero el código.** Cada solución trae su propia idea de correcto.
+- **Eliminar el caso que un modelo no puede expresar.** Se pierde el hallazgo.
+- **Fixture solo con casos felices.** No distingue las soluciones sólidas de las ingenuas.
+- **No ejercitar con defectos plantados.** Sin mutantes, no se sabe si las pruebas detectan algo.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-083 — Taller: una regla de negocio en cinco paradigmas](../../../classes/part-06-paradigmas-de-programacion/se-083-taller-una-regla-de-negocio-en-cinco-paradigmas/README.md)) son: Las definiciones son operativas para el motor de reglas comparado. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. El taller compara un cambio y una carga pequeña; no demuestra mantenibilidad a largo plazo. El proyecto siguiente amplía pruebas, criterios y reporte para una comparación defendible.
+El taller compara un cambio y una carga pequeña, y no demuestra mantenibilidad a largo plazo ([SE-083](../../../classes/part-06-paradigmas-de-programacion/se-083-taller-una-regla-de-negocio-en-cinco-paradigmas/README.md)): un fixture común hace justa la comparación, no completa. Su valor depende de que los casos representen el dominio real; si los elige alguien que favorece un paradigma, sesga el resultado. Para reglas triviales con un solo caso, formalizar un fixture es más ceremonia que ayuda.
 
 ## Relación con otros conceptos
 

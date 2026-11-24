@@ -2,40 +2,57 @@
 
 [↑ Glosario](../../README.md) · [← Versionado](./versionado.md) · [Versionado semántico →](./versionado-semantico.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 09](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 09](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md)
 
 ## Definición
 
-Host y plugin negocian versión/capacidades antes de ejecutar.
-
-Definición de trabajo de [SE-115 — Plugins, extensiones y puntos de integración](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-115-plugins-extensiones-y-puntos-de-integracion/README.md).
+El **versionado del protocolo** es, en [SE-115](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-115-plugins-extensiones-y-puntos-de-integracion/README.md), la práctica por la que **el anfitrión (*host*) y el plugin negocian versión y capacidades antes de ejecutar** cualquier trabajo conjunto. El protocolo es el contrato entre la aplicación que extiende y el complemento: qué funciones se invocan, qué datos se pasan. Tiene su propia versión, independiente de la del paquete: un plugin dice «hablo la versión 2 del protocolo» y el anfitrión responde si la soporta.
 
 ## Por qué importa
 
-En [SE-115 — Plugins, extensiones y puntos de integración](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-115-plugins-extensiones-y-puntos-de-integracion/README.md), el tema «Versionado del protocolo» importa porque host y plugin negocian versión/capacidades antes de ejecutar.
+Una versión del paquete no basta cuando hay **contratos independientes**: la aplicación puede pasar de 1.4 a 1.5 sin tocar el protocolo de plugins, o cambiar el protocolo sin que el paquete pase a una mayor. Si el plugin y el anfitrión asumen una versión sin comprobarla, una incompatibilidad se manifiesta como un fallo opaco o, peor, como **corrupción silenciosa**: datos mal interpretados que no producen error. La decisión que cambia es cuándo se detecta la incompatibilidad: antes de ejecutar, con un error accionable.
 
 ## Cómo funciona
 
-Según [SE-115 — Plugins, extensiones y puntos de integración](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-115-plugins-extensiones-y-puntos-de-integracion/README.md), en la sección «Versionado del protocolo»:
+El mecanismo tiene tres pasos:
 
-Host y plugin negocian versión/capacidades antes de ejecutar. Una versión del paquete no basta si existen contratos independientes. Incompatibilidad produce error accionable y no corrupción silenciosa.
+1. **Declaración:** el plugin declara, en su metadata, la versión (o rango) del protocolo que implementa y las **capacidades** opcionales que ofrece.
+2. **Negociación:** el anfitrión compara con las versiones y capacidades que soporta. Si hay intersección, elige la más alta común; si no, rechaza.
+3. **Ejecución condicionada:** solo se invoca lo acordado; una capacidad no negociada no se usa.
+
+[SE-115](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-115-plugins-extensiones-y-puntos-de-integracion/README.md) fija la exigencia sobre el resultado: una **incompatibilidad produce un error accionable** («el plugin X requiere el protocolo 3; este anfitrión soporta 1 y 2; actualice el anfitrión o use la versión 1.x del plugin»), **no una corrupción silenciosa**. Esto se parece a lo que hace el protocolo de servidores de lenguaje, donde cliente y servidor negocian capacidades al inicializar. La separación entre versión del protocolo y versión del paquete permite evolucionar cada una a su ritmo, y aplicar a cada una las reglas de compatibilidad que correspondan.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-115 — Plugins, extensiones y puntos de integración](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-115-plugins-extensiones-y-puntos-de-integracion/README.md):
+Un anfitrión que soporta los protocolos 1 y 2:
 
-En el producto reutilizable con SDK y CLI, un release contiene contrato público, artefactos inmutables, dependencias, procedencia, ejemplos, errores y ruta de migración. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```python
+SOPORTADAS = {1, 2}
+
+def cargar(plugin):
+    pedidas = set(plugin.metadata["protocolo"])        # p. ej. {2, 3}
+    comunes = pedidas & SOPORTADAS
+    if not comunes:
+        raise ErrorDePlugin(
+            f"{plugin.nombre} requiere protocolo {sorted(pedidas)}; "
+            f"este anfitrión soporta {sorted(SOPORTADAS)}. "
+            "Actualice el anfitrión o instale una versión anterior del plugin."
+        )
+    return plugin.iniciar(version=max(comunes))
+```
+
+El fallo se detecta al cargar, con un mensaje que dice qué hacer. Sin la negociación, el plugin podría ejecutarse con formatos de mensaje distintos y producir resultados erróneos sin que nada lo avisara. [SE-115](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-115-plugins-extensiones-y-puntos-de-integracion/README.md) complementa con dos defectos del arranque: la aplicación no arranca porque un plugin no se importa (carga ansiosa sin aislamiento; se carga por plugin con `try/except` y se registra) y el arranque tarda más cuantos más plugins hay (se descubren los nombres y se carga solo el solicitado).
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-115 — Plugins, extensiones y puntos de integración](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-115-plugins-extensiones-y-puntos-de-integracion/README.md)) son:
-
-- **La aplicación no arranca porque un plugin no se importa** — causa: carga ansiosa sin aislamiento. Corrección: cargar por plugin con `try/except`, registrar y continuar.
-- **El arranque tarda más cuanto más plugins hay instalados** — causa: se cargan todos aunque se use uno. Corrección: descubrir los nombres y cargar solo el solicitado.
+- **Usar la versión del paquete como versión del protocolo.** Son contratos distintos.
+- **No negociar.** Se asume la versión y los fallos aparecen en ejecución.
+- **Errores opacos.** La incompatibilidad debe decir qué falta y qué hacer.
+- **Cambiar el protocolo sin versionarlo.** Rompe a los plugins existentes.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-115 — Plugins, extensiones y puntos de integración](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-115-plugins-extensiones-y-puntos-de-integracion/README.md)) son: Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Un protocolo reduce acoplamiento, no hace seguro código arbitrario. La siguiente clase estudia generación y metaprogramación como transformaciones que requieren fuente de verdad y diff.
+Un protocolo reduce el acoplamiento, pero **no hace seguro el código arbitrario** ([SE-115](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-115-plugins-extensiones-y-puntos-de-integracion/README.md)): negociar versiones no impide que un plugin haga algo dañino; para eso se necesitan permisos, aislamiento y verificación de origen. Si el anfitrión y los plugins se publican siempre juntos y se despliegan a la vez, la negociación es sobrecarga. Y el versionado del protocolo no resuelve la compatibilidad semántica: dos versiones pueden «hablar igual» y significar cosas distintas si el contrato no está bien especificado.
 
 ## Relación con otros conceptos
 

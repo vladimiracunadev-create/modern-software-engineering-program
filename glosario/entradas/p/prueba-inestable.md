@@ -2,51 +2,50 @@
 
 [↑ Glosario](../../README.md) · [← Prueba frágil](./prueba-fragil.md) · [Prueba metamórfica →](./prueba-metamorfica.md)
 
-> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 05](../../../classes/part-05-fundamentos-de-programacion/README.md)
+> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 05](../../../classes/part-05-fundamentos-de-programacion/README.md)
 
 ## Definición
 
-Prueba que, sin cambios en el código ni en los datos declarados, pasa o falla según la ejecución.
-
-Definición de trabajo de [SE-430 — Flakiness, diagnóstico y mantenimiento](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-430-flakiness-diagnostico-y-mantenimiento/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-527 — Taller: estabilizar antes de modernizar](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-527-taller-estabilizar-antes-de-modernizar/README.md): Prueba que pasa y falla sobre el mismo código sin que nada cambie.
-- En [SE-483 — Tests, seguridad y políticas como gates](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-483-tests-seguridad-y-politicas-como-gates/README.md): Prueba que pasa y falla sobre el mismo código sin que nada haya cambiado.
-- En [SE-069 — Pruebas tempranas y diseño por ejemplos](../../../classes/part-05-fundamentos-de-programacion/se-069-pruebas-tempranas-y-diseno-por-ejemplos/README.md): Prueba con resultado no determinista sin cambio relevante.
+Una **prueba inestable** (en inglés, *flaky test*) es una prueba que, **sin cambios en el código ni en los datos declarados, pasa o falla según la ejecución**. El programa usa el término con el mismo sentido en varias clases: [SE-069](../../../classes/part-05-fundamentos-de-programacion/se-069-pruebas-tempranas-y-diseno-por-ejemplos/README.md) la describe como una prueba con resultado no determinista sin cambio relevante; [SE-483](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-483-tests-seguridad-y-politicas-como-gates/README.md) y [SE-527](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-527-taller-estabilizar-antes-de-modernizar/README.md), como una que pasa y falla sobre el mismo código sin que nada haya cambiado. La clase [SE-430](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-430-flakiness-diagnostico-y-mantenimiento/README.md) la trata a fondo y distingue la prueba inestable de un **defecto intermitente real**.
 
 ## Por qué importa
 
-La clase donde se define, [SE-430 — Flakiness, diagnóstico y mantenimiento](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-430-flakiness-diagnostico-y-mantenimiento/README.md), existe con este propósito: la clase existe para que diagnostiques las pruebas que fallan a veces: que calcules cuánto ruido produce una suite aunque cada prueba sea casi estable, que distingas una prueba inestable de un defecto intermitente real, que clasifiques la causa con evidencia y que mantengas la suite de modo que un fallo siga significando algo.
+Una suite de pruebas vale por lo que significa su resultado: un rojo debe querer decir «algo se rompió». Las pruebas inestables destruyen esa señal. El efecto es multiplicativo: si cada prueba inestable falla con probabilidad *q*, una suite sana sale roja con probabilidad `1 − (1 − q)^m` con *m* pruebas inestables. Según [SE-430](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-430-flakiness-diagnostico-y-mantenimiento/README.md), con 20 pruebas que fallan el 5 % de las veces, el **64 %** de los *commits* sanos se ven rojos. El rojo constante enseña a reejecutar sin leer, y entonces un fallo real pasa inadvertido.
 
 ## Cómo funciona
 
-Según [SE-430 — Flakiness, diagnóstico y mantenimiento](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-430-flakiness-diagnostico-y-mantenimiento/README.md):
+Las causas conocidas son esperas asíncronas (la prueba no espera lo suficiente a algo que tarda), dependencia del **orden de ejecución**, de la **hora**, de la **red** o de **datos compartidos** entre pruebas. En todas, la prueba depende de algo que no controla, y a veces ese algo es favorable y a veces no.
 
-**Cómo leer la figura.** El eje horizontal es el número de pruebas (escala logarítmica) y el vertical, el porcentaje de corridas sin ningún fallo espurio; cada curva fija la inestabilidad de cada prueba. Mira en qué tamaño cada curva se hunde. **Dónde deja de valer:** supone pruebas independientes con la misma probabilidad; en la práctica el fallo se concentra en pocas pruebas inestables y se correlaciona con la carga. La figura es una cota del mecanismo y no una predicción de una suite real.
+La respuesta habitual, **reintentar hasta que pase**, reduce los falsos rojos pero tiene un costo menos visible: un **defecto intermitente real** (una condición de carrera en el producto) también pasa en alguno de los reintentos, y la suite lo declara sano. Por eso [SE-527](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-527-taller-estabilizar-antes-de-modernizar/README.md) desactiva los reintentos automáticos de integración durante la estabilización. El tratamiento que enseña el programa es:
 
-Según [SE-527 — Taller: estabilizar antes de modernizar](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-527-taller-estabilizar-antes-de-modernizar/README.md):
-
-Una prueba **inestable** (flaky) pasa y falla con el mismo código. Sus causas conocidas son esperas asíncronas, dependencia del orden de ejecución, de la hora, de la red o de datos compartidos. El efecto sobre la suite es multiplicativo: si cada prueba inestable falla con probabilidad q, la suite sana sale roja con probabilidad 1 − (1 − q)^m con m pruebas inestables. Con 20 pruebas que fallan el 5 % de las veces, el 64 % de los commits sanos se ven rojos. El rojo constante enseña a reejecutar sin leer. La respuesta habitual, **reintentar hasta que pase**, reduce los falsos rojos y tiene un costo menos visible: un defecto intermitente real también pasa en alguno de los reintentos, y la suite lo declara sano.
+1. **Medir:** ejecutar la suite muchas veces sobre un *commit* sano para identificar qué pruebas varían.
+2. **Clasificar la causa con evidencia:** ¿es la prueba o el producto?
+3. **Poner en cuarentena** las inestables con **dueño y plazo**, y corregir la causa.
+4. **Mantener la suite** de modo que un fallo siga significando algo.
 
 ## Ejemplo
 
-Ejemplo de [SE-527 — Taller: estabilizar antes de modernizar](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-527-taller-estabilizar-antes-de-modernizar/README.md) (sección «Ejemplo profesional»):
+El taller de [SE-527](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-527-taller-estabilizar-antes-de-modernizar/README.md) (escenario hipotético de la clase, sin datos reales): la suite se ejecuta cien veces sobre un *commit* sano y se identifican 7 pruebas inestables de 412; se ponen en cuarentena con dueño y plazo y se desactivan los reintentos automáticos. Una prueba inestable típica:
 
-Escenario hipotético, construido para la clase y sin datos reales. El equipo ejecuta el taller en seis estaciones durante dos semanas. Estación 1: construye el artefacto dos veces en máquinas distintas, encuentra que las fechas del empaquetado lo impiden, las fija y vuelve a comparar. Estación 2: ejecuta la suite cien veces sobre un commit sano, identifica 7 pruebas inestables de 412 y las pone en cuarentena con dueño y plazo; desactiva los reintentos automáticos de la integración. Estación 3: carga las pruebas de caracterización de los tres puntos calientes del mapa de riesgo. Estación 4: despliega y revierte una versión en el entorno de ensayo, con cronómetro.
+```python
+def test_notifica():
+    enviar_en_segundo_plano(caso)
+    time.sleep(0.1)                 # asume que 100 ms bastan
+    assert bandeja.contiene(caso)   # falla si el envío tarda más
+```
+
+La corrección es esperar una condición con plazo (`esperar_hasta(lambda: bandeja.contiene(caso), timeout=5)`), no un tiempo fijo.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La suite sale roja y verde sin cambios** — causa: pruebas inestables. Corrección: cuarentena con dueño y plazo, y corregir la causa. ([SE-527](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-527-taller-estabilizar-antes-de-modernizar/README.md))
+- **Reintentar hasta que pase.** Oculta defectos intermitentes reales.
+- **Confundir inestable con intermitente.** La causa puede estar en la prueba o en el producto; hay que clasificar.
+- **Ignorar el rojo.** El equipo aprende a reejecutar sin leer.
+- **Cuarentena sin dueño ni plazo.** La prueba queda olvidada.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- **Dónde deja de valer:** supone pruebas independientes con la misma probabilidad; en la práctica el fallo se concentra en pocas pruebas inestables y se correlaciona con la carga. ([SE-430](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-430-flakiness-diagnostico-y-mantenimiento/README.md))
+El cálculo del 64 % supone pruebas independientes con la misma probabilidad; en la práctica el fallo se concentra en pocas pruebas inestables y se correlaciona con la carga del entorno ([SE-430](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-430-flakiness-diagnostico-y-mantenimiento/README.md)). Es una cota del mecanismo, no una predicción de una suite real. La noción de inestabilidad tampoco aplica a pruebas deliberadamente aleatorias que fijan su semilla: si la semilla está fija, el resultado es reproducible.
 
 ## Relación con otros conceptos
 

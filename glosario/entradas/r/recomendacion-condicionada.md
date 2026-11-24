@@ -2,40 +2,52 @@
 
 [↑ Glosario](../../README.md) · [← Rechazo implícito](./rechazo-implicito.md) · [Recomposición →](./recomposicion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 07](../../../classes/part-07-estructuras-de-datos-y-algoritmos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 07](../../../classes/part-07-estructuras-de-datos-y-algoritmos/README.md)
 
 ## Definición
 
-La conclusión usa forma `si carga y garantía, entonces opción; si cambia umbral, revisar`.
-
-Definición de trabajo de [SE-095 — Taller: elegir por carga y no por costumbre](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md).
+Una **recomendación condicionada** es una conclusión de ingeniería formulada con la forma que [SE-095](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md) indica: **«si [carga y garantía], entonces [opción]; si cambia [umbral], revisar»**. En lugar de decir «use X», dice bajo qué condiciones X es la mejor opción y qué medición haría cambiar la recomendación. Es la conclusión con la que cierra el taller de elección de estructuras: acompaña al perfil de operaciones y a la matriz de compromisos, y se entrega con los datos y los *scripts* que la respaldan.
 
 ## Por qué importa
 
-En [SE-095 — Taller: elegir por carga y no por costumbre](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md), el tema «Recomendación condicionada» importa porque la conclusión usa forma `si carga y garantía, entonces opción; si cambia umbral, revisar`.
+Un benchmark corre en una máquina, con una carga y unos datos concretos. Convertir su resultado en un estándar universal («siempre use `set`») es la forma más común de transformar una medición en un dogma. La decisión que cambia es cómo se comunica un resultado: con sus condiciones de validez explícitas. [SE-095](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md) lo dice así: declarar las condiciones **evita convertir un benchmark del taller en estándar universal**. Además, quien lee la recomendación puede comprobar si su situación cumple las condiciones, y sabe cuándo volver a medir.
 
 ## Cómo funciona
 
-Según [SE-095 — Taller: elegir por carga y no por costumbre](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md), en la sección «Recomendación condicionada»:
+La recomendación tiene tres partes, y cada una aporta algo:
 
-La conclusión usa forma `si carga y garantía, entonces opción; si cambia umbral, revisar`. Declarar condiciones evita convertir un benchmark del taller en estándar universal. Los datos y scripts quedan junto al informe.
+- **Condiciones (el «si»):** la carga (mezcla de operaciones y tamaños), las garantías necesarias (orden, estabilidad, memoria máxima) y el objetivo (el SLO). Son las que definen el dominio de validez.
+- **Opción (el «entonces»):** la estructura o el algoritmo recomendado.
+- **Disparador de revisión:** la medición o el cambio que invalidaría la recomendación, por ejemplo un umbral de tamaño o de proporción de operaciones.
+
+Se acompaña de los **datos y *scripts*** que la sustentan, de modo que otra persona pueda reproducir la medición. Así la recomendación es una **hipótesis falsable**, no una autoridad: puede ser refutada por una medición posterior, y eso es una propiedad deseable.
 
 ## Ejemplo
 
-Ejemplo de [SE-095 — Taller: elegir por carga y no por costumbre](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md) (sección «Preguntas frecuentes»):
+Siguiendo el taller de [SE-095](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md) (ilustración, números inventados):
 
-Un perfil de operaciones, una matriz de compromisos con mediciones y una recomendación condicionada con la medición que la invalidaría.
+```text
+Si el perfil es >= 90 % consultas de pertenencia, con más de 1 000 consultas
+por cada construcción, y se acepta ~2x la memoria de la lista,
+entonces usar `set`.
+Si el número de consultas por construcción baja de 50, o la memoria supera
+el presupuesto, usar lista ordenada con búsqueda binaria.
+Revisar si cambia la mezcla de operaciones o el tamaño pasa de 10^6.
+Datos y scripts: bench/pertenencia/ (commit abc1234).
+```
+
+Un error documentado en la clase es que la recomendación no convence a otro equipo porque no declara carga ni tamaño; la corrección es escribir el perfil antes de medir. Otro: elegir `set` para todo; se corrige calculando el umbral de reutilización y la memoria.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-095 — Taller: elegir por carga y no por costumbre](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md)) son:
-
-- **La recomendación no convence a otro equipo** — causa: no declara la carga ni el tamaño. Corrección: escribir perfil de operaciones y tamaños antes de medir.
-- **Se elige `set` para todo** — causa: se ignoró el costo de construirlo y la memoria. Corrección: calcular el umbral de reutilización y la memoria.
+- **Recomendación absoluta.** «Siempre X» sin condiciones.
+- **Condiciones implícitas.** El lector no sabe para qué carga vale.
+- **Sin disparador de revisión.** La recomendación sobrevive al contexto que la justificaba.
+- **Datos que no se pueden reproducir.** Nadie puede comprobar ni refutar.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-095 — Taller: elegir por carga y no por costumbre](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md)) son: Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. El taller cubre cargas sintéticas y una plataforma. El proyecto siguiente empaqueta alternativas, propiedades y benchmarks para revisión reproducible.
+El taller cubre cargas sintéticas y una plataforma ([SE-095](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md)): las condiciones de la recomendación son tan buenas como la representatividad de esas cargas. En decisiones pequeñas y reversibles, escribir una recomendación condicionada formal es desproporcionado. Y una recomendación condicionada con demasiadas condiciones deja de ser útil: si cada caso exige medir de nuevo, se ha perdido el valor de decidir.
 
 ## Relación con otros conceptos
 

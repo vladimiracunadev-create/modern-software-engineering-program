@@ -2,40 +2,44 @@
 
 [↑ Glosario](../../README.md) · [← Exploración con semilla](./exploracion-con-semilla.md) · [Explosión de estados →](./explosion-de-estados.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 08](../../../classes/part-08-entornos-herramientas-y-depuracion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 08](../../../classes/part-08-entornos-herramientas-y-depuracion/README.md)
 
 ## Definición
 
-Explorar tolera caminos muertos y visualización provisional; producto necesita interfaz, pruebas y ownership.
-
-Definición de trabajo de [SE-101 — REPL, notebooks y desarrollo exploratorio](../../../classes/part-08-entornos-herramientas-y-depuracion/se-101-repl-notebooks-y-desarrollo-exploratorio/README.md).
+**Exploración frente a producto** es la distinción que [SE-101](../../../classes/part-08-entornos-herramientas-y-depuracion/se-101-repl-notebooks-y-desarrollo-exploratorio/README.md) establece entre dos modos de trabajo con código: **explorar** (probar ideas, entender datos, descartar caminos) y **producir** (entregar algo que otros usarán y mantendrán). Explorar **tolera caminos muertos y visualización provisional**; un producto necesita **interfaz, pruebas y propietario** (*ownership*). La clase la usa para ubicar herramientas como el REPL y los cuadernos (*notebooks*): excelentes para explorar, insuficientes por sí solos para producir.
 
 ## Por qué importa
 
-En [SE-101 — REPL, notebooks y desarrollo exploratorio](../../../classes/part-08-entornos-herramientas-y-depuracion/se-101-repl-notebooks-y-desarrollo-exploratorio/README.md), el tema «Exploración frente a producto» importa porque explorar tolera caminos muertos y visualización provisional; producto necesita interfaz, pruebas y ownership.
+Confundir los modos produce dos fallos opuestos. Si se exige a una exploración el rigor de un producto, se frena el aprendizaje: nadie escribe pruebas para una idea que quizá se descarte en una hora. Si se entrega una exploración como producto, se despliega código sin interfaz definida, sin pruebas y con estado oculto, que nadie sabe mantener. La decisión que cambia es **cuándo y cómo se cruza la frontera**: [SE-101](../../../classes/part-08-entornos-herramientas-y-depuracion/se-101-repl-notebooks-y-desarrollo-exploratorio/README.md) pide un paso explícito, no desplegar el cuaderno sin revisión.
 
 ## Cómo funciona
 
-Según [SE-101 — REPL, notebooks y desarrollo exploratorio](../../../classes/part-08-entornos-herramientas-y-depuracion/se-101-repl-notebooks-y-desarrollo-exploratorio/README.md), en la sección «Exploración frente a producto»:
+Un cuaderno o una sesión interactiva guarda **estado oculto**: el orden en que se ejecutaron las celdas importa, y una variable definida y luego borrada sigue viva en memoria. Eso hace excelente la exploración (se prueba y se ajusta sin reiniciar) y frágil la reproducibilidad. Por eso [SE-101](../../../classes/part-08-entornos-herramientas-y-depuracion/se-101-repl-notebooks-y-desarrollo-exploratorio/README.md) documenta dos síntomas: el cuaderno da otro resultado en otra máquina por estado oculto del orden de ejecución, y se corrige **reiniciando y ejecutando todo** antes de compartir; y el *diff* es enorme con cambios mínimos porque se guardan salidas y metadatos en el archivo, y se corrige **limpiando las salidas** antes de confirmar.
 
-Explorar tolera caminos muertos y visualización provisional; producto necesita interfaz, pruebas y ownership. Pasar de uno a otro requiere extraer funciones, datos pequeños y un comando reproducible, no desplegar el notebook sin revisión.
+El paso a producto consiste en **extraer**: las funciones útiles salen del cuaderno a módulos con interfaz definida; los datos se reducen a conjuntos pequeños y sintéticos para pruebas; el procedimiento se convierte en **un comando reproducible**; y alguien asume la propiedad (quién lo mantiene, quién responde).
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-101 — REPL, notebooks y desarrollo exploratorio](../../../classes/part-08-entornos-herramientas-y-depuracion/se-101-repl-notebooks-y-desarrollo-exploratorio/README.md):
+Una persona explora un conjunto de registros en un cuaderno, prueba tres formas de limpiar fechas y se queda con una. Para llevarlo a producto:
 
-En el entorno reproducible de diagnóstico, una investigación conserva síntoma, entorno, reproducción, hipótesis, observaciones, causa, corrección y regresión. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```text
+cuaderno.ipynb  ->  fechas.py        (funciones extraídas, con firma y errores)
+                    test_fechas.py   (casos pequeños, sintéticos)
+                    python -m fechas datos.csv   (comando reproducible)
+```
+
+El cuaderno puede quedarse como documentación de cómo se llegó a la decisión, con las salidas limpias. El criterio de paso es que otra persona, en otra máquina, obtenga el mismo resultado ejecutando el comando, no abriendo el cuaderno y corriendo celdas «en el orden correcto».
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-101 — REPL, notebooks y desarrollo exploratorio](../../../classes/part-08-entornos-herramientas-y-depuracion/se-101-repl-notebooks-y-desarrollo-exploratorio/README.md)) son:
-
-- **El cuaderno da otro resultado en otra máquina** — causa: estado oculto por orden de ejecución. Corrección: reiniciar y ejecutar todo antes de compartir.
-- **El diff es enorme con cambios mínimos** — causa: salidas y metadatos en el archivo. Corrección: limpiar las salidas antes de confirmar.
+- **Desplegar el cuaderno.** Lleva estado oculto, sin pruebas ni interfaz.
+- **Compartir sin reiniciar y ejecutar todo.** El resultado depende del orden de celdas.
+- **Versionar salidas y metadatos.** Producen *diffs* ilegibles y filtran datos.
+- **Exigir rigor de producto a toda exploración.** Mata la velocidad con la que se aprende.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-101 — REPL, notebooks y desarrollo exploratorio](../../../classes/part-08-entornos-herramientas-y-depuracion/se-101-repl-notebooks-y-desarrollo-exploratorio/README.md)) son: Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Un proceso limpio aún puede usar otra versión de runtime. La siguiente clase fija instalación y selección del intérprete sin esconder el mecanismo.
+Un proceso limpio aún puede usar otra versión de *runtime* ([SE-101](../../../classes/part-08-entornos-herramientas-y-depuracion/se-101-repl-notebooks-y-desarrollo-exploratorio/README.md)): reproducir celdas en un entorno nuevo no basta si la instalación difiere; la clase siguiente fija instalación e intérprete. La frontera no siempre es nítida: un análisis puntual que no se repetirá puede quedarse como exploración sin migrar, y un cuaderno puede ser el producto cuando su público es analítico y el entorno está controlado. La pregunta es quién depende del resultado y con qué frecuencia lo reejecutará.
 
 ## Relación con otros conceptos
 

@@ -2,40 +2,55 @@
 
 [↑ Glosario](../../README.md) · [← Backpressure y pérdida](./backpressure-y-perdida.md) · [Baja →](./baja.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 07](../../../classes/part-07-estructuras-de-datos-y-algoritmos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 07](../../../classes/part-07-estructuras-de-datos-y-algoritmos/README.md)
 
 ## Definición
 
-El backtracking elige, avanza, detecta imposibilidad y revierte.
-
-Definición de trabajo de [SE-092 — Backtracking, divide y vencerás](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md).
+El **backtracking** (vuelta atrás) es una estrategia de búsqueda exhaustiva en la que se **elige** una opción, se **avanza** con ella, se **detecta** si el estado parcial ya no puede completarse y, en ese caso, se **revierte** la última elección para probar otra. En [SE-092](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md) se enseña junto con divide y vencerás como dos formas de organizar un problema grande: una explora un espacio de decisiones en profundidad; la otra lo parte en subproblemas independientes. No es un algoritmo concreto sino un esquema que se instancia para cada problema.
 
 ## Por qué importa
 
-En [SE-092 — Backtracking, divide y vencerás](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md), el tema «Backtracking» importa porque el backtracking elige, avanza, detecta imposibilidad y revierte.
+Muchos problemas (asignar tareas respetando dependencias, colocar piezas, elegir subconjuntos) no tienen una fórmula directa y obligan a explorar combinaciones. La decisión profesional es **cómo explorar sin enumerar todo**: el backtracking descarta ramas completas en cuanto una decisión parcial es imposible, y eso separa un programa que termina en segundos de uno que no termina. También importa por su riesgo: una poda equivocada elimina soluciones válidas sin dar error, así que el algoritmo puede ser rápido y estar mal.
 
 ## Cómo funciona
 
-Según [SE-092 — Backtracking, divide y vencerás](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md), en la sección «Backtracking»:
+Se recorre un **árbol de decisiones** implícito: cada nivel es una variable por decidir y cada rama, uno de sus valores. En cada nodo:
 
-El backtracking elige, avanza, detecta imposibilidad y revierte. La restauración debe ser simétrica incluso ante error. Copiar estado simplifica razonamiento pero cuesta; mutar y deshacer exige invariantes y pruebas de que no queda contaminación entre ramas.
+1. Si el estado parcial viola una restricción, se abandona la rama (poda).
+2. Si está completo y es válido, se registra la solución.
+3. Si no, para cada candidato se aplica, se llama recursivamente y se **deshace**.
+
+El corazón del mecanismo es la **restauración simétrica**: lo que la elección cambió debe quedar exactamente como estaba al volver, incluso si la llamada recursiva falla con una excepción ([SE-092](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md)). Hay dos maneras de lograrlo. Copiar el estado en cada paso simplifica el razonamiento (cada rama trabaja sobre su copia) pero cuesta tiempo y memoria. Mutar y deshacer es más barato pero exige un invariante claro y pruebas de que no queda contaminación entre ramas. La eficiencia depende de dos palancas: qué tan temprano se detecta la imposibilidad y el **orden** en que se eligen las variables; probar primero la más restringida suele reducir mucho los nodos visitados.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-092 — Backtracking, divide y vencerás](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md):
+En la biblioteca de estructuras y algoritmos de [SE-092](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md), un caso lleva identidad, prioridad, dependencias, instante de llegada y estado. Elegir un orden de resolución que respete las dependencias es un problema de este tipo. Un esqueleto (ilustración) muestra la simetría exigida:
 
-En la biblioteca de estructuras y algoritmos, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```python
+def resolver(estado, pendientes, solucion, salida):
+    if not pendientes:
+        salida.append(list(solucion)); return
+    for c in list(pendientes):
+        if estado.puede(c):
+            estado.aplicar(c); pendientes.remove(c); solucion.append(c)
+            try:
+                resolver(estado, pendientes, solucion, salida)
+            finally:
+                solucion.pop(); pendientes.add(c); estado.deshacer(c)
+```
+
+El `finally` garantiza la restauración aunque haya error. Para validar la poda, [SE-092](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md) pide contrastar el conteo de soluciones con enumeración completa en un `n` pequeño.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-092 — Backtracking, divide y vencerás](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md)) son:
-
-- **El algoritmo encuentra menos soluciones que la fuerza bruta** — causa: poda que elimina una rama válida. Corrección: contrastar el conteo con enumeración completa en n pequeño.
-- **La búsqueda es lenta aunque el algoritmo es correcto** — causa: orden de decisiones desfavorable. Corrección: probar el orden de variables más restringidas primero y medir nodos.
+- **Podar una rama válida.** El algoritmo encuentra menos soluciones que la fuerza bruta; se detecta comparando conteos en `n` pequeño.
+- **Restaurar solo en el camino feliz.** Una excepción deja el estado sucio y las ramas siguientes parten de datos contaminados.
+- **Culpar al algoritmo cuando la búsqueda es lenta.** A menudo el orden de las decisiones es desfavorable; probar primero las variables más restringidas y medir nodos.
+- **Confundirlo con recursión.** La recursión es el mecanismo; el backtracking es la política de elegir, deshacer y podar.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-092 — Backtracking, divide y vencerás](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md)) son: Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. La exploración exacta puede seguir siendo intratable. La siguiente clase presenta índices, estructuras probabilísticas y persistentes con garantías explícitas, no magia de rendimiento.
+La exploración exacta puede seguir siendo intratable: en el peor caso el árbol es exponencial y ninguna poda lo evita ([SE-092](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md)). Si el problema tiene subproblemas superpuestos, la programación dinámica evita recomputar lo que el backtracking repite. Si basta una solución aproximada, una estrategia voraz o una heurística puede ser mejor. El backtracking conviene cuando se necesita una solución exacta o todas las soluciones y el espacio, tras la poda, es abarcable.
 
 ## Relación con otros conceptos
 

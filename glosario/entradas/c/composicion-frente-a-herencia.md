@@ -2,40 +2,56 @@
 
 [↑ Glosario](../../README.md) · [← Composición](./composicion.md) · [Composición y nivel de abstracción →](./composicion-y-nivel-de-abstraccion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 06](../../../classes/part-06-paradigmas-de-programacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 06](../../../classes/part-06-paradigmas-de-programacion/README.md)
 
 ## Definición
 
-La herencia reutiliza un contrato y comportamiento bajo relación de sustitución; la composición ensambla colaboradores.
-
-Definición de trabajo de [SE-075 — Orientación a objetos, mensajes y encapsulación](../../../classes/part-06-paradigmas-de-programacion/se-075-orientacion-a-objetos-mensajes-y-encapsulacion/README.md).
+**Composición frente a herencia** es el criterio de diseño que [SE-075](../../../classes/part-06-paradigmas-de-programacion/se-075-orientacion-a-objetos-mensajes-y-encapsulacion/README.md) formula así: la **herencia** reutiliza un contrato y un comportamiento bajo una relación de **sustitución** (un subtipo puede usarse donde se espera el tipo base), mientras que la **composición** ensambla **colaboradores**: un objeto contiene a otros y les delega trabajo. No dice «nunca heredar»: dice que heredar solo para compartir código es una mala razón, y que la herencia queda reservada para tipos realmente sustituibles.
 
 ## Por qué importa
 
-En [SE-075 — Orientación a objetos, mensajes y encapsulación](../../../classes/part-06-paradigmas-de-programacion/se-075-orientacion-a-objetos-mensajes-y-encapsulacion/README.md), el tema «Composición frente a herencia» importa porque la herencia reutiliza un contrato y comportamiento bajo relación de sustitución; la composición ensambla colaboradores.
+Quien hereda se acopla a la clase base: a sus métodos protegidos, a su orden de inicialización y a cualquier cambio futuro. Una jerarquía profunda hace que modificar la base afecte a todos sus descendientes, y que entender un método obligue a leer varios niveles. La composición mueve esa dependencia a una interfaz estrecha. La decisión que cambia es cómo se reutiliza código: en lugar de «extiendo la clase que ya hace algo parecido», se pregunta «¿es esto realmente un caso del tipo base, o solo quiero usar su código?».
 
 ## Cómo funciona
 
-Según [SE-075 — Orientación a objetos, mensajes y encapsulación](../../../classes/part-06-paradigmas-de-programacion/se-075-orientacion-a-objetos-mensajes-y-encapsulacion/README.md), en la sección «Composición frente a herencia»:
+La prueba de herencia es de **sustitución**: si en cualquier lugar que usa el tipo base se puede poner el subtipo sin que cambie lo que el código espera, la herencia expresa una relación verdadera. Si el subtipo debe rechazar operaciones de la base, o cambiarle el significado, no es sustituible y la herencia miente.
 
-La herencia reutiliza un contrato y comportamiento bajo relación de sustitución; la composición ensambla colaboradores. Heredar solo para compartir código crea acoplamiento a detalles y jerarquías frágiles. El motor de reglas comparado compone políticas y repositorios, y reserva herencia para tipos realmente sustituibles.
+La composición, en cambio, permite:
+
+- **Cambiar el colaborador en ejecución** o por configuración (una política distinta, un repositorio distinto), cosa que una jerarquía fija en compilación.
+- **Combinar capacidades** sin explosión de subclases: tres comportamientos independientes son tres colaboradores, no ocho subclases.
+- **Probar por separado**, sustituyendo cada colaborador por un doble.
+
+El motor de reglas comparado de [SE-075](../../../classes/part-06-paradigmas-de-programacion/se-075-orientacion-a-objetos-mensajes-y-encapsulacion/README.md) hace esto: **compone políticas y repositorios** y reserva la herencia para tipos sustituibles. Un coste de la herencia múltiple, que [SE-075](../../../classes/part-06-paradigmas-de-programacion/se-075-orientacion-a-objetos-mensajes-y-encapsulacion/README.md) ilustra, es el orden de resolución: llamar `A.m(self)` en lugar de `super().m()` ejecuta un método de la base dos veces o nunca en un diamante.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-075 — Orientación a objetos, mensajes y encapsulación](../../../classes/part-06-paradigmas-de-programacion/se-075-orientacion-a-objetos-mensajes-y-encapsulacion/README.md):
+Se necesita que un servicio de recomendación aplique una política y guarde resultados. Con herencia, se crea `ServicioConPoliticaYRepositorio` extendiendo clases que ya hacen partes de esto. Con composición:
 
-En el motor de reglas comparado, una recomendación contiene acción, evidencia usada, versión de política y explicación. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si devuelve una cadena: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```python
+class Servicio:
+    def __init__(self, politica, repositorio):
+        self.politica = politica
+        self.repositorio = repositorio
+
+    def recomendar(self, caso):
+        r = self.politica.evaluar(caso)
+        self.repositorio.guardar(caso, r)
+        return r
+```
+
+Cambiar la política o el repositorio no toca `Servicio`. La herencia sigue siendo válida para algo como `ReglaPorUmbral(Regla)` si cualquier `Regla` se puede sustituir por ella sin sorpresas.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-075 — Orientación a objetos, mensajes y encapsulación](../../../classes/part-06-paradigmas-de-programacion/se-075-orientacion-a-objetos-mensajes-y-encapsulacion/README.md)) son:
-
-- **Un método de la base se ejecuta dos veces o nunca** — causa: `A.m(self)` en lugar de `super().m()` en herencia múltiple. Corrección: usar `super()` en todas las clases del diamante.
-- **Se asigna un valor inválido a un atributo «privado»** — causa: la privacidad era un guion bajo. Corrección: validar en el método que escribe o usar una propiedad con setter.
+- **Heredar para ahorrar líneas.** Crea acoplamiento a detalles internos de la base y jerarquías frágiles.
+- **Creer que composición es «no usar clases base».** Las interfaces o clases abstractas pueden seguir existiendo; lo que cambia es que la reutilización ocurre por delegación.
+- **`A.m(self)` en lugar de `super().m()`.** En herencia múltiple, el método de la base se ejecuta dos veces o nunca; hay que usar `super()` en todas las clases del diamante ([SE-075](../../../classes/part-06-paradigmas-de-programacion/se-075-orientacion-a-objetos-mensajes-y-encapsulacion/README.md)).
+- **Confiar en la privacidad por convención.** Un atributo con guion bajo no impide asignarle un valor inválido; hay que validar en el método que escribe o usar una propiedad con setter.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-075 — Orientación a objetos, mensajes y encapsulación](../../../classes/part-06-paradigmas-de-programacion/se-075-orientacion-a-objetos-mensajes-y-encapsulacion/README.md)) son: Las definiciones son operativas para el motor de reglas comparado. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Los objetos reducen estados inválidos solo si sus fronteras son reales. La siguiente clase elimina identidad innecesaria y razona mediante valores y composición funcional.
+Los objetos reducen estados inválidos solo si sus fronteras son reales ([SE-075](../../../classes/part-06-paradigmas-de-programacion/se-075-orientacion-a-objetos-mensajes-y-encapsulacion/README.md)). La composición no es gratuita: añade indirección y a veces obliga a escribir métodos que solo delegan. Cuando la relación es genuinamente «es un» con sustitución completa y estable, la herencia es más simple y legítima. En lenguajes con interfaces o rasgos, parte de la discusión se resuelve distinto, y en el estilo funcional, la reutilización se hace componiendo funciones y no objetos.
 
 ## Relación con otros conceptos
 

@@ -2,40 +2,43 @@
 
 [↑ Glosario](../../README.md) · [← Árbol de accesibilidad](./arbol-de-accesibilidad.md) · [Árbol de métricas →](./arbol-de-metricas.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 07](../../../classes/part-07-estructuras-de-datos-y-algoritmos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 07](../../../classes/part-07-estructuras-de-datos-y-algoritmos/README.md)
 
 ## Definición
 
-En un bst, claves menores y mayores se separan por subárbol.
-
-Definición de trabajo de [SE-088 — Árboles, tries y estructuras jerárquicas](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-088-arboles-tries-y-estructuras-jerarquicas/README.md).
+Un **árbol de búsqueda** (en [SE-088](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-088-arboles-tries-y-estructuras-jerarquicas/README.md), el árbol binario de búsqueda o BST) es un árbol donde cada nodo guarda una clave y separa las demás por subárbol: las menores quedan a un lado y las mayores al otro. La propiedad de orden permite buscar, insertar y borrar siguiendo **una sola rama** desde la raíz. El programa lo enseña como la estructura que muestra, con números, que una garantía asintótica depende de una condición: que el árbol esté equilibrado.
 
 ## Por qué importa
 
-En [SE-088 — Árboles, tries y estructuras jerárquicas](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-088-arboles-tries-y-estructuras-jerarquicas/README.md), el tema «Árbol de búsqueda» importa porque en un BST, claves menores y mayores se separan por subárbol.
+La promesa de `O(log n)` para búsqueda es lo que justifica elegir un árbol sobre una lista. Pero esa promesa describe un árbol de altura logarítmica, no cualquier árbol. La decisión profesional que cambia es si se acepta la estructura sin comprobar cómo llegan los datos: un BST sin balance alimentado con claves ordenadas, algo muy común (identificadores crecientes, marcas de tiempo, archivos ordenados), se convierte en una lista enlazada con costo lineal y con riesgo de agotar la pila de recursión.
 
 ## Cómo funciona
 
-Según [SE-088 — Árboles, tries y estructuras jerárquicas](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-088-arboles-tries-y-estructuras-jerarquicas/README.md), en la sección «Árbol de búsqueda»:
+Para buscar una clave, se compara con el nodo actual: si es menor se baja por el subárbol izquierdo, si es mayor por el derecho, si es igual se termina. El costo es proporcional a la **altura** *h* del árbol, no a *n*. Insertar sigue el mismo camino hasta una posición vacía.
 
-En un BST, claves menores y mayores se separan por subárbol. La búsqueda sigue una rama, pero cuesta proporcional a altura. Sin balance, inserciones ordenadas degeneran a lista y convierten el caso esperado logarítmico en lineal.
+La altura depende del **orden de inserción**. Si las claves llegan barajadas, cada una cae a ambos lados con probabilidad parecida y la altura crece como `log n`. Si llegan ordenadas, cada nueva clave es mayor que todas y se cuelga siempre a la derecha: la altura es *n*. Los árboles balanceados (AVL, rojo-negro) añaden rotaciones tras insertar o borrar para acotar la altura; tienen su propia entrada y clase ([SE-088](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-088-arboles-tries-y-estructuras-jerarquicas/README.md)). El recorrido en orden de un BST entrega las claves ordenadas, lo que explica su uso en consultas de rango.
 
 ## Ejemplo
 
-Caso medido en la sección «La altura manda: un árbol de búsqueda según el orden de inserción» de [SE-088 — Árboles, tries y estructuras jerárquicas](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-088-arboles-tries-y-estructuras-jerarquicas/README.md):
+[SE-088](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-088-arboles-tries-y-estructuras-jerarquicas/README.md) mide la altura y las comparaciones acumuladas con tres tamaños. Insertando 255, 1 000 y 4 000 claves **en orden**, la altura fue 255, 1 000 y 4 000, y las comparaciones sumaron 32 385, 499 500 y 7 998 000: una lista enlazada disfrazada. Con las mismas claves **barajadas**, la altura fue 17, 26 y 30 y las comparaciones 2 104, 11 562 y 56 801. Con 4 000 claves, la diferencia es de unas 140 veces en comparaciones. La mínima prueba defensiva es insertar las mismas claves en tres órdenes (ascendente, descendente, aleatorio) y comparar altura:
 
-Un árbol binario de búsqueda (BST) promete `O(log n)` si está equilibrado. Medimos la altura y las comparaciones acumuladas con tres cargas. Insertando 255, 1 000 y 4 000 claves **en orden**, la altura fue 255, 1 000 y 4 000 y las comparaciones sumaron 32 385, 499 500 y 7 998 000: una lista enlazada disfrazada. Con las mismas claves **barajadas**, la altura fue 17, 26 y 30 y las comparaciones 2 104, 11 562 y 56 801.
+```python
+def altura(nodo):
+    return 0 if nodo is None else 1 + max(altura(nodo.izq), altura(nodo.der))
+```
+
+Con datos ordenados, esta función recursiva además supera el límite de recursión de Python, que es el `RecursionError` que [SE-088](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-088-arboles-tries-y-estructuras-jerarquicas/README.md) menciona.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-088 — Árboles, tries y estructuras jerárquicas](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-088-arboles-tries-y-estructuras-jerarquicas/README.md)) son:
-
-- **Inserción lenta y `RecursionError` con datos ordenados** — causa: BST sin balanceo con entrada ordenada. Corrección: equilibrar, barajar o usar una lista ordenada; probar las tres entradas.
-- **El trie consume más memoria que la lista de datos** — causa: un diccionario por carácter paga cabecera por nodo. Corrección: medir con `tracemalloc` y valorar bisect o un trie comprimido.
+- **Dar por logarítmico un BST sin balanceo.** Es logarítmico en el caso esperado con orden aleatorio, no en el peor caso.
+- **Probar solo con datos barajados.** El defecto aparece con entrada ordenada; [SE-088](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-088-arboles-tries-y-estructuras-jerarquicas/README.md) pide probar las tres entradas.
+- **Confundir árbol de búsqueda con árbol cualquiera.** Un árbol jerárquico de carpetas no cumple la propiedad de orden y no se busca en `O(h)`.
+- **Olvidar el costo constante.** Un nodo con punteros ocupa más memoria que una celda de arreglo y tiene peor localidad.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-088 — Árboles, tries y estructuras jerárquicas](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-088-arboles-tries-y-estructuras-jerarquicas/README.md)) son: Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Un árbol representa jerarquía, no dependencias arbitrarias o múltiples rutas. La siguiente clase generaliza a grafos y recorridos.
+Un árbol representa jerarquía u orden, no dependencias arbitrarias ni varias rutas entre nodos; para eso la clase siguiente generaliza a grafos. En memoria, un arreglo ordenado con búsqueda binaria suele ser más rápido en la práctica para datos casi estáticos, porque recorre memoria contigua. Y si las claves son cadenas con prefijos comunes, un trie puede convenir más; cada estructura se justifica con medición, no por su cota teórica.
 
 ## Relación con otros conceptos
 

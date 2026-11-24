@@ -2,50 +2,51 @@
 
 [↑ Glosario](../../README.md) · [← Secretos y configuración](./secretos-y-configuracion.md) · [Secuencia de escape →](./secuencia-de-escape.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 05](../../../classes/part-05-fundamentos-de-programacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 05](../../../classes/part-05-fundamentos-de-programacion/README.md)
 
 ## Definición
 
-Número monótono dentro de lo firmado que impide aceptar una versión anterior.
-
-Definición de trabajo de [SE-473 — Firmas, checksums y verificación](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-066 — Colecciones y transformación de datos](../../../classes/part-05-fundamentos-de-programacion/se-066-colecciones-y-transformacion-de-datos/README.md): Colección ordenada accesible por posición.
-- En [SE-141 — Portafolio, opciones y secuenciación de inversión](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-141-portafolio-opciones-y-secuenciacion-de-inversion/README.md): Orden de ejecución de las tareas que respeta las dependencias.
+La palabra **secuencia** tiene en el programa tres sentidos, y esta entrada los separa. El **principal** viene de [SE-473](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md): un **número monótono dentro de lo firmado** que impide aceptar una versión anterior (un número de secuencia en un manifiesto de publicación). Los otros dos son de uso general: en [SE-066](../../../classes/part-05-fundamentos-de-programacion/se-066-colecciones-y-transformacion-de-datos/README.md), una **colección ordenada accesible por posición** (lista, tupla, cadena), y en [SE-141](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-141-portafolio-opciones-y-secuenciacion-de-inversion/README.md), el **orden de ejecución de las tareas que respeta las dependencias**. La interfaz de secuencia como contrato de una colección tiene su propia entrada (*interfaz de secuencia*); aquí el foco es el sentido de seguridad de la cadena de suministro.
 
 ## Por qué importa
 
-La clase donde se define, [SE-473 — Firmas, checksums y verificación](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md), existe con este propósito: la clase existe para que puedas decidir qué comprueba quien instala tu software antes de ejecutarlo, y para que sepas qué ataque detiene cada comprobación y cuál no.
+Una firma digital prueba que unos bytes fueron firmados con una clave, pero no que sean **recientes**. Un atacante que controle el canal de distribución puede reenviar un manifiesto antiguo, perfectamente firmado, que describe una versión con una vulnerabilidad ya conocida: es un ataque de *rollback* (retroceso). La decisión que cambia es qué se firma: no solo el contenido, sino también un contador que impide retroceder. [SE-473](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md) lo documenta como síntoma: se acepta una versión antigua vulnerable porque no hay secuencia ni caducidad en lo firmado.
 
 ## Cómo funciona
 
-Según [SE-473 — Firmas, checksums y verificación](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md):
+En el ejemplo de [SE-473](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md), la API de entregas publica un manifiesto (`release.json`) con nombre, versión, **número de secuencia** y las huellas del artefacto, del SBOM y de la procedencia, firmado con Ed25519 (el algoritmo de firma de curva elíptica especificado en el RFC 8032, con claves de 32 bytes y firmas de 64). El cliente:
 
-Una **firma digital** se calcula con una clave privada sobre unos datos y se verifica con la clave pública correspondiente. La verificación correcta prueba que quien posee la clave privada firmó exactamente esos bytes; no prueba quién es esa persona, que la clave sea de quien se cree, que el contenido sea benigno ni que sea reciente. Ed25519 es un algoritmo de firma moderno, con claves y firmas cortas (32 y 64 bytes) y verificación rápida, especificado en el RFC 8032. Usar firmas en lugar de solo huellas permite que el publicador y el verificador no compartan un secreto y que cualquiera pueda comprobar.
+1. Calcula la huella del archivo descargado.
+2. Comprueba la firma del manifiesto con la **clave pública que ya incorpora**.
+3. Comprueba el nombre.
+4. **Rechaza una secuencia inferior a la mayor que recuerda.**
+5. Falla cerrado ante cualquier discrepancia.
 
-Según [SE-473 — Firmas, checksums y verificación](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md):
-
-La API de entregas publica un manifiesto (`release.json`) con nombre, versión, número de secuencia y las huellas del artefacto, del SBOM y de la procedencia, firmado con Ed25519. El cliente de línea de órdenes incorpora la clave pública en cada versión que él mismo distribuye y recuerda la mayor secuencia vista; antes de instalar calcula la huella del archivo descargado, comprueba la firma del manifiesto con la clave incorporada, comprueba el nombre, rechaza una secuencia inferior a la recordada y falla cerrado ante cualquier discrepancia. La clave de firma vive en un servicio de claves con acceso solo desde el trabajo de publicación, y existe una declaración de rotación firmada y preparada con una clave de reserva guardada fuera de línea.
+El número es *monótono* (solo sube) y está **dentro** de lo firmado: si estuviera fuera, un atacante lo cambiaría sin invalidar la firma. Esto responde a la limitación de la firma: la verificación correcta prueba que quien posee la clave privada firmó esos bytes, no que sean recientes ni benignos. [SE-473](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md) ofrece dos defensas complementarias: la **secuencia** y una **fecha de caducidad** en los metadatos, que obliga a renovarlos con regularidad.
 
 ## Ejemplo
 
-Ejemplo de [SE-473 — Firmas, checksums y verificación](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md) (sección «Ejemplo profesional»):
+El cliente guarda en disco la mayor secuencia vista y la compara antes de instalar:
 
-La API de entregas publica un manifiesto (`release.json`) con nombre, versión, número de secuencia y las huellas del artefacto, del SBOM y de la procedencia, firmado con Ed25519. El cliente de línea de órdenes incorpora la clave pública en cada versión que él mismo distribuye y recuerda la mayor secuencia vista; antes de instalar calcula la huella del archivo descargado, comprueba la firma del manifiesto con la clave incorporada, comprueba el nombre, rechaza una secuencia inferior a la recordada y falla cerrado ante cualquier discrepancia.
+```python
+def aceptar(manifiesto, ultima_vista):
+    if manifiesto["secuencia"] < ultima_vista:
+        raise ValueError("retroceso: secuencia menor a la recordada")
+    return manifiesto["secuencia"]
+```
+
+Un atacante reenvía el manifiesto de la secuencia 41, vulnerable, cuando el cliente ya vio la 44: se rechaza aunque la firma sea válida. Esta comprobación asume que el cliente conserva su estado; un cliente recién instalado no tiene secuencia recordada y no se protege del primer retroceso. Los otros sentidos son más simples: `secuencia[2]` accede por posición en una colección ordenada, y la secuencia de tareas de un plan es un orden compatible con sus dependencias (un orden topológico).
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Se acepta una versión antigua vulnerable** — causa: sin secuencia ni caducidad en lo firmado. Corrección: número monótono firmado y recordado por el cliente. ([SE-473](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md))
+- **Confundir los tres sentidos.** Una secuencia de seguridad es un contador, no una lista.
+- **Poner la secuencia fuera de lo firmado.** Se puede alterar sin invalidar la firma.
+- **Creer que la firma basta.** No prueba novedad.
+- **No persistir la mayor secuencia vista.** El cliente olvida y acepta un retroceso.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Las defensas son un número de **secuencia** o versión monótono dentro de lo firmado, que el cliente recuerda y no acepta que disminuya, y una **fecha de caducidad** en los metadatos que obliga a renovarlos con regularidad. ([SE-473](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md))
+La secuencia no protege del primer contacto: un cliente que nunca vio una versión no sabe cuál es la reciente. Tampoco sustituye la caducidad, que además fuerza la renovación aunque el atacante solo congele el canal. Y no responde a la pregunta de quién firmó ni de si el contenido es benigno; solo impide aceptar una versión anterior a la ya vista.
 
 ## Relación con otros conceptos
 

@@ -2,42 +2,50 @@
 
 [↑ Glosario](../../README.md) · [← Entorno de vista previa](./entorno-de-vista-previa.md) · [Entrada de directorio →](./entrada-de-directorio.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 08](../../../classes/part-08-entornos-herramientas-y-depuracion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 08](../../../classes/part-08-entornos-herramientas-y-depuracion/README.md)
 
 ## Definición
 
-`venv` crea un prefijo con scripts y configuración que usa una instalación base.
-
-Definición de trabajo de [SE-103 — Entornos virtuales y aislamiento de dependencias](../../../classes/part-08-entornos-herramientas-y-depuracion/se-103-entornos-virtuales-y-aislamiento-de-dependencias/README.md).
+Un **entorno virtual** (en Python, el creado por `venv`) es un **prefijo**: un directorio con scripts y un archivo de configuración (`pyvenv.cfg`) que usa una **instalación base** de Python y mantiene su propio conjunto de paquetes ([SE-103](../../../classes/part-08-entornos-herramientas-y-depuracion/se-103-entornos-virtuales-y-aislamiento-de-dependencias/README.md)). No es una máquina virtual ni un contenedor: es, según la clase, un archivo de configuración y una forma de calcular rutas. Aísla los **paquetes**; no aísla el núcleo del sistema, las variables de entorno, las herramientas del sistema ni la red.
 
 ## Por qué importa
 
-En [SE-103 — Entornos virtuales y aislamiento de dependencias](../../../classes/part-08-entornos-herramientas-y-depuracion/se-103-entornos-virtuales-y-aislamiento-de-dependencias/README.md), el tema «Entorno virtual» importa porque `venv` crea un prefijo con scripts y configuración que usa una instalación base.
+Dos proyectos pueden necesitar versiones incompatibles de la misma dependencia. Instalar todo en un único espacio global hace que actualizar uno rompa al otro y que «funcione en mi máquina» dependa de lo que se haya instalado alguna vez. La decisión que cambia es dónde viven las dependencias de un proyecto: en un entorno propio, **recreable desde su definición**, y no en el sistema. Además, la regla de probar en un entorno vacío es lo que detecta una dependencia declarada a medias.
 
 ## Cómo funciona
 
-Según [SE-103 — Entornos virtuales y aislamiento de dependencias](../../../classes/part-08-entornos-herramientas-y-depuracion/se-103-entornos-virtuales-y-aislamiento-de-dependencias/README.md), en la sección «Entorno virtual»:
+Al crear el entorno, `venv` genera un directorio con tres piezas:
 
-`venv` crea un prefijo con scripts y configuración que usa una instalación base. Aísla paquetes por defecto, no kernel, variables, herramientas del sistema ni red. El entorno se recrea; no se copia entre rutas como artefacto portable.
+- **`pyvenv.cfg`:** indica qué instalación base se usa.
+- **Un intérprete de entorno:** en Linux es un enlace simbólico al intérprete base; en Windows se copia un lanzador ([SE-103](../../../classes/part-08-entornos-herramientas-y-depuracion/se-103-entornos-virtuales-y-aislamiento-de-dependencias/README.md)).
+- **Un directorio de paquetes propio** (`site-packages`), donde se instala lo que se pida.
+
+Al arrancar, el intérprete lee `pyvenv.cfg`, detecta que está en un entorno y ajusta sus rutas de búsqueda para que los paquetes instalados allí tengan prioridad y la biblioteca estándar venga de la base. «Activar» el entorno solo cambia la variable de rutas de la terminal para encontrar los scripts del entorno.
+
+Como el entorno contiene **rutas absolutas** a la base y a sí mismo, no es portable: moverlo o copiarlo a otro sitio lo deja roto. Por eso la regla es **recrearlo**, no copiarlo.
 
 ## Ejemplo
 
-Caso medido en la sección «Cuánto cuesta un entorno virtual y por qué» de [SE-103 — Entornos virtuales y aislamiento de dependencias](../../../classes/part-08-entornos-herramientas-y-depuracion/se-103-entornos-virtuales-y-aislamiento-de-dependencias/README.md):
+[SE-103](../../../classes/part-08-entornos-herramientas-y-depuracion/se-103-entornos-virtuales-y-aislamiento-de-dependencias/README.md) midió el costo de crearlo. En Windows, `python -m venv` tomó 11 344 ms y dejó 860 archivos y 11 550 KiB; con `--without-pip` tomó 180 ms, 7 archivos y 557 KiB; con `uv venv`, 278 ms, 16 archivos y 555 KiB. En Linux (WSL2), `--without-pip` tomó 118 ms con 8 archivos, y con pip 6 376 ms. Casi todo el costo es instalar pip: 860 archivos frente a 7. Estos números son de la medición de la clase, en esas máquinas. Un uso típico:
 
-Crear un entorno con `python -m venv` tomó 11 344 ms en Windows y dejó 860 archivos y 11 550 KiB. Con `--without-pip` tomó 180 ms, 7 archivos y 557 KiB. Con `uv venv`, 278 ms, 16 archivos y 555 KiB. En Linux (WSL2), `venv --without-pip` tomó 118 ms con 8 archivos y con pip 6 376 ms. Casi todo el costo es instalar pip: 860 archivos frente a 7. En Linux, además, el intérprete del entorno es un enlace simbólico al base; en Windows se copia un lanzador.
+```bash
+python -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python -m pytest
+```
+
+Para comprobar que el proyecto no depende de nada del sistema, se repite desde un entorno recién creado.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-103 — Entornos virtuales y aislamiento de dependencias](../../../classes/part-08-entornos-herramientas-y-depuracion/se-103-entornos-virtuales-y-aislamiento-de-dependencias/README.md)) son:
-
-- **Funciona aquí y no en otra máquina** — causa: dependencia no declarada presente en el sistema. Corrección: probar siempre en un entorno vacío.
-- **El entorno deja de funcionar al moverlo** — causa: rutas absolutas. Corrección: recrearlo desde su definición.
+- **«Funciona aquí y no en otra máquina».** Una dependencia usada pero no declarada estaba instalada en el sistema; se prueba siempre en un entorno vacío.
+- **Mover o copiar el entorno.** Por las rutas absolutas, deja de funcionar; se recrea desde su definición.
+- **Creer que aísla el sistema.** No aísla variables de entorno, herramientas ni red.
+- **Versionar el directorio del entorno.** Es un artefacto local; se versiona la definición (manifest, lock), no el resultado.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un entorno virtual no es un contenedor: es un archivo `pyvenv.cfg` y una forma de calcular rutas. ([SE-103](../../../classes/part-08-entornos-herramientas-y-depuracion/se-103-entornos-virtuales-y-aislamiento-de-dependencias/README.md))
+Un entorno virtual no es un contenedor ([SE-103](../../../classes/part-08-entornos-herramientas-y-depuracion/se-103-entornos-virtuales-y-aislamiento-de-dependencias/README.md)): no fija el sistema operativo, las bibliotecas nativas ni la versión del intérprete base, y no impide que un paquete lea el sistema de archivos o la red. Cuando el problema es la variabilidad del sistema, se necesita un contenedor de desarrollo. Para un script de un solo archivo sin dependencias externas, el entorno no aporta nada, aunque sigue siendo buena práctica en cuanto aparece la primera dependencia.
 
 ## Relación con otros conceptos
 

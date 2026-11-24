@@ -2,46 +2,40 @@
 
 [↑ Glosario](../../README.md) · [← API gateway](./api-gateway.md) · [Api y cli coherentes →](./api-y-cli-coherentes.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 09](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 09](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md)
 
 ## Definición
 
-La api incluye nombres, tipos, errores, efectos, orden, formato y comportamiento documentado que consumidores pueden depender.
-
-Definición de trabajo de [SE-110 — SemVer, compatibilidad y contratos públicos](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-110-semver-compatibilidad-y-contratos-publicos/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-474 — Versionado, compatibilidad y changelog](../../../classes/part-39-build-release-y-cadena-de-suministro/se-474-versionado-compatibilidad-y-changelog/README.md): Conjunto de interfaces y comportamientos que un proyecto promete mantener.
+La **API pública** es, según [SE-110](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-110-semver-compatibilidad-y-contratos-publicos/README.md), el conjunto de nombres, tipos, errores, efectos, orden, formato y comportamiento documentado de los que los consumidores pueden depender. [SE-474](../../../classes/part-39-build-release-y-cadena-de-suministro/se-474-versionado-compatibilidad-y-changelog/README.md) la formula como el conjunto de interfaces y comportamientos que un proyecto promete mantener. Lo decisivo es la palabra *promete*: la API pública no es todo lo que es visible, sino lo que el proyecto declara estable. No se limita a funciones exportadas: una CLI, un formato de archivo, una variable de entorno o un mensaje que otros programas analizan también son contrato si se presentan como estables.
 
 ## Por qué importa
 
-En [SE-110 — SemVer, compatibilidad y contratos públicos](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-110-semver-compatibilidad-y-contratos-publicos/README.md), el tema «API pública» importa porque la API incluye nombres, tipos, errores, efectos, orden, formato y comportamiento documentado que consumidores pueden depender.
+Todo el versionado y la compatibilidad se apoyan en esta frontera. Sin ella, el número de versión no comunica nada: [SE-110](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-110-semver-compatibilidad-y-contratos-publicos/README.md) señala que una versión puede ser válida y aun así inútil si el autor no define qué es su API pública. La decisión profesional que cambia es qué se puede modificar sin avisar. Lo privado se refactoriza libremente; lo público exige deprecación, migración y un cambio de versión mayor si se rompe. Declarar el límite protege a ambas partes: el autor conserva libertad interna y el consumidor sabe dónde puede apoyarse.
 
 ## Cómo funciona
 
-Según [SE-110 — SemVer, compatibilidad y contratos públicos](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-110-semver-compatibilidad-y-contratos-publicos/README.md), en la sección «API pública»:
+La API pública se construye de tres piezas:
 
-La API incluye nombres, tipos, errores, efectos, orden, formato y comportamiento documentado que consumidores pueden depender. No se limita a funciones exportadas. CLI, archivos, variables y mensajes parseados también forman contratos si se presentan como estables.
+- **Declaración explícita.** Una lista de lo exportado (por ejemplo `__all__` en Python), una convención de nombres (prefijo `_` para lo interno) y documentación que diga qué se promete. [SE-120](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md) recomienda comparar solo esa lista, para que el comparador de API no marque cambios en lo que nadie prometió.
+- **Superficie amplia.** Además de firmas, entran errores (qué excepción y cuándo), efectos (qué escribe o envía), orden (si un listado viene ordenado solo si está especificado) y formatos de salida.
+- **Verificación.** Un comparador de firmas entre versiones y pruebas de contrato escritas desde el consumidor detectan cambios incompatibles antes de publicar.
+
+La causa de que el límite funcione es la ley de Hyrum, enunciada ampliamente en la práctica: con suficientes usuarios, alguien depende de cualquier comportamiento observable. Por eso lo que no se declara debe, además, no prometerse por escrito: «el comportamiento no documentado no se promete» ([SE-474](../../../classes/part-39-build-release-y-cadena-de-suministro/se-474-versionado-compatibilidad-y-changelog/README.md)).
 
 ## Ejemplo
 
-Ejemplo de [SE-474 — Versionado, compatibilidad y changelog](../../../classes/part-39-build-release-y-cadena-de-suministro/se-474-versionado-compatibilidad-y-changelog/README.md) (sección «Ejemplo profesional»):
-
-El equipo escribe una política de versionado de la API de entregas: la API pública son los puntos finales documentados, sus parámetros, sus campos de respuesta, sus códigos de error y el orden de los listados cuando está especificado; el comportamiento no documentado no se promete. Cada solicitud de integración ejecuta el comparador de firmas y las pruebas de contrato, y quien revisa elige el nivel; si hay discrepancia, gana el mayor. Una funcionalidad deprecada emite un aviso en tiempo de ejecución desde la versión que la marca hasta la que la retira, con un mínimo de dos versiones menores y seis meses.
+En [SE-474](../../../classes/part-39-build-release-y-cadena-de-suministro/se-474-versionado-compatibilidad-y-changelog/README.md), el equipo define la API pública de la API de entregas: los puntos finales documentados, sus parámetros, los campos de respuesta, los códigos de error y el orden de los listados cuando está especificado. Cada solicitud de integración corre el comparador de firmas y las pruebas de contrato, y quien revisa elige el nivel de versión; si hay discrepancia, gana el mayor. Una funcionalidad deprecada emite un aviso en ejecución desde que se marca hasta que se retira, con un mínimo de dos versiones menores y seis meses. Si un cliente dependía del orden de un listado que nunca se especificó, el cambio de orden no es un cambio de API pública; el programa lo trata como riesgo comunicado, no como ruptura.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El número de versión no dice nada** — causa: API pública no definida. Corrección: declarar la API pública y lo que no se promete. ([SE-474](../../../classes/part-39-build-release-y-cadena-de-suministro/se-474-versionado-compatibilidad-y-changelog/README.md))
+- **Creer que público es lo no privado en el lenguaje.** Que un símbolo sea importable no lo vuelve promesa.
+- **Reducirla a firmas de funciones.** Errores, efectos, formato de salida y CLI también cuentan ([SE-110](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-110-semver-compatibilidad-y-contratos-publicos/README.md)).
+- **No definirla y versionar igual.** El número de versión queda sin significado y los consumidores no saben qué esperar.
+- **Prometer sin querer.** Un ejemplo de documentación que muestra un detalle interno lo convierte en dependencia de hecho.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Una versión puede ser válida y aun así no comunicar nada si el autor no define qué es su API pública. ([SE-110](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-110-semver-compatibilidad-y-contratos-publicos/README.md))
-- El **versionado semántico** asigna significado a los tres números de una versión: el **mayor** sube cuando hay cambios incompatibles de la API pública, el **menor** cuando se añade funcionalidad compatible y el **parche** cuando se corrige un error sin cambiar la API. ([SE-474](../../../classes/part-39-build-release-y-cadena-de-suministro/se-474-versionado-compatibilidad-y-changelog/README.md))
+Declarar la API no impide que alguien dependa de lo no declarado; solo traslada la responsabilidad. En código de un solo equipo con un único consumidor, formalizarla puede costar más que coordinar el cambio. Y para sistemas con vigencia de pocas semanas, la disciplina de versionado semántico puede no compensar. La API pública se mide contra consumidores reales: sin una prueba desde el consumidor, la lista declarada es una intención.
 
 ## Relación con otros conceptos
 

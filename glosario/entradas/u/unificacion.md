@@ -2,41 +2,49 @@
 
 [↑ Glosario](../../README.md) · [← Unidad menor](./unidad-menor.md) · [Unión etiquetada →](./union-etiquetada.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 06](../../../classes/part-06-paradigmas-de-programacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 06](../../../classes/part-06-paradigmas-de-programacion/README.md)
 
 ## Definición
 
-Unificar busca una sustitución compatible entre estructuras.
-
-Definición de trabajo de [SE-078 — Programación lógica y resolución](../../../classes/part-06-paradigmas-de-programacion/se-078-programacion-logica-y-resolucion/README.md).
+La **unificación** es el mecanismo central de la programación lógica: dados dos términos, **busca una sustitución de variables que los haga idénticos** ([SE-078](../../../classes/part-06-paradigmas-de-programacion/se-078-programacion-logica-y-resolucion/README.md)). Si existe, los términos *unifican* y la sustitución resultante liga las variables; si no, fallan. No es una asignación ni una comparación: es una **resolución simultánea de ecuaciones entre estructuras**, y por eso una misma relación puede usarse como entrada y como salida. El término pertenece a la lógica y la demostración automática; el programa lo estudia en su forma de Prolog.
 
 ## Por qué importa
 
-En [SE-078 — Programación lógica y resolución](../../../classes/part-06-paradigmas-de-programacion/se-078-programacion-logica-y-resolucion/README.md), el tema «Unificación» importa porque unificar busca una sustitución compatible entre estructuras.
+Quien viene de la programación imperativa interpreta `X = f(Y)` como «guardar en X el valor de `f(Y)`». En programación lógica no se guarda nada: se **afirma una igualdad** que el sistema resuelve. Entender la unificación explica por qué una misma regla sirve para verificar, calcular y generar; por qué un fallo hace retroceder la búsqueda; y por qué ciertos resultados sorprendentes (como estructuras infinitas) son posibles. La decisión que cambia es cómo se razona sobre un programa lógico: en términos de sustituciones y retroceso, no de variables que cambian de valor.
 
 ## Cómo funciona
 
-Según [SE-078 — Programación lógica y resolución](../../../classes/part-06-paradigmas-de-programacion/se-078-programacion-logica-y-resolucion/README.md), en la sección «Unificación»:
+El algoritmo compara dos términos y construye una sustitución:
 
-Unificar busca una sustitución compatible entre estructuras. No es asignación mutable: una variable lógica queda vinculada dentro de una rama de búsqueda. El chequeo de ocurrencia y las extensiones del sistema determinan qué términos son admitidos, por lo que no conviene extrapolar desde pseudocódigo.
+- Una **variable** unifica con cualquier término, quedando ligada a él.
+- Dos **constantes** unifican si son iguales.
+- Dos **estructuras** (`f(a, b)` y `g(c)`) unifican si tienen el mismo **funtor** y la misma **aridad** y sus argumentos unifican uno a uno, acumulando la sustitución.
+- Si algo no encaja, **falla**.
+
+Una variable lógica no se reasigna: queda **vinculada dentro de una rama de búsqueda**. Cuando la búsqueda retrocede (por un fallo), esos vínculos se deshacen y se prueba otra alternativa. Existe una sutileza, la **comprobación de ocurrencia** (*occurs check*): al unificar `X` con `f(X)`, la sustitución correcta no existe, porque `X` sería un término infinito (`f(f(f(...)))`). Muchos sistemas la omiten por defecto por costo; [SE-078](../../../classes/part-06-paradigmas-de-programacion/se-078-programacion-logica-y-resolucion/README.md) observa que el resolvedor mínimo del curso la omite, y que SWI-Prolog ofrece `unify_with_occurs_check/2` para exigirla. Qué términos se admiten depende entonces del sistema, y no conviene extrapolar desde el pseudocódigo.
 
 ## Ejemplo
 
-Caso medido en la sección «Unificación: ligar variables en ambos sentidos» de [SE-078 — Programación lógica y resolución](../../../classes/part-06-paradigmas-de-programacion/se-078-programacion-logica-y-resolucion/README.md):
+[SE-078](../../../classes/part-06-paradigmas-de-programacion/se-078-programacion-logica-y-resolucion/README.md) ejecutó tres casos:
 
-Unificar dos términos significa encontrar una sustitución que los haga idénticos. Tres casos ejecutados: `f(A, 2)` con `f(1, B)` tuvo éxito con `A = 1` y `B = 2`, de modo que una misma relación sirve de entrada y de salida; `f(1)` con `f(2)` falló, y el fallo es lo que hace retroceder a la búsqueda; y `X` con `f(X)` fue aceptado, porque el resolvedor mínimo no hace la **comprobación de ocurrencia**: crea una estructura infinita. SWI-Prolog tiene `unify_with_occurs_check/2` para exigir la comprobación, y por defecto la omite por costo.
+```text
+f(A, 2)  con  f(1, B)   -> éxito: A = 1, B = 2  (la misma relación sirve de entrada y de salida)
+f(1)     con  f(2)      -> fallo: lo que hace retroceder la búsqueda
+X        con  f(X)      -> aceptado sin comprobación de ocurrencia: estructura infinita
+```
+
+El primer caso muestra que la unificación liga variables **en ambos sentidos**: `A` recibe lo que está en el otro término y `B`, también. El segundo muestra que un fallo no es un error, sino una señal para explorar otra alternativa. El tercero, el peligro de omitir la comprobación: en un sistema con la comprobación, `X = f(X)` falla; sin ella, crea un ciclo. La clase implementó además un resolvedor mínimo en Python (unificación y retroceso, sin optimizaciones) para contar cuántas comparaciones de unificación hacía, y observar su costo.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Una variable queda ligada a una estructura infinita** — causa: unificación sin comprobación de ocurrencia. Corrección: usar la versión con comprobación cuando el dominio lo requiera. ([SE-078](../../../classes/part-06-paradigmas-de-programacion/se-078-programacion-logica-y-resolucion/README.md))
+- **Pensar que `=` asigna.** Unifica; no hay mutación.
+- **Ignorar la comprobación de ocurrencia.** Una variable puede quedar ligada a una estructura infinita.
+- **Confundir fallo con error.** El fallo es parte del mecanismo de búsqueda.
+- **Extrapolar desde un resolvedor de juguete.** Los sistemas reales difieren en qué admiten.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Para observar el costo se implementó un resolvedor mínimo en Python (unificación, retroceso, sin optimizaciones) y se contó cuántas comparaciones de unificación hacía. ([SE-078](../../../classes/part-06-paradigmas-de-programacion/se-078-programacion-logica-y-resolucion/README.md))
+La unificación decide cuándo dos estructuras encajan; no resuelve por sí sola la eficiencia de la búsqueda (el orden de las reglas y el retroceso determinan el costo). Aplica a términos de primer orden; en lenguajes con tipos o en otros paradigmas se usan mecanismos distintos (la inferencia de tipos usa una forma de unificación, pero con otro propósito). Y el uso de la comprobación de ocurrencia es una decisión de cada sistema, con costo que debe valorarse.
 
 ## Relación con otros conceptos
 

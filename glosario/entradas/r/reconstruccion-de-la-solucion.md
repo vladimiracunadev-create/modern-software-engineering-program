@@ -2,40 +2,59 @@
 
 [↑ Glosario](../../README.md) · [← Reconciliación](./reconciliacion.md) · [Reconstrucción independiente →](./reconstruccion-independiente.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 07](../../../classes/part-07-estructuras-de-datos-y-algoritmos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 07](../../../classes/part-07-estructuras-de-datos-y-algoritmos/README.md)
 
 ## Definición
 
-El valor óptimo no basta si se necesita explicar qué casos se eligieron.
-
-Definición de trabajo de [SE-091 — Algoritmos voraces y programación dinámica](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-091-algoritmos-voraces-y-programacion-dinamica/README.md).
+La **reconstrucción de la solución** es el paso de **recuperar qué decisiones produjeron un valor óptimo**, no solo cuánto vale ese óptimo. En [SE-091](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-091-algoritmos-voraces-y-programacion-dinamica/README.md), al resolver un problema con programación dinámica o con una estrategia voraz, el **valor óptimo no basta si se necesita explicar qué casos se eligieron**: un costo mínimo de 17 dice poco sin saber qué combinación lo logra. Para reconstruir, se guardan **predecesores o decisiones** durante el cálculo y se recorren al final en sentido inverso.
 
 ## Por qué importa
 
-En [SE-091 — Algoritmos voraces y programación dinámica](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-091-algoritmos-voraces-y-programacion-dinamica/README.md), el tema «Reconstrucción de la solución» importa porque el valor óptimo no basta si se necesita explicar qué casos se eligieron.
+Muchas veces se pide el valor (el costo mínimo, el máximo de actividades) y después se descubre que se necesita el plan: qué actividades, qué monedas, qué casos. Calcular de nuevo para obtenerlo es caro o imposible si no se previó. Además, en un sistema que decide por personas o dinero, la explicación es un requisito: auditar una decisión exige saber qué se eligió y por qué. La decisión que cambia es qué se guarda durante el cálculo: solo el valor, o también el rastro de decisiones. [SE-091](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-091-algoritmos-voraces-y-programacion-dinamica/README.md) añade que los **empates deben seguir una política estable** para que los resultados y la auditoría sean reproducibles.
 
 ## Cómo funciona
 
-Según [SE-091 — Algoritmos voraces y programación dinámica](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-091-algoritmos-voraces-y-programacion-dinamica/README.md), en la sección «Reconstrucción de la solución»:
+En programación dinámica se llena una tabla de subproblemas: `mejor[i]` es el valor óptimo para el subproblema `i`. Para reconstruir:
 
-El valor óptimo no basta si se necesita explicar qué casos se eligieron. Guardar predecesores o decisiones permite reconstruir. Empates deben seguir una política estable para que resultados y auditoría sean reproducibles.
+1. **Registrar la decisión** que dio cada celda (de cuál subproblema o con qué elección se llegó: un puntero al **predecesor**).
+2. **Partir del estado final** y seguir los predecesores hacia atrás hasta el inicio.
+3. **Invertir** la secuencia obtenida para presentarla en orden.
+
+El costo adicional es memoria (una entrada por celda) y un recorrido lineal. Los empates son el punto delicado: si dos decisiones dan el mismo valor, cuál se registra cambia la solución reconstruida, aunque el valor sea igual. Si la política de desempate es implícita (depende del orden de iteración o de una estructura sin orden definido), dos ejecuciones pueden producir soluciones distintas con el mismo óptimo, y la auditoría no es reproducible. Por eso la regla de empate se declara (por ejemplo, «a igualdad, el de menor identificador») y se prueba.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-091 — Algoritmos voraces y programación dinámica](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-091-algoritmos-voraces-y-programacion-dinamica/README.md):
+Cambio mínimo de monedas con reconstrucción (ilustración):
 
-En la biblioteca de estructuras y algoritmos, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```python
+def cambio(monedas, total):
+    INF = float("inf")
+    mejor = [0] + [INF] * total
+    eleg = [None] * (total + 1)
+    for t in range(1, total + 1):
+        for m in sorted(monedas):               # orden fijo: desempate estable
+            if m <= t and mejor[t - m] + 1 < mejor[t]:
+                mejor[t], eleg[t] = mejor[t - m] + 1, m
+    usadas, t = [], total
+    while t > 0 and eleg[t] is not None:
+        usadas.append(eleg[t]); t -= eleg[t]
+    return mejor[total], usadas
+
+cambio([1, 3, 4], 6)       # (2, [3, 3])
+```
+
+`mejor[total]` da el valor; `eleg` permite reconstruir el plan. Con monedas no canónicas, la regla voraz habría entregado un plan peor, que es el error que [SE-091](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-091-algoritmos-voraces-y-programacion-dinamica/README.md) documenta (más monedas de las necesarias).
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-091 — Algoritmos voraces y programación dinámica](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-091-algoritmos-voraces-y-programacion-dinamica/README.md)) son:
-
-- **El cambio devuelto usa más monedas de las necesarias** — causa: voraz con un sistema de monedas no canónico. Corrección: usar DP o demostrar que el sistema es canónico.
-- **El conteo de actividades es menor al esperado** — causa: criterio de orden equivocado (por inicio). Corrección: ordenar por fin y contrastar con fuerza bruta en casos pequeños.
+- **Guardar solo el valor.** Después no se puede explicar el plan.
+- **Desempate implícito.** Resultados distintos entre ejecuciones con el mismo óptimo.
+- **Reconstruir sin validar.** Conviene comprobar que el plan reconstruido suma el valor reportado.
+- **Confundir reconstruir con recalcular.** El rastro se guarda al calcular; no se vuelve a resolver.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-091 — Algoritmos voraces y programación dinámica](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-091-algoritmos-voraces-y-programacion-dinamica/README.md)) son: Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. La programación dinámica exige un estado finito y manejable. La siguiente clase estudia exploración, poda y descomposición cuando no basta llenar una tabla.
+La programación dinámica exige un estado finito y manejable ([SE-091](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-091-algoritmos-voraces-y-programacion-dinamica/README.md)): si la tabla no cabe en memoria, tampoco caben los predecesores. Reconstruir solo tiene sentido cuando alguien necesita el plan; si solo se pide el valor, guardar decisiones es costo sin uso. Y cuando hay muchas soluciones óptimas distintas, reconstruir una no dice nada sobre las demás; si se necesitan todas, es otro problema.
 
 ## Relación con otros conceptos
 

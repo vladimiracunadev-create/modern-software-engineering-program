@@ -2,40 +2,55 @@
 
 [↑ Glosario](../../README.md) · [← Meta-verificación](./meta-verificacion.md) · [Metadato de versión →](./metadato-de-version.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 09](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 09](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md)
 
 ## Definición
 
-Nombre, versión, runtime, dependencias, licencia, autores y entry points permiten construir e instalar.
-
-Definición de trabajo de [SE-112 — Paquetes, módulos y publicación](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md).
+La **metadata de proyecto** es el conjunto de datos declarativos que describen un paquete y permiten construirlo e instalarlo: **nombre, versión, versión mínima del *runtime*, dependencias, licencia, autores y *entry points*** (puntos de entrada que el paquete declara, como comandos o plugins). En Python, esta metadata se declara en la tabla `[project]` de `pyproject.toml` y se publica con el paquete; las especificaciones de la Python Packaging Authority definen sus campos. [SE-112](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md) la presenta como la parte del paquete que no es código pero que decide cómo se comporta al distribuirse.
 
 ## Por qué importa
 
-En [SE-112 — Paquetes, módulos y publicación](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md), el tema «Metadata de proyecto» importa porque nombre, versión, runtime, dependencias, licencia, autores y entry points permiten construir e instalar.
+La metadata es lo primero que el instalador lee. Si es incorrecta o está desactualizada, el paquete se instala con dependencias equivocadas, se publica con una versión ambigua o declara una licencia que no corresponde. La decisión que cambia es dónde vive cada dato: **la versión tiene una fuente canónica y las demás superficies se derivan de ella**. Con varias copias editadas a mano (en `pyproject.toml`, en el código y en la etiqueta de Git) tarde o temprano discrepan.
 
 ## Cómo funciona
 
-Según [SE-112 — Paquetes, módulos y publicación](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md), en la sección «Metadata de proyecto»:
+El constructor lee la metadata y genera los archivos de distribución con ella. Esa metadata se consulta de dos formas: el instalador resuelve las dependencias y la versión mínima del *runtime* antes de instalar, y el paquete instalado la expone (por ejemplo, con `importlib.metadata`) para que otros programas la consulten. Por esa razón:
 
-Nombre, versión, runtime, dependencias, licencia, autores y entry points permiten construir e instalar. Metadata incoherente con código o tag produce releases ambiguos. La versión tiene una fuente canónica y las demás superficies se derivan.
+- **Nombre y versión** identifican de forma única el artefacto.
+- **Dependencias y versión de *runtime*** determinan dónde puede instalarse; declararlas mal produce `ModuleNotFoundError` en entornos limpios.
+- ***Entry points*:** declaran qué comandos o extensiones expone el paquete, y son la base del descubrimiento de plugins.
+- **Licencia y autores:** metadatos legales y de procedencia.
+
+[SE-112](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md) advierte que **la metadata incoherente con el código o con la etiqueta produce releases ambiguos**: nadie sabe qué versión es realmente la publicada. Por eso se fija una sola fuente (por ejemplo, la etiqueta de Git, de la que el constructor deriva la versión) y se verifica que las demás coincidan.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-112 — Paquetes, módulos y publicación](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md):
+Un `pyproject.toml` mínimo (ilustración):
 
-En el producto reutilizable con SDK y CLI, un release contiene contrato público, artefactos inmutables, dependencias, procedencia, ejemplos, errores y ruta de migración. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```toml
+[project]
+name = "engineering-sdk"
+version = "1.3.0"
+requires-python = ">=3.9"
+dependencies = ["tomli>=2; python_version < '3.11'"]
+license = {text = "MIT"}
+
+[project.scripts]
+engineering = "engineering_sdk.cli:main"
+```
+
+Si una prueba compara la versión del paquete instalado con la de la etiqueta publicada y falla cuando difieren, se evita publicar una versión ambigua. [SE-112](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md) documenta dos fallos del empaquetado: `FileNotFoundError` solo tras instalar porque el archivo de datos no está declarado en `package-data` (se declara y se compara el contenido de la rueda con una lista esperada), e `import json` que devuelve un objeto raro porque un `json.py` local tapa la biblioteca estándar (se renombra y se verifica con `-I` o `-P`).
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-112 — Paquetes, módulos y publicación](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md)) son:
-
-- **`FileNotFoundError` solo tras instalar** — causa: el archivo de datos no está en `package-data`. Corrección: declararlo y comprobar el contenido de la rueda contra una lista esperada.
-- **`import json` devuelve un objeto raro en un directorio concreto** — causa: un `json.py` local tapa la biblioteca estándar. Corrección: renombrar el archivo y ejecutar con `-I` o `-P` para comprobar.
+- **Varias fuentes de versión.** Discrepan y generan releases ambiguos.
+- **Dependencias no declaradas.** Funcionan en la máquina del autor y fallan en un entorno limpio.
+- **Copiar metadata de otro proyecto.** Licencia o autores incorrectos.
+- **Olvidar los archivos de datos.** El paquete instalado no los encuentra.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-112 — Paquetes, módulos y publicación](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md)) son: Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Un paquete instalado todavía necesita una interfaz operable y estable. La siguiente clase diseña CLI, configuración, streams y códigos de salida como API pública.
+Un paquete instalado todavía necesita una interfaz operable y estable ([SE-112](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md)): la metadata describe, no garantiza comportamiento. No sustituye una política de versionado ni la verificación de procedencia. Y para un script de un solo archivo que no se distribuye como paquete, declarar metadata completa no aporta.
 
 ## Relación con otros conceptos
 

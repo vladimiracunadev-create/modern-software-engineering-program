@@ -2,40 +2,52 @@
 
 [↑ Glosario](../../README.md) · [← Contrato de interfaz](./contrato-de-interfaz.md) · [Contrato de línea de comandos →](./contrato-de-linea-de-comandos.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 07](../../../classes/part-07-estructuras-de-datos-y-algoritmos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 07](../../../classes/part-07-estructuras-de-datos-y-algoritmos/README.md)
 
 ## Definición
 
-La api define tipos, operaciones, errores, orden y complejidad esperada.
-
-Definición de trabajo de [SE-096 — Proyecto: biblioteca comparada con casos límite](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-096-proyecto-biblioteca-comparada-con-casos-limite/README.md).
+El **contrato de la biblioteca** es, en el proyecto de [SE-096](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-096-proyecto-biblioteca-comparada-con-casos-limite/README.md), la API que fija **tipos, operaciones, errores, orden y complejidad esperada** de la biblioteca de estructuras y algoritmos. Es la frontera que separa lo que la biblioteca promete de la manera en que lo cumple por dentro. Todo candidato (lista, árbol, tabla hash) debe satisfacerlo, y quien consume la biblioteca solo puede apoyarse en él. En este programa «contrato» tiene el sentido de promesa verificable, la misma noción que desarrolla la entrada general sobre contratos.
 
 ## Por qué importa
 
-En [SE-096 — Proyecto: biblioteca comparada con casos límite](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-096-proyecto-biblioteca-comparada-con-casos-limite/README.md), el tema «Contrato de la biblioteca» importa porque la API define tipos, operaciones, errores, orden y complejidad esperada.
+Si el contrato no define un caso, cada implementación lo resuelve a su manera y nadie se entera hasta que dos de ellas difieren en producción. [SE-096](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-096-proyecto-biblioteca-comparada-con-casos-limite/README.md) da el ejemplo: dos implementaciones difieren cuando `lo > hi` porque el contrato no decía qué hacer con un rango invertido. La decisión que cambia es dónde se escribe el comportamiento en los bordes: en el contrato y en una prueba con nombre, no en la cabeza de quien implementó. Además, un contrato que expone la estructura interna impide **sustituirla** después.
 
 ## Cómo funciona
 
-Según [SE-096 — Proyecto: biblioteca comparada con casos límite](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-096-proyecto-biblioteca-comparada-con-casos-limite/README.md), en la sección «Contrato de la biblioteca»:
+Un contrato útil cubre cinco dimensiones:
 
-La API define tipos, operaciones, errores, orden y complejidad esperada. Exponer la estructura interna impide sustituirla. Las garantías de costo se expresan con supuestos y no como promesa absoluta de latencia.
+- **Tipos:** qué entra y qué sale, incluidos los valores especiales.
+- **Operaciones:** qué se puede hacer y con qué efecto sobre el estado.
+- **Errores:** qué falla, con qué excepción o valor, ante qué entrada.
+- **Orden:** si el resultado tiene un orden garantizado, y cuál (por ejemplo, estable).
+- **Complejidad esperada:** el costo que se promete.
+
+Las garantías de costo se expresan **con supuestos**, no como promesa absoluta de latencia: «`O(log n)` si el árbol está equilibrado» o «`O(1)` esperado con una función hash razonable». Esto evita prometer lo que depende de la máquina o de los datos. Como todos los candidatos cumplen el mismo contrato, se pueden comparar y reemplazar; esa sustituibilidad es lo que el contrato compra.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-096 — Proyecto: biblioteca comparada con casos límite](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-096-proyecto-biblioteca-comparada-con-casos-limite/README.md):
+El proyecto de [SE-096](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-096-proyecto-biblioteca-comparada-con-casos-limite/README.md) compara implementaciones sobre un corpus con casos límite y verifica cada una con un oráculo diferencial y con mutantes. Cuando dos implementaciones difieren con `lo > hi`, la corrección es decidir la regla y escribirla:
 
-En la biblioteca de estructuras y algoritmos, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```python
+def buscar_en_rango(estructura, lo, hi):
+    """Devuelve las claves k con lo <= k <= hi, en orden ascendente.
+    Si lo > hi devuelve una lista vacía (no lanza excepción).
+    Complejidad esperada: O(log n + m), m = tamaño del resultado,
+    si la estructura está equilibrada."""
+```
+
+Con esa regla, una prueba nombrada (`test_rango_invertido_vacio`) convierte el caso en parte del contrato. Sin el oráculo diferencial, el hecho de que todas las pruebas con ejemplos pasaran no habría revelado el defecto.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-096 — Proyecto: biblioteca comparada con casos límite](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-096-proyecto-biblioteca-comparada-con-casos-limite/README.md)) son:
-
-- **Todas las pruebas pasan y un defecto llega a producción** — causa: pruebas solo con ejemplos. Corrección: añadir un oráculo diferencial con semillas y mutantes.
-- **Dos implementaciones difieren con `lo > hi`** — causa: el contrato no define el caso. Corrección: escribir la regla en el contrato y una prueba nombrada.
+- **Pruebas solo con ejemplos.** Pasan todas y un defecto llega a producción; se añade un oráculo diferencial con semillas y mutantes.
+- **Dejar casos sin definir.** El comportamiento queda «por accidente» y cada implementación lo decide distinto.
+- **Exponer la estructura interna.** Quien la usa queda atado a ella.
+- **Prometer latencias.** Una complejidad con supuestos es honesta; un tiempo absoluto, no.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-096 — Proyecto: biblioteca comparada con casos límite](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-096-proyecto-biblioteca-comparada-con-casos-limite/README.md)) son: Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. La biblioteca demuestra comportamiento en el corpus y protocolo declarados, no superioridad universal. La [Parte 8](../../../classes/part-08-entornos-herramientas-y-depuracion/README.md) tomará un fallo y una regresión de la biblioteca de estructuras y algoritmos para construir un entorno de diagnóstico reproducible.
+La biblioteca demuestra comportamiento en el corpus y protocolo declarados, no superioridad universal ([SE-096](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-096-proyecto-biblioteca-comparada-con-casos-limite/README.md)). Un contrato escrito no garantiza que se cumpla: necesita pruebas, y las pruebas solo cubren lo que se probó. Para código interno de un solo uso, un contrato formal puede ser exceso; se justifica cuando varias implementaciones o varios consumidores dependen de él. La [Parte 08](../../../classes/part-08-entornos-herramientas-y-depuracion/README.md) usará un fallo de esta biblioteca como material de diagnóstico.
 
 ## Relación con otros conceptos
 

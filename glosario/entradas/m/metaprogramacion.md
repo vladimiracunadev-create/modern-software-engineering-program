@@ -2,40 +2,57 @@
 
 [↑ Glosario](../../README.md) · [← Metadatos de documento](./metadatos-de-documento.md) · [Método idempotente →](./metodo-idempotente.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 09](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 09](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md)
 
 ## Definición
 
-Decoradores, macros, reflexión o generación en build modifican comportamiento desde código sobre código.
-
-Definición de trabajo de [SE-116 — Generación de código y metaprogramación](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-116-generacion-de-codigo-y-metaprogramacion/README.md).
+La **metaprogramación** es escribir código que **modifica o genera otro código**, o que modifica el comportamiento de un programa desde el propio programa. [SE-116](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-116-generacion-de-codigo-y-metaprogramacion/README.md) enumera sus formas habituales: **decoradores**, **macros**, **reflexión** y **generación en tiempo de construcción**. Lo que las une es que el código opera sobre código (funciones, clases, texto fuente o estructuras del lenguaje) en lugar de operar sobre datos del dominio. No es un lenguaje ni una técnica única, sino una familia de mecanismos.
 
 ## Por qué importa
 
-En [SE-116 — Generación de código y metaprogramación](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-116-generacion-de-codigo-y-metaprogramacion/README.md), el tema «Metaprogramación» importa porque decoradores, macros, reflexión o generación en build modifican comportamiento desde código sobre código.
+Reduce la repetición sistemática: un decorador evita escribir el mismo registro en veinte funciones; un generador produce los clientes de una API a partir de su descripción. La decisión que cambia es cuánta repetición se tolera frente a cuánta indirección se introduce. [SE-116](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-116-generacion-de-codigo-y-metaprogramacion/README.md) lo plantea con una advertencia: la metaprogramación **desplaza errores y herramientas**. El error ya no está en el código que se lee sino en el que se genera o se modifica, y los analizadores, depuradores y editores pueden no entenderlo.
 
 ## Cómo funciona
 
-Según [SE-116 — Generación de código y metaprogramación](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-116-generacion-de-codigo-y-metaprogramacion/README.md), en la sección «Metaprogramación»:
+Cada forma actúa en un momento distinto:
 
-Decoradores, macros, reflexión o generación en build modifican comportamiento desde código sobre código. Reducen repetición sistemática, pero desplazan errores y herramientas. La expansión o resultado debe poder inspeccionarse.
+- **Decorador:** una función que recibe otra y devuelve una versión modificada, aplicada al definirla.
+- **Reflexión:** el programa inspecciona o altera sus propios objetos en ejecución (listar atributos, invocar por nombre).
+- **Macro:** una transformación del código fuente en compilación (en lenguajes que las tienen).
+- **Generación en construcción:** un script produce archivos de código a partir de una especificación y esos archivos se compilan o se importan.
+
+La regla de [SE-116](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-116-generacion-de-codigo-y-metaprogramacion/README.md) es que **la expansión o el resultado debe poder inspeccionarse**: si no se puede ver el código generado, no se puede revisar ni depurar. Los fallos típicos de la generación se deben a que el generador no es determinista o a que se edita su producto. El primero: la integración continua marca diferencias en archivos generados que nadie tocó, porque el generador depende del reloj, del orden o de la ruta; se ordenan las entradas, se quitan marcas de tiempo y se usan rutas relativas. El segundo: alguien editó el archivo generado y se perdió al regenerar; se añade un encabezado «no editar», se regenera en integración continua y se usa `git diff --exit-code` para detectar discrepancias.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-116 — Generación de código y metaprogramación](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-116-generacion-de-codigo-y-metaprogramacion/README.md):
+Un decorador que registra funciones como comandos:
 
-En el producto reutilizable con SDK y CLI, un release contiene contrato público, artefactos inmutables, dependencias, procedencia, ejemplos, errores y ruta de migración. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```python
+COMANDOS = {}
+
+def comando(f):
+    COMANDOS[f.__name__] = f
+    return f
+
+@comando
+def listar(): ...
+
+@comando
+def borrar(): ...
+```
+
+Sin metaprogramación habría que mantener a mano un diccionario aparte, que es fácil olvidar actualizar. A cambio, quien lea `listar` no ve por sí solo que queda registrado; hay que conocer el decorador. En la generación en construcción, un script lee una descripción y escribe un archivo con el encabezado `# GENERADO: no editar`, y la integración continua lo regenera y falla si el resultado difiere del confirmado.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-116 — Generación de código y metaprogramación](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-116-generacion-de-codigo-y-metaprogramacion/README.md)) son:
-
-- **El CI marca diferencias en archivos generados que nadie tocó** — causa: el generador depende de reloj, orden o ruta. Corrección: ordenar entradas, quitar marcas de tiempo y usar rutas relativas.
-- **Alguien editó el archivo generado y se perdió al regenerar** — causa: no hay encabezado ni verificación. Corrección: encabezado «no editar», regeneración en CI y `git diff --exit-code`.
+- **Usarla para ahorrar unas líneas.** El costo de indirección supera el beneficio.
+- **Generadores no deterministas.** Producen diferencias espurias en cada ejecución.
+- **Editar archivos generados.** El cambio se pierde en la siguiente regeneración.
+- **Ocultar la expansión.** Si no se puede ver lo generado, no se puede depurar.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-116 — Generación de código y metaprogramación](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-116-generacion-de-codigo-y-metaprogramacion/README.md)) son: Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. La generación legalmente reutilizable depende de licencias y procedencia de entradas y plantillas. La siguiente clase hace esas obligaciones visibles y verificables.
+La generación legalmente reutilizable depende de licencias y de la procedencia de las entradas y de las plantillas ([SE-116](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-116-generacion-de-codigo-y-metaprogramacion/README.md)): lo generado hereda las obligaciones de lo que lo originó. La metaprogramación pierde sentido cuando la repetición es pequeña o cuando el equipo no domina el mecanismo: el código claro y repetido puede ser más mantenible que el código ingenioso. Tampoco ayuda cuando el lenguaje ofrece una construcción directa para lo que se pretende.
 
 ## Relación con otros conceptos
 

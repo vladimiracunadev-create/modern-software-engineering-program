@@ -2,40 +2,57 @@
 
 [↑ Glosario](../../README.md) · [← Interfaz](./interfaz.md) · [Interferencia →](./interferencia.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 07](../../../classes/part-07-estructuras-de-datos-y-algoritmos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 07](../../../classes/part-07-estructuras-de-datos-y-algoritmos/README.md)
 
 ## Definición
 
-Una secuencia ofrece orden, longitud, acceso e iteración; la interfaz no fija representación.
-
-Definición de trabajo de [SE-085 — Arreglos, listas y secuencias](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-085-arreglos-listas-y-secuencias/README.md).
+Una **interfaz de secuencia** es el conjunto de operaciones que ofrece una colección ordenada: **orden, longitud, acceso por posición e iteración**. [SE-085](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-085-arreglos-listas-y-secuencias/README.md) subraya que esta interfaz **no fija la representación**: tanto un arreglo contiguo como una lista de nodos enlazados pueden ofrecerla, con costos muy distintos en cada operación. Así se separa qué se puede hacer con una secuencia (el contrato) de cómo está organizada en memoria (la implementación).
 
 ## Por qué importa
 
-En [SE-085 — Arreglos, listas y secuencias](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-085-arreglos-listas-y-secuencias/README.md), el tema «Interfaz de secuencia» importa porque una secuencia ofrece orden, longitud, acceso e iteración; la interfaz no fija representación.
+El mismo código que usa una secuencia puede ser rápido o lento según su representación. Elegir sin pensar la operación dominante lleva a errores caros: usar `lista.pop(0)` como cola en Python es lineal en cada llamada y vaciar 80 000 elementos tarda casi un segundo. La decisión que cambia es el orden del razonamiento: **primero se enumeran las operaciones que el programa necesita y su frecuencia**, y después se elige la representación que favorece las dominantes. Elegir al revés, por costumbre, es lo que [SE-085](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-085-arreglos-listas-y-secuencias/README.md) desaconseja.
 
 ## Cómo funciona
 
-Según [SE-085 — Arreglos, listas y secuencias](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-085-arreglos-listas-y-secuencias/README.md), en la sección «Interfaz de secuencia»:
+Cada representación optimiza unas operaciones a costa de otras:
 
-Una secuencia ofrece orden, longitud, acceso e iteración; la interfaz no fija representación. Antes de elegir se enumeran operaciones y frecuencia. Acceso aleatorio, inserción interior y recorrido no pueden optimizarse todos con la misma organización.
+- **Arreglo dinámico** (la `list` de Python): acceso por posición en `O(1)`, añadir al final amortizado `O(1)`, insertar o borrar al inicio o en medio `O(n)` porque desplaza elementos. Buena localidad de memoria.
+- **Lista enlazada:** insertar o borrar en una posición ya localizada en `O(1)`, pero acceso por posición `O(n)` y peor localidad.
+- **Cola de dos extremos** (`deque`): añadir y quitar en ambos extremos en `O(1)`, acceso por posición en el medio más lento.
+
+La clave de [SE-085](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-085-arreglos-listas-y-secuencias/README.md) es que **acceso aleatorio, inserción interior y recorrido no pueden optimizarse todos con la misma organización**. Cada decisión de representación es un compromiso. Antes de elegir se enumeran las operaciones y su frecuencia relativa; la estructura que favorece la operación dominante gana, y se confirma con una medición sobre una carga representativa.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-085 — Arreglos, listas y secuencias](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-085-arreglos-listas-y-secuencias/README.md):
+Una cola de trabajos donde se añade al final y se extrae del inicio. Con una lista:
 
-En la biblioteca de estructuras y algoritmos, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```python
+cola = list(range(80_000))
+while cola:
+    cola.pop(0)           # O(n) cada vez: desplaza todo
+```
+
+Con una estructura cuya interfaz favorece esa operación:
+
+```python
+from collections import deque
+cola = deque(range(80_000))
+while cola:
+    cola.popleft()        # O(1)
+```
+
+Ambas implementan «una secuencia con orden y longitud», pero solo una hace barata la operación dominante. [SE-085](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-085-arreglos-listas-y-secuencias/README.md) documenta además otra trampa de secuencias anidadas: tres filas de una cuadrícula cambian a la vez porque `[[0]] * 3` repite la misma lista interna; se construye con `[[0] for _ in range(3)]` y se prueba una escritura aislada.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-085 — Arreglos, listas y secuencias](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-085-arreglos-listas-y-secuencias/README.md)) son:
-
-- **Vaciar una cola de 80 000 elementos tarda casi un segundo** — causa: se usa `lista.pop(0)` como operación dominante. Corrección: cambiar a `deque.popleft()` y repetir la medición con la misma carga.
-- **Tres filas de una cuadrícula cambian a la vez** — causa: `[[0]] * 3` repite la misma lista interna. Corrección: construir con `[[0] for _ in range(3)]` y probar una escritura aislada.
+- **Elegir por costumbre.** Se usa `list` para todo y se paga el costo en la operación dominante.
+- **Confundir interfaz con representación.** Que dos colecciones ofrezcan iteración no implica costos parecidos.
+- **Citar costos sin medir.** La localidad y las constantes pueden invertir el orden esperado.
+- **Repetir referencias al multiplicar listas anidadas.** Las filas comparten el mismo objeto.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-085 — Arreglos, listas y secuencias](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-085-arreglos-listas-y-secuencias/README.md)) son: Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. La secuencia preserva orden pero no expresa por sí sola disciplina LIFO, FIFO o prioridad. La siguiente clase diseña esas políticas explícitamente.
+La secuencia preserva el orden, pero **no expresa por sí sola la disciplina LIFO, FIFO o de prioridad** ([SE-085](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-085-arreglos-listas-y-secuencias/README.md)): una pila, una cola y una cola de prioridad son interfaces propias, que la clase siguiente diseña explícitamente. Para colecciones pequeñas, la elección casi no importa y conviene la más clara. Y cuando se necesita buscar por clave más que por posición, ya no se trata de una secuencia sino de un mapa o un conjunto.
 
 ## Relación con otros conceptos
 

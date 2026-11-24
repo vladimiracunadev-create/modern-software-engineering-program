@@ -2,40 +2,51 @@
 
 [↑ Glosario](../../README.md) · [← Diagnóstico](./diagnostico.md) · [Diagrama →](./diagrama.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 08](../../../classes/part-08-entornos-herramientas-y-depuracion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 08](../../../classes/part-08-entornos-herramientas-y-depuracion/README.md)
 
 ## Definición
 
-Un comando imprime versiones, ejecutable, plataforma y checks sin secretos.
-
-Definición de trabajo de [SE-108 — Proyecto: entorno de desarrollo autocontenido](../../../classes/part-08-entornos-herramientas-y-depuracion/se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md).
+El **diagnóstico incorporado** es, en [SE-108](../../../classes/part-08-entornos-herramientas-y-depuracion/se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md), un comando del propio proyecto que **imprime versiones, ejecutable, plataforma y comprobaciones, sin secretos**, de modo que cualquiera pueda ver con qué entorno está trabajando y compartirlo al reportar un problema. Junto con él, la reproducción del defecto y su regresión viven **junto al proyecto**, no en la memoria de quien lo investigó. Es un término propio del programa, parecido a un `doctor` o `--version` ampliado.
 
 ## Por qué importa
 
-En [SE-108 — Proyecto: entorno de desarrollo autocontenido](../../../classes/part-08-entornos-herramientas-y-depuracion/se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md), el tema «Diagnóstico incorporado» importa porque un comando imprime versiones, ejecutable, plataforma y checks sin secretos.
+Gran parte del tiempo de un diagnóstico se va en averiguar qué es distinto entre dos máquinas: qué versión del lenguaje, cuál ejecutable se está usando realmente, qué sistema. Sin una salida estándar, la persona que reporta tiene que adivinar qué comunicar, y quien investiga, preguntar. La decisión que cambia es quién produce la información del entorno: el proyecto, de forma uniforme y reproducible, y no cada persona a mano. Además, al excluir secretos por diseño, esa salida puede pegarse en una incidencia sin riesgo.
 
 ## Cómo funciona
 
-Según [SE-108 — Proyecto: entorno de desarrollo autocontenido](../../../classes/part-08-entornos-herramientas-y-depuracion/se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md), en la sección «Diagnóstico incorporado»:
+Un buen comando de diagnóstico tiene cuatro rasgos:
 
-Un comando imprime versiones, ejecutable, plataforma y checks sin secretos. La reproducción del defecto y su regresión viven junto al proyecto. Logs separan stdout consumible de stderr diagnóstico y usan códigos de salida.
+- **Datos del entorno:** versión del lenguaje y de las dependencias clave, ruta del ejecutable que se está usando, sistema operativo y arquitectura.
+- **Comprobaciones:** pequeñas verificaciones con resultado «ok» o «falla» y motivo (¿existe el archivo de datos? ¿responde el servicio local?).
+- **Ausencia de secretos:** no imprime tokens ni rutas personales; las variables sensibles se omiten o se enmascaran.
+- **Salidas separadas:** lo consumible por otros programas va a la **salida estándar** y el diagnóstico a la **salida de error**, y se usan **códigos de salida** para que un guion sepa si el entorno está sano.
+
+La causa de que sirva es que convierte un problema de conversación («¿qué tienes instalado?») en un artefacto que se adjunta. [SE-108](../../../classes/part-08-entornos-herramientas-y-depuracion/se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md) lo conecta con la reproducción: junto al comando viven el caso que reproduce el defecto y la prueba de regresión que lo cubre.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-108 — Proyecto: entorno de desarrollo autocontenido](../../../classes/part-08-entornos-herramientas-y-depuracion/se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md):
+Para el entorno de diagnóstico de [SE-108](../../../classes/part-08-entornos-herramientas-y-depuracion/se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md), un comando `proyecto doctor` podría producir (ilustración; el nombre y el formato son inventados):
 
-En el entorno reproducible de diagnóstico, una investigación conserva síntoma, entorno, reproducción, hipótesis, observaciones, causa, corrección y regresión. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```text
+python        3.12.4   /usr/local/bin/python3
+plataforma    linux-x86_64
+paquete       engineering_sdk 1.3.0 (instalado, no editable)
+check datos   ok     (data/casos.json presente)
+check puerto  falla  (8000 ocupado)
+```
+
+con código de salida distinto de cero si algún chequeo falla. Una persona que reporta pega esa salida y quien investiga ve de inmediato, por ejemplo, que se está ejecutando otro intérprete del esperado. Es la misma idea con la que la clase aborda un entorno que «no se reconstruye en otra máquina»: eliminar el paso manual no documentado.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-108 — Proyecto: entorno de desarrollo autocontenido](../../../classes/part-08-entornos-herramientas-y-depuracion/se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md)) son:
-
-- **El entorno no se reconstruye en otra máquina** — causa: pasos manuales no documentados. Corrección: un comando que recree todo, probado desde cero.
-- **Los hashes de la rueda cambian entre construcciones** — causa: marcas de tiempo en el archivo. Corrección: fijar el archivo instalado, no reconstruirlo.
+- **Imprimir variables de entorno completas.** Filtra tokens y rutas.
+- **Mezclar datos y diagnóstico en la misma salida.** Rompe a quien consume la salida estándar.
+- **Chequeos sin criterio de éxito claro.** «Parece bien» no sirve; cada uno debe ser pasa o falla.
+- **Tratarlo como sustituto de reproducir.** Dice cómo es el entorno, no demuestra el defecto.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-108 — Proyecto: entorno de desarrollo autocontenido](../../../classes/part-08-entornos-herramientas-y-depuracion/se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md)) son: Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. El entorno reduce variabilidad conocida, no congela hardware, red o servicios externos. La [Parte 9](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) convertirá la capacidad de la biblioteca de estructuras y algoritmos en una biblioteca, paquete, SDK y CLI con contratos públicos y compatibilidad verificable.
+El entorno reduce variabilidad conocida, no congela hardware, red ni servicios externos ([SE-108](../../../classes/part-08-entornos-herramientas-y-depuracion/se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md)): el diagnóstico solo puede informar de lo que el proyecto sabe mirar. Un comando que intenta comprobarlo todo se vuelve lento y frágil. Para un script personal que nadie más ejecuta, un `--version` basta. Y no reemplaza la observabilidad en producción, que mira sistemas en vivo, no un entorno de desarrollo.
 
 ## Relación con otros conceptos
 

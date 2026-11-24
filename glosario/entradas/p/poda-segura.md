@@ -2,40 +2,56 @@
 
 [↑ Glosario](../../README.md) · [← Poda](./poda.md) · [Polisemia →](./polisemia.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 07](../../../classes/part-07-estructuras-de-datos-y-algoritmos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 07](../../../classes/part-07-estructuras-de-datos-y-algoritmos/README.md)
 
 ## Definición
 
-Una poda descarta ramas que no pueden mejorar o satisfacer.
-
-Definición de trabajo de [SE-092 — Backtracking, divide y vencerás](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md).
+Una **poda** es el descarte de una rama completa del espacio de búsqueda sin explorarla; es **segura** cuando se puede demostrar que esa rama **no contiene ninguna solución válida ni mejor que la ya encontrada**. En [SE-092](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md): una poda descarta ramas que no pueden mejorar o satisfacer, y debe derivarse de una **cota o restricción necesaria**. La seguridad es la condición que separa una poda de una apuesta: la primera no cambia el resultado del algoritmo, solo su costo.
 
 ## Por qué importa
 
-En [SE-092 — Backtracking, divide y vencerás](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md), el tema «Poda segura» importa porque una poda descarta ramas que no pueden mejorar o satisfacer.
+La búsqueda exhaustiva crece de forma exponencial; sin poda, muchos problemas son inviables, y con una poda mal hecha, el algoritmo termina rápido y devuelve una respuesta incorrecta sin avisar. La decisión que cambia es qué se permite eliminar: solo lo que se puede **justificar**. [SE-092](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md) marca la frontera: una **heurística que parece improbable no es una poda correcta**. Puede usarse para **ordenar** la exploración (probar primero lo prometedor) pero no para **eliminar** sin prueba.
 
 ## Cómo funciona
 
-Según [SE-092 — Backtracking, divide y vencerás](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md), en la sección «Poda segura»:
+Hay dos clases de razonamiento que dan podas seguras:
 
-Una poda descarta ramas que no pueden mejorar o satisfacer. Debe derivarse de una cota o restricción necesaria. Una heurística que parece improbable no es poda correcta: puede usarse para ordenar exploración, no para eliminar sin prueba.
+- **Por restricción (viabilidad):** si el estado parcial ya viola una condición que ninguna extensión puede reparar, no hay solución en esa rama. Ejemplo: al repartir tareas con dependencias, si se elige una cuyas dependencias no están resueltas, esa rama es imposible.
+- **Por cota (optimalidad):** se calcula una **cota** del mejor resultado alcanzable desde un estado; si ni siquiera esa cota mejora la mejor solución conocida, la rama no puede superarla y se descarta. La cota debe ser **optimista y válida**: nunca menor (en maximización) que lo realmente alcanzable, o se podarían ramas buenas.
+
+La heurística, en cambio, es una apuesta («esta rama parece mala»): puede acelerar, pero no ofrece garantía. Usada para ordenar (explorar primero lo mejor) mejora el rendimiento sin riesgo, porque todas las ramas se acaban explorando si hace falta. Usada para eliminar, cambia el resultado.
+
+Para validar, [SE-092](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md) pide **contrastar el conteo de soluciones con la enumeración completa** en un `n` pequeño: si la versión con poda encuentra menos soluciones que la fuerza bruta, la poda eliminó una rama válida.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-092 — Backtracking, divide y vencerás](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md):
+Se buscan combinaciones de casos cuyo costo total no supere un presupuesto. Poda segura: si la suma parcial ya excede el presupuesto y los costos son no negativos, ninguna extensión podrá bajarla.
 
-En la biblioteca de estructuras y algoritmos, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```python
+def combinaciones(costos, presupuesto, i=0, suma=0, actual=None, salida=None):
+    actual = [] if actual is None else actual
+    salida = [] if salida is None else salida
+    if suma > presupuesto:          # poda segura: costos >= 0
+        return salida
+    if i == len(costos):
+        salida.append(list(actual)); return salida
+    actual.append(costos[i]); combinaciones(costos, presupuesto, i+1, suma+costos[i], actual, salida)
+    actual.pop();             combinaciones(costos, presupuesto, i+1, suma, actual, salida)
+    return salida
+```
+
+La poda es segura solo por la hipótesis «costos ≥ 0»: con un costo negativo, una rama que ya excede podría recuperarse y la poda sería incorrecta.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-092 — Backtracking, divide y vencerás](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md)) son:
-
-- **El algoritmo encuentra menos soluciones que la fuerza bruta** — causa: poda que elimina una rama válida. Corrección: contrastar el conteo con enumeración completa en n pequeño.
-- **La búsqueda es lenta aunque el algoritmo es correcto** — causa: orden de decisiones desfavorable. Corrección: probar el orden de variables más restringidas primero y medir nodos.
+- **Podar por intuición.** «Esto parece improbable» no es una prueba.
+- **Cota inválida.** Si subestima lo alcanzable, elimina ramas buenas.
+- **No contrastar con fuerza bruta.** Sin esa comprobación el error pasa inadvertido.
+- **Culpar a la poda de la lentitud.** A veces el problema es el orden de decisiones: se prueban primero las variables más restringidas y se mide el número de nodos.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-092 — Backtracking, divide y vencerás](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md)) son: Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. La exploración exacta puede seguir siendo intratable. La siguiente clase presenta índices, estructuras probabilísticas y persistentes con garantías explícitas, no magia de rendimiento.
+La exploración exacta puede seguir siendo intratable aunque se pode ([SE-092](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md)): una buena poda reduce el árbol, no cambia su naturaleza exponencial en el peor caso. Si solo se necesita una buena solución y no la óptima, una heurística declarada como tal es honesta y suficiente. Y la poda exige conocer propiedades del problema (monotonía, cotas), que no siempre existen.
 
 ## Relación con otros conceptos
 

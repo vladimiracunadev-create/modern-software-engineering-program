@@ -2,40 +2,49 @@
 
 [↑ Glosario](../../README.md) · [← Acelerador](./acelerador.md) · [Acierto en tres de tres →](./acierto-en-tres-de-tres.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 09](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 09](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md)
 
 ## Definición
 
-Una persona nueva sigue quickstart, ejecuta caso, interpreta error, instala plugin y migra.
-
-Definición de trabajo de [SE-120 — Proyecto: SDK y CLI con compatibilidad verificada](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md).
+La **aceptación desde el consumidor** es el criterio de cierre de un producto reutilizable que [SE-120](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md) plantea así: una persona nueva, que no conoce el código, sigue el quickstart, ejecuta un caso, interpreta un error, instala un plugin y migra de una versión a otra. El producto se acepta cuando esa persona lo consigue con la documentación y los artefactos publicados, no cuando quien lo construyó puede demostrarlo en su máquina. En el programa el término aparece en el proyecto SDK y CLI; no es una certificación formal, es un procedimiento de aceptación propio del proyecto.
 
 ## Por qué importa
 
-En [SE-120 — Proyecto: SDK y CLI con compatibilidad verificada](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md), el tema «Aceptación desde el consumidor» importa porque una persona nueva sigue quickstart, ejecuta caso, interpreta error, instala plugin y migra.
+Quien construye una biblioteca arrastra conocimiento que el consumidor no tiene: qué variable de entorno hay que fijar, qué orden de instalación funciona, qué mensaje de error significa qué. Una demostración hecha por el autor oculta justo esas brechas. Aceptar desde el consumidor cambia una decisión concreta: la fecha de «terminado» deja de depender de que las pruebas internas pasen y depende de que un tercero llegue a un resultado correcto con lo que se entrega. También obliga a registrar tiempo y bloqueos, de modo que la facilidad de adopción deja de ser una impresión y pasa a ser un dato.
 
 ## Cómo funciona
 
-Según [SE-120 — Proyecto: SDK y CLI con compatibilidad verificada](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md), en la sección «Aceptación desde el consumidor»:
+El procedimiento tiene cinco recorridos, cada uno con una salida observable:
 
-Una persona nueva sigue quickstart, ejecuta caso, interpreta error, instala plugin y migra. Tiempo y bloqueos se registran. El cierre incluye problemas conocidos y ruta de rollback, no solo una demo feliz.
+1. **Quickstart:** instalar en un entorno limpio y obtener un primer resultado correcto.
+2. **Ejecutar un caso:** usar la interfaz pública con una entrada propia, no la del ejemplo.
+3. **Interpretar un error:** provocar una entrada inválida y comprobar que el mensaje permite actuar.
+4. **Instalar un plugin:** usar el punto de extensión con un complemento compatible y con uno incompatible.
+5. **Migrar:** pasar de la versión anterior a la nueva siguiendo la guía de migración.
+
+Se anotan el tiempo hasta el primer éxito y cada punto donde la persona se detuvo. La causa de que el método funcione es la separación de roles: quien acepta no es quien implementó, así que cada supuesto implícito se vuelve un bloqueo visible. El cierre incluye además los **problemas conocidos** y la **ruta de rollback**; una demostración solo del camino feliz no los contiene.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-120 — Proyecto: SDK y CLI con compatibilidad verificada](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md):
+En el producto reutilizable de [SE-120](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md), un release agrupa contrato público, artefactos inmutables, dependencias, procedencia, ejemplos, errores y ruta de migración. La aceptación consiste en que alguien ajeno parta del paquete instalado (no del repositorio clonado) y recorra los cinco pasos. Si en el paso 3 el mensaje dice solo «error de configuración», el bloqueo se registra y la corrección es mejorar el mensaje, no explicarlo en voz alta. Una forma mínima de dejarlo escrito (ilustración, no un formato del programa):
 
-En el producto reutilizable con SDK y CLI, un release contiene contrato público, artefactos inmutables, dependencias, procedencia, ejemplos, errores y ruta de migración. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```text
+paso: instalar plugin incompatible
+esperado: rechazo con versión requerida y versión encontrada
+observado: traza interna sin mencionar versiones
+bloqueo: sí (12 min)  -> corregir mensaje antes de aceptar
+```
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-120 — Proyecto: SDK y CLI con compatibilidad verificada](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md)) son:
-
-- **Un cambio «interno» rompe a un consumidor sin que ninguna prueba falle** — causa: la promesa no estaba escrita como prueba de contrato. Corrección: escribir la prueba desde el consumidor y añadirla al conjunto.
-- **La comparación de API marca un cambio que no importa** — causa: se compara toda la superficie sin distinguir lo público. Corrección: definir `__all__` o una lista pública y comparar solo eso.
+- **Aceptar con la demo del autor.** El autor conoce los atajos; la prueba pierde su valor. Debe ejecutarla alguien que no escribió el producto.
+- **Confundirla con una prueba de contrato.** La prueba de contrato ([SE-120](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md) la pide desde el consumidor) verifica promesas automáticamente; la aceptación verifica además documentación, mensajes y migración con una persona.
+- **Medir solo el éxito.** Sin tiempo ni bloqueos registrados no hay dato para mejorar.
+- **Omitir problemas conocidos y rollback.** Un cierre sin ellos oculta el riesgo de adoptar la versión.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-120 — Proyecto: SDK y CLI con compatibilidad verificada](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md)) son: Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. El proyecto acredita un release candidato dentro de su matriz, no disponibilidad, seguridad o soporte productivo. La [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md) cambiará el foco desde construir correctamente hacia descubrir qué problema y resultado de producto justifican la siguiente inversión.
+Una persona es una muestra pequeña: encuentra bloqueos, pero no estima cuántos usuarios fallarían. El procedimiento acredita un release candidato dentro de su matriz de versiones y entornos, no disponibilidad, seguridad ni soporte en producción ([SE-120](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md) lo declara). No aplica a código interno de un solo uso, donde el costo de reclutar a alguien supera lo que se aprende, y no sustituye una prueba de usabilidad con varios perfiles cuando el producto tiene muchos consumidores.
 
 ## Relación con otros conceptos
 

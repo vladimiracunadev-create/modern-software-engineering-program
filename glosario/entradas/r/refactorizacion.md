@@ -2,51 +2,61 @@
 
 [↑ Glosario](../../README.md) · [← Refactor](./refactor.md) · [Referencia →](./referencia.md)
 
-> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 05](../../../classes/part-05-fundamentos-de-programacion/README.md)
+> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 05](../../../classes/part-05-fundamentos-de-programacion/README.md)
 
 ## Definición
 
-Cambio de la estructura interna que no altera el comportamiento observable.
-
-Definición de trabajo de [SE-559 — Revisión, refactorización y explicación asistidas](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-559-revision-refactorizacion-y-explicacion-asistidas/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-070 — Legibilidad, nombres y mantenimiento básico](../../../classes/part-05-fundamentos-de-programacion/se-070-legibilidad-nombres-y-mantenimiento-basico/README.md): Cambio de estructura que preserva comportamiento.
-- En [SE-307 — Refactorización segura apoyada por pruebas](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-307-refactorizacion-segura-apoyada-por-pruebas/README.md): Cambio de la estructura interna de un código sin cambiar su comportamiento observable.
+La **refactorización** es un **cambio de la estructura interna del código que no altera su comportamiento observable** ([SE-070](../../../classes/part-05-fundamentos-de-programacion/se-070-legibilidad-nombres-y-mantenimiento-basico/README.md), [SE-307](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-307-refactorizacion-segura-apoyada-por-pruebas/README.md)). Martin Fowler la define así y la apoya en pruebas que comprueban que el comportamiento se conserva ([SE-559](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-559-revision-refactorizacion-y-explicacion-asistidas/README.md)). Dos palabras son decisivas: *estructura interna*, porque lo que cambia es cómo está organizado el código (nombres, funciones, clases), y *observable*, porque lo que debe permanecer es lo que perciben quienes lo usan (resultados, errores, efectos). Un cambio que corrige un defecto o añade una función **no es** una refactorización, aunque se haga en el mismo archivo.
 
 ## Por qué importa
 
-En [SE-559 — Revisión, refactorización y explicación asistidas](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-559-revision-refactorizacion-y-explicacion-asistidas/README.md), el tema «Refactorización y equivalencia» importa porque separa «parece igual» de «se comprobó»
+El código que se entiende mal se cambia con miedo y se rompe con facilidad. Refactorizar es la forma de pagar deuda técnica de manera segura: se mejora la legibilidad y la estructura para que el próximo cambio sea barato. La decisión que cambia es cómo se organiza el trabajo: **un cambio por propósito**. Si una refactorización y un arreglo van en el mismo cambio, no se puede saber, al aparecer un fallo, cuál de los dos lo causó; [SE-559](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-559-revision-refactorizacion-y-explicacion-asistidas/README.md) lo documenta como error frecuente y su corrección es un cambio por propósito, cada uno con su revisión.
 
 ## Cómo funciona
 
-Según [SE-559 — Revisión, refactorización y explicación asistidas](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-559-revision-refactorizacion-y-explicacion-asistidas/README.md):
+La seguridad de una refactorización descansa en tres prácticas:
 
-Fowler define la refactorización como un cambio en la estructura interna de un software que no altera su comportamiento observable, y la apoya en pruebas que lo comprueban. La parte que se pierde con un asistente es la comprobación: el asistente devuelve una versión más corta o más clara, con total seguridad, y el comportamiento puede haber cambiado en un caso (el orden, un valor límite, una nota igual a cero). Tres cosas ayudan. Hacer pasos pequeños, de modo que una diferencia se pueda localizar. Fijar el comportamiento antes con pruebas de caracterización (`SE-519`), sabiendo que fijan lo que el código hace, no lo que debería hacer. Y comparar de forma diferencial la versión original y la refactorizada sobre muchas entradas.
+- **Pasos pequeños.** Cada paso (renombrar, extraer una función, mover un método) es tan pequeño que, si algo se rompe, la causa se localiza en el último.
+- **Pruebas que fijan el comportamiento antes.** Cuando no hay pruebas, se escriben **pruebas de caracterización** ([SE-519](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md)) que registran lo que el código **hace**, no lo que debería hacer; sirven de red de seguridad.
+- **Comparación diferencial.** La versión original y la refactorizada se ejecutan sobre muchas entradas, incluidas las fronteras, y se comparan los resultados.
 
-Según [SE-559 — Revisión, refactorización y explicación asistidas](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-559-revision-refactorizacion-y-explicacion-asistidas/README.md):
-
-Escenario hipotético, construido para la clase y sin datos reales. El equipo del módulo de calificaciones define un procedimiento para los cambios asistidos. El revisor automático se fija con umbral 0,60 tras medir, en doscientos cambios etiquetados del año anterior, 58 % de precisión y 72 % de cobertura; la persona que revisa lee primero las alarmas y después el diff completo, y la aprobación nombra a quien responde. Para una refactorización de la agrupación por curso, el equipo exige una comparación diferencial con 5 000 entradas generadas con fronteras (cursos repetidos, nota 0,0, lista de un elemento, más de cinco notas por curso) y la ejecución de las pruebas de caracterización; el diff debe ser menor de 40 líneas y no incluir cambios de estilo.
+Con asistentes automáticos, [SE-559](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-559-revision-refactorizacion-y-explicacion-asistidas/README.md) advierte de que la parte que se pierde es la **comprobación**: el asistente devuelve una versión más corta o más clara con total seguridad y el comportamiento puede haber cambiado en un caso (el orden, un valor límite, una nota igual a cero). «Parece igual» no es «se comprobó». Por eso la clase propone un procedimiento verificable: comparación diferencial con miles de entradas generadas con fronteras, ejecución de pruebas de caracterización y un *diff* acotado, sin cambios de estilo mezclados.
 
 ## Ejemplo
 
-Ejemplo de [SE-559 — Revisión, refactorización y explicación asistidas](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-559-revision-refactorizacion-y-explicacion-asistidas/README.md) (sección «Ejemplo profesional»):
+Un cálculo con una condición anidada se refactoriza extrayendo una función, sin cambiar su resultado:
 
-Escenario hipotético, construido para la clase y sin datos reales. El equipo del módulo de calificaciones define un procedimiento para los cambios asistidos. El revisor automático se fija con umbral 0,60 tras medir, en doscientos cambios etiquetados del año anterior, 58 % de precisión y 72 % de cobertura; la persona que revisa lee primero las alarmas y después el diff completo, y la aprobación nombra a quien responde.
+```python
+# antes
+def total(items):
+    t = 0
+    for i in items:
+        if i["activo"] and i["precio"] > 0:
+            t += i["precio"] * i["cantidad"]
+    return t
+
+# después (misma conducta, mejor estructura)
+def _vale(item): return item["activo"] and item["precio"] > 0
+def total(items):
+    return sum(i["precio"] * i["cantidad"] for i in items if _vale(i))
+
+# comprobación diferencial
+for caso in generar_casos(5000):
+    assert total_antes(caso) == total_despues(caso)
+```
+
+El generador incluye listas vacías, precios cero y cantidades extremas, que son los lugares donde las refactorizaciones suelen cambiar la conducta.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La refactorización cambia el orden o un valor límite** — causa: solo se comprobó con ejemplos. Corrección: comparación diferencial con generador enriquecido. ([SE-559](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-559-revision-refactorizacion-y-explicacion-asistidas/README.md))
-- **Refactorización y arreglo van en el mismo cambio** — causa: no se separaron los propósitos. Corrección: un cambio por propósito, con su revisión. ([SE-559](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-559-revision-refactorizacion-y-explicacion-asistidas/README.md))
+- **Mezclar refactorización y arreglo.** Se pierde la capacidad de localizar la causa de un fallo.
+- **Comprobar solo con ejemplos.** La refactorización cambia el orden o un valor límite sin que nadie lo note; se usa comparación diferencial con generador enriquecido.
+- **Llamar refactorización a cualquier reescritura.** Si cambia el comportamiento, es otra cosa.
+- **Confiar en la pulcritud de la salida de un asistente.** Hay que comprobar.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Fowler define la refactorización como un cambio en la estructura interna de un software que no altera su comportamiento observable, y la apoya en pruebas que lo comprueban. ([SE-559](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-559-revision-refactorizacion-y-explicacion-asistidas/README.md))
+Las pruebas de caracterización fijan lo que el código hace, incluidos sus errores: pueden consagrar un defecto ([SE-559](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-559-revision-refactorizacion-y-explicacion-asistidas/README.md)). La refactorización sin ninguna red de pruebas es una apuesta, y en código sin pruebas el primer paso es construirlas. Y si el comportamiento observable incluye rendimiento o uso de memoria, «no cambia el comportamiento» exige medirlos también; una estructura distinta puede cambiar el costo sin cambiar el resultado.
 
 ## Relación con otros conceptos
 

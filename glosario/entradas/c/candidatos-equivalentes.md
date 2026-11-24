@@ -2,40 +2,46 @@
 
 [↑ Glosario](../../README.md) · [← Candidato descartado](./candidato-descartado.md) · [Canonicalización →](./canonicalizacion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 07](../../../classes/part-07-estructuras-de-datos-y-algoritmos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 07](../../../classes/part-07-estructuras-de-datos-y-algoritmos/README.md)
 
 ## Definición
 
-Cada candidato implementa la misma interfaz y errores.
-
-Definición de trabajo de [SE-095 — Taller: elegir por carga y no por costumbre](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md).
+Los **candidatos equivalentes** son las alternativas que se comparan en el taller de [SE-095](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md) bajo una condición estricta: **cada una implementa la misma interfaz y los mismos errores**. Si se compara un `set`, una lista ordenada y un diccionario para la misma tarea, los tres deben ofrecer las mismas operaciones con la misma semántica ante entradas inválidas. Es un requisito de método propio del programa: sin equivalencia, la medición no compara estructuras sino programas distintos.
 
 ## Por qué importa
 
-En [SE-095 — Taller: elegir por carga y no por costumbre](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md), el tema «Candidatos equivalentes» importa porque cada candidato implementa la misma interfaz y errores.
+Elegir una estructura de datos «por costumbre» es un hábito caro: [SE-095](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md) propone elegir por carga. Pero una comparación de rendimiento solo vale si los candidatos hacen el mismo trabajo. Un candidato que omite una validación, o que devuelve resultados en otro orden, parece más rápido porque trabaja menos. La decisión que cambia es qué se mide: antes de cronometrar nada, se prueba que todos los candidatos dan resultados idénticos, y solo entonces el tiempo y la memoria son comparables.
 
 ## Cómo funciona
 
-Según [SE-095 — Taller: elegir por carga y no por costumbre](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md), en la sección «Candidatos equivalentes»:
+El método se apoya en tres reglas:
 
-Cada candidato implementa la misma interfaz y errores. Adaptadores no deben hacer trabajo extra solo para uno. Se validan resultados antes de medir para evitar que una simplificación incorrecta parezca más eficiente.
+- **Misma interfaz.** Se define el contrato mínimo (operaciones, tipos, errores) y cada candidato lo cumple. Las diferencias de forma las absorben **adaptadores**.
+- **Sin trabajo extra para uno solo.** Un adaptador que normaliza, copia o ordena solo para un candidato le suma o le resta costo y falsea la comparación. Si algo se normaliza, se normaliza para todos o se declara.
+- **Validación antes de medir.** Un conjunto de entradas verifica que todos devuelvan los mismos resultados; [SE-095](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md) lo plantea para evitar que «una simplificación incorrecta parezca más eficiente».
+
+La causa de fondo es de control de variables: para atribuir una diferencia de tiempo a la estructura, lo demás debe permanecer igual. Esto conecta con el perfil de operaciones y tamaños que se escribe antes de medir: la equivalencia fija *qué* se hace; el perfil, *cuánto* y *con qué mezcla*.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-095 — Taller: elegir por carga y no por costumbre](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md):
+En el taller de [SE-095](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md), la biblioteca de estructuras y algoritmos gestiona casos con identidad, prioridad, dependencias e instante de llegada. Para decidir cómo comprobar pertenencia se comparan tres candidatos detrás de una misma interfaz `contiene(clave)`. Antes de medir, una prueba comparte entradas y verifica que los tres devuelven lo mismo, incluidos el caso de clave ausente y el de clave no válida (mismo error). Un error documentado de la clase es elegir `set` para todo: se ignoró el costo de construirlo y la memoria, y la corrección es calcular el **umbral de reutilización** (cuántas consultas amortizan la construcción) y la memoria.
 
-En la biblioteca de estructuras y algoritmos, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+```python
+def verificar(candidatos, entradas):
+    base = [candidatos[0].contiene(e) for e in entradas]
+    return all([c.contiene(e) for e in entradas] == base for c in candidatos)
+```
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-095 — Taller: elegir por carga y no por costumbre](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md)) son:
-
-- **La recomendación no convence a otro equipo** — causa: no declara la carga ni el tamaño. Corrección: escribir perfil de operaciones y tamaños antes de medir.
-- **Se elige `set` para todo** — causa: se ignoró el costo de construirlo y la memoria. Corrección: calcular el umbral de reutilización y la memoria.
+- **Medir sin validar.** Un candidato que devuelve resultados erróneos puede ganar el cronómetro.
+- **Adaptadores desiguales.** Si solo uno copia o convierte datos, el costo medido no es el de la estructura.
+- **Equivalencia solo en el caso feliz.** Los errores y las entradas límite también deben coincidir.
+- **Recomendar sin declarar la carga.** Una recomendación que no declara tamaños ni mezcla de operaciones no convence a otro equipo.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-095 — Taller: elegir por carga y no por costumbre](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md)) son: Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. El taller cubre cargas sintéticas y una plataforma. El proyecto siguiente empaqueta alternativas, propiedades y benchmarks para revisión reproducible.
+El taller cubre cargas sintéticas y una plataforma ([SE-095](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md)): la equivalencia garantiza una comparación justa en ese terreno, no que el orden se mantenga con otros datos u otra máquina. A veces no existe equivalencia real: dos estructuras pueden ofrecer garantías distintas (orden, estabilidad, memoria) y forzar la misma interfaz oculta una diferencia que justamente decide la elección; entonces se comparan por esa garantía, no por velocidad.
 
 ## Relación con otros conceptos
 

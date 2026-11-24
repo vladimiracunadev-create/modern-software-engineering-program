@@ -2,40 +2,54 @@
 
 [↑ Glosario](../../README.md) · [← Resolución de un oráculo](./resolucion-de-un-oraculo.md) · [Resolución y backtracking →](./resolucion-y-backtracking.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 08](../../../classes/part-08-entornos-herramientas-y-depuracion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** B — Programación y construcción · **Primera aparición:** [Parte 08](../../../classes/part-08-entornos-herramientas-y-depuracion/README.md)
 
 ## Definición
 
-El shell busca ejecutables según path, alias, launcher o shim.
-
-Definición de trabajo de [SE-102 — Gestores de versiones de runtimes](../../../classes/part-08-entornos-herramientas-y-depuracion/se-102-gestores-de-versiones-de-runtimes/README.md).
+La **resolución por PATH** es el mecanismo por el que el *shell* decide qué ejecutable corre cuando se escribe un nombre de comando como `python`. Según [SE-102](../../../classes/part-08-entornos-herramientas-y-depuracion/se-102-gestores-de-versiones-de-runtimes/README.md), el *shell* busca el ejecutable según el **PATH** (la lista ordenada de directorios de búsqueda), pero también según **alias**, **launchers** (lanzadores como `py` en Windows) y **shims** (ejecutables intermedios de los gestores de versiones). El resultado puede cambiar según la terminal y el directorio: el mismo nombre no identifica un único programa.
 
 ## Por qué importa
 
-En [SE-102 — Gestores de versiones de runtimes](../../../classes/part-08-entornos-herramientas-y-depuracion/se-102-gestores-de-versiones-de-runtimes/README.md), el tema «Resolución por PATH» importa porque el shell busca ejecutables según PATH, alias, launcher o shim.
+Un script que invoca `python` a secas depende de qué `python` resuelva el *shell* en ese momento. En otra máquina, otra terminal o tras activar un entorno, es otro intérprete, con otra versión y otros paquetes. [SE-102](../../../classes/part-08-entornos-herramientas-y-depuracion/se-102-gestores-de-versiones-de-runtimes/README.md) documenta el síntoma: el script usa otro Python en otra máquina porque se invoca `python` a secas; la corrección es declarar la versión y verificarla al inicio. La decisión que cambia es cómo se diagnostica y cómo se escribe: se sabe qué ejecutable se está usando realmente, y no se asume.
 
 ## Cómo funciona
 
-Según [SE-102 — Gestores de versiones de runtimes](../../../classes/part-08-entornos-herramientas-y-depuracion/se-102-gestores-de-versiones-de-runtimes/README.md), en la sección «Resolución por PATH»:
+La búsqueda sigue un orden:
 
-El shell busca ejecutables según PATH, alias, launcher o shim. `python` puede cambiar por terminal y directorio. Registrar ruta absoluta observada ayuda a diagnosticar; hardcodearla en el proyecto reduce portabilidad.
+1. **Alias y funciones del *shell*:** tienen prioridad sobre lo que haya en disco.
+2. **Directorios del PATH, de izquierda a derecha:** el primero que contenga un ejecutable con ese nombre gana. Por eso el orden del PATH importa: añadir un directorio al principio hace que sus programas tapen a los de más abajo.
+3. **Shims y lanzadores:** programas pequeños que ocupan un nombre y delegan en otro ejecutable según una regla (un archivo del proyecto, una variable). Los gestores de versiones se basan en ellos.
+
+Todo esto ocurre **en cada terminal por separado**, con el PATH que esa terminal tenga: una terminal abierta antes de modificar el PATH no ve el cambio. Y varía por directorio si el gestor lee un archivo de configuración del proyecto. Para diagnosticar, [SE-102](../../../classes/part-08-entornos-herramientas-y-depuracion/se-102-gestores-de-versiones-de-runtimes/README.md) aconseja **registrar la ruta absoluta observada** (con `which python`, `where python` o, desde el propio programa, `sys.executable`). En cambio, **escribir esa ruta fija dentro del proyecto reduce la portabilidad**: la ruta de un equipo no existe en otro.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-102 — Gestores de versiones de runtimes](../../../classes/part-08-entornos-herramientas-y-depuracion/se-102-gestores-de-versiones-de-runtimes/README.md):
+```bash
+which python         # /home/ana/.pyenv/shims/python   (un shim)
+python -c "import sys; print(sys.executable, sys.version.split()[0])"
+# /home/ana/.pyenv/versions/3.12.4/bin/python 3.12.4
+```
 
-En el entorno reproducible de diagnóstico, una investigación conserva síntoma, entorno, reproducción, hipótesis, observaciones, causa, corrección y regresión. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+En la primera línea se ve que `python` es un *shim*; en la segunda, qué intérprete corre realmente. Un script robusto lo comprueba al inicio:
+
+```python
+import sys
+if sys.version_info < (3, 11):
+    raise SystemExit(f"Se requiere Python >= 3.11; se usa {sys.executable}")
+```
+
+Otra consecuencia que la clase documenta: una medición no se repite en otro equipo por compilación o sistema distintos; se registran versión y sistema con cada medición.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-102 — Gestores de versiones de runtimes](../../../classes/part-08-entornos-herramientas-y-depuracion/se-102-gestores-de-versiones-de-runtimes/README.md)) son:
-
-- **El script usa otro Python en otra máquina** — causa: se invoca `python` a secas. Corrección: declarar la versión y verificarla al inicio.
-- **La medición no se repite en otro equipo** — causa: compilación o sistema distintos. Corrección: registrar versión y sistema con cada medición.
+- **Invocar `python` a secas en scripts compartidos.** Resuelve a lo que haya.
+- **Fijar rutas absolutas en el proyecto.** No son portables.
+- **Olvidar que cada terminal tiene su PATH.** Un cambio no se ve en terminales ya abiertas.
+- **Confundir alias con ejecutable.** Un alias solo existe en el *shell* interactivo, no en un script.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-102 — Gestores de versiones de runtimes](../../../classes/part-08-entornos-herramientas-y-depuracion/se-102-gestores-de-versiones-de-runtimes/README.md)) son: Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Fijar runtime no aísla paquetes instalados. La siguiente clase explica entornos virtuales, resolución y frontera con herramientas globales.
+Fijar el *runtime* no aísla los paquetes instalados ([SE-102](../../../classes/part-08-entornos-herramientas-y-depuracion/se-102-gestores-de-versiones-de-runtimes/README.md)): la resolución dice qué intérprete corre, no qué bibliotecas ve. En contenedores o entornos con PATH controlado, la resolución es estable y el diagnóstico más sencillo. Y la sintaxis y los nombres de las herramientas de diagnóstico (`which`, `where`, `Get-Command`) varían según el sistema y el *shell*.
 
 ## Relación con otros conceptos
 

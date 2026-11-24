@@ -117,14 +117,47 @@ class VerifierTests(unittest.TestCase):
     def test_checksum_file_must_list_every_artifact(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             dist = Path(tmp)
-            (dist / "a.apk").write_bytes(b"a")
-            (dist / "b.apk").write_bytes(b"b")
+            (dist / "x-android-a.apk").write_bytes(b"a")
+            (dist / "x-android-b.apk").write_bytes(b"b")
             sums = dist / "SHA256SUMS-android.txt"
-            sums.write_text(f"{va.sha256_file(dist / 'a.apk')}  a.apk\n", encoding="utf-8")
+            sums.write_text(f"{va.sha256_file(dist / 'x-android-a.apk')}  a.apk\n", encoding="utf-8")
             report = va.Report()
             va.verify_sums(sums, dist, "android", report)
             self.assertTrue(report.failed)
-            self.assertIn("b.apk no está", report.rows[-1]["detail"])
+            self.assertIn("x-android-b.apk no está", report.rows[-1]["detail"])
+
+
+class PlatformNamingTests(unittest.TestCase):
+    def test_artifact_names_map_to_one_platform_and_architecture(self) -> None:
+        names = {
+            "Ingenieria-Software-Moderna-0.1.0-linux-x86_64.tar.gz": ("linux", "x86_64"),
+            "Ingenieria-Software-Moderna-0.1.0-linux-arm64.deb": ("linux", "arm64"),
+            "Ingenieria-Software-Moderna-0.1.0-macos-arm64.dmg": ("macos", "arm64"),
+            "Ingenieria-Software-Moderna-0.1.0-macos-x86_64.zip": ("macos", "x86_64"),
+            "Ingenieria-Software-Moderna-0.1.0-setup-windows-x64.exe": ("windows", None),
+            "Ingenieria-Software-Moderna-0.1.0-android-arm64-v8a.apk": ("android", "arm64"),
+        }
+        for name, (platform_name, arch) in names.items():
+            owners = [k for k, marker in va.SUM_MARKERS.items() if marker in name and name.endswith(va.ARTIFACT_SUFFIXES)]
+            self.assertEqual([platform_name], owners, name)
+            self.assertEqual(arch, va.arch_of(name), name)
+
+    def test_gradle_abi_splits_are_injected_once(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            gradle = Path(tmp) / "android" / "app" / "build.gradle"
+            gradle.parent.mkdir(parents=True)
+            gradle.write_text("android {\n    namespace 'x'\n}\n", encoding="utf-8")
+            original = ba.ANDROID
+            ba.ANDROID = Path(tmp)
+            try:
+                ba.android_configure()
+                ba.android_configure()
+            finally:
+                ba.ANDROID = original
+            text = gradle.read_text(encoding="utf-8")
+            self.assertEqual(1, text.count("splits {"))
+            for abi in ("arm64-v8a", "armeabi-v7a", "x86_64"):
+                self.assertIn(abi, text)
 
 
 class BuildConfigTests(unittest.TestCase):

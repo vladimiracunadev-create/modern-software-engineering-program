@@ -26,9 +26,12 @@ import argparse
 import hashlib
 import importlib.util
 import json
+import platform
 import re
+import shutil
 import subprocess
 import sys
+import tarfile
 import tempfile
 import zipfile
 from pathlib import Path
@@ -39,6 +42,8 @@ MIN_CLASS_BYTES = 5_000  # una clase publicada pesa decenas de kB; una vacía, u
 EXPECTED_CASES = 32
 
 PASS, FAIL, SKIP = "OK", "FALLA", "OMITIDO"
+SUM_MARKERS = {"windows": "-windows-", "android": "-android", "linux": "-linux-", "macos": "-macos-"}
+ARTIFACT_SUFFIXES = (".exe", ".zip", ".msi", ".apk", ".tar.gz", ".deb", ".dmg")
 
 
 def load_main():
@@ -254,8 +259,118 @@ def verify_apk(path: Path, ctx: dict, report: Report) -> None:
         report.add(path.name, "612 clases, 32 casos, glosario y huella de site/", FAIL if problems else PASS, "; ".join(problems))
 
 
+def host_arch() -> str:
+    machine = platform.machine().lower()
+    return {"amd64": "x86_64", "x86_64": "x86_64", "arm64": "arm64", "aarch64": "aarch64"}.get(machine, machine)
+
+
+def find_binary(base: Path) -> Path | None:
+    """Ejecutable de PyInstaller dentro de un árbol extraído (Linux o macOS)."""
+    for candidate in sorted(base.rglob("Ingenieria-Software-Moderna")):
+        if candidate.is_file():
+            candidate.chmod(candidate.stat().st_mode | 0o111)
+            return candidate
+    return None
+
+
+def arch_of(name: str) -> str | None:
+    for arch in ("x86_64", "aarch64", "arm64", "amd64"):
+        if re.search(rf"[-_]{arch}\b", name):
+            return {"amd64": "x86_64"}.get(arch, arch)
+    return None
+
+
+def run_if_native(binary: Path | None, label: str, path: Path, ctx: dict, report: Report, workdir: Path) -> None:
+    """Ejecuta --self-check solo si el binario es de la arquitectura del equipo."""
+    wanted = arch_of(path.name)
+    if binary is None or wanted != host_arch():
+        report.add(path.name, label, SKIP, f"el equipo es {sys.platform}/{host_arch()}, el artefacto es {wanted}")
+        return
+    problems = self_check(binary, ctx["digest"], workdir)
+    report.add(path.name, label, FAIL if problems else PASS, "; ".join(problems))
+
+
+def verify_tar(path: Path, ctx: dict, report: Report) -> None:
+    with tempfile.TemporaryDirectory(prefix="verify-tar-") as tmp:
+        base = Path(tmp)
+        with tarfile.open(path) as archive:
+            archive.extractall(base, filter="data")
+        site = find_site(base)
+        if not site:
+            report.add(path.name, "portal dentro del tar.gz", FAIL, "no hay site/classes/SE-001.html")
+            return
+        problems = check_tree(site, ctx["expect"], ctx["hashes"], exact=True)
+        report.add(path.name, "612 clases, 32 casos, glosario y huella de site/", FAIL if problems else PASS, "; ".join(problems))
+        if sys.platform == "linux":
+            run_if_native(find_binary(base), "ejecutable abierto con --self-check", path, ctx, report, base)
+        else:
+            report.add(path.name, "ejecutable abierto con --self-check", SKIP, "solo en Linux")
+
+
+def verify_deb(path: Path, ctx: dict, report: Report) -> None:
+    if sys.platform != "linux" or not shutil.which("dpkg-deb"):
+        report.add(path.name, "contenido del .deb (dpkg-deb -x)", SKIP, "requiere Linux con dpkg-deb")
+        return
+    with tempfile.TemporaryDirectory(prefix="verify-deb-") as tmp:
+        base = Path(tmp) / "extraido"
+        base.mkdir()
+        subprocess.run(["dpkg-deb", "-x", str(path), str(base)], check=True, timeout=600)
+        arch = subprocess.run(["dpkg-deb", "-f", str(path), "Architecture"], check=True, capture_output=True,
+                              text=True).stdout.strip()
+        problems = [] if arch in path.name else [f"Architecture {arch} no coincide con el nombre"]
+        site = find_site(base)
+        if not site:
+            report.add(path.name, "contenido del .deb (dpkg-deb -x)", FAIL, "no hay site/classes/SE-001.html")
+            return
+        problems += check_tree(site, ctx["expect"], ctx["hashes"], exact=True)
+        report.add(path.name, "612 clases, 32 casos, glosario y huella de site/", FAIL if problems else PASS, "; ".join(problems))
+        run_if_native(find_binary(base), "ejecutable abierto con --self-check", path, ctx, report, Path(tmp))
+
+
+def verify_mac_zip(path: Path, ctx: dict, report: Report) -> None:
+    with tempfile.TemporaryDirectory(prefix="verify-maczip-") as tmp:
+        base = Path(tmp)
+        with zipfile.ZipFile(path) as archive:
+            bad = archive.testzip()
+            if bad:
+                report.add(path.name, "integridad del zip", FAIL, bad)
+                return
+            archive.extractall(base)
+        site = find_site(base)
+        if not site:
+            report.add(path.name, "portal dentro del .app", FAIL, "no hay site/classes/SE-001.html")
+            return
+        problems = check_tree(site, ctx["expect"], ctx["hashes"], exact=False)
+        report.add(path.name, "612 clases, 32 casos, glosario y huella de site/", FAIL if problems else PASS, "; ".join(problems))
+        report.add(path.name, "ejecutable abierto con --self-check", SKIP,
+                   "se abre en el .dmg del mismo runner (zipfile pierde los enlaces del .app)")
+
+
+def verify_dmg(path: Path, ctx: dict, report: Report) -> None:
+    if sys.platform != "darwin":
+        report.add(path.name, "contenido del .dmg (hdiutil attach)", SKIP, "solo en macOS")
+        return
+    with tempfile.TemporaryDirectory(prefix="verify-dmg-") as tmp:
+        mount = Path(tmp) / "montaje"
+        mount.mkdir()
+        subprocess.run(["hdiutil", "attach", str(path), "-nobrowse", "-readonly", "-mountpoint", str(mount)],
+                       check=True, timeout=600, capture_output=True)
+        try:
+            site = find_site(mount)
+            if not site:
+                report.add(path.name, "contenido del .dmg (hdiutil attach)", FAIL, "no hay site/classes/SE-001.html")
+                return
+            problems = check_tree(site, ctx["expect"], ctx["hashes"], exact=False)
+            report.add(path.name, "612 clases, 32 casos, glosario y huella de site/", FAIL if problems else PASS, "; ".join(problems))
+            copy = Path(tmp) / "copia"
+            shutil.copytree(mount, copy, symlinks=True, ignore=shutil.ignore_patterns("Applications"))
+            run_if_native(find_binary(copy), "ejecutable abierto con --self-check", path, ctx, report, Path(tmp))
+        finally:
+            subprocess.run(["hdiutil", "detach", str(mount), "-force"], check=False, capture_output=True)
+
+
 def verify_sums(sums: Path, dist: Path, platform: str, report: Report) -> None:
-    patterns = {"windows": (".exe", ".zip", ".msi"), "android": (".apk",)}[platform]
+    marker = SUM_MARKERS[platform]
     listed: dict[str, str] = {}
     for line in sums.read_text(encoding="utf-8").splitlines():
         match = re.fullmatch(r"([0-9a-f]{64})  (\S.*)", line)
@@ -270,7 +385,7 @@ def verify_sums(sums: Path, dist: Path, platform: str, report: Report) -> None:
             problems.append(f"{name} no existe")
         elif sha256_file(target) != digest:
             problems.append(f"{name}: la suma no coincide")
-    present = {p.name for p in dist.iterdir() if p.suffix in patterns}
+    present = {p.name for p in dist.iterdir() if marker in p.name and p.name.endswith(ARTIFACT_SUFFIXES)}
     problems += [f"{n} no está en {sums.name}" for n in sorted(present - set(listed))]
     report.add(sums.name, "sumas SHA-256 frente a los ficheros", FAIL if problems else PASS, "; ".join(problems))
 
@@ -278,7 +393,7 @@ def verify_sums(sums: Path, dist: Path, platform: str, report: Report) -> None:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Abre y cuenta el contenido de los artefactos de Windows y Android.")
     parser.add_argument("--dir", type=Path, default=ROOT / "dist")
-    parser.add_argument("--require", nargs="*", choices=["windows", "android"], default=[],
+    parser.add_argument("--require", nargs="*", choices=sorted(SUM_MARKERS), default=[],
                         help="plataformas cuyos artefactos deben existir")
     parser.add_argument("--report", type=Path, help="escribe el informe JSON aquí")
     args = parser.parse_args(argv)
@@ -297,10 +412,8 @@ def main(argv: list[str] | None = None) -> int:
           f"{ctx['expect']['glossary']} conceptos, huella {digest[:16]}…")
 
     files = sorted(dist.iterdir()) if dist.is_dir() else []
-    groups = {
-        "windows": [f for f in files if f.suffix in (".exe", ".zip", ".msi")],
-        "android": [f for f in files if f.suffix == ".apk"],
-    }
+    groups = {name: [f for f in files if marker in f.name and f.name.endswith(ARTIFACT_SUFFIXES)]
+              for name, marker in SUM_MARKERS.items()}
     for platform in args.require:
         if not groups[platform]:
             report.add(platform, "artefactos requeridos", FAIL, f"no hay ninguno en {dist}")
@@ -315,7 +428,15 @@ def main(argv: list[str] | None = None) -> int:
             report.add(sums.name, "existe", FAIL, "falta el fichero de sumas")
         for item in items:
             print(f"\n{item.name}  ({item.stat().st_size / 1e6:.1f} MB)")
-            if item.suffix == ".zip":
+            if item.name.endswith(".tar.gz"):
+                verify_tar(item, ctx, report)
+            elif item.suffix == ".deb":
+                verify_deb(item, ctx, report)
+            elif item.suffix == ".dmg":
+                verify_dmg(item, ctx, report)
+            elif item.suffix == ".zip" and "-macos-" in item.name:
+                verify_mac_zip(item, ctx, report)
+            elif item.suffix == ".zip":
                 verify_zip(item, ctx, report)
             elif item.suffix == ".msi":
                 verify_msi(item, ctx, report)

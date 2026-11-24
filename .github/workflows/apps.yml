@@ -67,7 +67,7 @@ jobs:
           if-no-files-found: error
 
   android:
-    name: Android (APK)
+    name: Android (universal APK and one per ABI)
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -108,6 +108,9 @@ jobs:
           npx capacitor-assets generate --android
           npx cap sync android
 
+      - name: Enable Gradle ABI splits (arm64-v8a, armeabi-v7a, x86_64)
+        run: python scripts/build_apps.py android-configure
+
       - name: Build the debug APK
         working-directory: apps/android/android
         run: ./gradlew assembleDebug --no-daemon
@@ -128,4 +131,94 @@ jobs:
             dist/*.apk
             dist/SHA256SUMS-android.txt
             dist/verify-android.json
+          if-no-files-found: error
+
+  linux:
+    name: Linux ${{ matrix.arch }} (tar.gz and deb)
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            arch: x86_64
+          - runner: ubuntu-24.04-arm
+            arch: aarch64
+    steps:
+      - name: Checkout without persisted credentials
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Install build tools
+        run: python -m pip install pyinstaller==6.19.0 pillow==12.2.0
+
+      - name: Build tar.gz and deb
+        run: python scripts/build_apps.py linux
+
+      - name: Checksums
+        run: python scripts/build_apps.py sums linux
+
+      - name: Open every artifact and count its content
+        run: python scripts/verify_apps.py --dir dist --require linux --report dist/verify-linux-${{ matrix.arch }}.json
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: linux-${{ matrix.arch }}
+          path: |
+            dist/*.tar.gz
+            dist/*.deb
+            dist/verify-linux-*.json
+          if-no-files-found: error
+
+  macos:
+    name: macOS ${{ matrix.arch }} (app in zip and dmg)
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-latest
+            arch: arm64
+          - runner: macos-15-intel
+            arch: x86_64
+    steps:
+      - name: Checkout without persisted credentials
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Install build tools
+        run: python -m pip install pyinstaller==6.19.0 pillow==12.2.0
+
+      - name: Build the app, zip and dmg
+        run: python scripts/build_apps.py macos
+
+      - name: Checksums
+        run: python scripts/build_apps.py sums macos
+
+      - name: Open every artifact and count its content
+        run: python scripts/verify_apps.py --dir dist --require macos --report dist/verify-macos-${{ matrix.arch }}.json
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: macos-${{ matrix.arch }}
+          path: |
+            dist/*.zip
+            dist/*.dmg
+            dist/verify-macos-*.json
           if-no-files-found: error

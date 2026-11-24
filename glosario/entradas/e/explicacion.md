@@ -2,44 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← Experto en información](./experto-en-informacion.md) · [Explicación fiel →](./explicacion-fiel.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 17](../../../classes/part-17-documentacion-y-conocimiento-tecnico/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 17](../../../classes/part-17-documentacion-y-conocimiento-tecnico/README.md)
 
 ## Definición
 
-Página que aporta contexto, causas y alternativas para comprender, sin pasos ni listados.
-
-Definición de trabajo de [SE-206 — Tutoriales, how-to, referencia y explicación](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md).
+En documentación técnica, una **explicación** es una página que aporta contexto, causas y alternativas para comprender, sin pasos ni listados. Es el sentido de [SE-206](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md) (tutoriales, how-to, referencia y explicación), donde es uno de los cuatro tipos de página, junto al tutorial, la guía práctica y la referencia. No se usa aquí como «explicar algo en general», sino como tipo de documento con función propia.
 
 ## Por qué importa
 
-En [SE-206 — Tutoriales, how-to, referencia y explicación](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md), el tema «Explicación» importa porque aporta contexto, alternativas y porqués; es la única donde caben las tensiones.
+Cambia dónde se escriben los porqués. Según [SE-206](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md), es la única página donde caben las tensiones entre dos buenas razones. Es también el tipo que más se omite, porque no tiene una tarea inmediata, y por eso la gente reinventa decisiones ya tomadas.
 
 ## Cómo funciona
 
-Según [SE-206 — Tutoriales, how-to, referencia y explicación](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md), en la sección «Explicación»:
+La explicación responde a «¿por qué?» y «¿qué alternativas había?». Es el lugar del contexto histórico, de las tensiones y de las decisiones que podrían cambiar. No se lee con prisa y no se ejecuta; se mide en lo que permite entender. Cada tipo de página tiene su función, y mezclarlas las degrada:
 
-La explicación responde a «¿por qué?» y «¿qué alternativas había?». Es la única donde caben el contexto histórico, las tensiones entre dos buenas razones y las decisiones que podrían cambiar. No se lee con prisa y no se ejecuta; se mide en lo que permite entender. Es también el tipo que más se omite, porque no tiene una tarea inmediata, y por eso la gente reinventa decisiones ya tomadas. En la plataforma, la explicación dice por qué la penalización es diaria y con tope, qué se probó antes y qué se rechazó, y enlaza al registro de decisiones.
+- El **tutorial** lleva a una persona de la mano para aprender; no explica por qué las cosas son así, a lo sumo dice «ahora verás» y enlaza.
+- La **guía práctica** resuelve una tarea concreta.
+- La **referencia** describe sin opinar.
+- La **explicación** da el porqué.
+
+La regla de mantenimiento es separar y enlazar: cada página lleva una línea hacia las otras. Los síntomas de mezcla tienen corrección concreta: una sección de «notas avanzadas» a mitad de un tutorial se mueve a una explicación; una guía que empieza con la historia de la política mueve esa historia a la explicación; una referencia que dice «se recomienda» traslada la recomendación a una guía o explicación.
 
 ## Ejemplo
 
-Ejemplo de [SE-206 — Tutoriales, how-to, referencia y explicación](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md) (sección «Ejemplo profesional»):
-
-La plataforma separa la penalización en cuatro páginas con nombres propios: un tutorial («Tu primera entrega con retraso»), una guía («Cambiar el tope de penalización de un curso»), una referencia («Parámetros de penalización») y una explicación («Por qué la penalización es diaria y con tope»). Cada una enlaza a las otras tres en una línea al comienzo o al final. El tutorial y la guía se ejecutan en la integración continua; la referencia se genera de la configuración; la explicación se revisa cuando cambia la política. Una persona nueva empieza por el tutorial, una docente va directo a la guía y una auditora lee la explicación.
+La plataforma separa la penalización en cuatro páginas con nombres propios: un tutorial («Tu primera entrega con retraso»), una guía («Cambiar el tope de penalización de un curso»), una referencia («Parámetros de penalización») y una explicación («Por qué la penalización es diaria y con tope»). Cada una enlaza a las otras tres en una línea. El tutorial y la guía se ejecutan en la integración continua; la referencia se genera de la configuración.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El tutorial tiene una sección «Notas avanzadas» a mitad de los pasos** — causa: se mezcló explicación con guía de aprendizaje. Corrección: mover las notas a una explicación y dejar un enlace de una línea. ([SE-206](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md))
-- **La guía práctica empieza con la historia de la política** — causa: se mezcló contexto con procedimiento. Corrección: mover la historia a la explicación y enlazarla desde el primer párrafo. ([SE-206](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md))
-- **La referencia dice «se recomienda» en varios parámetros** — causa: se mezcló opinión con descripción. Corrección: trasladar las recomendaciones a una guía o una explicación. ([SE-206](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md))
+- **Notas avanzadas dentro del tutorial.** Mezcla de explicación y aprendizaje; mover a una explicación y dejar un enlace.
+- **La guía empieza con la historia de la política.** Mezcla contexto con procedimiento.
+- **La referencia que recomienda.** Mezcla opinión con descripción.
+- **No escribir ninguna.** Las decisiones se reinventan.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- No explica por qué las cosas son así; a lo sumo dice «ahora verás» y da una frase de contexto que lo enlaza a la explicación. ([SE-206](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md))
-- Hay componentes que solo necesitan referencia (una opción de configuración) y otros que piden explicación (una decisión de diseño). ([SE-206](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md))
+No todo componente necesita explicación: una opción de configuración solo necesita referencia, mientras que una decisión de diseño pide explicación ([SE-206](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md)). Una explicación sin fecha ni dueño envejece y se vuelve fuente de errores; conviene revisarla cuando cambia la decisión que describe. Tampoco sustituye a un registro de decisiones fechado donde haga falta trazabilidad formal.
 
 ## Relación con otros conceptos
 

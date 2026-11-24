@@ -2,46 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Entorno](./entorno.md) · [Entorno de vista previa →](./entorno-de-vista-previa.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 17](../../../classes/part-17-documentacion-y-conocimiento-tecnico/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 17](../../../classes/part-17-documentacion-y-conocimiento-tecnico/README.md)
 
 ## Definición
 
-Contexto de ejecución que limita lo que un proceso puede leer, escribir o contactar, con independencia de las reglas del agente.
-
-Definición de trabajo de [SE-570 — Skills, plugins, hooks y entornos aislados](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-207 — README, instalación y primer éxito](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-207-readme-instalacion-y-primer-exito/README.md): Copia independiente del intérprete y sus paquetes que evita mezclar dependencias con las del sistema.
+Un **entorno aislado** es un contexto de ejecución que limita lo que un proceso puede leer, escribir o contactar, con independencia de las reglas que se le den al agente o al programa. Es el sentido principal de [SE-570](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md) (habilidades, extensiones, ganchos y entornos aislados para agentes). [SE-207](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-207-readme-instalacion-y-primer-exito/README.md) usa la misma palabra en un sentido más modesto: una copia independiente del intérprete y sus paquetes (un entorno virtual) que evita mezclar dependencias con las del sistema.
 
 ## Por qué importa
 
-En [SE-570 — Skills, plugins, hooks y entornos aislados](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md), el tema «Entornos aislados» importa porque limitan las consecuencias aunque las reglas fallen.
+Cambia dónde se pone la barrera. Las reglas y los ganchos dependen de que se hayan previsto bien; el aislamiento limita las consecuencias aunque fallen. Según [SE-570](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md), protege de los dos tipos de error que reglas y ganchos no cubren: el que no se previó y el que se previó mal.
 
 ## Cómo funciona
 
-Según [SE-570 — Skills, plugins, hooks y entornos aislados](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md):
+El entorno acota qué directorios puede leer o escribir el proceso, a qué dominios puede conectarse y si tiene acceso a las credenciales de la persona. Puede ser el aislamiento del sistema operativo que ofrece la herramienta del agente, un contenedor, una máquina virtual o un espacio de trabajo desechable. Funciona por **capas independientes**: una regla de denegación sobre el comando, un gancho de política y el aislamiento actúan como barreras sucesivas, de modo que el fallo de una no deja todo abierto.
 
-Un entorno aislado limita lo que un proceso puede alcanzar con independencia de lo que se le pida: qué directorios puede leer o escribir, a qué dominios puede conectarse, si tiene acceso a las credenciales del usuario. Puede ser el aislamiento de sistema operativo de la herramienta del agente, un contenedor, una máquina virtual o un espacio de trabajo desechable. Protege de los dos tipos de error que las reglas y los ganchos no cubren: el que no se previó y el que se previó mal. Tiene un límite que conviene escribir: lo que el entorno permite sigue siendo posible, y los datos que se montan dentro están a disposición del agente.
+La capa de política (el gancho) debe fallar cerrado: [SE-570](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md) muestra el defecto de un control que «no hace nada» sin error porque falla abierto; la corrección es que el gancho termine con éxito solo cuando comprobó y permite, y que cualquier otro resultado se interprete como bloqueo. El aislamiento de [SE-207](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-207-readme-instalacion-y-primer-exito/README.md) es otro mecanismo con otro alcance: separa paquetes, no limita permisos de seguridad.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-570 — Skills, plugins, hooks y entornos aislados](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md):
-
-Escenario hipotético, construido para la clase y sin datos reales. El equipo de *Avisos* revisa sus controles. Escribe el gancho de política con tres decisiones explícitas: termina con 0 solo cuando ha comprobado y permite, con 2 cuando bloquea, y cualquier otro resultado se interpreta en la capa que lo invoca como bloqueo, para lo cual añade una regla de denegación de las órdenes que el gancho vigila como segunda barrera.
+En el escenario hipotético de [SE-570](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md), el equipo de *Avisos* revisa sus controles. El gancho de política tiene tres decisiones explícitas (éxito solo si comprobó y permite; código de bloqueo si bloquea; cualquier otro resultado se interpreta como bloqueo) y se añade una regla de denegación de las órdenes que el gancho vigila, como segunda barrera. El entorno aislado es la tercera.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-570 — Skills, plugins, hooks y entornos aislados](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md)) son:
-
-- **El control «no hace nada» y no hay error** — causa: falla abierto: el error del gancho no bloquea. Corrección: usar el código de bloqueo para la política y probar la caída.
-- **El agente carga mucho contexto al arrancar** — causa: todas las habilidades completas en memoria. Corrección: cargar descripciones y cuerpos bajo demanda.
+- **El control no hace nada y no hay error.** Falla abierto: usar el código de bloqueo para la política y probar la caída.
+- **Confundir entorno virtual con aislamiento de seguridad.** Separa dependencias, no limita lo que el proceso puede alcanzar.
+- **Dar acceso a las credenciales por comodidad.** Anula el valor del aislamiento.
+- **Cargar todas las habilidades en memoria al arrancar.** Es un problema de contexto, no de aislamiento; cargarlas bajo demanda.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un entorno aislado limita lo que un proceso puede alcanzar con independencia de lo que se le pida: qué directorios puede leer o escribir, a qué dominios puede conectarse, si tiene acceso a las credenciales del usuario. ([SE-570](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md))
+El aislamiento tiene un coste de fricción: lo que un proceso necesita y el entorno bloquea hay que permitirlo con criterio. No impide un uso indebido de lo que sí se le dejó alcanzar, y un contenedor mal configurado puede dar una falsa seguridad. El escenario de [SE-570](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md) es hipotético, sin datos reales.
 
 ## Relación con otros conceptos
 

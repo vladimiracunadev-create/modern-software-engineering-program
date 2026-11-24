@@ -2,50 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← FPR](./fpr.md) · [Fragmentación aleatoria →](./fragmentacion-aleatoria.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 17](../../../classes/part-17-documentacion-y-conocimiento-tecnico/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 17](../../../classes/part-17-documentacion-y-conocimiento-tecnico/README.md)
 
 ## Definición
 
-División de documentos en unidades indexables, con un tamaño y una solapación.
-
-Definición de trabajo de [SE-555 — Contexto, archivos, memoria y recuperación](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-555-contexto-archivos-memoria-y-recuperacion/README.md).
+En sistemas de recuperación para modelos, la **fragmentación** (*chunking*) es la división de documentos en unidades indexables, con un tamaño y una solapación. Es el sentido común a [SE-555](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-555-contexto-archivos-memoria-y-recuperacion/README.md) (contexto, archivos, memoria y recuperación), [SE-214](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-214-documentacion-para-humanos-maquinas-y-llm/README.md) (documentación para humanos, máquinas y LLM) y [SE-594](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-594-embeddings-recuperacion-y-agentic-rag/README.md) (embeddings, recuperación y agentic RAG). Aquí no se trata de la fragmentación de memoria ni de disco.
 
 ## Por qué importa
 
-En [SE-555 — Contexto, archivos, memoria y recuperación](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-555-contexto-archivos-memoria-y-recuperacion/README.md), el tema «Fragmentación» importa porque el tamaño condiciona qué se encuentra y cuánto cuesta
-
-En [SE-214 — Documentación para humanos, máquinas y LLM](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-214-documentacion-para-humanos-maquinas-y-llm/README.md), el tema «Fragmentación» importa porque separar una regla de su excepción produce respuestas falsas con apariencia de fuente.
-
-En [SE-594 — Embeddings, recuperación y agentic RAG](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-594-embeddings-recuperacion-y-agentic-rag/README.md), el tema «Fragmentación» importa porque decide qué unidad se recupera y con qué contexto.
+Cambia qué encuentra el sistema y cuánto cuesta. El tamaño del fragmento condiciona qué se recupera. Según [SE-214](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-214-documentacion-para-humanos-maquinas-y-llm/README.md), separar una regla de su excepción produce respuestas falsas con apariencia de fuente: el sistema cita un fragmento real que, sin su excepción, lleva a una conclusión equivocada. Y según [SE-594](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-594-embeddings-recuperacion-y-agentic-rag/README.md), decide qué unidad se recupera y con qué contexto.
 
 ## Cómo funciona
 
-Según [SE-555 — Contexto, archivos, memoria y recuperación](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-555-contexto-archivos-memoria-y-recuperacion/README.md):
+El documento se parte en fragmentos que se indexan (por palabras clave como BM25 o por vectores) y se recuperan por consulta. Dos parámetros dominan: el **tamaño** y la **solapación** entre fragmentos consecutivos. [SE-594](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-594-embeddings-recuperacion-y-agentic-rag/README.md) describe el compromiso: un fragmento demasiado corto pierde el contexto que lo hace entendible («el plazo es de 72 horas», ¿de qué?); uno demasiado largo diluye la señal y llena el contexto del modelo.
 
-Escenario hipotético, construido para la clase y sin datos reales. El equipo diseña el contexto para tres tareas. Para «explicar la regla de redondeo» no recupera nada: aporta la función entera y la sección de decisiones fechada, y exige que la respuesta cite líneas. Para «¿qué decidimos sobre las notas ausentes?» recupera por BM25 con fragmentos de 200 palabras y filtro de versión vigente; la respuesta debe incluir la fecha de la decisión. Para «convenciones de estilo» usa un archivo versionado con dueño, no la memoria de la herramienta. Fija una caducidad de 30 días para las notas guardadas por el asistente y una revisión mensual del archivo de convenciones.
-
-Según [SE-214 — Documentación para humanos, máquinas y LLM](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-214-documentacion-para-humanos-maquinas-y-llm/README.md):
-
-Si la cita es el fragmento exacto y se puede abrir la fuente, se puede verificar. Si el fragmento está truncado en una excepción, la respuesta puede estar equivocada con una cita real; por eso la fragmentación importa.
+Dos prácticas reducen el daño. Primera, fragmentar **por estructura** (secciones, funciones) y con solapamiento, no por número fijo de caracteres, para no empezar a mitad de frase ([SE-555](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-555-contexto-archivos-memoria-y-recuperacion/README.md)). Segunda, conservar la cita al fragmento exacto con enlace a la fuente, de modo que se pueda verificar. Pero la cita no basta si el fragmento está truncado en una excepción: la respuesta puede ser errónea con una cita real. Por eso [SE-594](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-594-embeddings-recuperacion-y-agentic-rag/README.md) añade que una base vectorial aporta escalabilidad, filtros y actualización, no calidad por sí misma: la calidad la determinan el modelo de embeddings y la fragmentación.
 
 ## Ejemplo
 
-Ejemplo de [SE-555 — Contexto, archivos, memoria y recuperación](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-555-contexto-archivos-memoria-y-recuperacion/README.md) (sección «Ejemplo profesional»):
-
-Escenario hipotético, construido para la clase y sin datos reales. El equipo diseña el contexto para tres tareas. Para «explicar la regla de redondeo» no recupera nada: aporta la función entera y la sección de decisiones fechada, y exige que la respuesta cite líneas. Para «¿qué decidimos sobre las notas ausentes?» recupera por BM25 con fragmentos de 200 palabras y filtro de versión vigente; la respuesta debe incluir la fecha de la decisión. Para «convenciones de estilo» usa un archivo versionado con dueño, no la memoria de la herramienta. Fija una caducidad de 30 días para las notas guardadas por el asistente y una revisión mensual del archivo de convenciones.
+En el escenario hipotético de [SE-555](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-555-contexto-archivos-memoria-y-recuperacion/README.md), el equipo diseña el contexto para tres tareas. Para «explicar la regla de redondeo» no recupera nada: aporta la función entera y la sección de decisiones fechada y exige citar líneas. Para «¿qué decidimos sobre las notas ausentes?» recupera por BM25 con fragmentos de 200 palabras y filtro de versión vigente; la respuesta debe incluir la fecha de la decisión.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El fragmento recuperado empieza a mitad de frase** — causa: fragmentación por número fijo de caracteres. Corrección: fragmentar por estructura y con solapamiento. ([SE-555](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-555-contexto-archivos-memoria-y-recuperacion/README.md))
+- **El fragmento empieza a mitad de frase.** Fragmentación por número fijo de caracteres; fragmentar por estructura y con solapamiento.
+- **Separar la regla de su excepción.** Produce respuestas falsas con apariencia de fuente.
+- **Atribuir la calidad a la base vectorial.** Depende de los embeddings y de la fragmentación.
+- **Usar el mismo tamaño para todo documento.** Un código y un acta no se parten igual.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La fragmentación decide mucho: un fragmento demasiado corto pierde el contexto que lo hace entendible («el plazo es de 72 horas» ¿de qué?); uno demasiado largo diluye la señal y llena el contexto. ([SE-594](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-594-embeddings-recuperacion-y-agentic-rag/README.md))
-- Una base vectorial aporta escalabilidad, filtros y actualización, no calidad por sí misma: la calidad la determina el modelo de embeddings y la fragmentación. ([SE-594](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-594-embeddings-recuperacion-y-agentic-rag/README.md))
+Si la fuente cabe entera en el contexto y la tarea la necesita, fragmentar es innecesario y arriesga perder relaciones. Ningún tamaño es universalmente correcto: se ajusta evaluando con consultas reales. Los escenarios de [SE-555](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-555-contexto-archivos-memoria-y-recuperacion/README.md) son hipotéticos, sin datos reales.
 
 ## Relación con otros conceptos
 

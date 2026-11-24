@@ -2,52 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Escáner previo al envío](./escaner-previo-al-envio.md) · [Escape hatch y ownership →](./escape-hatch-y-ownership.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 15](../../../classes/part-15-procesos-planificacion-y-estimacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 15](../../../classes/part-15-procesos-planificacion-y-estimacion/README.md)
 
 ## Definición
 
-Defecto que supera las puertas del proceso y se descubre después de dar el trabajo por terminado.
-
-Definición de trabajo de [SE-188 — Definition of Ready, Done y aceptación](../../../classes/part-15-procesos-planificacion-y-estimacion/se-188-definition-of-ready-done-y-aceptacion/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-432 — Proyecto: estrategia ejecutable por riesgo](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/README.md): Defecto que llega a producción sin ser detectado.
-- En [SE-189 — Métricas de flujo, calidad y resultados](../../../classes/part-15-procesos-planificacion-y-estimacion/se-189-metricas-de-flujo-calidad-y-resultados/README.md): Defecto descubierto después de dar un incremento por terminado.
+Un **escape** es un defecto que supera las puertas del proceso y se descubre después de dar el trabajo por terminado. Es el sentido de [SE-189](../../../classes/part-15-procesos-planificacion-y-estimacion/se-189-metricas-de-flujo-calidad-y-resultados/README.md) (defecto descubierto tras dar un incremento por terminado) y de [SE-188](../../../classes/part-15-procesos-planificacion-y-estimacion/se-188-definition-of-ready-done-y-aceptacion/README.md). En [SE-432](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/README.md) el matiz es el más grave: un defecto que llega a producción sin ser detectado. No es lo mismo que un defecto encontrado durante el desarrollo: lo que define al escape es que el proceso lo dejó pasar.
 
 ## Por qué importa
 
-En [SE-188 — Definition of Ready, Done y aceptación](../../../classes/part-15-procesos-planificacion-y-estimacion/se-188-definition-of-ready-done-y-aceptacion/README.md), el tema «Correlación entre comprobaciones» importa porque añadir una comprobación que ve lo mismo que otra casi no reduce los escapes.
+Cambia qué se mide para saber si el proceso de calidad funciona. Cuántos defectos se encuentran no dice nada sobre cuántos se escapan; los escapes sí miden lo que las comprobaciones no vieron. Por eso la definición de terminado se revisa con los escapes del periodo ([SE-188](../../../classes/part-15-procesos-planificacion-y-estimacion/se-188-definition-of-ready-done-y-aceptacion/README.md)), y las estrategias de prueba por riesgo se evalúan por la pérdida que causan, no solo por su número ([SE-432](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/README.md)).
 
 ## Cómo funciona
 
-Según [SE-188 — Definition of Ready, Done y aceptación](../../../classes/part-15-procesos-planificacion-y-estimacion/se-188-definition-of-ready-done-y-aceptacion/README.md):
+Si cada comprobación detectara defectos al azar y de forma independiente, añadir otra reduciría los escapes de forma multiplicativa. [SE-188](../../../classes/part-15-procesos-planificacion-y-estimacion/se-188-definition-of-ready-done-y-aceptacion/README.md) muestra que no es así: las comprobaciones miran cosas parecidas, los defectos «fáciles» los ve cualquiera y los «difíciles» se escapan a todas. Esa **correlación** hace que la segunda y la tercera comprobación aporten mucho menos de lo esperado y, a partir de cierto punto, nada. En el ejemplo de la clase, cuando las comprobaciones ven exactamente lo mismo (correlación 1,0) los escapes se quedan en 4 500 aunque haya cuatro. Añadir comprobaciones que miran lo mismo no protege.
 
-Si cada comprobación detectara defectos al azar con su propia probabilidad, añadir otra siempre reduciría los escapes de forma multiplicativa. Pero las comprobaciones miran cosas parecidas: los defectos «fáciles» los ve cualquiera y los «difíciles» se escapan a todas. Esa correlación hace que la segunda y la tercera comprobación aporten mucho menos de lo esperado, y que a partir de cierto punto no aporten nada. Jones observó que ninguna técnica los elimina todos y que las combinaciones de técnicas distintas rinden más que repetir la misma. La consecuencia de diseño es elegir comprobaciones que vean defectos distintos, no más comprobaciones.
-
-Según [SE-188 — Definition of Ready, Done y aceptación](../../../classes/part-15-procesos-planificacion-y-estimacion/se-188-definition-of-ready-done-y-aceptacion/README.md):
-
-El equipo de la plataforma de entregas reduce su definición de terminado de catorce casillas a tres niveles. Para cambios de texto: revisión y prueba de aceptación automática. Para cambios de interfaz: además, comprobación de accesibilidad con una herramienta y una lectora de pantalla. Para cambios en la regla de penalización o en notas: además, comparación contra la función de referencia de `SE-157` y una segunda persona que lee el sentido. Cada casilla tiene una razón registrada (qué escape evitó la última vez) y una fecha de revisión. La definición de listo se reduce a tres preguntas (qué problema resuelve, qué ejemplo lo ilustra, qué dependencia tiene) y se aplica en menos de un día.
+La consecuencia práctica es medir qué ve cada comprobación, retirar las redundantes y añadir las que ven algo distinto. [SE-432](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/README.md) añade una precisión sobre cómo evaluar: contar escapes ignora su impacto; hay que medir pérdida y percentil 95. Y [SE-189](../../../classes/part-15-procesos-planificacion-y-estimacion/se-189-metricas-de-flujo-calidad-y-resultados/README.md) advierte contra premiar una métrica que se infla, como la velocidad, mientras el plazo no cambia: se sigue el rendimiento y los escapes.
 
 ## Ejemplo
 
-Ejemplo de [SE-188 — Definition of Ready, Done y aceptación](../../../classes/part-15-procesos-planificacion-y-estimacion/se-188-definition-of-ready-done-y-aceptacion/README.md) (sección «Ejemplo mínimo»):
-
-El fragmento calcula los escapes esperados de dos comprobaciones independientes y de dos que ven lo mismo. Antes de ejecutarlo, predice cuál deja pasar menos defectos.
+El equipo de la plataforma de entregas reduce su definición de terminado de catorce casillas a tres niveles, cada casilla con la razón registrada, es decir, qué escape evitó. El fragmento de [SE-188](../../../classes/part-15-procesos-planificacion-y-estimacion/se-188-definition-of-ready-done-y-aceptacion/README.md) calcula los escapes esperados de dos comprobaciones independientes y de dos que ven lo mismo, y pide predecir cuál deja pasar menos defectos antes de ejecutarlo.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La definición de terminado tiene catorce casillas y los escapes no bajan** — causa: comprobaciones correlacionadas. Corrección: medir qué ve cada una y retirar las que ven lo mismo. ([SE-188](../../../classes/part-15-procesos-planificacion-y-estimacion/se-188-definition-of-ready-done-y-aceptacion/README.md))
-- **Se evalúa la estrategia por escapes** — causa: se ignora el impacto de cada escape. Corrección: medir pérdida y percentil 95. ([SE-432](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/README.md))
-- **La velocidad sube y el plazo no cambia** — causa: métrica premiada que se infla. Corrección: retirarla de la vista externa y seguir rendimiento y escapes. ([SE-189](../../../classes/part-15-procesos-planificacion-y-estimacion/se-189-metricas-de-flujo-calidad-y-resultados/README.md))
+- **Más casillas y los escapes no bajan.** Comprobaciones correlacionadas; medir qué ve cada una.
+- **Evaluar la estrategia solo por número de escapes.** Ignora el impacto; medir pérdida y percentil 95 ([SE-432](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/README.md)).
+- **Premiar una métrica que se infla.** La velocidad sube y el plazo no cambia ([SE-189](../../../classes/part-15-procesos-planificacion-y-estimacion/se-189-metricas-de-flujo-calidad-y-resultados/README.md)).
+- **Confundir escape con defecto encontrado tarde en desarrollo.** El escape cruza la puerta de «terminado».
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Si ven lo mismo (coral, correlación 1,0), el escape se queda en 4 500 aunque haya cuatro: añadir comprobaciones que miran lo mismo no protege. ([SE-188](../../../classes/part-15-procesos-planificacion-y-estimacion/se-188-definition-of-ready-done-y-aceptacion/README.md))
+El escape solo se cuenta cuando se descubre: los que aún no se han visto no aparecen, de modo que la cifra es un mínimo. Las cifras de [SE-188](../../../classes/part-15-procesos-planificacion-y-estimacion/se-188-definition-of-ready-done-y-aceptacion/README.md) son de un modelo con parámetros elegidos por la clase. Y reducir escapes tiene un costo; el nivel de comprobación debe ajustarse al riesgo del tipo de cambio.
 
 ## Relación con otros conceptos
 

@@ -2,41 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Definición de paso](./definicion-de-paso.md) · [Degradación →](./degradacion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 15](../../../classes/part-15-procesos-planificacion-y-estimacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 15](../../../classes/part-15-procesos-planificacion-y-estimacion/README.md)
 
 ## Definición
 
-Conjunto de comprobaciones que un incremento debe pasar para considerarse utilizable y liberable.
-
-Definición de trabajo de [SE-188 — Definition of Ready, Done y aceptación](../../../classes/part-15-procesos-planificacion-y-estimacion/se-188-definition-of-ready-done-y-aceptacion/README.md).
+La **definición de terminado** (*Definition of Done*) es el conjunto de comprobaciones que un incremento debe pasar para considerarse utilizable y liberable: pruebas, revisión, análisis, documentación mínima y criterios de aceptación. Es el sentido de [SE-188](../../../classes/part-15-procesos-planificacion-y-estimacion/se-188-definition-of-ready-done-y-aceptacion/README.md). Es una promesa compartida de calidad y, según la clase, la guía de Scrum la hace obligatoria.
 
 ## Por qué importa
 
-En [SE-188 — Definition of Ready, Done y aceptación](../../../classes/part-15-procesos-planificacion-y-estimacion/se-188-definition-of-ready-done-y-aceptacion/README.md), el tema «Definición de terminado» importa porque compromete qué comprobaciones pasan antes de llamar terminado a un incremento.
+Cambia qué quiere decir «hecho» en una conversación. Sin una definición compartida, cada persona termina en un punto distinto y la deuda aparece al final. [SE-188](../../../classes/part-15-procesos-planificacion-y-estimacion/se-188-definition-of-ready-done-y-aceptacion/README.md) fija el corolario: un incremento que no la cumple no está parcialmente terminado, no lo está. Sirve también para no confundir terminado con aceptado: lo primero es calidad técnica; lo segundo, el reconocimiento de que resuelve el problema.
 
 ## Cómo funciona
 
-Según [SE-188 — Definition of Ready, Done y aceptación](../../../classes/part-15-procesos-planificacion-y-estimacion/se-188-definition-of-ready-done-y-aceptacion/README.md), en la sección «Definición de terminado»:
+La definición es una lista de comprobaciones aplicable a todo incremento. Para que funcione tiene que mantenerse viva: se revisa con los defectos que se escaparon y se calibra por tipo de trabajo, porque un cambio de texto y un cambio de la regla de penalización no necesitan las mismas barreras.
 
-La definición de terminado es el conjunto de comprobaciones que un incremento debe pasar para considerarse utilizable y liberable: pruebas, revisión, análisis, documentación mínima, criterios de aceptación. Es una promesa compartida de calidad, y la guía de Scrum la hace obligatoria. Un incremento que no la cumple no es parcialmente terminado: no lo es. Una definición se mantiene viva: se revisa con los defectos que se escaparon y se calibra por tipo de trabajo, porque un cambio de texto y un cambio de la regla de penalización no necesitan las mismas puertas.
+El defecto típico es la lista que crece: catorce casillas con comprobaciones correlacionadas, que ven lo mismo y no reducen los escapes. La corrección de [SE-188](../../../classes/part-15-procesos-planificacion-y-estimacion/se-188-definition-of-ready-done-y-aceptacion/README.md) es medir qué ve cada casilla y retirar las que ven lo mismo; cada casilla debe tener una razón registrada, el escape concreto que evitó. Si tras añadir dos casillas los escapes del trimestre no bajan, el síntoma es que las nuevas son redundantes.
 
 ## Ejemplo
 
-Ejemplo de [SE-188 — Definition of Ready, Done y aceptación](../../../classes/part-15-procesos-planificacion-y-estimacion/se-188-definition-of-ready-done-y-aceptacion/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la plataforma de entregas reduce su definición de terminado de catorce casillas a tres niveles. Para cambios de texto: revisión y prueba de aceptación automática. Para cambios de interfaz: además, comprobación de accesibilidad con una herramienta y una lectora de pantalla. Para cambios en la regla de penalización o en notas: además, comparación contra la función de referencia de `SE-157` y una segunda persona que lee el sentido. Cada casilla tiene una razón registrada (qué escape evitó la última vez) y una fecha de revisión.
+El equipo de la plataforma de entregas reduce su definición de catorce casillas a tres niveles. Cambios de texto: revisión y prueba de aceptación automática. Cambios de interfaz: además, comprobación de accesibilidad con una herramienta y una lectora de pantalla. Cambios en la regla de penalización o en notas: además, comparación contra la función de referencia de [SE-157](../../../classes/part-13-especificaciones-contratos-y-modelos/se-157-especificacion-informal-semiformal-y-formal/README.md) y una segunda persona que lee el sentido. Cada casilla lleva la razón que la justifica.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La definición de terminado tiene catorce casillas y los escapes no bajan** — causa: comprobaciones correlacionadas. Corrección: medir qué ve cada una y retirar las que ven lo mismo. ([SE-188](../../../classes/part-15-procesos-planificacion-y-estimacion/se-188-definition-of-ready-done-y-aceptacion/README.md))
+- **Catorce casillas y los escapes no bajan.** Comprobaciones correlacionadas; medir qué ve cada una y retirar las redundantes.
+- **Una lista única para todo.** Frena lo trivial y no basta para lo crítico.
+- **Confundirla con los criterios de aceptación.** Esos son por historia; la definición es común a todas.
+- **Terminado a medias.** No existe: o cumple la definición o no.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- **Síntoma:** tras añadir dos casillas a la definición de terminado, los escapes del trimestre no bajan. ([SE-188](../../../classes/part-15-procesos-planificacion-y-estimacion/se-188-definition-of-ready-done-y-aceptacion/README.md))
+La definición garantiza que se hicieron ciertas comprobaciones, no que el incremento sea el correcto: puede estar terminado y no ser aceptado. No sustituye a la definición de «listo» (*Ready*), que regula la entrada del trabajo, ni a la aceptación por quien lo pidió. Una definición demasiado ambiciosa para el contexto se incumple por sistema y deja de ser promesa.
 
 ## Relación con otros conceptos
 

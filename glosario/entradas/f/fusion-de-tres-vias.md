@@ -2,40 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Fusión de tres ramas](./fusion-de-tres-ramas.md) · [Fusión errónea →](./fusion-erronea.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 16](../../../classes/part-16-git-colaboracion-y-codigo-abierto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 16](../../../classes/part-16-git-colaboracion-y-codigo-abierto/README.md)
 
 ## Definición
 
-Combinación de dos puntas respecto de su ancestro común que crea un commit con dos padres.
-
-Definición de trabajo de [SE-195 — Ramas, integración, rebase y conflictos](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-195-ramas-integracion-rebase-y-conflictos/README.md).
+La **fusión de tres vías** (*three-way merge*) es la combinación de dos puntas de rama respecto de su ancestro común, que crea un commit con dos padres. Es el sentido de [SE-195](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-195-ramas-integracion-rebase-y-conflictos/README.md) (ramas, integración, rebase y conflictos). Se llama «de tres vías» porque intervienen tres versiones: la base y las dos puntas.
 
 ## Por qué importa
 
-En [SE-195 — Ramas, integración, rebase y conflictos](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-195-ramas-integracion-rebase-y-conflictos/README.md), el tema «Fusión de tres vías» importa porque combina dos cambios respecto de una base común y conserva la forma de la bifurcación.
+Cambia qué queda registrado en la historia. Según [SE-195](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-195-ramas-integracion-rebase-y-conflictos/README.md), combina dos cambios respecto de una base común y conserva la forma de la bifurcación: se ve que hubo dos líneas de trabajo, quién hizo qué y cuándo. Frente a alternativas como el squash o el rebase, es la integración que no reescribe nada.
 
 ## Cómo funciona
 
-Según [SE-195 — Ramas, integración, rebase y conflictos](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-195-ramas-integracion-rebase-y-conflictos/README.md), en la sección «Fusión de tres vías»:
+Git compara cada punta con el ancestro común. Lo que cambió solo en un lado se toma tal cual; lo que cambió en ambos lados en lugares distintos se combina automáticamente. Si ambos cambiaron el mismo lugar, Git no decide: deja marcas de conflicto para que una persona resuelva. El resultado es un commit de fusión con dos padres, que fija en la historia el momento de la integración.
 
-Una fusión compara dos puntas con su ancestro común: lo que cambió solo en un lado se toma, y lo que cambió en ambos lados en sitios distintos se combina. Si el cambio toca el mismo lugar, Git no decide: deja marcas. El commit de fusión tiene dos padres, de modo que la historia conserva que hubo dos líneas de trabajo y permite ver quién hizo qué y cuándo.
+La elección de estrategia es una decisión de equipo. En la plataforma de entregas de [SE-195](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-195-ramas-integracion-rebase-y-conflictos/README.md), las ramas de funcionalidad viven pocos días y se integran con *squash* porque cada una es un cambio de intención única. Las ramas de varias personas se integran con fusión para conservar quién hizo qué. Las correcciones urgentes se rebasan sobre `main` antes de la revisión. La regla está escrita en `CONTRIBUTING.md`, con una excepción: una rama con commits atómicos y comprobables que alguien podría querer bisecar se integra sin squash. Dos defectos típicos se asocian: commits duplicados tras un rebase de una rama que otra persona ya tenía, y un conflicto que reaparece cuando la rama vive mucho tiempo.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-195 — Ramas, integración, rebase y conflictos](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-195-ramas-integracion-rebase-y-conflictos/README.md):
-
-En la plataforma, las ramas de funcionalidad viven pocos días y se integran con squash porque cada una es un cambio de intención única; las ramas de varias personas se integran con fusión para conservar quién hizo qué; las correcciones urgentes se rebasan sobre `main` antes de la revisión. La regla está escrita en `CONTRIBUTING.md`, con una excepción: una rama con commits atómicos y comprobables que alguien podría querer bisecar se integra sin squash.
+Dos personas parten de la misma base. Una cambia la función de cálculo; otra, el texto de ayuda de otro archivo. La fusión de tres vías toma ambos cambios sin conflicto y crea un commit con dos padres. Si ambas hubieran tocado la misma línea, Git dejaría marcas y la resolución sería manual.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-195 — Ramas, integración, rebase y conflictos](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-195-ramas-integracion-rebase-y-conflictos/README.md)) son:
-
-- **Aparecen commits duplicados tras un rebase** — causa: se rebasó una rama que otra persona ya tenía. Corrección: rebasar solo ramas propias no publicadas o acordadas.
-- **Un conflicto reaparece una y otra vez** — causa: la rama vive mucho tiempo y se repite el mismo rebase. Corrección: acortar la rama o activar `rerere` y revisar las resoluciones.
+- **Commits duplicados tras un rebase.** Se rebasó una rama que otra persona ya tenía; rebasar solo ramas propias no publicadas o acordadas.
+- **El mismo conflicto reaparece.** La rama vive demasiado; acortarla o activar `rerere` y revisar las resoluciones.
+- **Creer que sin conflicto la fusión es correcta.** Dos cambios que no chocan textualmente pueden romper el comportamiento juntos.
+- **Confundir fusión con rebase.** El rebase reescribe; la fusión añade un commit.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-195 — Ramas, integración, rebase y conflictos](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-195-ramas-integracion-rebase-y-conflictos/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con repositorios temporales y datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún repositorio real, las ediciones al azar son uniformes, el conflicto se midió solo sobre texto y no se midió a ningún equipo. La siguiente clase pregunta cómo se revisan los cambios que llegan por estas integraciones.
+Genera un historial más ancho y difícil de leer cuando hay muchas ramas largas. Detecta conflictos textuales, no semánticos: una prueba tras la fusión sigue siendo necesaria. Los experimentos de [SE-195](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-195-ramas-integracion-rebase-y-conflictos/README.md) usan repositorios temporales con datos sintéticos.
 
 ## Relación con otros conceptos
 

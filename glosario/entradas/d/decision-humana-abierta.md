@@ -2,44 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Decisión declarada](./decision-declarada.md) · [Decisión irreversible (de un sentido) →](./decision-irreversible-de-un-sentido.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
 
 ## Definición
 
-Punto que el contrato no cierra, registrado con responsable, fecha y evidencia que lo modificaría.
-
-Definición de trabajo de [SE-167 — Taller: convertir intención en contrato comprobable](../../../classes/part-13-especificaciones-contratos-y-modelos/se-167-taller-convertir-intencion-en-contrato-comprobable/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-228 — Proyecto: herramienta operable multiplataforma](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-228-proyecto-herramienta-operable-multiplataforma/README.md): Punto que el paquete no puede resolver y que debe tomar una persona con autoridad.
+Una **decisión humana abierta** es un punto que el contrato o el paquete no puede cerrar y que debe tomar una persona con autoridad; se registra con responsable, fecha y la evidencia que la modificaría. Es el sentido de [SE-264](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-264-proyecto-cliente-multiplataforma-con-sincronizacion/README.md) y de [SE-228](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-228-proyecto-herramienta-operable-multiplataforma/README.md). Es lo contrario de una duda informal: tiene nombre, plazo y criterio de cierre.
 
 ## Por qué importa
 
-En [SE-264 — Proyecto: cliente multiplataforma con sincronización](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-264-proyecto-cliente-multiplataforma-con-sincronizacion/README.md), el tema «Decisiones humanas abiertas» importa porque lo que ninguna herramienta decide queda con nombre y fecha.
+Cambia si un paquete de trabajo se declara cerrado con honestidad. Según [SE-264](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-264-proyecto-cliente-multiplataforma-con-sincronizacion/README.md), lo que ninguna herramienta decide queda con nombre y fecha; sin ellas, el paquete aparenta estar cerrado cuando solo está silenciado. El defecto que previene es la decisión tomada por omisión: el primero que implementa el caso resuelve sin saber que decidía.
 
 ## Cómo funciona
 
-Según [SE-264 — Proyecto: cliente multiplataforma con sincronización](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-264-proyecto-cliente-multiplataforma-con-sincronizacion/README.md), en la sección «Decisiones humanas abiertas»:
+El paquete lista lo que sigue pendiente. En el cliente de sincronización de [SE-264](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-264-proyecto-cliente-multiplataforma-con-sincronizacion/README.md): qué pérdida de intención es aceptable en un conflicto, qué plazo de desconexión se tolera, qué capacidades se excluyen en una plataforma, qué telemetría se considera aceptable. Cada decisión abierta lleva tres campos: un **responsable** (persona con autoridad), una **fecha** y la **evidencia** que la cerraría o la cambiaría.
 
-El paquete lista lo que sigue pendiente: qué pérdida de intención es aceptable en un conflicto, qué plazo de desconexión se tolera, qué capacidades se excluyen en una plataforma, qué telemetría se considera aceptable. Cada decisión abierta tiene un responsable, una fecha y la evidencia que la cerraría; sin ellas, el paquete aparenta estar cerrado.
+La razón de la tercera es que una decisión abierta no es una pregunta retórica: se cierra con un dato o una prueba concretos (por ejemplo, la frecuencia observada de conflictos). Así, la decisión se revisa cuando llega esa evidencia en lugar de repetirse por opinión. [SE-228](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-228-proyecto-herramienta-operable-multiplataforma/README.md) añade el criterio de qué entra aquí: lo que el paquete no puede resolver por sí mismo, no lo que el equipo no tuvo tiempo de resolver.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-264 — Proyecto: cliente multiplataforma con sincronización](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-264-proyecto-cliente-multiplataforma-con-sincronizacion/README.md):
-
-El equipo del cliente de entregas arma el paquete con una carpeta por artefacto y un índice con identificadores. Una prueba de extremo a extremo lanza un servidor local, desconecta el cliente, hace cuarenta ediciones, reconecta con un canal que pierde y duplica y exige que el estado del servidor coincida con el esperado. Un validador comprueba presencia, enlaces entre artefactos y huellas; las mutaciones del propio paquete miden su alcance.
+El equipo del cliente de entregas arma su paquete con una carpeta por artefacto y un índice con identificadores. Una prueba de extremo a extremo desconecta el cliente, hace cuarenta ediciones y reconecta con un canal que pierde y duplica. Aun con la prueba verde queda abierta «cuánto tiempo sin conexión se tolera antes de pedir resincronizar»: se registra con responsable, fecha y el dato (distribución de desconexiones reales) que la resolvería.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-264 — Proyecto: cliente multiplataforma con sincronización](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-264-proyecto-cliente-multiplataforma-con-sincronizacion/README.md)) son:
-
-- **El servidor aplica más operaciones de las pedidas** — causa: reintento sin clave de idempotencia. Corrección: identificador único por operación y deduplicación en el servidor.
-- **Se pierden operaciones tras una desconexión larga** — causa: no hay registro persistente ni reintento. Corrección: registro de operaciones en almacenamiento local y reintento.
+- **Dejarla en un comentario o en la memoria de alguien.** Sin responsable ni fecha, se pierde.
+- **Confundirla con un defecto.** Un defecto se corrige; una decisión abierta se decide.
+- **Registrar lo que el equipo puede resolver.** Debe ser lo que el paquete no puede decidir.
+- **Cerrarla sin evidencia.** Se vuelve opinión y se reabre.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-264 — Proyecto: cliente multiplataforma con sincronización](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-264-proyecto-cliente-multiplataforma-con-sincronizacion/README.md)) son: Las definiciones son operativas para el cliente de la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2): las cifras deterministas fueron idénticas y los tiempos del servidor local se informan por sistema. No se compiló, firmó ni publicó ningún cliente y no se midió ninguna persona ni dispositivo. La siguiente parte lleva el razonamiento a software embebido y de tiempo real.
+Las clases la presentan dentro de proyectos con paquete de entrega; en trabajo pequeño puede bastar una nota en el ADR. Una lista larga de decisiones abiertas es señal de que el paquete no está listo para entregarse, no de que esté bien documentado. Los experimentos de [SE-264](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-264-proyecto-cliente-multiplataforma-con-sincronizacion/README.md) usan datos sintéticos y no sustituyen la evidencia real que cada decisión debe nombrar.
 
 ## Relación con otros conceptos
 

@@ -2,53 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Derecho](./derecho.md) · [Deriva arquitectónica →](./deriva-arquitectonica.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
 
 ## Definición
 
-Diferencia entre lo que el estado cree y lo que existe, causada por cambios hechos fuera del código.
-
-Definición de trabajo de [SE-402 — Infraestructura como código y estado](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-486 — Infraestructura como código en pipeline](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-486-infraestructura-como-codigo-en-pipeline/README.md): Diferencia entre el estado deseado y el real causada por cambios hechos fuera del flujo de cambios.
-- En [SE-165 — Spec-first, spec-anchored y spec-as-source](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md): Diferencia entre lo que la especificación afirma y lo que el código hace.
-- En [SE-442 — Calidad de experiencia y presupuestos](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-442-calidad-de-experiencia-y-presupuestos/README.md): Cambio acumulado lento de una magnitud a lo largo de muchos cambios pequeños.
-- En [SE-548 — SDD: spec-first, spec-anchored y spec-as-source](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-548-sdd-spec-first-spec-anchored-y-spec-as-source/README.md): Separación entre lo que la especificación dice y lo que el sistema hace.
+La **deriva** es la diferencia entre lo que un registro afirma y lo que realmente existe, nacida de cambios hechos fuera del flujo previsto. El programa la usa en varios dominios con el mismo núcleo. En infraestructura como código ([SE-402](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md), [SE-486](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-486-infraestructura-como-codigo-en-pipeline/README.md)): diferencia entre el estado deseado o el que cree el archivo de estado y la realidad, causada por cambios hechos fuera del código. En especificaciones ([SE-165](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md), [SE-548](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-548-sdd-spec-first-spec-anchored-y-spec-as-source/README.md)): diferencia entre lo que la especificación afirma y lo que el sistema hace. En [SE-442](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-442-calidad-de-experiencia-y-presupuestos/README.md): cambio acumulado lento de una magnitud a lo largo de muchos cambios pequeños.
 
 ## Por qué importa
 
-En [SE-402 — Infraestructura como código y estado](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md), el tema «Deriva» importa porque un cambio manual no desaparece: el siguiente apply lo revierte o lo ignora.
-
-En [SE-486 — Infraestructura como código en pipeline](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-486-infraestructura-como-codigo-en-pipeline/README.md), el tema «Deriva» importa porque la realidad se aleja del código por cambios manuales; hay que verla y decidir.
+Cambia cuándo se descubre que el registro ya no es la verdad. En infraestructura, [SE-402](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md) lo resume así: un cambio manual no desaparece; el siguiente `apply` lo revierte o lo ignora. En especificaciones, una spec que ya no describe el sistema engaña a quien la lee. Ver la deriva a tiempo permite decidir en lugar de descubrirla en un incidente.
 
 ## Cómo funciona
 
-Según [SE-402 — Infraestructura como código y estado](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md), en la sección «Deriva»:
+El mecanismo es una comparación entre dos fuentes. Un arreglo de emergencia en la consola o con otra herramienta modifica la realidad sin pasar por el código. Un plan que solo compara código con estado no lo ve; uno que primero **refresca** el estado contra la realidad lo detecta y propone revertirlo. Ninguna conducta es incorrecta: la primera es rápida y ciega; la segunda es exacta y puede deshacer un arreglo necesario. Lo esencial es la decisión explícita: incorporar el cambio al código o revertirlo.
 
-La deriva es la diferencia entre lo que el estado cree y lo que existe, nacida de un cambio hecho fuera del código: un arreglo de emergencia, una consola, otra herramienta. Un plan que solo compara el código con el estado no la ve; uno que antes refresca el estado con la realidad la ve y propone revertirla. Ninguna de las dos conductas es incorrecta: la primera es rápida y ciega; la segunda es exacta y puede deshacer un arreglo necesario. Lo importante es la decisión explícita: incorporar el cambio al código, o revertirlo, y que una persona la tome antes del apply.
+Para no descubrirla semanas después, [SE-486](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-486-infraestructura-como-codigo-en-pipeline/README.md) propone un plan solo de lectura periódico (cada pocas horas, con responsable) que abre una incidencia por cada diferencia. En el caso de contratos ([SE-160](../../../classes/part-13-especificaciones-contratos-y-modelos/se-160-modelos-estructurales-conductuales-y-de-informacion/README.md)), la comparación debe incluir tipos y restricciones, no solo nombres, o un cambio de tipo pasa inadvertido.
 
 ## Ejemplo
 
-Ejemplo de [SE-402 — Infraestructura como código y estado](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la plataforma guarda el estado en un almacén remoto con bloqueo y cifrado, trata su acceso como el de un secreto y exige que todo cambio pase por un plan revisado por una persona distinta de quien lo escribió. Programa un plan solo de lectura cada noche para detectar deriva y abre una incidencia con cada diferencia; cuando la deriva es un arreglo de emergencia, el equipo lo incorpora al código o lo revierte de forma deliberada, no al pasar.
+El equipo de la plataforma guarda el estado en un almacén remoto con bloqueo y cifrado y exige que todo cambio pase por un plan revisado por otra persona. Cada noche corre un plan de solo lectura y abre una incidencia por diferencia. Si la deriva era un arreglo de emergencia, se incorpora al código o se revierte de forma deliberada, no al pasar. En el experimento de [SE-402](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md), sin refresco el plan ve siempre los mismos 10 cambios y detecta la deriva solo cuando coincide con una edición del código.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Un apply revierte un arreglo de emergencia** — causa: deriva no incorporada al código. Corrección: revisar las acciones que el código no editó y decidir cada una. ([SE-402](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md))
-- **La deriva se descubre semanas después** — causa: sin comprobación periódica. Corrección: plan sin aplicar cada pocas horas con responsable. ([SE-486](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-486-infraestructura-como-codigo-en-pipeline/README.md))
-- **Un cambio de tipo pasa inadvertido en la revisión** — causa: el criterio de deriva solo mira nombres. Corrección: incluir tipos (y restricciones) en la comparación. ([SE-160](../../../classes/part-13-especificaciones-contratos-y-modelos/se-160-modelos-estructurales-conductuales-y-de-informacion/README.md))
+- **Un `apply` revierte un arreglo de emergencia.** Deriva no incorporada; revisar las acciones que el código no editó y decidir cada una.
+- **La deriva se descubre semanas después.** Sin comprobación periódica con responsable.
+- **Tratar toda deriva como error.** Puede ser un arreglo válido que falta incorporar.
+- **Comparar solo nombres.** Un cambio de tipo pasa inadvertido.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Sin refresco el plan es siempre el mismo (10 cambios) y ve la deriva solo cuando coincide con una edición del código: 0,49 de 5, 2,01 de 20. ([SE-402](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md))
-- Traslada el análisis a otro dominio (por ejemplo, la infraestructura de una tienda en línea con pagos): cambia los recursos y conserva el procedimiento de separar código, estado y realidad, medir la deriva con y sin refresco, enumerar las escrituras simultáneas y calcular el camino crítico. ([SE-402](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md))
+El refresco solo ve lo que el proveedor expone y lo que el código modela; recursos creados por completo fuera de él pueden quedar invisibles. La deriva lenta de [SE-442](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-442-calidad-de-experiencia-y-presupuestos/README.md) exige series de tiempo y presupuestos, no una comparación puntual. Los experimentos de [SE-402](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md) usan datos sintéticos.
 
 ## Relación con otros conceptos
 

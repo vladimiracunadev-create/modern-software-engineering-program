@@ -2,40 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Evidencia obsoleta](./evidencia-obsoleta.md) · [Evidencia y umbral →](./evidencia-y-umbral.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
 
 ## Definición
 
-Relación verificable entre una afirmación del brief y uno o más registros (citas, datos, observaciones) que existen y la respaldan.
-
-Definición de trabajo de [SE-132 — Proyecto: product brief respaldado por evidencia](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-132-proyecto-product-brief-respaldado-por-evidencia/README.md).
+La **evidencia trazable** es la relación verificable entre una afirmación del brief y uno o más registros (citas, datos, observaciones) que existen y la respaldan. Es el sentido de [SE-132](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-132-proyecto-product-brief-respaldado-por-evidencia/README.md) (product brief respaldado por evidencia). La palabra «trazable» importa: no basta decir «los usuarios piden X»; debe poder seguirse el hilo hasta el registro.
 
 ## Por qué importa
 
-En [SE-132 — Proyecto: product brief respaldado por evidencia](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-132-proyecto-product-brief-respaldado-por-evidencia/README.md), el tema «Evidencia trazable» importa porque cada afirmación debe poder rastrearse a una evidencia que exista, de más de una persona o fuente.
+Cambia qué se acepta como base de una decisión de producto. Según [SE-132](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-132-proyecto-product-brief-respaldado-por-evidencia/README.md), cada afirmación debe poder rastrearse a una evidencia que exista, de más de una persona o fuente. Sin eso, una opinión del equipo se presenta como hallazgo y la decisión se apoya en aire.
 
 ## Cómo funciona
 
-Según [SE-132 — Proyecto: product brief respaldado por evidencia](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-132-proyecto-product-brief-respaldado-por-evidencia/README.md), en la sección «Evidencia trazable»:
+[SE-132](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-132-proyecto-product-brief-respaldado-por-evidencia/README.md) gradúa las afirmaciones por su respaldo: sin evidencia es una **hipótesis**; con una sola persona, una **pista**; con dos o más personas o con un registro, un **hallazgo con límites**. La trazabilidad se comprueba en dos planos. El mecánico: que el identificador de evidencia exista, que haya al menos dos participantes distintos o un registro, que no sea solo lo declarado. Un validador lo hace. El de lectura: que la evidencia diga lo que la afirmación dice. Eso lo hace una persona.
 
-Una afirmación sin evidencia es una hipótesis; con una sola persona, una pista; con dos o más personas o con un registro, un hallazgo con límites. La trazabilidad se comprueba en parte de forma mecánica —que el identificador de evidencia exista, que haya al menos dos participantes distintos o un registro, que no sea solo lo declarado— y en parte leyendo: que la evidencia diga lo que la afirmación dice. Lo primero lo hace un validador; lo segundo, una persona.
+La separación importa porque un validador puede pasar un brief cuya cifra no coincide con la evidencia: solo comprueba estructura. La corrección de la clase es añadir una comparación de cifras con la fuente y una lectura humana antes de decidir. Y la decisión debe tener responsable y fecha, para que alguien responda por ella y pueda revisarse cuando llegue evidencia nueva.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-132 — Proyecto: product brief respaldado por evidencia](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-132-proyecto-product-brief-respaldado-por-evidencia/README.md):
-
-En la plataforma de entregas, el brief se acompaña de un expediente: tickets y su agrupación, mapa de actores, transcripciones y códigos, mapa de hipótesis, propuesta, mapa de mercado, plan de experimento, registro de prioridad, protocolo ético, reglas de parada y petición descompuesta. El contrato es que `brief.md` remite a ellos por identificador, que cada afirmación declare sus evidencias, que la decisión indique responsable y fecha, y que el validador pase en un checkout limpio.
+En la plataforma de entregas, el brief se acompaña de un expediente: tickets y su agrupación, mapa de actores, transcripciones y códigos, mapa de hipótesis, propuesta, mapa de mercado, plan de experimento, registro de prioridad, protocolo ético, reglas de parada y petición descompuesta. El contrato es que `brief.md` remite a ellos por identificador, que cada afirmación declare sus evidencias y que la decisión indique responsable y fecha.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-132 — Proyecto: product brief respaldado por evidencia](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-132-proyecto-product-brief-respaldado-por-evidencia/README.md)) son:
-
-- **El brief pasa el validador pero una cifra no coincide con la evidencia** — causa: el validador solo comprueba estructura. Corrección: añadir una comparación de cifras con la fuente y una lectura humana antes de decidir.
-- **La decisión no tiene responsable ni fecha** — causa: se redactó como recomendación general. Corrección: exigir responsable y fecha en el formato y rechazar briefs sin ellos.
+- **El brief pasa el validador pero una cifra no coincide.** El validador solo comprueba estructura; añadir comparación con la fuente y lectura humana.
+- **La decisión sin responsable ni fecha.** Se redactó como recomendación general; exigirlos en el formato.
+- **Contar una persona como hallazgo.** Una sola persona es una pista.
+- **Citar la evidencia sin que respalde la frase.** El enlace existe, el contenido no coincide.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-132 — Proyecto: product brief respaldado por evidencia](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-132-proyecto-product-brief-respaldado-por-evidencia/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos y un validador con evidencias y participantes sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. El validador solo comprueba estructura, las doce mutaciones no representan todos los defectos posibles y las ponderaciones y rangos son supuestos del autor. La [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md) termina aquí; la [Parte 11](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md) somete el brief a modelos de negocio, costos de construcción y operación, y métricas de producto.
+Que haya evidencia trazable no hace verdadera la conclusión: dos personas pueden coincidir y estar equivocadas. Los experimentos de [SE-132](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-132-proyecto-product-brief-respaldado-por-evidencia/README.md) usan evidencias y participantes sintéticos. Para decisiones reversibles y baratas, el costo de trazar todo puede superar el beneficio; la clase pide el rigor proporcional al costo de equivocarse.
 
 ## Relación con otros conceptos
 

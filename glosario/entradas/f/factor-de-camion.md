@@ -2,47 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Factor de autobús](./factor-de-autobus.md) · [Factor de carga y crecimiento →](./factor-de-carga-y-crecimiento.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 17](../../../classes/part-17-documentacion-y-conocimiento-tecnico/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 17](../../../classes/part-17-documentacion-y-conocimiento-tecnico/README.md)
 
 ## Definición
 
-Número mínimo de personas cuya salida deja sin conocedor a más de la mitad de los archivos según la autoría registrada.
-
-Definición de trabajo de [SE-530 — Diseño de equipos y ownership](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-215 — Taller: reconstruir conocimiento perdido](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-215-taller-reconstruir-conocimiento-perdido/README.md): Número de personas cuya salida dejaría al proyecto sin conocimiento suficiente de una parte esencial.
-- En [SE-518 — Arqueología de código y recuperación de conocimiento](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-518-arqueologia-de-codigo-y-recuperacion-de-conocimiento/README.md): Número mínimo de personas que, al irse, dejan a un proyecto o a un archivo sin conocimiento clave.
+El **factor de camión** (*bus factor*) es el número mínimo de personas cuya salida deja sin conocedor a una parte significativa del sistema. [SE-530](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership/README.md) lo presenta así; [SE-518](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-518-arqueologia-de-codigo-y-recuperacion-de-conocimiento/README.md) lo define como el mínimo de personas que, al irse, dejan a un proyecto o a un archivo sin conocimiento clave, y [SE-215](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-215-taller-reconstruir-conocimiento-perdido/README.md) como el número cuya salida dejaría al proyecto sin conocimiento suficiente de una parte esencial. La versión operativa más precisa es la de Avelino et al., que [SE-518](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-518-arqueologia-de-codigo-y-recuperacion-de-conocimiento/README.md) recoge: el mínimo de autoras cuya salida deja abandonados a más de la mitad de los archivos de un repositorio, con el abandono medido por la autoría.
 
 ## Por qué importa
 
-En [SE-530 — Diseño de equipos y ownership](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership/README.md), el tema «Factor de camión» importa porque mide cuánto depende el conocimiento de pocas personas.
+Cambia dónde se invierte en repartir conocimiento. Mide cuánto depende el conocimiento de pocas personas, y por eso orienta decisiones concretas: dónde exigir una segunda persona que conozca el código, qué rotaciones hacer y qué documentar primero. Un factor de 1 significa que una sola salida deja zonas del sistema sin nadie que las entienda.
 
 ## Cómo funciona
 
-Según [SE-530 — Diseño de equipos y ownership](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership/README.md), en la sección «Factor de camión»:
+El cálculo operativo prueba combinaciones de salidas: se retiran personas del conjunto de autoras hasta que más de la mitad de los archivos queda sin ninguna autora que los conozca; el número mínimo de retiradas necesarias es el factor. La clase incluye un fragmento que lo calcula para un repositorio pequeño y pide predecir el resultado antes de ejecutarlo.
 
-El **factor de camión** (bus factor) es el número mínimo de personas cuya salida deja sin conocedor a una parte significativa del sistema. Avelino et al. lo definen sobre los archivos de un repositorio: el mínimo de autoras cuya salida deja abandonados a más de la mitad de los archivos, con el abandono medido por la autoría. Es una definición operativa con límites claros: la autoría en el historial no equivale a conocimiento (alguien pudo escribir un archivo y olvidarlo; otra persona pudo aprenderlo leyéndolo), y no distingue archivos críticos de triviales. Aun así, es útil como alarma: si el factor es uno o dos, la pregunta es qué hacer. Las palancas son tres:
+La definición tiene límites claros, que [SE-518](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-518-arqueologia-de-codigo-y-recuperacion-de-conocimiento/README.md) subraya: la autoría en el historial no equivale a conocimiento (alguien pudo escribir un archivo y olvidarlo, o conocer a fondo uno que nunca tocó). Es, por tanto, una aproximación que conviene contrastar con una conversación y no tomar como medida exacta. Los síntomas de un factor bajo, según [SE-530](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership/README.md), son un archivo que espera semanas por una persona (propiedad fuerte sin segundo conocedor; corrección: revisión obligatoria por una segunda persona y rotación) o fronteras por capa que obligan a tres equipos en cada cambio (corrección: organizar por dominio).
 
 ## Ejemplo
 
-Ejemplo de [SE-530 — Diseño de equipos y ownership](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership/README.md) (sección «Ejemplo mínimo»):
-
-El fragmento calcula el factor de camión de un repositorio pequeño probando combinaciones de salidas. Antes de ejecutarlo, predice qué devuelve.
+En el taller de [SE-215](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-215-taller-reconstruir-conocimiento-perdido/README.md), se reconstruye conocimiento perdido de un módulo cuya única autora se fue. El cálculo del factor ya lo anticipaba: el módulo dependía de una sola persona. La recuperación pasa por leer el historial, documentar decisiones y asignar un segundo conocedor.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-530 — Diseño de equipos y ownership](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership/README.md)) son:
-
-- **Un archivo espera semanas por una persona** — causa: propiedad fuerte sin segundo conocedor. Corrección: revisión obligatoria por una segunda persona y rotación.
-- **Todo cambio requiere tres equipos** — causa: fronteras por capa. Corrección: reorganizar por dominio o abrir vía de autoservicio.
+- **Equiparar autoría con conocimiento.** El historial es una aproximación.
+- **Usarlo como ranking de personas.** Mide riesgo del sistema, no valor individual.
+- **Corregirlo solo documentando.** Se necesita práctica compartida: revisión cruzada y rotación.
+- **Calcularlo una vez.** Cambia con cada salida e ingreso.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- El **factor de camión** (bus factor) es el número mínimo de personas cuya salida deja sin conocedor a una parte significativa del sistema. ([SE-530](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership/README.md))
+No ve el conocimiento que no deja huella en el repositorio (operación, decisiones de negocio, contexto de clientes). En equipos de una persona es 1 por definición. Y un factor alto no garantiza que el conocimiento sea bueno, solo que está repartido.
 
 ## Relación con otros conceptos
 

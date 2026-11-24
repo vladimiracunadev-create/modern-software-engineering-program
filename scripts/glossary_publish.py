@@ -84,8 +84,9 @@ def regenerate() -> bool:
             return False
     # ruido de saltos de línea en figuras: se descarta lo que solo cambió por eso
     modified = [p for p in git("ls-files", "-m").stdout.split("\n") if "/figures/" in p]
-    if modified:
-        git("checkout", "--", *modified, check=False)
+    # por lotes: en Windows la línea de comandos tiene un límite de largo (WinError 206)
+    for start in range(0, len(modified), 100):
+        git("checkout", "--", *modified[start : start + 100], check=False)
     return True
 
 

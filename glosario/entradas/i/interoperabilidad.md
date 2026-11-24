@@ -2,40 +2,32 @@
 
 [↑ Glosario](../../README.md) · [← Internationalization Engineer](./internationalization-engineer.md) · [Interpretación →](./interpretacion.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 36](../../../classes/part-36-calidad-rendimiento-y-resiliencia/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 36](../../../classes/part-36-calidad-rendimiento-y-resiliencia/README.md)
 
 ## Definición
 
-Capacidad de dos sistemas de intercambiar datos conservando su significado.
-
-Definición de trabajo de [SE-441 — Compatibilidad, portabilidad e interoperabilidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-441-compatibilidad-portabilidad-e-interoperabilidad/README.md).
+La **interoperabilidad** es la capacidad de que dos sistemas intercambien datos con el mismo significado ([SE-441](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-441-compatibilidad-portabilidad-e-interoperabilidad/README.md)).
 
 ## Por qué importa
 
-En [SE-441 — Compatibilidad, portabilidad e interoperabilidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-441-compatibilidad-portabilidad-e-interoperabilidad/README.md), el tema «Interoperabilidad y representación» importa porque un dato válido para un lenguaje puede cambiar en otro.
+Un formato estándar fija la sintaxis pero deja libres cosas que importan. Compartir un formato no basta para compartir significado.
 
 ## Cómo funciona
 
-Según [SE-441 — Compatibilidad, portabilidad e interoperabilidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-441-compatibilidad-portabilidad-e-interoperabilidad/README.md):
-
-La **interoperabilidad** es la capacidad de que dos sistemas intercambien datos con el mismo significado. Un formato estándar fija la sintaxis y deja libres cosas que importan: JSON dice que un número es una secuencia de dígitos, y cada implementación decide su rango y su precisión. Un identificador de 64 bits que un lector convierte a decimal de doble precisión pierde los dígitos bajos si supera 2⁵³. El texto tiene el mismo problema con las formas de normalización (la «é» puede ser un solo carácter o una «e» más una marca combinada: se ven igual y no son iguales). El dinero guardado como decimal binario acumula errores de representación. Una fecha «03/04» se lee de dos formas según la región.
+[SE-441](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-441-compatibilidad-portabilidad-e-interoperabilidad/README.md) da ejemplos: JSON dice que un número es una secuencia de dígitos, y cada implementación decide su rango y precisión; un identificador de 64 bits que un lector convierte a decimal de doble precisión pierde los dígitos bajos si supera 2⁵³. El texto tiene el mismo problema con las formas de normalización (la «é» puede ser un solo carácter o una «e» más un acento combinante), la codificación por defecto y el fin de línea. La defensa es hacer explícito lo que el estándar deja implícito: codificación, normalización, rango numérico.
 
 ## Ejemplo
 
-Ejemplo de [SE-441 — Compatibilidad, portabilidad e interoperabilidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-441-compatibilidad-portabilidad-e-interoperabilidad/README.md) (sección «Caso conductor»):
-
-El mensaje de entrega de la plataforma es el caso conductor de la [Parte 36](../../../classes/part-36-calidad-rendimiento-y-resiliencia/README.md). Esta clase deja el noveno artefacto: un contrato de interoperabilidad y una matriz ejecutable. `SE-442` preguntará cómo se mide la experiencia de quien usa el producto en dispositivos distintos y con presupuestos explícitos. Cambia después un solo dato, la política de lectura (estricta o tolerante), y observa cuántos pares dejan de ser compatibles.
+Un identificador de 64 bits enviado como número JSON y leído por un cliente JavaScript pierde precisión; se envía como cadena.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-441 — Compatibilidad, portabilidad e interoperabilidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-441-compatibilidad-portabilidad-e-interoperabilidad/README.md)) son:
-
-- **Acentos rotos en un sistema y no en otro** — causa: codificación por defecto distinta. Corrección: especificar `encoding="utf-8"` siempre.
-- **Un archivo difiere de bytes y tiene el mismo tamaño** — causa: fin de línea o codificación distintos. Corrección: fijar `newline` y `encoding` y comparar hashes.
+- **Acentos rotos en un sistema y no en otro.** Codificación por defecto distinta; especificar `encoding="utf-8"` siempre.
+- **Un archivo difiere de bytes y tiene el mismo tamaño.** Fin de línea o codificación distintos; fijar `newline` y `encoding` y comparar hashes.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-441 — Compatibilidad, portabilidad e interoperabilidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-441-compatibilidad-portabilidad-e-interoperabilidad/README.md)) son: Las definiciones son operativas para el mensaje de entrega de la plataforma. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos, uno de ellos con sondas reales en Windows 11 y Ubuntu 24.04 bajo WSL2 y los otros con datos sintéticos y semillas fijas con resultados idénticos.
+No se logra por declaración: se verifica con pruebas de contrato entre las implementaciones reales. Y no equivale a reproducibilidad entre sistemas, aunque comparten las mismas causas.
 
 ## Relación con otros conceptos
 

@@ -2,50 +2,31 @@
 
 [↑ Glosario](../../README.md) · [← Árbol, raíz y subárbol](./arbol-raiz-y-subarbol.md) · [Archivo de gestión de riesgos →](./archivo-de-gestion-de-riesgos.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 39](../../../classes/part-39-build-release-y-cadena-de-suministro/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 39](../../../classes/part-39-build-release-y-cadena-de-suministro/README.md)
 
 ## Definición
 
-Documento que fija la versión exacta y la huella de cada pieza de la clausura.
-
-Definición de trabajo de [SE-471 — Dependencias directas, transitivas y vendorización](../../../classes/part-39-build-release-y-cadena-de-suministro/se-471-dependencias-directas-transitivas-y-vendorizacion/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-520 — Dependencias obsoletas y riesgo acumulado](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md): Archivo que fija las versiones exactas de todas las dependencias para repetir una instalación.
+Un **archivo de bloqueo** (*lockfile*) es el documento que fija la versión exacta y la huella de cada pieza de la clausura de dependencias ([SE-471](../../../classes/part-39-build-release-y-cadena-de-suministro/se-471-dependencias-directas-transitivas-y-vendorizacion/README.md)); en [SE-520](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md) es el archivo que fija las versiones exactas de todas las dependencias para repetir una instalación.
 
 ## Por qué importa
 
-En [SE-471 — Dependencias directas, transitivas y vendorización](../../../classes/part-39-build-release-y-cadena-de-suministro/se-471-dependencias-directas-transitivas-y-vendorizacion/README.md), el tema «Archivo de bloqueo y huellas» importa porque fijar versiones y huellas hace comparable el build.
+El manifiesto suele declarar **rangos** («cualquier versión compatible con 2.3»). Un resolvedor elige en el momento de instalar las versiones concretas que satisfacen todos los rangos; mientras los paquetes publican versiones nuevas, el resultado cambia. Ese no es un defecto del resolvedor, es el significado de un rango. Para un servicio que se despliega, es una entrada no declarada del build.
 
 ## Cómo funciona
 
-Según [SE-471 — Dependencias directas, transitivas y vendorización](../../../classes/part-39-build-release-y-cadena-de-suministro/se-471-dependencias-directas-transitivas-y-vendorizacion/README.md):
-
-El manifiesto suele declarar **rangos**: «cualquier versión compatible con 2.3». Un **resolvedor** elige, en el momento de instalar, las versiones concretas que satisfacen todos los rangos a la vez. Mientras los paquetes publican versiones nuevas, el resultado cambia: el mismo manifiesto instalado hoy y dentro de un mes produce árboles distintos. Esto no es un defecto del resolvedor, es el significado de un rango. Para un servicio que se despliega, esa deriva es una entrada no declarada del build: contradice lo que se enseñó en `SE-469`. La solución es separar dos documentos con funciones distintas: el **manifiesto** (qué rango acepto) y el **archivo de bloqueo** (qué versiones concretas, con su huella, se instalaron y se probaron).
-
-Según [SE-471 — Dependencias directas, transitivas y vendorización](../../../classes/part-39-build-release-y-cadena-de-suministro/se-471-dependencias-directas-transitivas-y-vendorizacion/README.md):
-
-El equipo de la API de entregas mantiene un manifiesto con seis dependencias directas y rangos amplios, y un archivo de bloqueo con 31 piezas, versiones exactas y huellas. Instalar en el CI exige las huellas y rechaza cualquier archivo distinto. Las actualizaciones llegan como solicitudes semanales automáticas que modifican el bloqueo; cada una muestra la diferencia de versiones y de huellas y pasa las pruebas antes de fusionarse. Una biblioteca de análisis de fechas de 300 líneas se vendoriza en `third_party/` con un archivo `ORIGEN.md` (versión, huella del original, diferencias aplicadas) y un dueño nombrado; un trabajo mensual compara la copia con la última versión publicada. Cuando se anuncia una vulnerabilidad, el equipo consulta el bloqueo y la copia, no el manifiesto, para responder si está afectado.
+El bloqueo registra la **clausura** completa (directas y transitivas) con versión exacta y huella. Instalar desde él exige las huellas y rechaza cualquier archivo distinto. Las actualizaciones llegan como cambios revisables del bloqueo, que muestran la diferencia de versiones y de huellas. Además es la base para el inventario (SBOM) y para saber si un aviso de vulnerabilidad afecta.
 
 ## Ejemplo
 
-Ejemplo de [SE-471 — Dependencias directas, transitivas y vendorización](../../../classes/part-39-build-release-y-cadena-de-suministro/se-471-dependencias-directas-transitivas-y-vendorizacion/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la API de entregas mantiene un manifiesto con seis dependencias directas y rangos amplios, y un archivo de bloqueo con 31 piezas, versiones exactas y huellas. Instalar en el CI exige las huellas y rechaza cualquier archivo distinto. Las actualizaciones llegan como solicitudes semanales automáticas que modifican el bloqueo; cada una muestra la diferencia de versiones y de huellas y pasa las pruebas antes de fusionarse. Una biblioteca de análisis de fechas de 300 líneas se vendoriza en `third_party/` con un archivo `ORIGEN.md` (versión, huella del original, diferencias aplicadas) y un dueño nombrado; un trabajo mensual compara la copia con la última versión publicada.
+[SE-471](../../../classes/part-39-build-release-y-cadena-de-suministro/se-471-dependencias-directas-transitivas-y-vendorizacion/README.md): el equipo de la API de entregas mantiene un manifiesto con seis dependencias directas y rangos amplios, y un bloqueo con 31 piezas, versiones exactas y huellas. El CI instala exigiendo las huellas; las actualizaciones llegan como solicitudes semanales automáticas que modifican el bloqueo y pasan las pruebas antes de fusionarse. La clase observa que sin archivo de bloqueo el conjunto cambia casi todos los días con novedad, y con él casi nunca.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El CI falla sin cambios en el repositorio** — causa: resolución sin bloqueo. Corrección: archivo de bloqueo con versiones y huellas. ([SE-471](../../../classes/part-39-build-release-y-cadena-de-suministro/se-471-dependencias-directas-transitivas-y-vendorizacion/README.md))
+**El CI falla sin cambios en el repositorio.** Resolución sin bloqueo: el árbol cambió al publicarse una versión; archivo de bloqueo con versiones y huellas.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Mira que sin archivo de bloqueo el conjunto cambia casi todos los días con novedad, y con él casi nunca. ([SE-471](../../../classes/part-39-build-release-y-cadena-de-suministro/se-471-dependencias-directas-transitivas-y-vendorizacion/README.md))
-- Construye dos días seguidos sin archivo de bloqueo con una publicación nueva entre ambos. ([SE-471](../../../classes/part-39-build-release-y-cadena-de-suministro/se-471-dependencias-directas-transitivas-y-vendorizacion/README.md))
+En una biblioteca que otros consumen, el bloqueo no se distribuye con ella: manda el rango del manifiesto. El bloqueo fija lo publicado, pero no lo audita.
 
 ## Relación con otros conceptos
 

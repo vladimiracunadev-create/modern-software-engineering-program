@@ -19,7 +19,7 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 | Rutas profesionales | 47 guías con responsabilidades, límites, recorrido y evidencia |
 | Sitio | 664 páginas HTML generadas desde el manifiesto, más las 34 de `site/casos/`, las 2744 de `site/glosario/`, las de `site/legacy/` (mapa de identificadores antiguos) y `site/404.html` |
 | Casos de estudio | 32 casos (16 de éxito y 16 de fallo) en `casos/`; no son clases ni roles y no cuentan en las 612 clases ni en las 51 partes |
-| Glosario | 2743 conceptos (625 troncales y 2118 de apoyo; 463 con entrada desarrollada a mano y el resto compuesto desde las clases) con entrada propia en `glosario/` y en `site/glosario/`; no son clases ni roles y no cuentan en las 612 clases ni en las 51 partes |
+| Glosario | 2743 conceptos (625 troncales y 2118 de apoyo; 472 con entrada desarrollada a mano y el resto compuesto desde las clases) con entrada propia en `glosario/` y en `site/glosario/`; no son clases ni roles y no cuentan en las 612 clases ni en las 51 partes |
 | Portal definitivo | catálogo navegable con las 612 clases desarrolladas, sin presentarlas como aprobadas por una revisión humana independiente |
 | Publicación | GitHub Pages activo; workflow y respuesta HTTPS verificados el 30 de septiembre de 2026 |
 

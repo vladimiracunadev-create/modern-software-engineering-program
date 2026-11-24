@@ -2,50 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Costo por solución aceptada](./costo-por-solucion-aceptada.md) · [Cota →](./cota.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 35](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 35](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md)
 
 ## Definición
 
-Lugar donde puede alterarse el comportamiento de un programa sin editar el código en ese lugar.
-
-Definición de trabajo de [SE-519 — Pruebas de caracterización y seams](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-422 — Pruebas unitarias y diseño testable](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-422-pruebas-unitarias-y-diseno-testable/README.md): Punto del código donde se puede reemplazar una dependencia sin editar la unidad.
+Una **costura** (*seam*, de Feathers) es un lugar donde puede alterarse el comportamiento de un programa sin editar el código en ese lugar ([SE-519](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md)). En [SE-422](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-422-pruebas-unitarias-y-diseno-testable/README.md) se usa en un sentido práctico: el punto del código donde se puede reemplazar una dependencia sin editar la unidad.
 
 ## Por qué importa
 
-En [SE-519 — Pruebas de caracterización y seams](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md), el tema «Costuras y su costo» importa porque sin costura, cada prueba paga la dependencia más lenta.
+Es lo que permite probar y refactorizar código heredado: sin costura, probar una función exige ejecutar su dependencia lenta o real. [SE-519](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md) lo muestra con un síntoma concreto: la suite tarda minutos porque cada prueba paga la dependencia lenta; la corrección es crear una costura y sustituirla.
 
 ## Cómo funciona
 
-Según [SE-519 — Pruebas de caracterización y seams](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md):
-
-Una **costura** es un lugar donde se puede alterar el comportamiento sin modificar el código en ese lugar. Feathers distingue tres clases. En una **costura de objeto** el comportamiento depende de un objeto o función que se puede sustituir (se pasa como argumento, se hereda, se reemplaza en una prueba); es la más usada. En una **costura de enlace** se cambia lo que se enlaza (otra biblioteca o módulo con el mismo nombre en el entorno de prueba). En una **costura de preprocesamiento** se transforma el texto antes de compilar, y casi no existe en Python. Sin costura, probar una función que lee la asistencia de una base de datos obliga a levantar la base en cada prueba.
-
-Según [SE-519 — Pruebas de caracterización y seams](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md):
-
-Escenario hipotético, construido para la clase y sin datos reales. Antes de refactorizar `nota_final`, el equipo añade un parámetro `leer_asistencia` con la consulta real como valor por defecto (costura de objeto sin cambio de comportamiento), genera 1 000 entradas con semilla fija y 14 casos de borde, guarda las salidas actuales en un archivo y escribe una prueba que las exige. Mide 18 líneas de 18 cubiertas y 12 mutantes de 12 detectados con el conjunto combinado. Al caracterizar descubre que la nota de un alumno con una parte ausente se calcula con peso 0,3 y 0,3 sobre un total de 0,6, un comportamiento que parece un defecto; consulta con el área académica y se decide conservarlo hasta la siguiente revisión del reglamento, con la anotación en la prueba.
+Feathers distingue tres clases. En una **costura de objeto**, el comportamiento depende de un objeto o función que se puede sustituir (se pasa como argumento, se hereda, se reemplaza en una prueba); es la más usada. En una **costura de enlace** se cambia lo que se enlaza (otra biblioteca o módulo con el mismo nombre en el entorno de prueba). En una **costura de preprocesamiento** se transforma el texto antes de compilar.
 
 ## Ejemplo
 
-Ejemplo de [SE-519 — Pruebas de caracterización y seams](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md) (sección «Ejemplo profesional»):
+[SE-519](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md) (escenario hipotético): antes de refactorizar `nota_final`, el equipo añade un parámetro `leer_asistencia` con la consulta real como valor por defecto, una costura de objeto sin cambio de comportamiento. Luego genera 1 000 entradas con semilla fija y 14 casos de borde, guarda las salidas actuales y escribe una prueba que las exige.
 
-Escenario hipotético, construido para la clase y sin datos reales. Antes de refactorizar `nota_final`, el equipo añade un parámetro `leer_asistencia` con la consulta real como valor por defecto (costura de objeto sin cambio de comportamiento), genera 1 000 entradas con semilla fija y 14 casos de borde, guarda las salidas actuales en un archivo y escribe una prueba que las exige. Mide 18 líneas de 18 cubiertas y 12 mutantes de 12 detectados con el conjunto combinado.
+```python
+def nota_final(alumno, leer_asistencia=consultar_asistencia):
+    return calcular(alumno, leer_asistencia(alumno))
+```
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La suite tarda minutos** — causa: cada prueba paga la dependencia lenta. Corrección: crear una costura y sustituir la dependencia. ([SE-519](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md))
+**La suite tarda minutos.** Cada prueba paga la dependencia lenta; crear una costura y sustituirla.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Una **costura** es un lugar donde se puede alterar el comportamiento sin modificar el código en ese lugar. ([SE-519](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md))
-- Traslada el análisis a otro dominio (por ejemplo, una función que calcula el precio de una reserva con descuentos): cambia la función y las dependencias y conserva el procedimiento de crear una costura, registrar un maestro dorado, medir cobertura y mutantes, normalizar la variación y decidir qué hacer con cada comportamiento sospechoso. ([SE-519](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md))
+Una costura no mejora el diseño por sí sola: es un medio para fijar el comportamiento antes de refactorizar. Y no todos los lenguajes ofrecen las tres clases.
 
 ## Relación con otros conceptos
 

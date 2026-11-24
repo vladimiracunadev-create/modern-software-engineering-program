@@ -2,40 +2,32 @@
 
 [↑ Glosario](../../README.md) · [← Tiempo de pared y cpu](./tiempo-de-pared-y-cpu.md) · [Tiempo de respuesta →](./tiempo-de-respuesta.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 40](../../../classes/part-40-ci-cd-iac-y-platform-engineering/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 40](../../../classes/part-40-ci-cd-iac-y-platform-engineering/README.md)
 
 ## Definición
 
-Tiempo que tarda en restaurarse el servicio tras un despliegue fallido.
-
-Definición de trabajo de [SE-490 — Métricas DORA y mejora sin gaming](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-490-metricas-dora-y-mejora-sin-gaming/README.md).
+En las métricas de entrega, el **tiempo de recuperación** es el tiempo que tarda en restaurarse el servicio tras un despliegue fallido ([SE-490](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-490-metricas-dora-y-mejora-sin-gaming/README.md)). No se debe confundir con el MTTR de la ingeniería de fiabilidad en general ni con los objetivos de recuperación de desastres (RTO), de otra clase.
 
 ## Por qué importa
 
-La clase donde se define, [SE-490 — Métricas DORA y mejora sin gaming](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-490-metricas-dora-y-mejora-sin-gaming/README.md), existe con este propósito: la clase existe para que midas la entrega de software sin engañarte ni dejar que otros se engañen.
+Es una de las métricas de DORA y mide cuánto dura el daño cuando un cambio falla; junto con la tasa de fallos de los cambios, describe la estabilidad de las entregas.
 
 ## Cómo funciona
 
-Según [SE-490 — Métricas DORA y mejora sin gaming](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-490-metricas-dora-y-mejora-sin-gaming/README.md):
-
-La guía de DORA agrupa las métricas en dos dimensiones. El **rendimiento** (throughput) describe la velocidad con que los cambios llegan a producción: el **plazo de los cambios** (tiempo desde que un cambio se confirma en el control de versiones hasta que se despliega en producción), la **frecuencia de despliegue** y el **tiempo de recuperación de un despliegue fallido**. La **inestabilidad** describe la calidad de esas entregas: la **tasa de fallos de los cambios** (fracción de despliegues que requieren una intervención inmediata, normalmente un retroceso o una corrección urgente) y la **tasa de retrabajo** (fracción de despliegues no planificados que ocurren a consecuencia de un incidente). Las dos dimensiones se miran juntas porque la velocidad sin estabilidad es acumular deuda y la estabilidad sin velocidad es no entregar.
+La guía de DORA agrupa las métricas en dos dimensiones. El **rendimiento** describe la velocidad con que los cambios llegan a producción: plazo de los cambios (desde la confirmación hasta producción), frecuencia de despliegue y tiempo de recuperación. La **inestabilidad** describe la calidad: la tasa de fallos de los cambios y la tasa de retrabajo. [SE-490](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-490-metricas-dora-y-mejora-sin-gaming/README.md) insiste en que cada definición se escriba y versione, porque dos equipos con definiciones distintas reportan números no comparables.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-490 — Métricas DORA y mejora sin gaming](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-490-metricas-dora-y-mejora-sin-gaming/README.md):
-
-El equipo de la API de entregas escribe sus definiciones antes de construir ningún panel. El plazo empieza en la fusión a la troncal y termina cuando el despliegue a producción es sano (no cuando se lanza); una segunda serie mide desde el primer commit para ver cuánto se pierde antes de integrar. La frecuencia cuenta solo despliegues de cambios de comportamiento a producción, por servicio. Un fallo es cualquier despliegue seguido de un retroceso, una corrección urgente o una incidencia de gravedad alta en las dos horas siguientes.
+Un despliegue falla a las 10:00 y se revierte a las 10:20: el tiempo de recuperación es de 20 minutos. Un equipo con retroceso automático lo reduce; uno que debe corregir hacia adelante tarda más.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-490 — Métricas DORA y mejora sin gaming](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-490-metricas-dora-y-mejora-sin-gaming/README.md)) son:
-
-- **Dos equipos reportan plazos muy distintos** — causa: definiciones diferentes. Corrección: escribir y versionar las definiciones; comparar solo con la misma.
-- **La frecuencia sube y la entrega no mejora** — causa: la métrica es objetivo y se cuentan despliegues vacíos. Corrección: contar solo cambios de comportamiento; añadir contrapeso.
+- **Dos equipos reportan plazos muy distintos.** Definiciones diferentes; escribirlas, versionarlas y comparar solo con la misma.
+- **La frecuencia sube y la entrega no mejora.** La métrica es objetivo y se cuentan despliegues vacíos; contar solo cambios de comportamiento y añadir contrapeso.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-490 — Métricas DORA y mejora sin gaming](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-490-metricas-dora-y-mejora-sin-gaming/README.md)) son: Las definiciones son operativas para la canalización de la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos.
+Una métrica de equipo no es un objetivo individual: cuando se vuelve meta, se manipula. Solo es comparable dentro de la misma definición.
 
 ## Relación con otros conceptos
 

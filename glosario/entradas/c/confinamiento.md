@@ -2,45 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Configuración y precedencia](./configuracion-y-precedencia.md) · [Confinamiento de rutas →](./confinamiento-de-rutas.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 47](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 47](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md)
 
 ## Definición
 
-Restricción de las rutas que el agente puede tocar.
-
-Definición de trabajo de [SE-582 — Sandboxes, reversibilidad y control de daño](../../../classes/part-48-harness-y-agentic-engineering/se-582-sandboxes-reversibilidad-y-control-de-dano/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-569 — Agentes, herramientas, permisos y límites de autoridad](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-569-agentes-herramientas-permisos-y-limites-de-autoridad/README.md): Limitación de lo que una operación puede tocar a una región resuelta (un directorio, un dominio).
+El **confinamiento** restringe las rutas (o la región) que un agente puede tocar: la limitación de lo que una operación puede tocar a una región resuelta, como un directorio o un dominio ([SE-569](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-569-agentes-herramientas-permisos-y-limites-de-autoridad/README.md), [SE-582](../../../classes/part-48-harness-y-agentic-engineering/se-582-sandboxes-reversibilidad-y-control-de-dano/README.md)).
 
 ## Por qué importa
 
-En [SE-582 — Sandboxes, reversibilidad y control de daño](../../../classes/part-48-harness-y-agentic-engineering/se-582-sandboxes-reversibilidad-y-control-de-dano/README.md), el tema «Confinamiento por rutas» importa porque impide el daño fuera del proyecto con un costo bajo.
+Acota el daño que un agente puede hacer con sus herramientas. Es un control barato y exacto en lo que cubre, pero no cubre todo, y la diferencia importa.
 
 ## Cómo funciona
 
-Según [SE-582 — Sandboxes, reversibilidad y control de daño](../../../classes/part-48-harness-y-agentic-engineering/se-582-sandboxes-reversibilidad-y-control-de-dano/README.md):
-
-El confinamiento por rutas resuelve cada ruta que el agente quiere leer o escribir (siguiendo `..` y enlaces) y la compara con la raíz permitida. En el laboratorio, el confinamiento bloquea dos de las cinco acciones (el borrado con `../home/config.txt` y la escritura con una ruta absoluta) y deja los dos archivos «personales» intactos. Es barato y exacto en lo que cubre. No cubre un proceso hijo que el agente lance con una herramienta permitida: ese proceso no pasa por la comprobación de rutas. El aislamiento que sí lo cubre, un sandbox del sistema operativo que restringe el sistema de archivos y la red del proceso entero, es otro nivel de control, y Anthropic lo presenta como la forma de reducir los permisos que hay que pedir sin perder seguridad.
-
-Según [SE-582 — Sandboxes, reversibilidad y control de daño](../../../classes/part-48-harness-y-agentic-engineering/se-582-sandboxes-reversibilidad-y-control-de-dano/README.md):
-
-Lo cubre y lo supera para procesos hijos y red: restringe lo que el proceso puede hacer en el sistema. El confinamiento por rutas es un control del harness que decide qué *llamadas* acepta; un contenedor decide qué puede *ocurrir*. Se complementan.
+El confinamiento por rutas **resuelve** cada ruta que el agente quiere leer o escribir (siguiendo `..` y enlaces simbólicos) y la compara con la raíz permitida. En el laboratorio de [SE-582](../../../classes/part-48-harness-y-agentic-engineering/se-582-sandboxes-reversibilidad-y-control-de-dano/README.md), bloquea dos de las cinco acciones (el borrado con `../home/config.txt` y la escritura con una ruta absoluta) y deja los dos archivos «personales» intactos. No cubre un proceso hijo lanzado con una herramienta permitida: ese proceso no pasa por la comprobación de rutas.
 
 ## Ejemplo
 
-Ejemplo de [SE-582 — Sandboxes, reversibilidad y control de daño](../../../classes/part-48-harness-y-agentic-engineering/se-582-sandboxes-reversibilidad-y-control-de-dano/README.md) (sección «Ejemplo mínimo»):
+```python
+from pathlib import Path
+raiz = Path("/proyecto").resolve()
+def permitido(ruta):
+    return Path(ruta).resolve().is_relative_to(raiz)
+```
 
-El confinamiento por resolución de rutas:
+Resolver antes de comparar evita que `../` o un enlace escapen de la raíz.
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+Comparar texto sin resolver la ruta; creer que el confinamiento por rutas aísla procesos.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-582 — Sandboxes, reversibilidad y control de daño](../../../classes/part-48-harness-y-agentic-engineering/se-582-sandboxes-reversibilidad-y-control-de-dano/README.md)) son: Se ejecutaron cuatro configuraciones sobre quince archivos de texto con acciones sencillas, en Windows 11 con CPython 3.12.9 y Git 2.55. No se midió ningún sandbox del sistema operativo, ningún escape, ningún enlace simbólico ni ningún proceso hijo. El siguiente paso, `SE-583`, trata cómo decidir qué cambios se aceptan: las compuertas de verificación y un menú único que agente y persona ejecutan igual.
+Un contenedor lo cubre y lo supera para procesos hijos y red: [SE-582](../../../classes/part-48-harness-y-agentic-engineering/se-582-sandboxes-reversibilidad-y-control-de-dano/README.md) explica que el confinamiento es un control del arnés que decide qué *llamadas* acepta, y el contenedor decide qué puede *ocurrir*; se complementan.
 
 ## Relación con otros conceptos
 

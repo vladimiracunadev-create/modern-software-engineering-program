@@ -2,42 +2,32 @@
 
 [↑ Glosario](../../README.md) · [← Cambio en paralelo](./cambio-en-paralelo.md) · [Cambio mínimo →](./cambio-minimo.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 39](../../../classes/part-39-build-release-y-cadena-de-suministro/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 39](../../../classes/part-39-build-release-y-cadena-de-suministro/README.md)
 
 ## Definición
 
-El que puede hacer fallar o cambiar el resultado de un cliente que seguía el contrato.
-
-Definición de trabajo de [SE-474 — Versionado, compatibilidad y changelog](../../../classes/part-39-build-release-y-cadena-de-suministro/se-474-versionado-compatibilidad-y-changelog/README.md).
+Un **cambio incompatible** es el que puede hacer fallar o cambiar el resultado de un cliente que seguía el contrato ([SE-474](../../../classes/part-39-build-release-y-cadena-de-suministro/se-474-versionado-compatibilidad-y-changelog/README.md)).
 
 ## Por qué importa
 
-La clase donde se define, [SE-474 — Versionado, compatibilidad y changelog](../../../classes/part-39-build-release-y-cadena-de-suministro/se-474-versionado-compatibilidad-y-changelog/README.md), existe con este propósito: la clase existe para que trates un número de versión como lo que es: una **promesa** que hace quien publica a quien depende de su software sobre lo que puede romperse al actualizar.
+Quien publica una biblioteca o una API promete a quien depende de ella; el versionado semántico es la forma de expresar esa promesa. Saber si un cambio es incompatible decide qué número de versión sube y cuánto aviso hay que dar.
 
 ## Cómo funciona
 
-Según [SE-474 — Versionado, compatibilidad y changelog](../../../classes/part-39-build-release-y-cadena-de-suministro/se-474-versionado-compatibilidad-y-changelog/README.md):
-
-El **versionado semántico** asigna significado a los tres números de una versión: el **mayor** sube cuando hay cambios incompatibles de la API pública, el **menor** cuando se añade funcionalidad compatible y el **parche** cuando se corrige un error sin cambiar la API. Es una promesa que quien publica hace a quien depende: «si actualizas dentro del mismo mayor, tu código seguirá funcionando». Su valor es que permite expresar rangos de dependencia (`>=1.4,<2`) y automatizar actualizaciones menores. Su debilidad es que depende de que quien publica juzgue bien, y que «compatible» tiene al menos tres sentidos: el código sigue compilando (compatibilidad de código fuente), el binario sigue enlazando (compatibilidad binaria) y el programa se sigue comportando como se esperaba (compatibilidad de comportamiento).
+[SE-474](../../../classes/part-39-build-release-y-cadena-de-suministro/se-474-versionado-compatibilidad-y-changelog/README.md): el **versionado semántico** asigna significado a los tres números: el **mayor** sube cuando hay cambios incompatibles de la API pública, el **menor** cuando se añade funcionalidad compatible y el **parche** cuando se corrige un error sin cambiar la API. Quien depende puede escribir rangos (`>=1.4,<2`) y automatizar actualizaciones menores. Su debilidad: la compatibilidad se declara, no se comprueba, y un cambio de comportamiento con la firma intacta rompe clientes sin que el número lo anuncie.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-474 — Versionado, compatibilidad y changelog](../../../classes/part-39-build-release-y-cadena-de-suministro/se-474-versionado-compatibilidad-y-changelog/README.md):
-
-El equipo escribe una política de versionado de la API de entregas: la API pública son los puntos finales documentados, sus parámetros, sus campos de respuesta, sus códigos de error y el orden de los listados cuando está especificado; el comportamiento no documentado no se promete. Cada solicitud de integración ejecuta el comparador de firmas y las pruebas de contrato, y quien revisa elige el nivel; si hay discrepancia, gana el mayor.
+Una función que antes devolvía una lista vacía ante «sin resultados» y ahora lanza una excepción mantiene su firma, pero rompe a los clientes que no la capturaban: es un cambio incompatible aunque el tipo no haya cambiado.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-474 — Versionado, compatibilidad y changelog](../../../classes/part-39-build-release-y-cadena-de-suministro/se-474-versionado-compatibilidad-y-changelog/README.md)) son:
-
-- **Un cliente se rompe tras un cambio menor** — causa: cambio de comportamiento con la firma intacta. Corrección: pruebas de contrato y revisión del comportamiento observable.
-- **El número de versión no dice nada** — causa: API pública no definida. Corrección: declarar la API pública y lo que no se promete.
+- **Un cliente se rompe tras un cambio menor.** Cambio de comportamiento con la firma intacta; pruebas de contrato y revisión del comportamiento observable.
+- **El número de versión no dice nada.** API pública no definida; declarar la API pública y lo que no se promete.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- El **versionado semántico** asigna significado a los tres números de una versión: el **mayor** sube cuando hay cambios incompatibles de la API pública, el **menor** cuando se añade funcionalidad compatible y el **parche** cuando se corrige un error sin cambiar la API. ([SE-474](../../../classes/part-39-build-release-y-cadena-de-suministro/se-474-versionado-compatibilidad-y-changelog/README.md))
+La compatibilidad es relativa a lo que el contrato promete; por eso hay que definir qué es API pública. El versionado semántico no se aplica igual a aplicaciones finales, que no tienen clientes programáticos.
 
 ## Relación con otros conceptos
 

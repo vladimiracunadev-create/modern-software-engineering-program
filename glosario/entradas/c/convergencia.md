@@ -2,46 +2,31 @@
 
 [↑ Glosario](../../README.md) · [← Convención de mensajes](./convencion-de-mensajes.md) · [Copia consistente →](./copia-consistente.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 47](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 47](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md)
 
 ## Definición
 
-Estado en que un verificador independiente no encuentra ningún criterio de la especificación sin cumplir.
-
-Definición de trabajo de [SE-567 — Implementación, análisis y convergencia contra SPEC](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-567-implementacion-analisis-y-convergencia-contra-spec/README.md).
+La **convergencia** es el estado en que un verificador independiente no encuentra ningún criterio de la especificación sin cumplir ([SE-567](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-567-implementacion-analisis-y-convergencia-contra-spec/README.md)). Es la única condición de parada «feliz» de un bucle de agente.
 
 ## Por qué importa
 
-En [SE-567 — Implementación, análisis y convergencia contra SPEC](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-567-implementacion-analisis-y-convergencia-contra-spec/README.md), el tema «Declaración propia frente a verificación» importa porque un verificador parcial produce convergencias falsas.
+«El agente dice haber terminado» no es convergencia. Para que lo sea, el veredicto debe venir de un verificador distinto del propio agente, con criterios ejecutables previos.
 
 ## Cómo funciona
 
-Según [SE-567 — Implementación, análisis y convergencia contra SPEC](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-567-implementacion-analisis-y-convergencia-contra-spec/README.md):
-
-Un bucle sin condición de parada se detiene cuando se acaba el dinero o la paciencia. Las condiciones explícitas más útiles son cinco. **Convergencia**: el verificador no encuentra nada y se acaba bien. **Máximo de pasadas**: tras N pasadas se detiene aunque haya criterios abiertos; es la condición que la guía de Anthropic cita como habitual para mantener el control. **Sin progreso**: el número de criterios abiertos no baja en dos pasadas seguidas. **Presupuesto**: un tope de tokens, tiempo o dinero. **Regresión**: una pasada reabre criterios que estaban cumplidos, lo que indica que el agente está deshaciendo su propio trabajo. En todos los casos distintos de la convergencia, la acción es la misma: detener, guardar el estado y llamar a una persona con la lista de lo abierto.
-
-Según [SE-567 — Implementación, análisis y convergencia contra SPEC](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-567-implementacion-analisis-y-convergencia-contra-spec/README.md):
-
-Traslada el análisis a otro dominio (por ejemplo, un agente que migra los textos de una intranet a otro formato): cambia los criterios y las variantes defectuosas y conserva el procedimiento de definir la convergencia con un verificador independiente, fijar condiciones de parada con su acción y medir la capacidad de detección con variantes. La transferencia está lograda cuando puedes decir qué criterios de ese dominio no detectarían una variante defectuosa concreta, no cuando la tabla se parece a la de *Avisos*.
+[SE-567](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-567-implementacion-analisis-y-convergencia-contra-spec/README.md) define el bucle: el agente trabaja, el verificador revisa los criterios, y el bucle acaba cuando no queda ninguno abierto. Las otras condiciones (máximo de pasadas, sin progreso, presupuesto, regresión) detienen sin convergencia y llaman a una persona. El valor de la convergencia depende de la **cobertura del verificador**: si no mira un criterio, no puede declararlo cumplido, por lo que la clase pide publicar la cobertura y medir su capacidad de detección con variantes defectuosas.
 
 ## Ejemplo
 
-Ejemplo de [SE-567 — Implementación, análisis y convergencia contra SPEC](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-567-implementacion-analisis-y-convergencia-contra-spec/README.md) (sección «Caso conductor»):
-
-El servicio *Avisos* es el caso conductor de la [Parte 47](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md). Esta clase deja el tercer artefacto: los criterios ejecutables, las condiciones de parada y la medida de su capacidad de detección. `SE-568` repetirá el recorrido en proyectos con código previo, en arreglos de errores y en la evaluación de ideas, y `SE-569` fijará con qué permisos trabaja el agente mientras converge. Cambia después un solo dato, la tasa de regresión, y observa a partir de qué valor tu condición de máximo de pasadas se activa más a menudo que la de convergencia.
+[SE-567](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-567-implementacion-analisis-y-convergencia-contra-spec/README.md) (asistente de *Avisos*): un agente migra textos de una intranet a otro formato. Sin verificador independiente, declara haber terminado y la revisión encuentra incumplimientos. Con criterios ejecutables previos, la convergencia significa que el verificador recorrió todos y no halló ninguno abierto.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-567 — Implementación, análisis y convergencia contra SPEC](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-567-implementacion-analisis-y-convergencia-contra-spec/README.md)) son:
-
-- **El agente dice haber terminado y la revisión encuentra incumplimientos** — causa: verificador del propio agente o con cobertura parcial. Corrección: criterios ejecutables previos y publicar la cobertura.
-- **El bucle no acaba nunca** — causa: no hay condiciones de parada. Corrección: máximo de pasadas, sin progreso, presupuesto y regresión.
+**El agente dice haber terminado y la revisión encuentra incumplimientos.** Verificador del propio agente o con cobertura parcial; criterios ejecutables previos y cobertura publicada.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- **Convergencia**: el verificador no encuentra nada y se acaba bien. ([SE-567](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-567-implementacion-analisis-y-convergencia-contra-spec/README.md))
+La convergencia es tan fiable como el verificador: una variante defectuosa que ningún criterio detecta pasa. Por eso se mide con variantes y se declara qué criterios no detectarían un defecto concreto.
 
 ## Relación con otros conceptos
 

@@ -2,45 +2,31 @@
 
 [↑ Glosario](../../README.md) · [← Crisis del software](./crisis-del-software.md) · [Criterio de aborto →](./criterio-de-aborto.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** G — Operación, evolución y liderazgo · **Primera aparición:** [Parte 43](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** G — Operación, evolución y liderazgo · **Primera aparición:** [Parte 43](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/README.md)
 
 ## Definición
 
-Condición medible, fijada de antemano, que obliga a detener una iniciativa.
-
-Definición de trabajo de [SE-526 — Economía de reescribir frente a evolucionar](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-526-economia-de-reescribir-frente-a-evolucionar/README.md).
+Un **criterio de abandono** es una condición medible, fijada de antemano, que obliga a detener una iniciativa ([SE-526](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-526-economia-de-reescribir-frente-a-evolucionar/README.md)).
 
 ## Por qué importa
 
-La clase donde se define, [SE-526 — Economía de reescribir frente a evolucionar](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-526-economia-de-reescribir-frente-a-evolucionar/README.md), existe con este propósito: la clase existe para que la pregunta «¿reescribimos o seguimos con esto?» deje de decidirse por cansancio, por entusiasmo por una tecnología o por quien habla más fuerte, y se decida con un modelo de costos explícito, con incertidumbre y con las condiciones en que la respuesta cambia.
+Una reescritura sin forma de pararla se convierte en compromiso irreversible por inercia. [SE-526](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-526-economia-de-reescribir-frente-a-evolucionar/README.md) propone que la conclusión de un análisis no sea «reescribir» ni «evolucionar» sino una **opción con salida**: se decide con indicadores, y se acuerda de antemano cuándo se corta.
 
 ## Cómo funciona
 
-Según [SE-526 — Economía de reescribir frente a evolucionar](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-526-economia-de-reescribir-frente-a-evolucionar/README.md):
-
-La conclusión de un modelo no es «reescribir» ni «evolucionar» sino una **opción con salida**. Si se elige evolucionar, se fijan indicadores (costo por cambio, tiempo de ciclo, incidencias) que revisan la decisión si no mejoran en un plazo. Si se elige reescribir, se hace de forma incremental (`SE-521`) para que cada rebanada entregue valor y pueda detenerse, se fijan criterios de abandono (porcentaje de alcance cubierto, desviación acumulada del presupuesto) y se define quién tiene autoridad para parar sin que parar se considere un fracaso personal. La elección más peligrosa es la irreversible con un parámetro dominante todavía sin medir: es la que combina el máximo compromiso con el mínimo conocimiento.
-
-Según [SE-526 — Economía de reescribir frente a evolucionar](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-526-economia-de-reescribir-frente-a-evolucionar/README.md):
-
-Escenario hipotético, construido para la clase y sin datos reales. El equipo no discute las dos propuestas: las convierte en parámetros. Del historial de la empresa obtiene que la última reescritura costó 1,8 veces su presupuesto y duró 1,5 veces lo previsto; mide el crecimiento del costo del módulo en los últimos tres años (un 9 % anual); revisa cuántas peticiones modificaron el módulo antiguo en el último año para estimar la deriva. Con eso ejecuta la simulación: el análisis de sensibilidad dice que el costo de construir domina, así que decide hacer un prototipo de una rebanada (`SE-521`) para medirlo antes de comprometer el resto.
+Si se elige reescribir, se hace de forma incremental ([SE-521](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md)) para que cada rebanada entregue valor y pueda detenerse; se fijan criterios de abandono, como el porcentaje de alcance cubierto o la desviación acumulada del presupuesto; y se define quién tiene autoridad para parar, sin que parar se considere un fracaso personal. Si se elige evolucionar, se fijan indicadores (costo por cambio, tiempo de ciclo, incidencias) que revisan la decisión si no mejoran en un plazo.
 
 ## Ejemplo
 
-Ejemplo de [SE-526 — Economía de reescribir frente a evolucionar](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-526-economia-de-reescribir-frente-a-evolucionar/README.md) (sección «Ejemplo profesional»):
-
-Escenario hipotético, construido para la clase y sin datos reales. El equipo no discute las dos propuestas: las convierte en parámetros. Del historial de la empresa obtiene que la última reescritura costó 1,8 veces su presupuesto y duró 1,5 veces lo previsto; mide el crecimiento del costo del módulo en los últimos tres años (un 9 % anual); revisa cuántas peticiones modificaron el módulo antiguo en el último año para estimar la deriva. Con eso ejecuta la simulación: el análisis de sensibilidad dice que el costo de construir domina, así que decide hacer un prototipo de una rebanada (`SE-521`) para medirlo antes de comprometer el resto.
+[SE-526](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-526-economia-de-reescribir-frente-a-evolucionar/README.md) (escenario hipotético): el equipo convierte las propuestas en parámetros. Del historial de la empresa obtiene que la última reescritura costó 1,8 veces su presupuesto y duró 1,5 veces lo previsto; mide el crecimiento del costo del módulo (9 % anual) y la deriva por peticiones al módulo antiguo; ejecuta una simulación con análisis de sensibilidad. Un criterio sería, por ejemplo, abandonar si el gasto acumulado excede una proporción fijada del presupuesto antes de cubrir cierto alcance.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **No hay forma de parar la reescritura** — causa: sin criterios de abandono ni dueño. Corrección: fijar criterios y quién puede aplicarlos. ([SE-526](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-526-economia-de-reescribir-frente-a-evolucionar/README.md))
+**No hay forma de parar la reescritura.** Sin criterios de abandono ni dueño; fijar criterios y quién puede aplicarlos.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Si se elige reescribir, se hace de forma incremental (`SE-521`) para que cada rebanada entregue valor y pueda detenerse, se fijan criterios de abandono (porcentaje de alcance cubierto, desviación acumulada del presupuesto) y se define quién tiene autoridad para parar sin que parar se considere un fracaso personal. ([SE-526](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-526-economia-de-reescribir-frente-a-evolucionar/README.md))
+Un criterio solo sirve si se mide con datos reales y alguien con autoridad lo aplica. Cifras como las de la clase son del escenario, no valores universales.
 
 ## Relación con otros conceptos
 

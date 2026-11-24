@@ -2,41 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← Abstracción de rama](./abstraccion-de-rama.md) · [Accessibility Engineer →](./accessibility-engineer.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 33](../../../classes/part-33-cloud-plataforma-e-infraestructura/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 33](../../../classes/part-33-cloud-plataforma-e-infraestructura/README.md)
 
 ## Definición
 
-Concesión excepcional, limitada en el tiempo y registrada, de permisos mayores a los habituales.
-
-Definición de trabajo de [SE-403 — Entornos, cuentas y separación de responsabilidades](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md).
+El **acceso de emergencia** es una concesión excepcional de permisos mayores a los habituales, limitada en el tiempo, justificada y registrada ([SE-403](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md)). Es la válvula de un sistema de mínimo privilegio: reconoce que a veces hay que actuar en producción con más poder del cotidiano, y define bajo qué condiciones se puede hacer sin abrir un hueco permanente.
 
 ## Por qué importa
 
-En [SE-403 — Entornos, cuentas y separación de responsabilidades](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md), el tema «Acceso de emergencia» importa porque la excepción debe ser rápida, acotada y visible.
+Cuando algo falla en producción la presión empuja a dar permisos amplios «por ahora» y a no volver a quitarlos. La decisión profesional que cambia este concepto es dejar de elegir entre dos malos extremos: bloquear al equipo de guardia cuando más lo necesita, o repartir administración permanente. Con un acceso de emergencia bien diseñado, la rapidez se compra con trazabilidad y con una fecha de caducidad, no con confianza ciega.
 
 ## Cómo funciona
 
-Según [SE-403 — Entornos, cuentas y separación de responsabilidades](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md), en la sección «Acceso de emergencia»:
+[SE-403](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md) describe cuatro propiedades que lo definen y que se pueden comprobar:
 
-Cuando algo falla en producción hay que poder actuar rápido, y los permisos mínimos del día a día no bastan. El acceso de emergencia es una excepción deliberada: concede más permisos por un tiempo limitado, exige una justificación y deja un registro que otra persona revisa después. Lo que no debe hacer es convertirse en el camino normal, ni deshacer la separación de funciones: quien usa el acceso de emergencia no debería poder borrar su registro. Un acceso de emergencia sin registro es un administrador permanente con otro nombre.
+1. **Excepcional**: no es el camino normal. Si se usa a diario, el problema son los permisos de base, que se quedaron cortos.
+2. **Limitado en el tiempo**: el permiso expira solo; no depende de que alguien se acuerde de revocarlo.
+3. **Justificado**: quien lo pide declara por qué, de modo que la revisión posterior tenga contra qué comparar.
+4. **Registrado y revisado por otra persona**: el registro lo revisa alguien distinto de quien actuó.
+
+La causa de fondo de la cuarta propiedad es la **separación de funciones**: quien usa el acceso no debería poder borrar su propio rastro. Por eso [SE-403](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md) corrige el error típico («el acceso de emergencia no deja rastro») ubicando el registro en una cuenta de auditoría separada, que quien actúa no puede escribir ni borrar. Sin esa separación, el acceso de emergencia es, en palabras de la clase, un administrador permanente con otro nombre.
 
 ## Ejemplo
 
-Ejemplo de [SE-403 — Entornos, cuentas y separación de responsabilidades](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la plataforma crea tres cuentas, una por entorno, administradas desde una organización que fija políticas comunes: ningún usuario puede desactivar el registro, y los depósitos de producción deniegan el borrado masivo. Los cambios llegan a preproducción por promoción automática tras las pruebas y a producción solo con la aprobación de una persona que no escribió el cambio. Un proceso compara cada semana las 72 claves compartidas entre preproducción y producción y abre una incidencia con cada diferencia. Las 8 diferencias declaradas (tamaño de las instancias, nombres, volumen de datos) están en un archivo revisable.
+Un servicio cae a las tres de la madrugada y la persona de guardia necesita leer y modificar un recurso para el que su rol diario no tiene permiso. Solicita el acceso indicando el incidente; recibe permisos ampliados por un plazo corto; cada acción queda en el registro de una cuenta de auditoría separada; al expirar el plazo vuelve sola a sus permisos habituales; al día siguiente otra persona revisa el registro frente a la justificación. Ilustración construida a partir del mecanismo de [SE-403](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md), no un caso medido.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El acceso de emergencia no deja rastro** — causa: registro escribible por quien lo usa. Corrección: registro en una cuenta de auditoría separada. ([SE-403](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md))
+- **Registro escribible por quien lo usa**: es el error que nombra [SE-403](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md). Se corrige con el registro en una cuenta de auditoría aparte.
+- **Convertirlo en rutina**: si cada semana hace falta, no es una emergencia sino un rol mal definido.
+- **Confundirlo con un permiso de administrador «por si acaso»**: la diferencia es el plazo, la justificación y la revisión; sin ellas es solo un permiso amplio.
+- **Pensar que reemplaza el mínimo privilegio**: lo complementa; lo habitual sigue siendo mínimo.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Lo que no debe hacer es convertirse en el camino normal, ni deshacer la separación de funciones: quien usa el acceso de emergencia no debería poder borrar su registro. ([SE-403](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md))
+[SE-403](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md) fija el límite explícitamente: no debe volverse el camino normal ni deshacer la separación de funciones. No sustituye el diseño de permisos del día a día ni sirve para trabajo planificado, que debe pasar por el flujo ordinario de cambios. Tampoco da por sí solo seguridad: depende de que alguien revise realmente el registro; un registro que nadie lee solo documenta el abuso a posteriori.
 
 ## Relación con otros conceptos
 

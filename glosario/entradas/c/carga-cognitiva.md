@@ -2,51 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Carga analítica](./carga-analitica.md) · [Carga cognitiva de un equipo →](./carga-cognitiva-de-un-equipo.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 33](../../../classes/part-33-cloud-plataforma-e-infraestructura/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 33](../../../classes/part-33-cloud-plataforma-e-infraestructura/README.md)
 
 ## Definición
 
-Esfuerzo mental que un equipo dedica a recordar y decidir cosas ajenas a su trabajo principal.
-
-Definición de trabajo de [SE-406 — Plataformas internas y golden paths](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-406-plataformas-internas-y-golden-paths/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-489 — Developer portals y capacidades de plataforma](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-489-developer-portals-y-capacidades-de-plataforma/README.md): Cantidad de cosas que un equipo debe conocer y mantener para hacer su trabajo.
-- En [SE-530 — Diseño de equipos y ownership](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership/README.md): Cantidad de contexto que un equipo debe mantener para operar y cambiar lo que posee.
+La **carga cognitiva** es el esfuerzo mental que un equipo dedica a recordar y decidir cosas ajenas a su trabajo principal ([SE-406](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-406-plataformas-internas-y-golden-paths/README.md)). [SE-489](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-489-developer-portals-y-capacidades-de-plataforma/README.md) la formula como la cantidad de cosas que un equipo debe conocer y mantener para hacer su trabajo, y [SE-530](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership/README.md) como la cantidad de contexto que debe mantener para operar y cambiar lo que posee. El programa la toma de *Team Topologies*.
 
 ## Por qué importa
 
-En [SE-406 — Plataformas internas y golden paths](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-406-plataformas-internas-y-golden-paths/README.md), el tema «Carga cognitiva y soporte» importa porque el tiempo de los equipos y la cola de soporte limitan la escala.
+La capacidad de un equipo es finita. Cada herramienta de despliegue, política de seguridad o convención de infraestructura que debe recordar compite con el producto. La decisión profesional que cambia es qué se ofrece a los equipos: una plataforma interna se justifica si **reduce** esa carga, y no por lo mucho que ofrece. [SE-489](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-489-developer-portals-y-capacidades-de-plataforma/README.md) lo dice así: la plataforma existe para reducirla, no para sumar otra cosa que aprender.
 
 ## Cómo funciona
 
-Según [SE-406 — Plataformas internas y golden paths](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-406-plataformas-internas-y-golden-paths/README.md):
+El trabajo de un equipo de producto tiene una carga cognitiva limitada; lo que excede ese límite se hace peor o se olvida. La respuesta que enseña el programa es mover capacidades repetidas (aprovisionamiento, canalizaciones, observabilidad, seguridad) a una plataforma ofrecida en autoservicio, con enfoque de producto: usuarios identificados, necesidades entendidas, interfaces fijadas, uso medido y retiro de lo que no sirve (documento de plataformas de la CNCF, que [SE-489](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-489-developer-portals-y-capacidades-de-plataforma/README.md) cita).
 
-El libro Team Topologies y el documento de plataformas de la CNCF coinciden en un punto: una plataforma interna existe para reducir la carga cognitiva de los equipos que construyen producto, ofreciéndoles capacidades listas para usar en autoservicio. Tratarla como producto significa tener usuarios identificados, entender qué les cuesta y medir si lo que se ofrece lo reduce. Sin eso se vuelve un proyecto de infraestructura con su propia agenda. Una plataforma se vuelve costosa de mantener cuando ofrece mucho y se usa poco, y se vuelve inútil cuando no ofrece lo que el equipo necesita justo cuando lo necesita.
+De ahí se deduce algo contraintuitivo: la plataforma compite con las alternativas que los equipos tienen a mano (construirlo ellos, usar un servicio externo, copiar la solución de otro equipo), y su éxito se mide por lo que los equipos **eligen**, no por lo que ofrece. Se vuelve costosa cuando ofrece mucho y se usa poco, e inútil cuando no ofrece lo necesario en el momento justo ([SE-406](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-406-plataformas-internas-y-golden-paths/README.md)).
 
-Según [SE-489 — Developer portals y capacidades de plataforma](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-489-developer-portals-y-capacidades-de-plataforma/README.md):
-
-El documento de la CNCF define una plataforma interna como una colección de capacidades —aprovisionamiento, canalizaciones, observabilidad, seguridad— ofrecidas a los equipos de producto con un enfoque de producto: se conocen sus necesidades, se fijan interfaces, se mide su uso y se retira lo que no sirve. Team Topologies aporta el criterio de diseño: el trabajo de los equipos de producto tiene una **carga cognitiva** limitada, y la plataforma existe para reducirla, no para sumar otra cosa que aprender. De ello se deduce que la plataforma compite con las alternativas que los equipos tienen a mano (construirlo ellos, usar un servicio externo, copiar la solución de otro equipo) y que su éxito no es lo que ofrece sino lo que los equipos eligen.
+[SE-530](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership/README.md) aplica la idea al tamaño de lo que un equipo posee: si debe mantener demasiado contexto para operar y cambiar sus sistemas, la propiedad está mal dimensionada.
 
 ## Ejemplo
 
-Caso medido en la sección «Carga cognitiva y soporte» de [SE-406 — Plataformas internas y golden paths](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-406-plataformas-internas-y-golden-paths/README.md):
-
-Cada paso manual es algo que recordar y algo que se puede hacer mal. La probabilidad de completar una secuencia sin error cae de forma geométrica con su longitud: con un 2 % de error por paso, 23 pasos dan un 62,8 % de aciertos y 5 pasos un 90,4 %. El otro costo es el de soporte: cada servicio hecho a mano genera más solicitudes que uno creado con el camino, y un equipo de plataforma pequeño pasa de ser un habilitador a ser una cola.
+Un equipo debe crear un servicio nuevo y recordar límites de recursos, usuario sin privilegios, etiqueta de dueño y sondas de salud. Con un camino dorado, esas guardas vienen incorporadas y el equipo solo piensa en su lógica. La carga baja porque deja de recordar lo que la plataforma ya hace. Ilustración de [SE-406](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-406-plataformas-internas-y-golden-paths/README.md).
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-406 — Plataformas internas y golden paths](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-406-plataformas-internas-y-golden-paths/README.md)) son:
-
-- **Los equipos no usan el camino** — causa: es más difícil que lo manual o no cubre su caso. Corrección: medir pasos y excepciones y mejorarlo.
-- **El equipo de plataforma está saturado de solicitudes** — causa: baja adopción y servicios hechos a mano. Corrección: reducir pasos del camino y atender primero las excepciones.
+- **Los equipos no usan el camino**: es más difícil que lo manual o no cubre su caso; se corrige midiendo pasos y excepciones.
+- **Plataforma saturada de solicitudes**: baja adopción y servicios hechos a mano; reducir pasos y atender primero las excepciones.
+- **Medir la plataforma por funciones ofrecidas** en vez de por reducción real de esfuerzo.
+- **Confundirla con carga de trabajo**: el número de tareas no es lo mismo que cuánto contexto hay que sostener a la vez.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Team Topologies aporta el criterio de diseño: el trabajo de los equipos de producto tiene una **carga cognitiva** limitada, y la plataforma existe para reducirla, no para sumar otra cosa que aprender. ([SE-489](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-489-developer-portals-y-capacidades-de-plataforma/README.md))
+El programa no da una unidad ni una medida estándar de carga cognitiva: es un criterio de diseño, no una métrica con umbral. Se estima con proxies (pasos, excepciones, tiempo de arranque) que hay que elegir y justificar. No sustituye la conversación con los equipos sobre qué les cuesta.
 
 ## Relación con otros conceptos
 

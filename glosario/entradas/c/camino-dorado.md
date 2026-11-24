@@ -2,47 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Camino crítico](./camino-critico.md) · [Camino feliz →](./camino-feliz.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 33](../../../classes/part-33-cloud-plataforma-e-infraestructura/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 33](../../../classes/part-33-cloud-plataforma-e-infraestructura/README.md)
 
 ## Definición
 
-Forma recomendada, soportada y automatizada de realizar una tarea frecuente, con las guardas incorporadas.
-
-Definición de trabajo de [SE-406 — Plataformas internas y golden paths](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-406-plataformas-internas-y-golden-paths/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-489 — Developer portals y capacidades de plataforma](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-489-developer-portals-y-capacidades-de-plataforma/README.md): Forma recomendada y soportada de realizar una tarea común, no obligatoria.
+Un **camino dorado** (o camino pavimentado) es la forma recomendada, soportada y automatizada de realizar una tarea frecuente, como crear un servicio nuevo, con las guardas ya incorporadas ([SE-406](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-406-plataformas-internas-y-golden-paths/README.md)). [SE-489](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-489-developer-portals-y-capacidades-de-plataforma/README.md) precisa lo que no es: no es obligatorio. Es una vía fácil y respaldada, no una prohibición de salirse.
 
 ## Por qué importa
 
-En [SE-406 — Plataformas internas y golden paths](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-406-plataformas-internas-y-golden-paths/README.md), el tema «Camino dorado» importa porque quita pasos y decisiones, no libertad.
-
-En [SE-489 — Developer portals y capacidades de plataforma](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-489-developer-portals-y-capacidades-de-plataforma/README.md), el tema «Camino dorado» importa porque los valores por defecto ahorran decisiones; deben cubrir y ser fáciles de empezar.
+Sin camino dorado, cada equipo debe recordar por su cuenta los límites de recursos, el usuario sin privilegios, la etiqueta de dueño, las sondas de salud y las imágenes con versión fija; olvidar una guarda es solo cuestión de tiempo. La decisión que cambia es dónde se pone la seguridad y la consistencia: no en documentos que alguien debe leer, sino en el camino que la gente ya recorre. [SE-406](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-406-plataformas-internas-y-golden-paths/README.md) lo resume: el camino más fácil debe ser también el correcto.
 
 ## Cómo funciona
 
-Según [SE-406 — Plataformas internas y golden paths](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-406-plataformas-internas-y-golden-paths/README.md), en la sección «Camino dorado»:
+El mecanismo es económico antes que técnico. Si lo correcto exige más pasos que lo incorrecto, la gente elige lo incorrecto; por eso el camino automatiza lo correcto y baja su costo por debajo de la alternativa manual. Incluye las guardas por defecto, de modo que un servicio creado por el camino nace conforme.
 
-Un camino dorado, o camino pavimentado, es la forma recomendada, soportada y automatizada de hacer algo frecuente, como crear un servicio nuevo. Incorpora las guardas que de otro modo cada equipo debería recordar: límites de recursos, un usuario sin privilegios, una etiqueta de dueño, sondas de salud, imágenes con versión fija. No es una obligación: quien tenga una necesidad distinta puede apartarse, asumiendo el costo de mantener lo suyo. Lo que lo hace valioso no es la libertad sino el costo: el camino más fácil es también el correcto. Si lo correcto exige más pasos que lo incorrecto, la gente elige lo incorrecto.
+Como no es una obligación, quien tenga una necesidad distinta puede apartarse, asumiendo el costo de mantener lo suyo. Esa salida no se prohíbe; se registra (el programa lo relaciona con la excepción registrada) para que el equipo de plataforma vea qué casos el camino no cubre.
+
+[SE-489](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-489-developer-portals-y-capacidades-de-plataforma/README.md) añade cómo saber si funciona: se mide, no se supone. Dos indicadores bastan para empezar: la **cobertura** (qué parte de las tareas pasa por el camino) y el **costo de empezar** (pasos para llegar a algo funcionando). Un camino con baja cobertura o con costo alto de arranque es un camino que nadie usa.
 
 ## Ejemplo
 
-Ejemplo de [SE-406 — Plataformas internas y golden paths](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-406-plataformas-internas-y-golden-paths/README.md) (sección «Caso conductor»):
-
-La plataforma de entregas es el caso conductor de la [Parte 33](../../../classes/part-33-cloud-plataforma-e-infraestructura/README.md). Esta clase deja el décimo artefacto: el camino dorado y su verificador. `SE-407` pone todo a prueba en un taller: desplegar y destruir un entorno de forma segura. Cambia una regla, por ejemplo exige dos réplicas en todos los entornos, y mira cuántos servicios dejan de cumplir.
+Una plataforma ofrece una plantilla que, al crear un servicio, genera el despliegue con límites de recursos, usuario sin privilegios, etiqueta de dueño, sondas de salud e imágenes fijadas. Un equipo con un requisito especial se aparta, documenta la excepción y mantiene su propia configuración. Ilustración del mecanismo de [SE-406](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-406-plataformas-internas-y-golden-paths/README.md).
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Nadie usa el camino dorado** — causa: cobertura baja o costo de empezar alto. Corrección: medir ambos; ampliar la cobertura o simplificar el inicio. ([SE-489](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-489-developer-portals-y-capacidades-de-plataforma/README.md))
+- **Nadie usa el camino dorado** ([SE-489](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-489-developer-portals-y-capacidades-de-plataforma/README.md)): causa, cobertura baja o costo de empezar alto; corrección, medir ambos y ampliar la cobertura o simplificar el inicio.
+- **Volverlo obligatorio**: pasa a ser un estándar impuesto y pierde la señal que da la excepción.
+- **Confundirlo con una plantilla pasiva**: sin soporte y automatización no es un camino, es un ejemplo.
+- **Medir solo cuántos servicios tiene la plataforma** en vez de cuántos equipos lo eligen.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un camino dorado, o camino pavimentado, es la forma recomendada, soportada y automatizada de hacer algo frecuente, como crear un servicio nuevo. ([SE-406](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-406-plataformas-internas-y-golden-paths/README.md))
+Vale para tareas frecuentes y parecidas entre equipos; para un caso único, construir el camino cuesta más de lo que ahorra. Un camino que cubre mal los casos reales se vuelve un proyecto de infraestructura con su propia agenda, como advierte [SE-406](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-406-plataformas-internas-y-golden-paths/README.md) de las plataformas sin usuarios identificados. Y las guardas incorporadas envejecen: requieren mantenimiento.
 
 ## Relación con otros conceptos
 

@@ -2,51 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Builder](./builder.md) · [Burn rate →](./burn-rate.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 26](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 26](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/README.md)
 
 ## Definición
 
-Reparto de un recurso finito en compartimentos para que el fallo de un uso no consuma el de los demás.
-
-Definición de trabajo de [SE-439 — Circuit breakers, bulkheads y degradación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-321 — Resiliencia: bulkhead, sidecar, ambassador y degradación](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-321-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/README.md): Aislamiento de recursos por dependencia para contener una falla.
+Un **bulkhead** (mamparo) reparte un recurso finito (hilos, conexiones, memoria) en compartimentos, uno por dependencia o por clase de solicitud, para que el fallo o la lentitud de un uso no consuma el recurso de los demás ([SE-439](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/README.md)). [SE-321](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-321-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/README.md) lo presenta como aislamiento de recursos por dependencia para contener una falla. El nombre viene de los compartimentos estancos de un barco.
 
 ## Por qué importa
 
-En [SE-439 — Circuit breakers, bulkheads y degradación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/README.md), el tema «Mamparos» importa porque confina el fallo de una dependencia a su compartimento.
-
-En [SE-321 — Resiliencia: bulkhead, sidecar, ambassador y degradación](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-321-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/README.md), el tema «Bulkhead» importa porque contiene el daño a la dependencia afectada
+Una dependencia lenta es más peligrosa que una caída: no devuelve error rápido, retiene los hilos. La decisión que cambia es cómo se dimensionan los recursos compartidos: en lugar de un único pool para todo, se decide cuánto del recurso puede perder cada dependencia sin arrastrar a las demás. El mamparo no arregla la dependencia lenta; la **confina**.
 
 ## Cómo funciona
 
-Según [SE-439 — Circuit breakers, bulkheads y degradación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/README.md):
+El mecanismo, según [SE-439](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/README.md), es aritmético. Si todas las llamadas comparten un pool de 20 trabajadores y una dependencia pasa de 50 ms a un segundo, sus llamadas ocupan los trabajadores unas veinte veces más tiempo; a la tasa de llegada de ese tráfico, el pool entero termina atendiendo solo a la dependencia lenta y las demás llamadas esperan en cola. Con pools separados, la dependencia lenta agota **su** compartimento; las otras siguen con el suyo. Las llamadas a la lenta fallan o esperan, pero el resto del servicio sigue sirviendo.
 
-El nombre viene de los compartimentos estancos de un barco. Un **mamparo** reparte un recurso finito (hilos, conexiones, memoria) en compartimentos, uno por dependencia o por clase de solicitud, de manera que la lentitud de una no pueda consumirlo todo. Si todas las llamadas comparten un único pool de 20 trabajadores y una de las dependencias tarda un segundo en lugar de 50 ms, sus llamadas ocupan los trabajadores mucho más tiempo y dejan sin ellos a las demás. Con pools separados, la dependencia lenta agota su compartimento y las demás siguen. El mamparo no arregla la dependencia lenta: la confina.
-
-Según [SE-321 — Resiliencia: bulkhead, sidecar, ambassador y degradación](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-321-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/README.md):
-
-El nombre viene de los mamparos de un barco: una vía de agua llena un compartimento y no el casco. En software, cada dependencia (o clase de dependencias) tiene su propio grupo de recursos. En la simulación, dos dependencias: A (sana, 40 peticiones por segundo, unos 50 ms por llamada) y B (8 por segundo, se degrada a 3 s entre t = 10 y t = 30 de una ventana de 40 s). Con un **grupo compartido de 10 hilos**, el 30,6 % de las peticiones de A terminan dentro de 0,5 s y el 23,4 % de las de B.
+[SE-321](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-321-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/README.md) lo verifica con una simulación: dos dependencias, A sana (40 peticiones por segundo, unos 50 ms) y B que se degrada a 3 s durante 20 s de una ventana de 40 s. Con un grupo compartido de 10 hilos, solo el 30,6 % de las peticiones de A terminan dentro de 0,5 s, aunque A estaba sana; con grupos separados, A queda protegida. Los números son de esa simulación, no una regla general.
 
 ## Ejemplo
 
-Caso medido en la sección «Mamparos» de [SE-439 — Circuit breakers, bulkheads y degradación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/README.md):
-
-El nombre viene de los compartimentos estancos de un barco. Un **mamparo** reparte un recurso finito (hilos, conexiones, memoria) en compartimentos, uno por dependencia o por clase de solicitud, de manera que la lentitud de una no pueda consumirlo todo. Si todas las llamadas comparten un único pool de 20 trabajadores y una de las dependencias tarda un segundo en lugar de 50 ms, sus llamadas ocupan los trabajadores mucho más tiempo y dejan sin ellos a las demás. Con pools separados, la dependencia lenta agota su compartimento y las demás siguen.
+Un servicio de entregas llama a un sistema de calificaciones (crítico) y a uno de estadísticas (secundario). Con un solo pool, que las estadísticas se pongan lentas deja sin hilos a las calificaciones. Con mamparos por criticidad, las estadísticas tienen, por ejemplo, un pool pequeño; cuando se agota, esa función se degrada y las calificaciones siguen. El tamaño de cada compartimento es una decisión de diseño, no un valor universal.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Una dependencia secundaria tumba la función principal** — causa: pool compartido. Corrección: mamparos por dependencia o por criticidad. ([SE-439](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/README.md))
+- **Una dependencia secundaria tumba la función principal**: es el error de [SE-439](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/README.md), causado por un pool compartido; se corrige con mamparos por dependencia o por criticidad.
+- **Creer que el mamparo cura la lentitud**: solo limita el daño.
+- **Confundirlo con el circuit breaker**: el mamparo limita cuánto recurso puede consumir una dependencia; el circuit breaker decide cuándo dejar de llamarla. Se combinan.
+- **Compartimentos demasiado pequeños**: una dependencia sana puede quedarse sin capacidad en un pico normal.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un **mamparo** reparte un recurso finito (hilos, conexiones, memoria) en compartimentos, uno por dependencia o por clase de solicitud, de manera que la lentitud de una no pueda consumirlo todo. ([SE-439](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/README.md))
+Repartir un recurso finito lo hace menos eficiente en conjunto: capacidad ociosa en un compartimento no la puede usar otro. Con una sola dependencia, o con recursos holgados respecto al tráfico, no aporta. Y solo protege los recursos que se dividen: si todos los compartimentos comparten, por ejemplo, la misma base de datos, esa base sigue siendo un punto común.
 
 ## Relación con otros conceptos
 

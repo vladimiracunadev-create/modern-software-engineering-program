@@ -2,52 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Capa](./capa.md) · [Capa de acceso al hardware →](./capa-de-acceso-al-hardware.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 31](../../../classes/part-31-integracion-eventos-y-mensajeria/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 31](../../../classes/part-31-integracion-eventos-y-mensajeria/README.md)
 
 ## Definición
 
-Traductor que impide que el modelo del sistema antiguo se imponga al del nuevo.
-
-Definición de trabajo de [SE-521 — Strangler, branch by abstraction y anticorruption](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-546 — DDD como lenguaje ubicuo y contexto para agentes](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-546-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md): Traducción entre contextos que protege al modelo propio.
-- En [SE-381 — Anti-corruption layers y traducción de modelos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-381-anti-corruption-layers-y-traduccion-de-modelos/README.md): Componente que traduce entre el modelo de otro sistema y el propio, y es el único que conoce ambos.
+La **capa anticorrupción** es un traductor entre dos modelos que impide que el modelo de un sistema se imponga al del otro. Es un concepto del diseño orientado al dominio. [SE-521](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md) la usa en la modernización de un sistema antiguo; [SE-546](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-546-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md) la define como la traducción entre contextos que protege al modelo propio; [SE-381](../../../classes/part-31-integracion-eventos-y-mensajeria/se-381-anti-corruption-layers-y-traduccion-de-modelos/README.md) la describe como el componente que traduce entre el modelo de otro sistema y el propio, y es el único que conoce ambos.
 
 ## Por qué importa
 
-En [SE-521 — Strangler, branch by abstraction y anticorruption](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md), el tema «Capa anticorrupción» importa porque evita que el modelo antiguo se vuelva el nuevo.
-
-En [SE-546 — DDD como lenguaje ubicuo y contexto para agentes](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-546-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md), el tema «Capa anticorrupción» importa porque evita que el modelo de otro contexto contamine el propio.
+Un sistema antiguo tiene convenciones propias: textos con coma decimal, estados de una letra con significado implícito, fechas de dos dígitos, nulos y espacios que significan cosas distintas. Si el sistema nuevo habla ese lenguaje directamente, lo hereda, y la modernización reproduce las rarezas del pasado. La decisión que cambia es dónde vive la traducción: en un lugar único y explícito, no repartida por todo el código nuevo.
 
 ## Cómo funciona
 
-Según [SE-521 — Strangler, branch by abstraction y anticorruption](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md), en la sección «Capa anticorrupción»:
+El mecanismo tiene dos partes. Primero, **aislamiento**: solo la capa conoce los dos vocabularios; el resto del sistema nuevo ve únicamente el modelo limpio. [SE-546](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-546-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md) lo muestra con una función de seis líneas que convierte `entrega_id` en `id`, `estudiante` en `student`, `vence_en` en `due` y, lo más importante, el estado textual en un booleano («recibida» verdadero, «pendiente» falso). Si mañana aparece un estado «en revisión», se decide en un solo sitio si cuenta como entregada.
 
-El sistema antiguo tiene un modelo con sus propias convenciones: textos con coma decimal, estados de una letra con significados implícitos, fechas de dos dígitos, nulos y espacios que significan cosas distintas. Si el sistema nuevo habla ese lenguaje directamente, lo hereda. La **capa anticorrupción** (concepto del diseño orientado al dominio) es un traductor entre los dos modelos: expone al sistema nuevo un modelo limpio y se ocupa de convertir. Sus decisiones son semánticas: qué se hace con una nota vacía, con un estado desconocido, con una fecha imposible. Una buena capa **no lanza excepciones** ante datos raros: los clasifica (traducido, traducido con advertencia, no traducible) y envía lo no traducible a una cuarentena para revisión.
-
-Según [SE-546 — DDD como lenguaje ubicuo y contexto para agentes](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-546-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md), en la sección «Capa anticorrupción»:
-
-La **capa anticorrupción** es la traducción entre contextos que impide que el modelo de uno contamine al otro. En el laboratorio es una función de seis líneas que convierte `entrega_id` en `id`, `estudiante` en `student`, `vence_en` en `due` y, lo más importante, el estado textual en un booleano: «recibida» pasa a verdadero y «pendiente» a falso. La función es el único lugar donde se conocen ambos vocabularios. Si mañana la plataforma añade un estado «en revisión», se decide en un solo lugar si cuenta como entregada.
+Segundo, **decisiones semánticas ante lo raro**. [SE-521](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md) pide que una buena capa no lance excepciones ante datos extraños: los clasifica (traducido, traducido con advertencia, no traducible) y envía lo no traducible a una cuarentena para revisión. Qué hacer con una nota vacía, un estado desconocido o una fecha imposible es una decisión de negocio que la capa vuelve explícita.
 
 ## Ejemplo
 
-Ejemplo de [SE-521 — Strangler, branch by abstraction y anticorruption](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md) (sección «Ejemplo profesional»):
-
-Escenario hipotético, construido para la clase y sin datos reales. El equipo divide el módulo en cuatro rebanadas: consulta de nota (poco tráfico, lectura), cálculo de nota, cierre de acta y exportación. Empieza por la consulta: la fachada la envía al sistema nuevo al 5 % y copia el 100 % en sombra al antiguo para comparar; la regla de equivalencia compara la nota al décimo y estado traducido, e ignora la marca de tiempo. Antes de subir a 25 % exige 3 000 comparaciones sin diferencias, calculadas para detectar una tasa del 0,1 %.
+Un sistema legado entrega una calificación como el texto `"8,5"` y un estado `"R"`. La capa produce `grade = 8.5` y `received = true`. Si llega `"R "` con espacio o una fecha `31/02`, no se detiene el flujo: el registro se marca con advertencia o va a cuarentena, y el equipo lo revisa sin que el sistema nuevo tenga que conocer el formato antiguo. Ilustración basada en los casos de [SE-521](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md) y [SE-546](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-546-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md).
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El sistema nuevo adopta las rarezas del antiguo** — causa: no hay capa de traducción. Corrección: introducir una capa anticorrupción con cuarentena. ([SE-521](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md))
+- **El sistema nuevo adopta las rarezas del antiguo** ([SE-521](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md)): no hay capa de traducción; se corrige introduciéndola con cuarentena.
+- **Dejar que la capa lance excepciones** ante datos raros: detiene el flujo en vez de clasificar.
+- **Dispersar la traducción** en varios módulos: se pierde la propiedad esencial de que un solo componente conoce ambos modelos.
+- **Confundirla con una simple conversión de formato**: traduce también significados.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La **capa anticorrupción** es la traducción entre contextos que impide que el modelo de uno contamine al otro. ([SE-546](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-546-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md))
+Añade un componente que mantener y un salto más en el camino de los datos. Si ambos sistemas comparten ya el mismo modelo, o el externo es tan estable y limpio que adoptarlo no daña al propio, la capa sobra; en la relación entre contextos, aceptar el modelo ajeno tal cual es la opción llamada conformista. Tampoco corrige problemas de calidad del origen: los hace visibles y los aísla.
 
 ## Relación con otros conceptos
 

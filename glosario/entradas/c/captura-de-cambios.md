@@ -2,40 +2,39 @@
 
 [↑ Glosario](../../README.md) · [← Captura](./captura.md) · [Característica →](./caracteristica.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 31](../../../classes/part-31-integracion-eventos-y-mensajeria/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 31](../../../classes/part-31-integracion-eventos-y-mensajeria/README.md)
 
 ## Definición
 
-Mecanismo que produce un flujo ordenado de altas, cambios y bajas de filas de una base de datos.
-
-Definición de trabajo de [SE-378 — CDC, ETL, ELT y sincronización](../../../classes/part-31-integracion-eventos-y-mensajeria/se-378-cdc-etl-elt-y-sincronizacion/README.md).
+La **captura de cambios** (CDC, por *change data capture*) es el mecanismo que produce un flujo ordenado de altas, cambios y bajas de filas de una base de datos: «se insertó la fila X», «se actualizó la fila Y de este valor a este», «se borró la fila Z» ([SE-378](../../../classes/part-31-integracion-eventos-y-mensajeria/se-378-cdc-etl-elt-y-sincronizacion/README.md)).
 
 ## Por qué importa
 
-En [SE-378 — CDC, ETL, ELT y sincronización](../../../classes/part-31-integracion-eventos-y-mensajeria/se-378-cdc-etl-elt-y-sincronizacion/README.md), el tema «Captura de cambios» importa porque trae altas, cambios y bajas en orden, a costa de operar el mecanismo.
+Sincronizar una base con un almacén analítico u otro sistema puede hacerse copiando todo cada vez, o detectando qué cambió. La captura de cambios decide si el destino se entera de **todo** lo ocurrido, incluidas las bajas y los cambios intermedios, o solo de una foto. Para quien diseña integración, es la diferencia entre un destino que converge con el origen y uno que conserva filas que ya no existen.
 
 ## Cómo funciona
 
-Según [SE-378 — CDC, ETL, ELT y sincronización](../../../classes/part-31-integracion-eventos-y-mensajeria/se-378-cdc-etl-elt-y-sincronizacion/README.md), en la sección «Captura de cambios»:
+[SE-378](../../../classes/part-31-integracion-eventos-y-mensajeria/se-378-cdc-etl-elt-y-sincronizacion/README.md) presenta dos formas de producir el flujo:
 
-La **captura de cambios** (CDC) produce un flujo de eventos de fila: «se insertó la fila X», «se actualizó la fila Y de este valor a este», «se borró la fila Z». Puede hacerse con **disparadores** (cada escritura inserta en una tabla de cambios en la misma transacción) o leyendo el **registro de escritura anticipada** del motor, como hacen la decodificación lógica de PostgreSQL y conectores como Debezium. Los disparadores son simples y se ven en el esquema, pero añaden escritura a cada operación; el registro del motor no toca las operaciones y exige permisos y operación del conector.
+- **Disparadores**: cada escritura inserta una fila en una tabla de cambios dentro de la misma transacción. Son simples y se ven en el esquema, pero añaden una escritura a cada operación.
+- **Lectura del registro de escritura anticipada** del motor, como la decodificación lógica de PostgreSQL o conectores como Debezium. No toca las operaciones de la aplicación, pero exige permisos y operar el conector.
+
+La causa de que la captura exista es una limitación de la alternativa: la detección por marca de tiempo solo ve filas que existen y cuya marca cambió. Un borrado no deja fila que comparar, así que el destino conserva lo que el origen ya eliminó; y una comparación estricta con la última marca pierde las filas modificadas en el mismo instante. Un flujo de eventos de fila evita ambos fallos porque registra el cambio como hecho, incluida la baja.
 
 ## Ejemplo
 
-Ejemplo de [SE-378 — CDC, ETL, ELT y sincronización](../../../classes/part-31-integracion-eventos-y-mensajeria/se-378-cdc-etl-elt-y-sincronizacion/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la plataforma decide por destino. **Portal de reportes:** consulta una vista del propio origen, sin copia, porque tolera la carga y necesita el valor actual. **Analítica:** captura de cambios sobre el registro de la base con instantánea inicial, carga cruda (ELT) en una zona sin datos de contacto y transformación posterior, con la versión de cada fila como guarda; el flujo se aplica de forma idempotente y se descarta cualquier cambio con versión menor. **Búsqueda de entregas:** los eventos de negocio del outbox de `SE-377`, porque solo le interesan los cambios con significado de negocio.
+Una plataforma replica su tabla de entregas a un almacén analítico. Con detección por marca, una entrega eliminada sigue apareciendo en el almacén. Con captura de cambios, el flujo trae un evento de baja y el destino la retira. Como el consumidor puede recibir un evento repetido, aplica los eventos de forma idempotente. Es el patrón que enseña [SE-378](../../../classes/part-31-integracion-eventos-y-mensajeria/se-378-cdc-etl-elt-y-sincronizacion/README.md) con datos sintéticos.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-378 — CDC, ETL, ELT y sincronización](../../../classes/part-31-integracion-eventos-y-mensajeria/se-378-cdc-etl-elt-y-sincronizacion/README.md)) son:
-
-- **El destino tiene filas que ya no existen en el origen** — causa: la detección por marca no ve las bajas. Corrección: registro de cambios o lápidas con borrado lógico.
-- **Faltan filas modificadas en el último segundo** — causa: comparación estricta con la última marca. Corrección: comparar con mayor o igual y aplicar de forma idempotente.
+- **El destino tiene filas que ya no existen en el origen**: la detección por marca no ve las bajas; corrección, registro de cambios o lápidas con borrado lógico.
+- **Faltan filas modificadas en el último segundo**: comparación estricta con la última marca; corrección, comparar con mayor o igual y aplicar de forma idempotente.
+- **Creer que los disparadores son gratis**: añaden escritura a cada operación.
+- **Confundirla con replicación del motor**: la captura produce eventos de fila reutilizables, no una copia física.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-378 — CDC, ETL, ELT y sincronización](../../../classes/part-31-integracion-eventos-y-mensajeria/se-378-cdc-etl-elt-y-sincronizacion/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos salvo los pasos de la máquina virtual. No se usó ningún motor con registro lógico, conector, almacén analítico ni red: el ritmo de operaciones, la resolución de la marca, los porcentajes de reordenado y duplicado y las tasas de cambio son construcciones del autor, y los resultados no se extrapolan a ningún producto.
+[SE-378](../../../classes/part-31-integracion-eventos-y-mensajeria/se-378-cdc-etl-elt-y-sincronizacion/README.md) declara que sus experimentos son sintéticos, sin motor con registro lógico, conector, almacén ni red; los ritmos y porcentajes son construcciones del autor, por lo que no son una medición de un sistema real. En la práctica, la captura no resuelve por sí sola el orden entre tablas ni la evolución del esquema, y la lectura del registro exige operar el conector. Para volúmenes pequeños con cambios poco frecuentes, una recarga completa puede bastar.
 
 ## Relación con otros conceptos
 

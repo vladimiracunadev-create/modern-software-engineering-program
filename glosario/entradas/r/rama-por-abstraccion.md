@@ -2,40 +2,52 @@
 
 [↑ Glosario](../../README.md) · [← Raíz de confianza](./raiz-de-confianza.md) · [Rama protegida →](./rama-protegida.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** G — Operación, evolución y liderazgo · **Primera aparición:** [Parte 43](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** G — Operación, evolución y liderazgo · **Primera aparición:** [Parte 43](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/README.md)
 
 ## Definición
 
-Técnica que introduce una abstracción para cambiar una implementación sin ramas largas, con una bandera que elige la implementación.
-
-Definición de trabajo de [SE-521 — Strangler, branch by abstraction y anticorruption](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md).
+La **rama por abstracción** (*branch by abstraction*) es la técnica que introduce una abstracción para cambiar una implementación sin ramas largas de control de versiones, con una bandera que elige qué implementación se usa. Es la definición de trabajo de [SE-521](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md), donde es la técnica equivalente al estrangulamiento (*strangler*) cuando el código a reemplazar está dentro del mismo programa. Pese al nombre, no usa ramas de Git: lo que hace es sustituirlas.
 
 ## Por qué importa
 
-En [SE-521 — Strangler, branch by abstraction y anticorruption](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md), el tema «Rama por abstracción» importa porque cambia una implementación sin ramas largas ni congelar el desarrollo.
+Una rama larga acumula conflictos con cada integración del resto del equipo y retrasa el descubrimiento de problemas hasta el final. La rama por abstracción permite **integrar con frecuencia código que aún no está activo**: el trabajo grande se hace en la rama principal, en pasos pequeños, sin tocar el comportamiento que ve la persona usuaria. Cambia la decisión de cómo reemplazar un componente interno: no con una reescritura aislada, sino con una costura y un traspaso gradual.
 
 ## Cómo funciona
 
-Según [SE-521 — Strangler, branch by abstraction y anticorruption](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md), en la sección «Rama por abstracción»:
+[SE-521](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md) da la secuencia:
 
-Cuando el código a reemplazar está dentro del mismo programa, la técnica equivalente es la **rama por abstracción**: se introduce una abstracción (una interfaz o una función) sobre el comportamiento a cambiar; el código existente pasa a ser una implementación; se desarrolla la nueva implementación detrás de la misma abstracción, con una bandera que decide cuál se usa; se cambia el valor de la bandera gradualmente y, cuando la nueva es la única en uso, se retira la antigua y la bandera. La técnica evita ramas largas de control de versiones, que acumulan conflictos, y permite integrar con frecuencia código que aún no está activo. La abstracción es una costura de objeto (`SE-519`) y la prueba de caracterización es la que garantiza que ambas implementaciones se comportan igual.
+1. Se introduce una **abstracción** (una interfaz o una función) sobre el comportamiento a cambiar.
+2. El código existente pasa a ser **una implementación** de esa abstracción.
+3. Se desarrolla la **nueva implementación** detrás de la misma abstracción, con una **bandera** que decide cuál se usa.
+4. Se cambia el valor de la bandera **gradualmente**.
+5. Cuando la nueva es la única en uso, se **retira la antigua y la bandera**.
+
+La abstracción es una **costura de objeto** ([SE-519](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md)): un punto donde se puede cambiar el comportamiento sin editar el código que la usa. Y la **prueba de caracterización** es la que garantiza que ambas implementaciones se comportan igual: fija el comportamiento actual, incluso el defectuoso, para detectar toda diferencia no intencionada.
+
+La causa de que funcione es que separa dos cosas que una rama larga mezcla: *desarrollar* (que ocurre a diario, en la rama principal) y *activar* (una decisión de configuración reversible).
 
 ## Ejemplo
 
-Ejemplo de [SE-521 — Strangler, branch by abstraction y anticorruption](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md) (sección «Preguntas frecuentes»):
+El módulo de calificaciones calcula promedios con una función antigua. Se define una interfaz `CalculoDePromedio`; la función antigua pasa a ser su implementación `Heredada`; se escribe `Nueva` y se activa con una bandera.
 
-Cuando la sustitución es interna al programa y no se puede interponer una fachada de red: una biblioteca, un algoritmo, un acceso a datos. El estrangulamiento actúa en las fronteras del sistema; la rama por abstracción, dentro.
+```python
+def promedio(notas, flags):
+    impl = Nueva() if flags.get("promedio_nuevo") else Heredada()
+    return impl.calcular(notas)
+```
+
+Una prueba de caracterización ejecuta ambas con las mismas entradas y exige el mismo resultado. Cuando la bandera está al 100 % y sin incidentes, se borra `Heredada` y la bandera. El código es una ilustración del mecanismo de [SE-521](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md).
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-521 — Strangler, branch by abstraction y anticorruption](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md)) son:
-
-- **El corte se pospone una y otra vez** — causa: el paso es demasiado grande para verificarse. Corrección: dividir en rebanadas con retroceso independiente.
-- **La sombra no muestra diferencias y hay error en producción** — causa: la ventana no incluye el tráfico raro. Corrección: elegir la ventana por calendario y reproducir tráfico grabado.
+- **El corte se pospone una y otra vez.** El paso es demasiado grande para verificarse; corrección: dividir en rebanadas con retroceso independiente.
+- **La sombra no muestra diferencias y hay error en producción.** La ventana no incluía el tráfico raro; elegir la ventana por calendario y reproducir tráfico grabado.
+- **Dejar la bandera para siempre.** Una bandera sin plan de retiro se convierte en deuda; el último paso es retirarla.
+- **Confundirla con una rama de Git.** Es una técnica de diseño, no una operación de control de versiones.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-521 — Strangler, branch by abstraction y anticorruption](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md)) son: Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se migró ningún sistema ni se comparó tráfico real; el 10 % de rutas con regresión, los dos días hasta decidir, la eficacia de la sombra, el calendario de cuatro semanas de cierre y las anomalías de los 5 000 registros son construcciones del autor, y el modelo supone rutas de igual peso.
+Las definiciones de [SE-521](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md) son operativas para el módulo de calificaciones; sus experimentos usan datos sintéticos, no migraron ningún sistema ni compararon tráfico real, y varios parámetros (el 10 % de rutas con regresión, la eficacia de la sombra) son construcciones del autor. La técnica exige poder introducir una costura: si el código a reemplazar está enredado con sus llamadores y no admite abstracción sin una refactorización previa, hay que hacer primero ese trabajo. Para reemplazar un sistema *externo* (otro proceso), la técnica equivalente es el estrangulamiento, no esta.
 
 ## Relación con otros conceptos
 

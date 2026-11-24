@@ -2,43 +2,47 @@
 
 [↑ Glosario](../../README.md) · [← Entorno aislado](./entorno-aislado.md) · [Entorno virtual →](./entorno-virtual.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 40](../../../classes/part-40-ci-cd-iac-y-platform-engineering/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 40](../../../classes/part-40-ci-cd-iac-y-platform-engineering/README.md)
 
 ## Definición
 
-Instancia temporal y completa de la aplicación creada para un cambio propuesto.
-
-Definición de trabajo de [SE-488 — Entornos preview y datos seguros](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-488-entornos-preview-y-datos-seguros/README.md).
+Un **entorno de vista previa** (*preview environment*) es una instancia completa y temporal de la aplicación creada para un cambio propuesto, con una dirección propia donde revisar el resultado antes de integrarlo. Es la definición de [SE-488](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-488-entornos-preview-y-datos-seguros/README.md).
 
 ## Por qué importa
 
-En [SE-488 — Entornos preview y datos seguros](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-488-entornos-preview-y-datos-seguros/README.md), el tema «Entornos de vista previa» importa porque dan retroalimentación temprana y obligan a que el sistema se pueda crear y destruir con código.
+Convierte la revisión de algo que se *lee* en algo que se *prueba*. En lugar de imaginar el efecto de un diff, quien revisa abre la aplicación con ese cambio, la usa y comparte el enlace con producto o diseño. Cambia la decisión de cuándo se descubre un problema de integración: antes de fusionar, no después.
 
 ## Cómo funciona
 
-Según [SE-488 — Entornos preview y datos seguros](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-488-entornos-preview-y-datos-seguros/README.md), en la sección «Entornos de vista previa»:
+[SE-488](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-488-entornos-preview-y-datos-seguros/README.md) le atribuye un requisito y un ciclo de vida.
 
-Un **entorno de vista previa** (preview) es una instancia completa y temporal de la aplicación creada para un cambio propuesto, con una dirección propia donde revisar el resultado antes de integrarlo. Convierte la revisión en algo que se prueba y no solo se lee, y exige que el sistema se pueda levantar desde código: infraestructura declarada, configuración por entorno y datos iniciales. Su ciclo de vida tiene cuatro momentos: se **crea** al abrir o actualizar la solicitud, se **usa** durante la revisión, se **renueva** cuando hay actividad y se **destruye** al cerrarse la solicitud o al vencer su vida. Un generador de aplicaciones a partir de las solicitudes abiertas (como el generador por solicitud de integración de algunas herramientas de GitOps) automatiza la creación y la destrucción.
+**Requisito:** que el sistema se pueda levantar desde código. Eso significa infraestructura declarada, configuración por entorno y datos iniciales. Si levantar la aplicación exige pasos manuales, no hay vista previa automática posible.
+
+**Ciclo de vida**, en cuatro momentos:
+
+1. Se **crea** al abrir o actualizar la solicitud de integración.
+2. Se **usa** durante la revisión.
+3. Se **renueva** cuando hay actividad.
+4. Se **destruye** al cerrarse la solicitud o al vencer su vida.
+
+Un generador de aplicaciones a partir de las solicitudes abiertas (la clase menciona el generador por solicitud de integración de algunas herramientas de GitOps) automatiza la creación y la destrucción. La destrucción importa tanto como la creación: sin ella, cada solicitud deja infraestructura huérfana y costo.
+
+La causa de su utilidad es que cada cambio recibe un aislamiento propio, de modo que dos solicitudes no se pisan una a otra como lo harían en un único entorno compartido de pruebas.
 
 ## Ejemplo
 
-Ejemplo de [SE-488 — Entornos preview y datos seguros](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-488-entornos-preview-y-datos-seguros/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la API de entregas fija la política de sus entornos de vista previa. Los datos son sintéticos, generados desde un esquema con las distribuciones de producción y con casos raros añadidos a mano (nombres con tilde, archivos vacíos, entregas fuera de plazo); no hay datos reales en ningún entorno.
+Se abre una solicitud que cambia la pantalla de entregas. La automatización levanta una instancia con su dirección propia, carga datos iniciales y publica el enlace en la solicitud. Quien revisa prueba el flujo; se actualiza la rama y la instancia se renueva; al fusionar o cerrar la solicitud, la instancia se destruye. Los datos iniciales son un asunto aparte: [SE-488](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-488-entornos-preview-y-datos-seguros/README.md) advierte que un entorno de pruebas con datos que identifican a personas por vinculación es un riesgo, y por eso los datos se enmascaran.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-488 — Entornos preview y datos seguros](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-488-entornos-preview-y-datos-seguros/README.md)) son:
-
-- **Una persona es identificable en un entorno de pruebas** — causa: cuasi-identificadores sin generalizar. Corrección: medir la unicidad; generalizar y suprimir grupos pequeños.
-- **Las pruebas de integridad fallan con datos enmascarados** — causa: sustitución aleatoria por tabla. Corrección: sustitución determinista con clave protegida.
+- **Una persona es identificable en un entorno de pruebas.** Cuasi-identificadores sin generalizar; corrección: medir la unicidad, generalizar y suprimir grupos pequeños.
+- **Las pruebas de integridad fallan con datos enmascarados.** Sustitución aleatoria por tabla; corrección: sustitución determinista con clave protegida.
+- **Confundirlo con el entorno de staging.** Staging es uno y compartido; la vista previa es uno por cambio y efímero.
+- **Olvidar el apagado.** Sin destrucción automática, los entornos se acumulan.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un **entorno de vista previa** (preview) es una instancia completa y temporal de la aplicación creada para un cambio propuesto, con una dirección propia donde revisar el resultado antes de integrarlo. ([SE-488](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-488-entornos-preview-y-datos-seguros/README.md))
-- **un entorno de vista previa con datos sin nombre que identifican a personas por vinculación**. ([SE-488](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-488-entornos-preview-y-datos-seguros/README.md))
+Exige que el sistema sea reproducible desde código; en sistemas con dependencias que no se pueden replicar (un sistema externo único, hardware, grandes volúmenes de datos) la vista previa será parcial y conviene declarar qué simula. No prueba el rendimiento ni el comportamiento con carga real de producción. Y su costo debe acotarse con vida máxima y límite de instancias simultáneas.
 
 ## Relación con otros conceptos
 

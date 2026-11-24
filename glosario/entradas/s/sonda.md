@@ -2,51 +2,46 @@
 
 [↑ Glosario](../../README.md) · [← Solutions Architect](./solutions-architect.md) · [Sonda de actividad →](./sonda-de-actividad.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 35](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 35](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md)
 
 ## Definición
 
-Valor de entrada elegido por su capacidad de revelar defectos conocidos.
-
-Definición de trabajo de [SE-429 — Pruebas exploratorias y sesiones](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-429-pruebas-exploratorias-y-sesiones/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-522 — Migraciones de runtime, lenguaje y framework](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-522-migraciones-de-runtime-lenguaje-y-framework/README.md): Programa que aplica una operación con el comportamiento antiguo y el nuevo sobre datos representativos y cuenta cuántos resultados difieren.
-- En [SE-599 — Taller: elegir y degradar un patrón agéntico](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-599-taller-elegir-y-degradar-un-patron-agentico/README.md): Llamada ocasional al nivel superior para saber si ya se recuperó.
+En el programa, una **sonda** es un valor de entrada elegido por su capacidad de revelar defectos conocidos. Es la definición de trabajo de [SE-429](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-429-pruebas-exploratorias-y-sesiones/README.md), en estrategia de pruebas. El término tiene otros dos sentidos, que conviene no mezclar: en [SE-522](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-522-migraciones-de-runtime-lenguaje-y-framework/README.md) es un programa que aplica una operación con el comportamiento antiguo y el nuevo sobre datos representativos y cuenta cuántos resultados difieren; en [SE-599](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-599-taller-elegir-y-degradar-un-patron-agentico/README.md) es una llamada ocasional al nivel superior para saber si ya se recuperó (como en un cortacircuitos semiabierto). Esta entrada desarrolla el de [SE-429](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-429-pruebas-exploratorias-y-sesiones/README.md) y relaciona los otros.
 
 ## Por qué importa
 
-En [SE-429 — Pruebas exploratorias y sesiones](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-429-pruebas-exploratorias-y-sesiones/README.md), el tema «Sondas de entrada» importa porque un validador falla ante pocos valores especiales.
+Los valores «típicos» casi nunca fallan. Los defectos viven en los bordes y en los rarezas: la cadena vacía, el espacio, la longitud límite. Elegir sondas con criterio cambia la eficiencia de una batería de pruebas: una lista dirigida encuentra defectos específicos casi siempre, y cadenas aleatorias casi nunca ([SE-429](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-429-pruebas-exploratorias-y-sesiones/README.md)).
 
 ## Cómo funciona
 
-Según [SE-429 — Pruebas exploratorias y sesiones](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-429-pruebas-exploratorias-y-sesiones/README.md):
+Una sonda se elige por lo que suele romper. [SE-429](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-429-pruebas-exploratorias-y-sesiones/README.md) da la lista:
 
-Una sonda es un valor elegido por lo que suele romper: vacío, solo espacios, longitudes de borde (79, 80, 81), caracteres con tilde o combinantes, controles, texto bidireccional, emoji, cadenas que empiezan por un nombre reservado. Una lista de sondas es una lista de verificación de entradas; no sustituye a la exploración, la prepara. Contra un validador con un defecto específico, la lista dirigida lo encuentra casi siempre y cadenas aleatorias casi nunca.
+- vacío y solo espacios;
+- longitudes de borde (79, 80, 81 si el límite es 80);
+- caracteres con tilde o combinantes;
+- caracteres de control;
+- texto bidireccional;
+- emoji;
+- cadenas que empiezan por un nombre reservado.
 
-Según [SE-429 — Pruebas exploratorias y sesiones](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-429-pruebas-exploratorias-y-sesiones/README.md):
+Una lista de sondas es una **lista de verificación de entradas**: no sustituye a la exploración, la prepara. La causa de su eficacia es que codifica experiencia sobre *clases* de fallo (los límites, las codificaciones), de modo que cada tipo de dato tiene su propia lista.
 
-Antes de cada cierre de curso, el equipo de la plataforma planifica tres sesiones de 60 minutos con misiones distintas (archivos y adjuntos; sesión, zona horaria y plazo; texto y caracteres especiales) a cargo de personas que no escribieron el código. Cada sesión usa una hoja con la misión, la lista de heurísticas (límites de la especificación, repetir, deshacer, cambiar de contexto) y una sección de registro con hallazgos, preguntas y lo que no se pudo probar. La batería automática de accesibilidad corre en cada propuesta de cambio y bloquea solo las seis clases que decide una regla; una revisión manual con lector de pantalla cubre una vez por trimestre los recorridos de ingreso y de entrega.
+En el sentido de [SE-522](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-522-migraciones-de-runtime-lenguaje-y-framework/README.md), la sonda es una herramienta de migración: aplica el comportamiento antiguo y el nuevo sobre datos representativos y cuenta cuántos resultados difieren, para encontrar cambios silenciosos. Y en [SE-599](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-599-taller-elegir-y-degradar-un-patron-agentico/README.md) es la llamada de prueba que decide si el sistema se recuperó.
 
 ## Ejemplo
 
-Ejemplo de [SE-429 — Pruebas exploratorias y sesiones](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-429-pruebas-exploratorias-y-sesiones/README.md) (sección «Ejemplo profesional»):
-
-Antes de cada cierre de curso, el equipo de la plataforma planifica tres sesiones de 60 minutos con misiones distintas (archivos y adjuntos; sesión, zona horaria y plazo; texto y caracteres especiales) a cargo de personas que no escribieron el código. Cada sesión usa una hoja con la misión, la lista de heurísticas (límites de la especificación, repetir, deshacer, cambiar de contexto) y una sección de registro con hallazgos, preguntas y lo que no se pudo probar.
+Un validador de nombres de usuario acepta hasta 80 caracteres. La lista de sondas: `""`, `" "`, una cadena de 79, 80 y 81 caracteres, `"é"` en forma compuesta y descompuesta, `"‮"` (control bidireccional), un emoji, y `"con"` (nombre reservado en Windows). Un validador con el defecto `<= 80` escrito como `< 80` falla con la sonda de 80. Ninguna cadena aleatoria de 1 a 600 caracteres lo encontraría con probabilidad razonable. El código es ilustración del criterio de [SE-429](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-429-pruebas-exploratorias-y-sesiones/README.md).
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Un validador acepta entradas que no debería** — causa: solo se probaron valores típicos. Corrección: lista de sondas por tipo de dato. ([SE-429](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-429-pruebas-exploratorias-y-sesiones/README.md))
-- **La suite pasa y los datos cambian** — causa: cambio silencioso no ejercitado por las pruebas. Corrección: escribir sondas con datos reales y ampliar el maestro dorado. ([SE-522](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-522-migraciones-de-runtime-lenguaje-y-framework/README.md))
+- **Un validador acepta entradas que no debería.** Solo se probaron valores típicos ([SE-429](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-429-pruebas-exploratorias-y-sesiones/README.md)); corrección: lista de sondas por tipo de dato.
+- **La suite pasa y los datos cambian.** Un cambio silencioso no fue ejercitado por las pruebas ([SE-522](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-522-migraciones-de-runtime-lenguaje-y-framework/README.md)); escribir sondas con datos reales y ampliar el maestro dorado.
+- **Tomar la lista como completa.** Es un punto de partida; la exploración añade lo no previsto.
+- **Confundir los tres sentidos.** Ver la definición.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Una sonda es un valor elegido por lo que suele romper: vacío, solo espacios, longitudes de borde (79, 80, 81), caracteres con tilde o combinantes, controles, texto bidireccional, emoji, cadenas que empiezan por un nombre reservado. ([SE-429](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-429-pruebas-exploratorias-y-sesiones/README.md))
+Las sondas encuentran lo que ya se sabe que suele romper; un defecto de una clase nueva no aparece en la lista. Dependen del tipo de dato: sondas de texto no sirven para fechas ni archivos. La sonda de migración ([SE-522](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-522-migraciones-de-runtime-lenguaje-y-framework/README.md)) solo cubre los datos representativos que se le den. Y una sonda no es una especificación: dice que un valor revela algo, no cuál es el comportamiento correcto; eso lo decide el oráculo.
 
 ## Relación con otros conceptos
 

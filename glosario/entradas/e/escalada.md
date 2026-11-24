@@ -2,45 +2,40 @@
 
 [↑ Glosario](../../README.md) · [← Errores, reintentos y cancelación](./errores-reintentos-y-cancelacion.md) · [Escalada de privilegios →](./escalada-de-privilegios.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 48](../../../classes/part-48-harness-y-agentic-engineering/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 48](../../../classes/part-48-harness-y-agentic-engineering/README.md)
 
 ## Definición
 
-Entrega de la tarea a una persona con la evidencia necesaria.
-
-Definición de trabajo de [SE-581 — Loops de agentes y criterios de parada](../../../classes/part-48-harness-y-agentic-engineering/se-581-loops-de-agentes-y-criterios-de-parada/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-588 — Proyecto: harness mínimo gobernado y evaluado](../../../classes/part-48-harness-y-agentic-engineering/se-588-proyecto-harness-minimo-gobernado-y-evaluado/README.md): Entrega de la tarea a una persona con la traza.
+En el trabajo con agentes, la **escalada** es la entrega de la tarea a una persona con la evidencia necesaria. [SE-581](../../../classes/part-48-harness-y-agentic-engineering/se-581-loops-de-agentes-y-criterios-de-parada/README.md) la define así y [SE-588](../../../classes/part-48-harness-y-agentic-engineering/se-588-proyecto-harness-minimo-gobernado-y-evaluado/README.md) precisa que se entrega *con la traza*. Es la salida honesta de un agente que no pudo resolver algo: en lugar de seguir intentándolo o de declarar un éxito falso, devuelve el control con el contexto para que alguien decida.
 
 ## Por qué importa
 
-En [SE-581 — Loops de agentes y criterios de parada](../../../classes/part-48-harness-y-agentic-engineering/se-581-loops-de-agentes-y-criterios-de-parada/README.md), el tema «Escalada» importa porque el fallo llega a una persona con evidencia.
+Cambia qué significa fallar bien. [SE-581](../../../classes/part-48-harness-y-agentic-engineering/se-581-loops-de-agentes-y-criterios-de-parada/README.md) lo resume: la mejora no estuvo en resolver más, sino en **fallar mejor**. Un informe que solo dice «tope alcanzado» obliga a reconstruir qué pasó; una escalada con evidencia deja la mañana empezando con una lista que se puede leer y actuar.
 
 ## Cómo funciona
 
-Según [SE-581 — Loops de agentes y criterios de parada](../../../classes/part-48-harness-y-agentic-engineering/se-581-loops-de-agentes-y-criterios-de-parada/README.md):
+Una escalada es la acción asociada a una condición de parada que no es convergencia. Lo que la hace útil es lo que lleva consigo. En [SE-581](../../../classes/part-48-harness-y-agentic-engineering/se-581-loops-de-agentes-y-criterios-de-parada/README.md), el detector con cambio de plan y escalada entrega, para cada tarea sin resolver:
 
-El equipo ejecuta el asistente sobre una lista de cuarenta tareas de mantenimiento durante la noche con un tope de 30 vueltas. Por la mañana, once tareas terminaron en el tope y el informe dice solo «tope alcanzado». Revisando las trazas, nueve de ellas repetían el mismo error desde la vuelta cinco. Se añade el detector con cambio de plan y escalada que entrega, para cada tarea que no se resuelve, el objetivo, los tres últimos intentos y el último error. En la siguiente noche, el número de tareas sin resolver es parecido, pero el gasto baja y la mañana empieza con una lista que se puede leer. La lección: la mejora no estuvo en resolver más, sino en fallar mejor.
+- el **objetivo** original,
+- los **tres últimos intentos**,
+- el **último error**.
 
-Según [SE-588 — Proyecto: harness mínimo gobernado y evaluado](../../../classes/part-48-harness-y-agentic-engineering/se-588-proyecto-harness-minimo-gobernado-y-evaluado/README.md):
-
-El informe contesta las tres preguntas del comité con evidencia: qué puede tocar (la superficie de acción y el confinamiento), cómo se detiene (la parada y la escalada) y cómo se verifica (el menú y la protección de pruebas). Y declara cuatro límites: lo que no se probó (un adversario adaptativo, un modelo real), lo que el confinamiento no cubre (procesos hijos, red), lo que el menú no ve (un error que ninguna prueba ejerce y una prueba que replica el error) y lo que no se midió (productividad, costo). Un informe sin límites es un anuncio.
+Con eso la persona no repite lo ya intentado. La causa de su valor es el costo de contexto: una tarea entregada sin traza cuesta casi lo mismo que empezarla de nuevo; con traza, se retoma en el punto de fallo. En [SE-588](../../../classes/part-48-harness-y-agentic-engineering/se-588-proyecto-harness-minimo-gobernado-y-evaluado/README.md) la escalada aparece también como parte de la respuesta a la pregunta «cómo se detiene»: junto con la parada, es uno de los controles que un comité querrá ver.
 
 ## Ejemplo
 
-Ejemplo de [SE-581 — Loops de agentes y criterios de parada](../../../classes/part-48-harness-y-agentic-engineering/se-581-loops-de-agentes-y-criterios-de-parada/README.md) (sección «Ejemplo profesional»):
-
-El equipo ejecuta el asistente sobre una lista de cuarenta tareas de mantenimiento durante la noche con un tope de 30 vueltas. Por la mañana, once tareas terminaron en el tope y el informe dice solo «tope alcanzado». Revisando las trazas, nueve de ellas repetían el mismo error desde la vuelta cinco. Se añade el detector con cambio de plan y escalada que entrega, para cada tarea que no se resuelve, el objetivo, los tres últimos intentos y el último error. En la siguiente noche, el número de tareas sin resolver es parecido, pero el gasto baja y la mañana empieza con una lista que se puede leer.
+El caso de [SE-581](../../../classes/part-48-harness-y-agentic-engineering/se-581-loops-de-agentes-y-criterios-de-parada/README.md): un asistente ejecuta cuarenta tareas de mantenimiento durante la noche con un tope de 30 vueltas. Por la mañana, once terminaron en el tope y el informe dice solo «tope alcanzado». Revisando las trazas, nueve repetían el mismo error desde la vuelta cinco. Se añade el detector con cambio de plan y escalada. La noche siguiente, el número de tareas sin resolver es parecido, pero el gasto baja y la lista de la mañana se puede leer. Es una simulación con datos sintéticos, no una medición de un agente real.
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+- **Informar solo «tope alcanzado».** Es parar sin escalar: se pierde la información que permite decidir.
+- **Seguir hasta agotar el presupuesto.** Nueve de las once tareas de la clase repetían el mismo error desde la vuelta cinco: seguir no aportaba nada.
+- **Entregar la traza completa sin resumen.** La evidencia útil es la mínima para decidir (objetivo, últimos intentos, último error), no todo el registro.
+- **Escalar tarde.** La escalada debe dispararse por sin progreso o repetición, no solo por el tope.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-581 — Loops de agentes y criterios de parada](../../../classes/part-48-harness-y-agentic-engineering/se-581-loops-de-agentes-y-criterios-de-parada/README.md)) son: Se simularon cinco reglas sobre 4 000 tareas sintéticas con parámetros del autor y semilla 497, en Windows 11 con CPython 3.12.9. No se midió ningún agente real, ni el costo en dinero, ni el efecto de cambiar de plan en un modelo concreto. El siguiente paso, `SE-582`, trata lo que ocurre cuando, pese a las reglas, el agente hace algo dañino: cómo se acota y se deshace.
+En [SE-581](../../../classes/part-48-harness-y-agentic-engineering/se-581-loops-de-agentes-y-criterios-de-parada/README.md) se simularon cinco reglas sobre 4 000 tareas sintéticas con parámetros del autor y semilla 497; no se midió ningún agente real, ni el costo en dinero, ni el efecto de cambiar de plan en un modelo concreto. [SE-588](../../../classes/part-48-harness-y-agentic-engineering/se-588-proyecto-harness-minimo-gobernado-y-evaluado/README.md) declara también lo que un informe de este tipo no cubre: un adversario adaptativo, procesos hijos y red fuera del confinamiento, y la productividad. La escalada supone que hay una persona disponible y con autoridad; si nadie recibe el aviso, es una parada con otro nombre.
 
 ## Relación con otros conceptos
 

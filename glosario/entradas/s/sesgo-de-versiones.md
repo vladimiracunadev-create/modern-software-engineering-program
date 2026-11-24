@@ -2,42 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Sesgo de selección](./sesgo-de-seleccion.md) · [Sesgo del resultado →](./sesgo-del-resultado.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 39](../../../classes/part-39-build-release-y-cadena-de-suministro/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 39](../../../classes/part-39-build-release-y-cadena-de-suministro/README.md)
 
 ## Definición
 
-Coexistencia de versiones distintas en uso por la cola larga de clientes que actualizan con retraso.
-
-Definición de trabajo de [SE-477 — Instaladores, paquetes y actualizaciones](../../../classes/part-39-build-release-y-cadena-de-suministro/se-477-instaladores-paquetes-y-actualizaciones/README.md).
+El **sesgo de versiones** es la coexistencia de versiones distintas en uso, producida por la cola larga de clientes que actualizan con retraso. [SE-477](../../../classes/part-39-build-release-y-cadena-de-suministro/se-477-instaladores-paquetes-y-actualizaciones/README.md) lo define así en el contexto de la distribución de aplicaciones de escritorio y móviles: aunque se publique una versión nueva, la población en uso nunca es toda de la última.
 
 ## Por qué importa
 
-En [SE-477 — Instaladores, paquetes y actualizaciones](../../../classes/part-39-build-release-y-cadena-de-suministro/se-477-instaladores-paquetes-y-actualizaciones/README.md), el tema «Sesgo de versiones» importa porque los clientes no actualizan a la vez.
+Cambia qué se supone al diseñar un lanzamiento. Quien asume que «todos están en la última versión» rompe a quienes no lo están: un servidor que deja de aceptar un formato antiguo, una migración de datos que exige el cliente nuevo. El sesgo obliga a mantener compatibilidad durante más tiempo del que se cree y a medir la distribución real de versiones antes de retirar algo.
 
 ## Cómo funciona
 
-Según [SE-477 — Instaladores, paquetes y actualizaciones](../../../classes/part-39-build-release-y-cadena-de-suministro/se-477-instaladores-paquetes-y-actualizaciones/README.md), en la sección «Sesgo de versiones»:
+La causa es la diferencia de frecuencia de uso. Un cliente que abre la aplicación a diario se actualiza casi de inmediato; uno que la abre cada dos meses actualiza dos meses después de cada lanzamiento. La flota resultante es una mezcla con una **cola larga** de clientes muy atrasados, aunque el mecanismo de actualización sea automático.
 
-Se simulan 20 000 clientes que abren la aplicación cada 1, 2, 3, 7, 14, 30, 60 o 120 días (en proporciones iguales, un supuesto) durante 180 días, con un lanzamiento cada 14 días y actualización al abrir. Se mide cuántas versiones de retraso tiene cada cliente en los días 30, 90 y 180.
-
-**Cómo leer la figura.** Cada barra es un día y se divide en el porcentaje de clientes al día (turquesa), con 1 de retraso (gris), con 2 o 3 (dorado) y con 4 o más (coral). Mira cómo aparece el tramo coral entre el día 30 y el 90: con el tiempo, una parte de la flota se queda muy atrás. **Dónde deja de valer:** las frecuencias de apertura y su reparto son un supuesto del autor, y se supone que todos actualizan al abrir; en la realidad algunas personas rechazan o difieren la actualización y otras no tienen red. La forma (una cola de clientes muy atrasados) sí es habitual y el número exacto depende del producto.
+[SE-477](../../../classes/part-39-build-release-y-cadena-de-suministro/se-477-instaladores-paquetes-y-actualizaciones/README.md) lo simula: 20 000 clientes que abren la aplicación cada 1, 2, 3, 7, 14, 30, 60 o 120 días (en proporciones iguales, supuesto del autor) durante 180 días, con un lanzamiento cada 14 días y actualización al abrir. Se mide cuántas versiones de retraso tiene cada cliente en los días 30, 90 y 180. La figura de la clase divide cada día en clientes al día, con 1 de retraso, con 2 o 3 y con 4 o más; el tramo de 4 o más aparece entre el día 30 y el 90: con el tiempo, una parte de la flota queda muy atrás.
 
 ## Ejemplo
 
-Caso medido en la sección «Sesgo de versiones y rutas de actualización» de [SE-477 — Instaladores, paquetes y actualizaciones](../../../classes/part-39-build-release-y-cadena-de-suministro/se-477-instaladores-paquetes-y-actualizaciones/README.md):
-
-En el servidor, todos los clientes usan la versión que despliegas. En los equipos de las personas, la distribución de versiones es una **cola larga**: unos actualizan el mismo día, otros cuando abren la aplicación, otros meses después o nunca. Con un lanzamiento cada 14 días y clientes que abren la aplicación cada 1, 2, 3, 7, 14, 30, 60 o 120 días, aparecen en seis meses 22 caminos de actualización distintos y una parte apreciable de los saltos cruza tres o más versiones.
+Un equipo publica cada dos semanas y planea retirar una API antigua «cuando todos hayan actualizado». Con el modelo anterior, aun a los 180 días hay una fracción de clientes con cuatro o más versiones de retraso, justo los que abren la aplicación cada 60 o 120 días. Retirar la API a los 30 días rompería a quienes aún no la han abierto. La decisión correcta es medir la distribución real de versiones, fijar una fecha de retirada anunciada con antelación y, si hay una actualización forzosa, informarla en el propio cliente.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-477 — Instaladores, paquetes y actualizaciones](../../../classes/part-39-build-release-y-cadena-de-suministro/se-477-instaladores-paquetes-y-actualizaciones/README.md)) son:
-
-- **El programa no arranca tras una actualización interrumpida** — causa: archivos de dos versiones. Corrección: directorio nuevo y activación atómica.
-- **Se instala una descarga corrupta** — causa: no se verifica antes de activar. Corrección: verificar huellas y firma sobre el directorio preparado.
+- **El programa no arranca tras una actualización interrumpida.** Mezcla de archivos de dos versiones; corrección de [SE-477](../../../classes/part-39-build-release-y-cadena-de-suministro/se-477-instaladores-paquetes-y-actualizaciones/README.md): directorio nuevo y activación atómica.
+- **Se instala una descarga corrupta.** No se verifica antes de activar; verificar huellas y firma sobre el directorio preparado.
+- **Suponer que actualizar automáticamente elimina el sesgo.** Solo lo acorta para quien abre la aplicación.
+- **Confundirlo con el sesgo estadístico.** Aquí «sesgo» es la composición desigual de la flota, no un error de medición.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-477 — Instaladores, paquetes y actualizaciones](../../../classes/part-39-build-release-y-cadena-de-suministro/se-477-instaladores-paquetes-y-actualizaciones/README.md)) son: Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron cuatro experimentos: una inyección de fallos con archivos reales en un directorio temporal (resultado idéntico en Windows 11 con CPython 3.12.9 y en Ubuntu bajo WSL2 con 3.12.3) y una simulación de 20 000 clientes con semilla fija.
+Las frecuencias de apertura y su reparto en la simulación son un supuesto del autor, y se supone que todos actualizan al abrir; en la realidad, algunas personas rechazan o difieren la actualización y otras no tienen red. La forma (una cola de clientes muy atrasados) sí es habitual y el número exacto depende del producto. No aplica a software que el proveedor controla íntegramente (un servicio web sin cliente instalable), aunque allí puede haber un sesgo equivalente en las integraciones que consumen la API.
 
 ## Relación con otros conceptos
 

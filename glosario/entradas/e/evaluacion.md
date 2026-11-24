@@ -2,51 +2,40 @@
 
 [↑ Glosario](../../README.md) · [← Evacuación de una región](./evacuacion-de-una-region.md) · [Evaluación de idea →](./evaluacion-de-idea.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 45](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 45](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md)
 
 ## Definición
 
-Conjunto de casos con un criterio que mide la calidad de un componente.
-
-Definición de trabajo de [SE-549 — EDD: evaluaciones como especificación y puerta de release](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-549-edd-evaluaciones-como-especificacion-y-puerta-de-release/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-561 — Evals de exactitud, utilidad, costo y latencia](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-561-evals-de-exactitud-utilidad-costo-y-latencia/README.md): Conjunto de tareas con criterio de éxito ejecutable y procedimiento reproducible para medir un sistema.
-- En [SE-597 — Evals y LLMOps de sistemas con LLM](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-597-evals-y-llmops-de-sistemas-con-llm/README.md): Conjunto de casos con un criterio de calificación que mide un sistema.
+En ingeniería con IA, una **evaluación** (*eval*) es un conjunto de casos con un criterio que mide la calidad de un componente. [SE-549](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-549-edd-evaluaciones-como-especificacion-y-puerta-de-release/README.md) la define así. [SE-561](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-561-evals-de-exactitud-utilidad-costo-y-latencia/README.md) añade rigor operativo: un conjunto de tareas con criterio de éxito ejecutable y un procedimiento reproducible para medir un sistema; [SE-597](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-597-evals-y-llmops-de-sistemas-con-llm/README.md) la usa como conjunto de casos con un criterio de calificación. No es sinónimo de «prueba unitaria»: la salida de un modelo no es única, así que se mide con ejemplos y criterios, no con una igualdad exacta.
 
 ## Por qué importa
 
-En [SE-549 — EDD: evaluaciones como especificación y puerta de release](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-549-edd-evaluaciones-como-especificacion-y-puerta-de-release/README.md), el tema «Evaluación frente a prueba determinista» importa porque la primera mide una proporción con ruido; la segunda, un hecho.
+Es el sustituto de la intuición. Sin evaluación, «el asistente mejoró» es una impresión; con ella, es un número con incertidumbre y una regla de decisión. Cambia la decisión de cuándo se puede cambiar un modelo, un prompt o una herramienta: se cambia si la evaluación lo permite, no si «parece mejor». [SE-549](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-549-edd-evaluaciones-como-especificacion-y-puerta-de-release/README.md) la describe como una especificación: dice qué se espera, con ejemplos, sin exigir una salida única.
 
 ## Cómo funciona
 
-Según [SE-549 — EDD: evaluaciones como especificación y puerta de release](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-549-edd-evaluaciones-como-especificacion-y-puerta-de-release/README.md):
+Una evaluación bien hecha ([SE-549](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-549-edd-evaluaciones-como-especificacion-y-puerta-de-release/README.md)) tiene tres partes:
 
-Una evaluación bien hecha tiene tres partes: un conjunto de **casos** (entradas representativas, incluidas las difíciles), un **criterio** que decide si una salida es aceptable (una aserción de código, una rúbrica aplicada por una persona o por un modelo evaluador) y una **regla de decisión** (umbral y margen). Juntas funcionan como especificación: dicen qué se espera, con ejemplos, sin exigir una salida única. Husain las ordena por costo: primero pruebas de comportamiento que se pueden comprobar con código, luego revisión humana y de modelos sobre trazas registradas, por último experimentos A/B en producción. La base barata es la más frecuente, y cada nivel se justifica por lo que el anterior no ve.
+1. **Casos:** entradas representativas, incluidas las difíciles.
+2. **Criterio:** decide si una salida es aceptable; puede ser una aserción de código, una rúbrica aplicada por una persona o por un modelo evaluador.
+3. **Regla de decisión:** un umbral y un margen.
 
-Según [SE-549 — EDD: evaluaciones como especificación y puerta de release](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-549-edd-evaluaciones-como-especificacion-y-puerta-de-release/README.md):
-
-El equipo diseña la puerta del asistente de redacción. Parte de treinta casos curados: veinte que han fallado antes o que el negocio considera críticos (avisos para una entrega con una hora de adelanto, textos en un tono que no alarma) y diez de un registro de producción. Mide la línea base ocho veces y obtiene una media de 0,86 y una desviación de 0,03. Fija el umbral en 0,80 (dos desviaciones por debajo) y una zona de duda entre 0,80 y 0,83 en la que se repite la evaluación con cinco corridas por caso. Añade una regla: cada fallo real en producción se convierte en un caso nuevo en menos de una semana.
+[SE-549](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-549-edd-evaluaciones-como-especificacion-y-puerta-de-release/README.md) ordena las técnicas por costo: primero pruebas de comportamiento comprobables con código, luego revisión humana y de modelos sobre trazas, por último experimentos A/B en producción. La base barata es la más frecuente y cada nivel se justifica por lo que el anterior no ve. [SE-561](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-561-evals-de-exactitud-utilidad-costo-y-latencia/README.md) agrega que, por el comportamiento no determinista, el resultado se resume con su incertidumbre y se repite.
 
 ## Ejemplo
 
-Ejemplo de [SE-549 — EDD: evaluaciones como especificación y puerta de release](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-549-edd-evaluaciones-como-especificacion-y-puerta-de-release/README.md) (sección «Ejemplo profesional»):
-
-El equipo diseña la puerta del asistente de redacción. Parte de treinta casos curados: veinte que han fallado antes o que el negocio considera críticos (avisos para una entrega con una hora de adelanto, textos en un tono que no alarma) y diez de un registro de producción. Mide la línea base ocho veces y obtiene una media de 0,86 y una desviación de 0,03. Fija el umbral en 0,80 (dos desviaciones por debajo) y una zona de duda entre 0,80 y 0,83 en la que se repite la evaluación con cinco corridas por caso.
+[SE-549](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-549-edd-evaluaciones-como-especificacion-y-puerta-de-release/README.md): para el asistente de redacción, el equipo parte de treinta casos: veinte que fallaron antes o que el negocio considera críticos (avisos para una entrega con una hora de adelanto, textos en un tono que no alarme) y diez de un registro de producción. Mide la línea base ocho veces: media de 0,86 y desviación de 0,03. Fija el umbral en 0,80 (dos desviaciones por debajo) y una zona de duda entre 0,80 y 0,83 en la que repite la evaluación con cinco corridas por caso. Y añade una regla: cada fallo real en producción se convierte en un caso nuevo en menos de una semana. Así la evaluación crece con la realidad.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El resultado público no se reproduce en tu equipo** — causa: distribución de tareas distinta o contaminación. Corrección: eval propia con tareas reales y reservadas. ([SE-561](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-561-evals-de-exactitud-utilidad-costo-y-latencia/README.md))
+- **El resultado público no se reproduce en tu equipo** ([SE-561](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-561-evals-de-exactitud-utilidad-costo-y-latencia/README.md)): distribución de tareas distinta o contaminación. Corrección: evaluación propia, con tareas reales y reservadas.
+- **Evaluar solo con casos fáciles.** El umbral se cumple y los casos difíciles fallan sin que nadie lo vea.
+- **Una sola corrida.** Con componentes no deterministas hace falta repetir y reportar dispersión.
+- **Confundir la evaluación con un *benchmark* público.** Este mide otra distribución de tareas.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Una eval tiene cuatro piezas: un conjunto de tareas, un criterio de éxito aplicable sin intervención humana (o con una intervención medida), un procedimiento reproducible para correrla y una forma de resumir el resultado con su incertidumbre. ([SE-561](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-561-evals-de-exactitud-utilidad-costo-y-latencia/README.md))
-- La documentación de Anthropic sobre evaluaciones de agentes distingue justo esos tres tipos de calificador y subraya que el comportamiento no determinista exige repetir. ([SE-597](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-597-evals-y-llmops-de-sistemas-con-llm/README.md))
+Una evaluación mide lo que sus casos cubren: no garantiza el comportamiento fuera de ellos. El criterio automático puede tener sesgo ([SE-597](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-597-evals-y-llmops-de-sistemas-con-llm/README.md) hace explícito el del modelo juez) y una rúbrica humana, subjetividad. Comparar versiones exige emparejar casos y dimensionar su número según el efecto que se quiere detectar. Y los casos de una evaluación se contaminan si se usan también para afinar el sistema: la regla es reservar una parte sin tocarla.
 
 ## Relación con otros conceptos
 

@@ -2,40 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Contrato ejecutable](./contrato-ejecutable.md) · [Contrato inteligente →](./contrato-inteligente.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** G — Operación, evolución y liderazgo · **Primera aparición:** [Parte 44](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** G — Operación, evolución y liderazgo · **Primera aparición:** [Parte 44](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/README.md)
 
 ## Definición
 
-Interfaz documentada con propietario, versiones y vía de solicitud de cambios.
-
-Definición de trabajo de [SE-530 — Diseño de equipos y ownership](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership/README.md).
+Un **contrato entre equipos** es una interfaz documentada con propietario, versiones y una vía de solicitud de cambios. Es la definición de trabajo de [SE-530](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership/README.md). No es un contrato legal: es el acuerdo explícito que describe qué ofrece un equipo a otro a través de una frontera, quién responde por ello y cómo se cambia.
 
 ## Por qué importa
 
-En [SE-530 — Diseño de equipos y ownership](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership/README.md), el tema «Contratos entre equipos» importa porque reduce relevos sin mezclar responsabilidades.
+Hay fronteras inevitables: en el ejemplo de [SE-530](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership/README.md), la exportación al ministerio la necesitan varios equipos. Lo que decide el costo de cruzarlas es si existe contrato. Sin él, cada cambio se negocia de nuevo, depende de quién esté disponible y se pierde en reuniones. Con un contrato, la dependencia se vuelve predecible: se sabe a quién pedir, con qué información, por qué canal y en qué plazo.
 
 ## Cómo funciona
 
-Según [SE-530 — Diseño de equipos y ownership](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership/README.md), en la sección «Contratos entre equipos»:
+[SE-530](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership/README.md) enumera sus partes: una **interfaz documentada**, **versiones**, un **propietario** claro y un acuerdo sobre cómo se **solicitan cambios** (canal, plazo, información requerida). La causa de su utilidad es que sustituye la coordinación en tiempo real por un acuerdo escrito: el equipo consumidor puede planificar sin esperar a una persona.
 
-Cuando una frontera inevitable existe (la exportación al ministerio la necesitan varios equipos), lo que baja el costo de cruzarla es el **contrato**: una interfaz documentada, versiones, un propietario claro y un acuerdo sobre cómo se solicitan cambios (por qué canal, con qué plazo, con qué información). Un contrato es mejor que una reunión porque no depende de quién esté disponible. Sin contrato, la frontera se negocia en cada cambio. Con un contrato demasiado rígido, el equipo que usa la interfaz espera semanas por una modificación trivial. Por eso el contrato incluye una vía de autoservicio: qué puede cambiar una persona de otro equipo en este módulo con la revisión de las dueñas, sin esperar su iteración.
+La clase añade el contrapeso: con un contrato demasiado rígido, quien usa la interfaz espera semanas por una modificación trivial. Por eso el contrato incluye una **vía de autoservicio**: qué puede cambiar una persona de otro equipo en este módulo, con revisión de las dueñas, sin esperar su iteración. Así el contrato fija la responsabilidad sin convertirla en cuello de botella.
+
+El contrato se apoya en lo ya visto sobre interfaces y compatibilidad: versionar permite que ambos lados cambien a ritmos distintos sin romperse.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-530 — Diseño de equipos y ownership](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership/README.md):
-
-Escenario hipotético, construido para la clase y sin datos reales. El equipo calcula el factor de camión de los cuatro módulos y encuentra que actas tiene factor 1. Acuerdan una política en tres pasos. Primero, un mapa de propiedad con responsable y segundo conocedor para cada módulo, y propiedad débil con `CODEOWNERS` para los dos módulos con reglas externas. Segundo, una rotación trimestral de quien responde de cada módulo en la guardia, de modo que cada persona sea principal en uno y secundaria en otro.
+En [SE-530](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership/README.md) (plataforma educativa, datos sintéticos), varios equipos necesitan la exportación al ministerio. El módulo tiene un propietario, una especificación del formato versionada y un procedimiento: las solicitudes de cambio entran por un canal con plazo y plantilla. Para cambios menores (añadir una columna opcional) hay autoservicio: otra persona prepara el cambio, las dueñas lo revisan y se integra sin esperar a la siguiente iteración. Un cambio que rompe el formato exige versión nueva y aviso.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-530 — Diseño de equipos y ownership](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership/README.md)) son:
-
-- **Un archivo espera semanas por una persona** — causa: propiedad fuerte sin segundo conocedor. Corrección: revisión obligatoria por una segunda persona y rotación.
-- **Todo cambio requiere tres equipos** — causa: fronteras por capa. Corrección: reorganizar por dominio o abrir vía de autoservicio.
+- **Un archivo espera semanas por una persona.** Causa señalada en [SE-530](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership/README.md): propiedad fuerte sin segundo conocedor. Corrección: revisión obligatoria por una segunda persona y rotación.
+- **Todo cambio requiere tres equipos.** Fronteras por capa, no por dominio. Corrección: reorganizar por dominio o abrir vía de autoservicio.
+- **Contrato sin propietario.** Una interfaz «de todos» no tiene a quién pedirle cambios.
+- **Confundir el contrato con la documentación.** Documentar la interfaz es una parte; falta propiedad, versiones y proceso de cambio.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-530 — Diseño de equipos y ownership](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership/README.md)) son: Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se analizó ningún repositorio, equipo ni guardia reales; el reparto del conocimiento, las capas tocadas, el costo por relevo y la llegada de avisos son construcciones del autor, y el modelo supone archivos independientes y avisos sin agrupamiento.
+Las definiciones de [SE-530](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership/README.md) son operativas para el equipo de plataforma educativa y sus experimentos usan datos sintéticos: no se analizó ningún repositorio, equipo ni guardia reales, y el reparto del conocimiento, las capas tocadas y el costo por relevo son construcciones del autor. Un contrato no sustituye al diseño de las fronteras: si cada cambio cruza varios equipos, el problema está en dónde se trazaron. En equipos pequeños con una frontera trivial, un contrato formal puede costar más de lo que ahorra.
 
 ## Relación con otros conceptos
 

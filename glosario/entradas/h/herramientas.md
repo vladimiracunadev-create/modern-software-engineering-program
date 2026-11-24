@@ -2,48 +2,39 @@
 
 [↑ Glosario](../../README.md) · [← Herencia de prioridad](./herencia-de-prioridad.md) · [Heterogeneidad →](./heterogeneidad.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 37](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 37](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/README.md)
 
 ## Definición
 
-Función que un servidor expone y que el modelo puede invocar; es controlada por el modelo.
-
-Definición de trabajo de [SE-571 — MCP, recursos, prompts, tools y confianza](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-571-mcp-recursos-prompts-tools-y-confianza/README.md).
+En el trabajo con agentes y modelos, las **herramientas** (*tools*) son las funciones que un servidor expone y que el modelo puede invocar; las controla el modelo, no la persona ni la aplicación. [SE-571](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-571-mcp-recursos-prompts-tools-y-confianza/README.md) lo define así en el contexto del protocolo de contexto de modelos (MCP). [SE-577](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md) lo amplía al arnés de un agente: las herramientas son las acciones que el *harness* acepta traducir en efectos (leer un archivo, aplicar un cambio, ejecutar pruebas). El programa usa también «herramienta» en otros sentidos (las de ingeniería en general); aquí se trata el de agentes.
 
 ## Por qué importa
 
-En [SE-577 — Anatomía de un harness: modelo, contexto, herramientas y bucles](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md), el tema «Herramientas» importa porque lo que el agente no puede hacer, no lo hará; lo que puede, lo hará sin entender.
-
-En [SE-453 — Verificación formal y model checking: TLA+, SPARK y Alloy](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-453-verificacion-formal-y-model-checking-tla-spark-y-alloy/README.md), el tema «Herramientas» importa porque TLA+, SPARK y Alloy cubren niveles distintos.
+Las herramientas son el límite entre lo que el agente *dice* y lo que *hace*. Cada una amplía lo que el agente puede lograr y lo que puede romper. Decidir qué herramientas se exponen, con qué permisos y con qué verificación es diseñar la superficie de riesgo del agente, no un detalle de integración.
 
 ## Cómo funciona
 
-Según [SE-577 — Anatomía de un harness: modelo, contexto, herramientas y bucles](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md):
+El modelo recibe una descripción de cada herramienta (nombre, parámetros, propósito) y decide cuándo invocarla; el servidor o el arnés ejecuta la acción y devuelve el resultado. Dos consecuencias de que las controle el modelo:
 
-Las herramientas son las acciones que el harness acepta traducir en efectos: leer un archivo, aplicar un cambio, ejecutar pruebas. Cada una amplía lo que el agente puede lograr y lo que puede romper. Quitar la herramienta de escritura deja al agente leyendo en bucle, porque la política no tiene otra salida: el agente no «sabe» que no puede escribir hasta que lo intenta, y el harness que no lo registra deja una traza idéntica a la del contexto perdido. Esa ambigüedad vuelve en `SE-587` y se resuelve con un campo de la traza.
+- **Lo que el agente puede hacer es exactamente lo que el arnés acepta traducir**; quitar una herramienta cambia su comportamiento. [SE-577](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md) lo muestra: quitar la herramienta de escritura deja al agente leyendo en bucle, porque la política no tiene otra salida. El agente no «sabe» que no puede escribir hasta que lo intenta, y un arnés que no lo registra deja una traza idéntica a la del contexto perdido.
+- **La decisión de usarlas es probabilística**, por lo que el servidor no debe confiar en la entrada: la autorización y la validación se hacen en el servidor, no en el prompt.
 
-Según [SE-577 — Anatomía de un harness: modelo, contexto, herramientas y bucles](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md):
-
-El equipo adopta un asistente de código para el mantenimiento de *Avisos*. Durante dos semanas todo va bien; en la tercera, tres cambios llegan a revisión con las pruebas en rojo. La revisión encuentra que el asistente los dio por terminados. Tres hipótesis compiten: el modelo empeoró, el prompt cambió, el entorno cambió. La persona responsable revisa las trazas de los tres casos y encuentra que ninguno ejecutó las pruebas. Revisa el archivo de instrucciones: una reorganización había movido la línea de verificación a un archivo que el producto ya no cargaba. La corrección no toca el modelo: restaura la línea y añade una compuerta (`SE-583`) que rechaza la terminación sin pruebas en verde.
+[SE-571](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-571-mcp-recursos-prompts-tools-y-confianza/README.md) aporta dos puntos de control: verificar en el servidor la coherencia entre cabecera y cuerpo (para que no se ejecute una herramienta no autorizada), y fijar el tiempo de vida de cualquier caché de la lista de herramientas según el riesgo de la herramienta.
 
 ## Ejemplo
 
-Ejemplo de [SE-577 — Anatomía de un harness: modelo, contexto, herramientas y bucles](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md) (sección «Ejemplo mínimo»):
-
-La tarea `T1`: `add(a, b)` devuelve `a - b`. El harness completo hace cuatro pasos: lee `calc.py`; aplica el reemplazo `a - b` por `a + b`; ejecuta las pruebas, que pasan; y el agente declara la tarea terminada. En la traza aparecen exactamente `read`, `write`, `run_tests` y la solicitud de cierre. Quitar la herramienta de escritura produce una traza de doce lecturas; quitar el contexto, otra de doce lecturas. Las dos trazas son iguales y los fallos distintos: por eso la traza necesita más que el nombre de la herramienta.
+[SE-577](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md): el equipo adopta un asistente de código para el mantenimiento de *Avisos*. A la tercera semana, tres cambios llegan a revisión con las pruebas en rojo: el asistente los dio por terminados. Compiten tres hipótesis (el modelo empeoró, cambió el prompt, cambió el entorno). Las trazas muestran que ninguno ejecutó las pruebas; el archivo de instrucciones había perdido la línea de verificación en una reorganización. La corrección no toca el modelo: restaura la línea y añade una compuerta ([SE-583](../../../classes/part-48-harness-y-agentic-engineering/se-583-verificacion-gates-y-menu-unico-de-validacion/README.md)) que rechaza la terminación sin pruebas en verde. La lección es que el comportamiento depende de las herramientas, las instrucciones y las compuertas, no solo del modelo.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Se ejecuta una herramienta no autorizada** — causa: cabecera y cuerpo no coinciden y nadie lo comprueba. Corrección: verificar la coherencia en el servidor y rechazar. ([SE-571](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-571-mcp-recursos-prompts-tools-y-confianza/README.md))
-- **Una herramienta retirada sigue funcionando** — causa: caché demasiado larga. Corrección: fijar el tiempo de vida por el riesgo de la herramienta. ([SE-571](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-571-mcp-recursos-prompts-tools-y-confianza/README.md))
+- **Se ejecuta una herramienta no autorizada.** Causa ([SE-571](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-571-mcp-recursos-prompts-tools-y-confianza/README.md)): cabecera y cuerpo no coinciden y nadie lo comprueba; corrección: verificar la coherencia en el servidor y rechazar.
+- **Una herramienta retirada sigue funcionando.** Caché demasiado larga; fijar el tiempo de vida por el riesgo de la herramienta.
+- **Confiar en el prompt para limitar el alcance.** Un límite que solo está en el texto de instrucciones no es un control.
+- **Confundirlas con recursos o prompts del protocolo.** En MCP, las herramientas son las controladas por el modelo; otros elementos los controla la aplicación o la persona.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Quitar la herramienta de escritura deja al agente leyendo en bucle, porque la política no tiene otra salida: el agente no «sabe» que no puede escribir hasta que lo intenta, y el harness que no lo registra deja una traza idéntica a la del contexto perdido. ([SE-577](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md))
+Una herramienta bien definida no hace seguro a un agente: hay que acotar lo que puede tocar (confinamiento, mínimo privilegio) y poder deshacer lo que hizo. [SE-577](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md) es un caso de estudio sobre un asistente, no una medición de agentes reales. Y la lista de herramientas debe ser pequeña y con nombres claros: más herramientas amplían la superficie y la confusión del modelo.
 
 ## Relación con otros conceptos
 

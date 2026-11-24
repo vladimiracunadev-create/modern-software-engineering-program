@@ -2,46 +2,51 @@
 
 [↑ Glosario](../../README.md) · [← Reproducibilidad](./reproducibilidad.md) · [Reproduction →](./reproduction.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 36](../../../classes/part-36-calidad-rendimiento-y-resiliencia/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 36](../../../classes/part-36-calidad-rendimiento-y-resiliencia/README.md)
 
 ## Definición
 
-Un artefacto es **reproducible** si el mismo código y los mismos datos producen el mismo resultado, en sentido numérico o byte a byte. Los números de un experimento con semilla fija suelen coincidir entre sistemas.
-
-Explicación de la sección «Reproducibilidad entre sistemas» de [SE-444 — Proyecto: informe reproducible de calidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-444-proyecto-informe-reproducible-de-calidad/README.md).
+Un artefacto es **reproducible** si el mismo código y los mismos datos producen el mismo resultado, en sentido numérico o byte a byte. La **reproducibilidad entre sistemas** es esa propiedad exigida *a través de* sistemas operativos y entornos distintos (por ejemplo, Windows y Ubuntu). La define [SE-444](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-444-proyecto-informe-reproducible-de-calidad/README.md) para informes de calidad y [SE-468](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-468-proyecto-producto-con-seguridad-verificable/README.md) la aplica a las huellas de contenido; el sentido es el mismo en ambas.
 
 ## Por qué importa
 
-En [SE-444 — Proyecto: informe reproducible de calidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-444-proyecto-informe-reproducible-de-calidad/README.md), el tema «Reproducibilidad entre sistemas» importa porque los bytes de los artefactos dependen del modo de escritura y del entorno.
-
-En [SE-468 — Proyecto: producto con seguridad verificable](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-468-proyecto-producto-con-seguridad-verificable/README.md), el tema «Reproducibilidad entre sistemas» importa porque la huella debe ser independiente del sistema.
+Un resultado que solo se obtiene en una máquina no es verificable por nadie más. Cambia una decisión concreta: cuando un hash o un informe difiere entre sistemas, ¿es un defecto o una variación legítima? Distinguirlo evita dos errores simétricos: ignorar un defecto de escritura, o perseguir una diferencia irrelevante (como el reloj).
 
 ## Cómo funciona
 
-Según [SE-444 — Proyecto: informe reproducible de calidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-444-proyecto-informe-reproducible-de-calidad/README.md), en la sección «Reproducibilidad entre sistemas»:
+[SE-444](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-444-proyecto-informe-reproducible-de-calidad/README.md) distingue qué coincide y qué no. Los **números** de un experimento con semilla fija suelen coincidir entre sistemas. Los **bytes de los archivos escritos**, no siempre. Las causas habituales son:
 
-Un artefacto es **reproducible** si el mismo código y los mismos datos producen el mismo resultado, en sentido numérico o byte a byte. Los números de un experimento con semilla fija suelen coincidir entre sistemas. Los bytes de los archivos que se escriben, no siempre: la codificación por defecto, el fin de línea de los archivos de texto, el terminador de línea del módulo `csv` (que escribe `\r\n`, y en Windows el modo texto lo convierte en `\r\r\n`), el orden de iteración de un conjunto de cadenas (aleatorizado por proceso), la hora y el nombre del sistema varían. Algunas variaciones son defectos de escritura y se corrigen (abrir con `newline=""` y `encoding="utf-8"`, fijar el terminador); otras son legítimas (el reloj) y se excluyen del hash o se declaran.
+- la **codificación** por defecto;
+- el **fin de línea** de los archivos de texto;
+- el terminador del módulo `csv`, que escribe `\r\n` y que en Windows, en modo texto, se convierte en `\r\r\n`;
+- el **orden de iteración** de un conjunto de cadenas, aleatorizado por proceso;
+- la **hora** y el **nombre del sistema**.
 
-Según [SE-468 — Proyecto: producto con seguridad verificable](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-468-proyecto-producto-con-seguridad-verificable/README.md), en la sección «Reproducibilidad entre sistemas»:
+Algunas variaciones son **defectos de escritura** y se corrigen (abrir con `newline=""` y `encoding="utf-8"`, fijar el terminador). Otras son **legítimas** (el reloj) y se excluyen del hash o se declaran.
 
-Una huella que depende del orden de `os.listdir`, de los finales de línea o del separador de ruta cambia entre sistemas aunque el contenido sea el mismo. La huella canónica ordena las rutas, usa separador `/`, normaliza `\r\n` a `\n` y fija la codificación. Es la misma idea de reproducibilidad que defiende Reproducible Builds para los binarios.
+[SE-468](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-468-proyecto-producto-con-seguridad-verificable/README.md) extiende la idea a las huellas: una huella que depende del orden de `os.listdir`, de los finales de línea o del separador de ruta cambia entre sistemas aunque el contenido sea el mismo. La **huella canónica** ordena las rutas, usa separador `/`, normaliza `\r\n` a `\n` y fija la codificación. Es la misma idea que defiende Reproducible Builds para los binarios.
 
 ## Ejemplo
 
-Caso medido en la sección «Reproducibilidad entre sistemas» de [SE-444 — Proyecto: informe reproducible de calidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-444-proyecto-informe-reproducible-de-calidad/README.md):
+```python
+import csv
+with open("informe.csv", "w", newline="", encoding="utf-8") as f:
+    w = csv.writer(f, lineterminator="\n")
+    w.writerow(["ruta", "p95_ms"])
+```
 
-Un artefacto es **reproducible** si el mismo código y los mismos datos producen el mismo resultado, en sentido numérico o byte a byte. Los números de un experimento con semilla fija suelen coincidir entre sistemas. Los bytes de los archivos que se escriben, no siempre: la codificación por defecto, el fin de línea de los archivos de texto, el terminador de línea del módulo `csv` (que escribe `\r\n`, y en Windows el modo texto lo convierte en `\r\r\n`), el orden de iteración de un conjunto de cadenas (aleatorizado por proceso), la hora y el nombre del sistema varían.
+Sin `newline=""`, en Windows el modo texto convierte el `\r\n` del módulo `csv` en `\r\r\n` y el hash difiere del de Ubuntu aunque los datos sean idénticos. [SE-444](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-444-proyecto-informe-reproducible-de-calidad/README.md) ejecuta tres experimentos en Windows y Ubuntu (WSL2) con resultados idénticos en el validador y la selección y con diferencias esperables en los artefactos que dependen del sistema.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-444 — Proyecto: informe reproducible de calidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-444-proyecto-informe-reproducible-de-calidad/README.md)) son:
-
-- **Otra persona no puede reproducir el informe** — causa: falta el entorno, el comando o las semillas. Corrección: manifiesto con entorno, comando y semillas, y ejecución en un sistema limpio.
-- **Los hashes difieren entre Windows y Ubuntu** — causa: escritura en modo texto sin `newline` ni `encoding`. Corrección: abrir con `newline=""` y `encoding="utf-8"` y fijar terminadores.
+- **Otra persona no puede reproducir el informe.** Faltan entorno, comando o semillas; corrección ([SE-444](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-444-proyecto-informe-reproducible-de-calidad/README.md)): un manifiesto con esos tres y ejecución en un sistema limpio.
+- **Los hashes difieren entre Windows y Ubuntu.** Escritura en modo texto sin `newline` ni `encoding`; abrir con `newline=""` y `encoding="utf-8"` y fijar terminadores.
+- **Hashear lo que depende del reloj.** La hora es una variación legítima: se excluye o se declara.
+- **Confundir reproducible con correcto.** El resultado puede ser idéntico y equivocado.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-444 — Proyecto: informe reproducible de calidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-444-proyecto-informe-reproducible-de-calidad/README.md)) son: Las definiciones son operativas para el informe de calidad de la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron los tres experimentos en Windows y Ubuntu (WSL2), con resultados idénticos en el validador y la selección y diferencias esperables en los artefactos que dependen del sistema.
+[SE-444](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-444-proyecto-informe-reproducible-de-calidad/README.md) es operativa para el informe de calidad de la API de entregas y declara «diferencias esperables» en artefactos que dependen del sistema, de modo que no toda variación es evitable. La reproducibilidad *byte a byte* de binarios compilados exige además entradas declaradas y entornos controlados (véase la reconstrucción independiente). Y con aritmética de punto flotante en hardware distinto, la reproducibilidad numérica exacta puede no darse aunque el código sea idéntico; eso es un límite del cálculo, no de la escritura de archivos.
 
 ## Relación con otros conceptos
 

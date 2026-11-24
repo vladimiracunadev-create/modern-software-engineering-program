@@ -2,46 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Postmortem](./postmortem.md) · [Postura del dispositivo →](./postura-del-dispositivo.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** G — Operación, evolución y liderazgo · **Primera aparición:** [Parte 41](../../../classes/part-41-observabilidad-sre-e-incidentes/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** G — Operación, evolución y liderazgo · **Primera aparición:** [Parte 41](../../../classes/part-41-observabilidad-sre-e-incidentes/README.md)
 
 ## Definición
 
-Análisis que parte de que cada persona actuó con la mejor información disponible y busca los factores del sistema.
-
-Definición de trabajo de [SE-501 — Postmortems sin culpa y aprendizaje](../../../classes/part-41-observabilidad-sre-e-incidentes/se-501-postmortems-sin-culpa-y-aprendizaje/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-611 — Taller: degradar y recuperar un modelo](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-611-taller-degradar-y-recuperar-un-modelo/README.md): Análisis de un incidente centrado en el sistema y no en las personas.
+Un **postmortem sin culpa** (*blameless postmortem*) es la revisión posterior a un incidente que parte de que cada persona actuó con la mejor información y las herramientas disponibles, y que busca los factores del sistema que hicieron posible el fallo. Es la definición de [SE-501](../../../classes/part-41-observabilidad-sre-e-incidentes/se-501-postmortems-sin-culpa-y-aprendizaje/README.md); [SE-611](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-611-taller-degradar-y-recuperar-un-modelo/README.md) lo resume como el análisis de un incidente centrado en el sistema y no en las personas. El **postmortem** es el documento que reconstruye el incidente para aprender de él; **sin culpa** es el principio con que se hace.
 
 ## Por qué importa
 
-En [SE-501 — Postmortems sin culpa y aprendizaje](../../../classes/part-41-observabilidad-sre-e-incidentes/se-501-postmortems-sin-culpa-y-aprendizaje/README.md), el tema «Postmortem sin culpa» importa porque la culpa esconde información y desincentiva el reporte.
-
-En [SE-611 — Taller: degradar y recuperar un modelo](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-611-taller-degradar-y-recuperar-un-modelo/README.md), el tema «Postmortem sin culpa» importa porque convierte el incidente en acciones.
+Decide si la organización aprende o esconde información. [SE-501](../../../classes/part-41-observabilidad-sre-e-incidentes/se-501-postmortems-sin-culpa-y-aprendizaje/README.md) da la razón práctica: si nombrar una acción propia tiene consecuencias personales, la información se esconde, y sin información el análisis es mentira. Cambia además dónde se buscan las correcciones: no en «tener más cuidado», sino en el diseño, las señales y los procesos.
 
 ## Cómo funciona
 
-Según [SE-501 — Postmortems sin culpa y aprendizaje](../../../classes/part-41-observabilidad-sre-e-incidentes/se-501-postmortems-sin-culpa-y-aprendizaje/README.md), en la sección «Postmortem sin culpa»:
+El análisis pregunta *por qué esa acción tenía sentido en ese momento*, *qué señales faltaban* y *qué hacía fácil equivocarse*. No elimina la responsabilidad: la **desplaza del individuo al sistema** que dejó un camino fácil hacia el fallo.
 
-Un **postmortem** (o revisión posterior al incidente) es el documento que reconstruye un incidente para aprender de él. **Sin culpa** significa que el análisis parte de que cada persona actuó con la mejor información y las herramientas disponibles, y se pregunta por qué esa acción tenía sentido en ese momento, qué señales faltaban y qué lo hacía fácil de equivocar. No elimina la responsabilidad: la desplaza del individuo al sistema que dejó un camino fácil hacia el fallo. La razón es práctica: si nombrar una acción propia tiene consecuencias personales, la información se esconde, y sin información el análisis es mentira. El **sesgo de retrospectiva** refuerza el problema: quien conoce el desenlace lo ve como previsible.
+[SE-501](../../../classes/part-41-observabilidad-sre-e-incidentes/se-501-postmortems-sin-culpa-y-aprendizaje/README.md) señala un obstáculo cognitivo, el **sesgo de retrospectiva**: quien conoce el desenlace lo ve como previsible y juzga la decisión con información que entonces no existía. Una forma de contrarrestarlo es reconstruir la línea de tiempo con las señales que la persona realmente veía.
+
+Lo que convierte el documento en mejora son las **acciones verificables**: cada una con propietario, fecha y forma de comprobar que se hizo, con seguimiento semanal. Sin eso, el postmortem es literatura.
 
 ## Ejemplo
 
-Caso medido en la sección «Postmortem sin culpa» de [SE-501 — Postmortems sin culpa y aprendizaje](../../../classes/part-41-observabilidad-sre-e-incidentes/se-501-postmortems-sin-culpa-y-aprendizaje/README.md):
-
-Un **postmortem** (o revisión posterior al incidente) es el documento que reconstruye un incidente para aprender de él. **Sin culpa** significa que el análisis parte de que cada persona actuó con la mejor información y las herramientas disponibles, y se pregunta por qué esa acción tenía sentido en ese momento, qué señales faltaban y qué lo hacía fácil de equivocar. No elimina la responsabilidad: la desplaza del individuo al sistema que dejó un camino fácil hacia el fallo.
+Una persona ejecutó un comando de limpieza en el entorno equivocado. Un postmortem con culpa concluye «error humano; se le recuerda el procedimiento». Uno sin culpa pregunta: ¿por qué el terminal de producción y el de pruebas se veían iguales?, ¿por qué el comando no pedía confirmación?, ¿por qué la persona tenía permiso de borrado en producción sin segundo aprobador? Las acciones resultantes son cambios del sistema: color y nombre distintos del entorno, confirmación y permisos más estrechos, cada una con propietario y fecha. (Ilustración propia; las clases tratan incidentes sintéticos con tiempo virtual.)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-501 — Postmortems sin culpa y aprendizaje](../../../classes/part-41-observabilidad-sre-e-incidentes/se-501-postmortems-sin-culpa-y-aprendizaje/README.md)) son:
-
-- **El postmortem culpa a una persona** — causa: análisis detenido en «error humano». Corrección: preguntar por qué la acción tenía sentido y qué lo facilitó.
-- **El incidente se repite** — causa: acciones sin propietario, fecha o verificación. Corrección: acciones verificables y seguimiento semanal.
+- **El postmortem culpa a una persona.** Se detuvo en «error humano»; corrección de [SE-501](../../../classes/part-41-observabilidad-sre-e-incidentes/se-501-postmortems-sin-culpa-y-aprendizaje/README.md): preguntar por qué la acción tenía sentido y qué la facilitó.
+- **El incidente se repite.** Las acciones carecen de propietario, fecha o verificación; hay que hacerlas verificables y darles seguimiento.
+- **Creer que «sin culpa» es «sin responsabilidad».** Se mantiene la responsabilidad, pero del sistema y de quien lo diseña o decide.
+- **Escribirlo solo para cumplir.** Si nadie lee ni actúa sobre él, no cumple su función.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-501 — Postmortems sin culpa y aprendizaje](../../../classes/part-41-observabilidad-sre-e-incidentes/se-501-postmortems-sin-culpa-y-aprendizaje/README.md)) son: Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con tiempo virtual y semillas fijas en Windows y Ubuntu (WSL2) con resultados idénticos.
+Las definiciones de [SE-501](../../../classes/part-41-observabilidad-sre-e-incidentes/se-501-postmortems-sin-culpa-y-aprendizaje/README.md) son operativas para la API de entregas y sus experimentos usan tiempo virtual y semillas fijas. El enfoque sin culpa no ampara la negligencia deliberada ni el ocultamiento: si alguien incumple a propósito una regla, es otro asunto, y se trata con otros mecanismos. Funciona solo si hay cultura que lo sostenga: un documento que declara «sin culpa» mientras la gestión penaliza a quien habla destruye la confianza que pretendía crear. En [SE-611](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-611-taller-degradar-y-recuperar-un-modelo/README.md) la idea se extiende a incidentes de modelos, donde además hay que reconstruir datos y versiones.
 
 ## Relación con otros conceptos
 

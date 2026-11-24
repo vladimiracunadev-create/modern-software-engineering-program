@@ -2,41 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← Evento de uso](./evento-de-uso.md) · [Evento tardío →](./evento-tardio.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 40](../../../classes/part-40-ci-cd-iac-y-platform-engineering/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 40](../../../classes/part-40-ci-cd-iac-y-platform-engineering/README.md)
 
 ## Definición
 
-Evento de activación cuyo flujo se ejecuta con secretos y permisos de escritura aunque lo origine un tercero.
-
-Definición de trabajo de [SE-491 — Taller: endurecer un pipeline vulnerable](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-491-taller-endurecer-un-pipeline-vulnerable/README.md).
+Un **evento privilegiado** es un evento de activación de un flujo de integración continua cuyo flujo se ejecuta con secretos y permisos de escritura aunque lo origine un tercero. Es la definición de trabajo de [SE-491](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-491-taller-endurecer-un-pipeline-vulnerable/README.md), que lo ejemplifica con `pull_request_target` de GitHub Actions. Es un concepto de seguridad de la cadena de entrega: lo peligroso no es el evento por sí mismo, sino el privilegio con el que corre.
 
 ## Por qué importa
 
-En [SE-491 — Taller: endurecer un pipeline vulnerable](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-491-taller-endurecer-un-pipeline-vulnerable/README.md), el tema «Eventos privilegiados» importa porque `pull_request_target` ejecuta con secretos; mezclarlo con el código del cambio es la combinación peligrosa.
+Cambia una decisión de configuración de CI aparentemente inocente: «¿qué evento dispara este flujo?». Un flujo disparado por una solicitud de cambio de una bifurcación externa puede ejecutarse con los secretos del repositorio. Si además ejecuta el código del cambio, un tercero cualquiera consigue ejecutar código propio con esos secretos y permisos de escritura. [SE-491](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-491-taller-endurecer-un-pipeline-vulnerable/README.md) llama a ese patrón «solicitud pwn».
 
 ## Cómo funciona
 
-Según [SE-491 — Taller: endurecer un pipeline vulnerable](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-491-taller-endurecer-un-pipeline-vulnerable/README.md), en la sección «Eventos privilegiados»:
+[SE-491](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-491-taller-endurecer-un-pipeline-vulnerable/README.md) contrasta dos eventos:
 
-El evento `pull_request` ejecuta el flujo de trabajo del cambio con permisos reducidos y sin secretos cuando viene de una bifurcación. El evento `pull_request_target` ejecuta el flujo de la **rama base**, con acceso a secretos y permisos de escritura, pensado para tareas como etiquetar o comentar. El peligro aparece al combinarlo con una descarga del código del cambio (`ref` apuntando al SHA de la cabeza de la solicitud): se ejecuta código no revisado con privilegios completos. El patrón se conoce como «solicitud pwn». La defensa es no descargar ni ejecutar código del cambio en un evento privilegiado, o dividir el trabajo en dos flujos: uno sin privilegios que construye y prueba, y otro privilegiado que solo consume el resultado como datos.
+- **`pull_request`**: ejecuta el flujo *del cambio*, con permisos reducidos y sin secretos cuando viene de una bifurcación. Es seguro por diseño porque el código no revisado corre sin credenciales.
+- **`pull_request_target`**: ejecuta el flujo de la **rama base**, con acceso a secretos y permisos de escritura. Está pensado para tareas como etiquetar o comentar, que necesitan escribir.
+
+El peligro aparece al **combinar** el evento privilegiado con una descarga del código del cambio (por ejemplo, `ref` apuntando al SHA de la cabeza de la solicitud) y ejecutarlo: código no revisado se ejecuta con privilegios completos. La causa es la confusión de dos propiedades que normalmente van juntas: «qué flujo corre» (el de la base, de confianza) y «qué código procesa» (el de un tercero, no confiable).
+
+Defensas de la clase: no descargar ni ejecutar código del cambio en un evento privilegiado, o **dividir el trabajo en dos flujos**: uno sin privilegios que construye y prueba, y otro privilegiado que solo consume el resultado como datos, nunca como código.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-491 — Taller: endurecer un pipeline vulnerable](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-491-taller-endurecer-un-pipeline-vulnerable/README.md):
-
-El equipo de la API de entregas aplica el taller a su canalización real. Primero ejecuta el verificador sobre todos los flujos de trabajo y obtiene hallazgos en tres de once. Para cada hallazgo abre un cambio pequeño con su prueba: la acción fijada por SHA (con un comentario que indica la versión legible), los permisos declarados por trabajo, el evento cambiado a `pull_request` y el título pasado como variable. El script descargado se sustituye por uno versionado en el repositorio que verifica la huella de lo que descarga.
+Un flujo se dispara con `pull_request_target` para comentar el resultado de las pruebas. Para ello descarga el código de la solicitud y ejecuta las pruebas. Una persona externa abre una solicitud cuyo script de pruebas lee las credenciales del entorno y las envía fuera. Como el flujo corre con secretos, la fuga funciona. Corregido: un primer flujo con `pull_request` construye y prueba sin secretos y guarda el resultado como artefacto; un segundo flujo privilegiado lee ese resultado *como datos* y publica el comentario. (Ilustración construida a partir del patrón de [SE-491](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-491-taller-endurecer-un-pipeline-vulnerable/README.md).)
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Una solicitud externa accede a secretos** — causa: evento privilegiado más código del cambio. Corrección: `pull_request` o dos flujos separados. ([SE-491](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-491-taller-endurecer-un-pipeline-vulnerable/README.md))
+- **Una solicitud externa accede a secretos.** Causa: evento privilegiado más código del cambio; corrección ([SE-491](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-491-taller-endurecer-un-pipeline-vulnerable/README.md)): `pull_request` o dos flujos separados.
+- **Creer que «corre el flujo de la base, luego es seguro».** Lo es solo mientras no procese código del tercero.
+- **Tratar el resultado del flujo no privilegiado como confiable.** Se consume como datos: se valida, no se ejecuta ni se interpola en comandos.
+- **Dar permisos amplios por defecto.** Reducir los permisos del flujo al mínimo necesario limita el daño si algo falla.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La defensa es no descargar ni ejecutar código del cambio en un evento privilegiado, o dividir el trabajo en dos flujos: uno sin privilegios que construye y prueba, y otro privilegiado que solo consume el resultado como datos. ([SE-491](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-491-taller-endurecer-un-pipeline-vulnerable/README.md))
+Es un término de la clase de CI/CD y del modelo de GitHub Actions; otras plataformas tienen eventos equivalentes con otros nombres, y el principio (separar el privilegio del código no confiable) se traslada, pero el detalle no. Dentro de un repositorio privado con colaboradores de confianza el riesgo baja, pero no desaparece: una dependencia o una rama comprometidas tienen el mismo efecto. Dividir en dos flujos reduce el riesgo, no lo elimina si el segundo flujo trata los datos como comandos.
 
 ## Relación con otros conceptos
 

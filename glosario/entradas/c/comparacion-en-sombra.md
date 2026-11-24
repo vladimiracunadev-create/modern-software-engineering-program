@@ -2,42 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← Comparación diferencial](./comparacion-diferencial.md) · [Comparación pareada →](./comparacion-pareada.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** G — Operación, evolución y liderazgo · **Primera aparición:** [Parte 43](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** G — Operación, evolución y liderazgo · **Primera aparición:** [Parte 43](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/README.md)
 
 ## Definición
 
-Ejecución del sistema nuevo con una copia del tráfico real, sin servir su respuesta, para compararla con la del antiguo.
-
-Definición de trabajo de [SE-521 — Strangler, branch by abstraction y anticorruption](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md).
+La **comparación en sombra** es la ejecución del sistema nuevo con una copia del tráfico real, sin servir su respuesta, para compararla con la del sistema antiguo. Es la definición de [SE-521](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md), donde aparece como paso de una migración gradual (estrangulamiento, rama por abstracción, capa anticorrupción). También se conoce como *shadowing*, tráfico en sombra o ejecución en paralelo; [SE-521](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md) la nombra además «lanzamiento oscuro».
 
 ## Por qué importa
 
-En [SE-521 — Strangler, branch by abstraction y anticorruption](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md), el tema «Comparación en sombra» importa porque detecta diferencias antes de servir a nadie.
+Una migración se decide con pruebas, pero las pruebas solo cubren lo que alguien imaginó. El tráfico real contiene casos que nadie escribió. La comparación en sombra permite descubrir diferencias de comportamiento *antes* de servir a nadie, de modo que el corte deja de ser un acto de fe. Cambia la decisión «¿cambiamos?» por «¿cuántas diferencias quedan sin explicar?».
 
 ## Cómo funciona
 
-Según [SE-521 — Strangler, branch by abstraction y anticorruption](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md), en la sección «Comparación en sombra»:
+Cada petición real llega al sistema antiguo, que responde a la persona como siempre. Una copia se envía al sistema nuevo; su respuesta no se entrega, se compara con la antigua y la diferencia se registra. [SE-521](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md) pide tres cautelas:
 
-Antes de servir tráfico real desde el sistema nuevo, se le puede enviar una **copia** de cada petición y comparar su respuesta con la del antiguo, sin que la persona vea la respuesta nueva. La técnica (lanzamiento oscuro, ejecución en paralelo) detecta diferencias sin exponer a nadie, con tres cautelas. Los efectos secundarios no deben duplicarse: la copia en sombra no puede escribir en la base real ni enviar correos. La comparación debe tener una **regla de equivalencia** (qué diferencias importan: los décimos de una nota sí, el orden de los campos o la hora de generación no).
+1. **Efectos secundarios no duplicados.** La copia no puede escribir en la base real ni enviar correos; el sistema en sombra necesita sus propios almacenes o modos sin efecto.
+2. **Regla de equivalencia.** Hay que decidir de antemano qué diferencias importan: los décimos de una nota, sí; el orden de los campos o la hora de generación, no. Sin regla, todo es diferencia y no se aprende nada.
+3. **Ventana representativa.** El tráfico raro (cierres de mes, picos) debe estar en el periodo observado.
+
+La causa de su valor es que compara contra el comportamiento *vigente*, que es el contrato real aunque nunca se haya documentado.
 
 ## Ejemplo
 
-Caso medido en la sección «Comparación en sombra» de [SE-521 — Strangler, branch by abstraction y anticorruption](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md):
-
-Antes de servir tráfico real desde el sistema nuevo, se le puede enviar una **copia** de cada petición y comparar su respuesta con la del antiguo, sin que la persona vea la respuesta nueva. La técnica (lanzamiento oscuro, ejecución en paralelo) detecta diferencias sin exponer a nadie, con tres cautelas. Los efectos secundarios no deben duplicarse: la copia en sombra no puede escribir en la base real ni enviar correos. La comparación debe tener una **regla de equivalencia** (qué diferencias importan: los décimos de una nota sí, el orden de los campos o la hora de generación no).
+[SE-521](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md) plantea el caso de un equipo que ejecuta la comparación en sombra durante cuatro semanas en las que no hay cierre y observa que no hay diferencias. Es el escenario de alerta de la clase: esas cuatro semanas no incluyeron el tráfico del cierre, así que «sin diferencias» solo vale para lo observado y el corte posterior quedaría sin verificar justo en el caso más exigente (ilustración propia: un redondeo distinto en los promedios solo asomaría entonces). La lección es doble: la ausencia de diferencias solo vale para el tráfico observado, y la ventana se elige por calendario, o se reproduce tráfico grabado del periodo crítico.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-521 — Strangler, branch by abstraction y anticorruption](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md)) son:
-
-- **El corte se pospone una y otra vez** — causa: el paso es demasiado grande para verificarse. Corrección: dividir en rebanadas con retroceso independiente.
-- **La sombra no muestra diferencias y hay error en producción** — causa: la ventana no incluye el tráfico raro. Corrección: elegir la ventana por calendario y reproducir tráfico grabado.
+- **«La sombra no muestra diferencias, luego es seguro».** Solo para la ventana observada; corrección de [SE-521](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md): elegir la ventana por calendario y reproducir tráfico grabado.
+- **Duplicar efectos.** Si la copia escribe o notifica, la sombra deja de ser sombra.
+- **Comparar byte a byte.** Sin regla de equivalencia el ruido (marcas de tiempo, orden) tapa las diferencias reales.
+- **Confundirla con una prueba A/B o un despliegue canario.** En esos, una parte de las personas recibe la respuesta nueva; en la sombra nadie.
+- **Cortar todo de una vez.** [SE-521](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md) insiste en rebanadas con retroceso independiente.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Ejecuta la comparación en sombra durante cuatro semanas en las que no hay cierre y observa que no hay diferencias. ([SE-521](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md))
+No sirve donde los efectos externos no se pueden aislar (pagos, correos) salvo que existan modos de simulación; duplica la carga sobre las dependencias compartidas y su coste debe presupuestarse; y no valida el rendimiento bajo carga real si el sistema en sombra corre con menos recursos. Tampoco prueba la experiencia de usuario, porque nadie ve la respuesta nueva. Se complementa con una señal de equivalencia explícita y un canario, no los reemplaza.
 
 ## Relación con otros conceptos
 

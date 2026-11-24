@@ -2,40 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← Hipótesis](./hipotesis.md) · [Hipótesis de ruptura →](./hipotesis-de-ruptura.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 36](../../../classes/part-36-calidad-rendimiento-y-resiliencia/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 36](../../../classes/part-36-calidad-rendimiento-y-resiliencia/README.md)
 
 ## Definición
 
-Afirmación comprobable, con umbral, sobre el comportamiento normal del sistema que el experimento busca refutar.
-
-Definición de trabajo de [SE-443 — Taller: someter un sistema a presión controlada](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-443-taller-someter-un-sistema-a-presion-controlada/README.md).
+La **hipótesis de estado estable** es una afirmación comprobable, con umbral, sobre el comportamiento normal del sistema, que un experimento de presión o de caos busca refutar. [SE-443](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-443-taller-someter-un-sistema-a-presion-controlada/README.md) la define así: por ejemplo, «el p95 de latencia por ventana de diez segundos es menor de X y la tasa de errores menor de Y». Es el punto de partida de la ingeniería del caos: sin una definición de «normal» medible, no hay forma de saber si el fallo inyectado cambió algo.
 
 ## Por qué importa
 
-En [SE-443 — Taller: someter un sistema a presión controlada](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-443-taller-someter-un-sistema-a-presion-controlada/README.md), el tema «Hipótesis de estado estable» importa porque sin ella no hay manera de decir si el resultado fue bueno.
+Convierte un experimento en un resultado interpretable. Sin hipótesis, «tiramos un servidor y parecía funcionar» es una impresión. Con ella, el experimento se aprueba o se refuta con datos, y la decisión de qué hacer con el sistema (confiar, corregir, volver a probar) tiene base. Además la hipótesis fuerza a elegir qué señales importan al usuario, y no solo las que son fáciles de medir.
 
 ## Cómo funciona
 
-Según [SE-443 — Taller: someter un sistema a presión controlada](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-443-taller-someter-un-sistema-a-presion-controlada/README.md), en la sección «Hipótesis de estado estable»:
+La hipótesis se expresa con **señales observables** (latencia p95, tasa de errores, fracción de peticiones correctas) y **umbrales**. El experimento introduce un fallo y comprueba si la hipótesis se sostiene; si no, se encontró una debilidad.
 
-Un experimento de presión empieza con una afirmación comprobable sobre el sistema en funcionamiento normal: «el p95 de latencia por ventana de diez segundos es menor de X y la tasa de errores menor de Y». Esa afirmación es la **hipótesis de estado estable**, y el experimento busca refutarla bajo un fallo. El umbral importa más de lo que parece: uno tomado del máximo de una sola ejecución base falla sola con frecuencia (da falsas alarmas); uno demasiado holgado no detecta fallos sutiles. Por eso se mide el ruido de base con varias ejecuciones y se verifica con una prueba A/A que el umbral no se supera cuando no pasa nada.
+El umbral importa más de lo que parece ([SE-443](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-443-taller-someter-un-sistema-a-presion-controlada/README.md)):
+
+- Uno tomado del **máximo de una sola ejecución base** falla solo con frecuencia: da falsas alarmas.
+- Uno demasiado **holgado** no detecta fallos sutiles.
+
+Por eso se mide el **ruido de base** con varias ejecuciones y se verifica con una **prueba A/A** (comparar el sistema contra sí mismo) que el umbral no se supera cuando no pasa nada. La causa es estadística: la métrica ya varía sin fallo, y el umbral debe separarse de esa variación natural.
 
 ## Ejemplo
 
-Ejemplo de [SE-443 — Taller: someter un sistema a presión controlada](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-443-taller-someter-un-sistema-a-presion-controlada/README.md) (sección «Ejemplo mínimo»):
-
-El fragmento calcula el umbral de una hipótesis de estado estable desde varias ejecuciones base. Antes de ejecutarlo, predice si el máximo de una ejecución coincide con el percentil 99,9 de treinta.
+[SE-443](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-443-taller-someter-un-sistema-a-presion-controlada/README.md) trabaja con la API de entregas en tiempo virtual y semillas fijas. Se miden varias ejecuciones sin fallo para conocer el ruido del p95 por ventana de diez segundos. El umbral se fija con ese ruido, no con el máximo de una ejecución; se comprueba con A/A que no salta sin fallo; luego se inyecta el fallo y se comprueba si el p95 y la tasa de errores se mantienen dentro del umbral. Un resultado que supera el umbral refuta la hipótesis: hay un hallazgo. Uno que no lo supera solo confirma la hipótesis *para ese fallo y ese radio de impacto*.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-443 — Taller: someter un sistema a presión controlada](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-443-taller-someter-un-sistema-a-presion-controlada/README.md)) son:
-
-- **El experimento aborta sin fallo** — causa: umbral demasiado estrecho. Corrección: fijarlo con varias ejecuciones base y una prueba A/A.
-- **No se ve un fallo sutil** — causa: umbral holgado o radio demasiado pequeño. Corrección: calcular la detección y ajustar.
+- **El experimento aborta sin fallo.** Umbral demasiado estrecho; fijarlo con varias ejecuciones base y una prueba A/A ([SE-443](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-443-taller-someter-un-sistema-a-presion-controlada/README.md)).
+- **No se ve un fallo sutil.** Umbral holgado o radio demasiado pequeño; calcular la detección y ajustar.
+- **Hipótesis vagas** («el sistema sigue funcionando»). No se pueden refutar; deben incluir señal, umbral y ventana.
+- **Confundirla con un SLO.** Un SLO es un compromiso de servicio; la hipótesis es una afirmación de prueba, aunque puede apoyarse en los mismos indicadores.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-443 — Taller: someter un sistema a presión controlada](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-443-taller-someter-un-sistema-a-presion-controlada/README.md)) son: Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutó el experimento con tiempo virtual y semillas fijas en Windows y Ubuntu (WSL2) con resultados idénticos.
+Los experimentos de [SE-443](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-443-taller-someter-un-sistema-a-presion-controlada/README.md) son en tiempo virtual y con semillas fijas, no en producción; sus resultados ilustran el método. Una hipótesis confirmada no demuestra resiliencia general, solo ante la falla probada. Requiere buena observabilidad: si las señales no existen o no son fiables, no puede formularse. Y no aplica a sistemas cuyo comportamiento normal no es estable (cargas muy estacionales sin modelo de la variación), donde primero hay que caracterizar el ruido.
 
 ## Relación con otros conceptos
 

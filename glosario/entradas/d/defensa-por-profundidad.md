@@ -2,40 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Defensa en profundidad](./defensa-en-profundidad.md) · [Definición de listo →](./definicion-de-listo.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** G — Operación, evolución y liderazgo · **Primera aparición:** [Parte 44](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** G — Operación, evolución y liderazgo · **Primera aparición:** [Parte 44](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/README.md)
 
 ## Definición
 
-Secuencia de preguntas cada vez más específicas sobre un mismo trabajo para descubrir hasta dónde llega la comprensión.
+En este programa, la **defensa por profundidad** es la secuencia de preguntas cada vez más específicas sobre un mismo trabajo para descubrir hasta dónde llega la comprensión de quien lo hizo. Es la definición de [SE-538](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-538-portafolio-entrevistas-y-defensa-profesional/README.md), en la parte de gestión y práctica profesional, y se refiere a defender un trabajo ante una persona evaluadora (portafolio, entrevista, comité).
 
-Definición de trabajo de [SE-538 — Portafolio, entrevistas y defensa profesional](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-538-portafolio-entrevistas-y-defensa-profesional/README.md).
+**Atención a la homonimia:** en seguridad, «defensa en profundidad» (*defense in depth*) designa otra cosa, la superposición de controles para que el fallo de uno no exponga el sistema. El programa usa aquí el sentido de [SE-538](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-538-portafolio-entrevistas-y-defensa-profesional/README.md), el de las preguntas escalonadas; para el otro, véase mínimo privilegio y los controles de las clases de seguridad.
 
 ## Por qué importa
 
-En [SE-538 — Portafolio, entrevistas y defensa profesional](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-538-portafolio-entrevistas-y-defensa-profesional/README.md), el tema «Defensa por profundidad» importa porque la profundidad se descubre con preguntas sucesivas.
+Cambia cómo se prepara y cómo se presenta el trabajo. Quien lo hizo conoce los primeros niveles de memoria; a cierto punto se topa con lo que no probó o no entendió. La decisión es qué hacer en ese punto, y la clase la formula como dos estrategias con consecuencias distintas.
 
 ## Cómo funciona
 
-Según [SE-538 — Portafolio, entrevistas y defensa profesional](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-538-portafolio-entrevistas-y-defensa-profesional/README.md), en la sección «Defensa por profundidad»:
+Una defensa profesional sigue una escalera: *qué hiciste → por qué esa opción → qué pasa si falla → cómo lo probaste → qué cambiarías*. Cada nivel exige más precisión que el anterior y deja menos espacio para respuestas de memoria.
 
-Una defensa profesional es una secuencia de preguntas cada vez más específicas sobre un mismo trabajo: qué hiciste, por qué esa opción, qué pasa si falla, cómo lo probaste, qué cambiarías. Quien hizo el trabajo conoce los primeros niveles de memoria y, a partir de cierto punto, se encuentra con lo que no probó o no entendió. En ese punto existen dos estrategias. Una es defender con seguridad: se acierta por intuición a veces y, cuando falla, la persona que evalúa lo detecta, y la impresión se daña no solo en esa pregunta sino en las anteriores (¿qué más fue invención?). La otra es **declarar el límite y proponer cómo comprobarlo** («eso no lo probé; lo comprobaría repitiendo la entrega dos veces y mirando los duplicados»).
+En el límite de lo que se sabe hay dos estrategias ([SE-538](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-538-portafolio-entrevistas-y-defensa-profesional/README.md)):
+
+- **Defender con seguridad.** A veces se acierta por intuición; cuando falla, la persona evaluadora lo detecta y el daño no queda en esa pregunta: contagia las anteriores («¿qué más fue invención?»).- **Declarar el límite y proponer cómo comprobarlo.** Por ejemplo: «eso no lo probé; lo comprobaría repitiendo la entrega dos veces y mirando los duplicados».
+
+La causa de que la segunda gane es que preserva la credibilidad de todo lo respondido antes: una frontera honesta da valor a lo que sí se afirmó.
 
 ## Ejemplo
 
-Ejemplo de [SE-538 — Portafolio, entrevistas y defensa profesional](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-538-portafolio-entrevistas-y-defensa-profesional/README.md) (sección «Caso conductor»):
-
-El equipo de plataforma educativa es el caso conductor de la [Parte 44](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/README.md). Esta clase deja el décimo artefacto: entradas de portafolio comprobables, una autoevaluación por niveles y una defensa por profundidad. `SE-539` preguntará cómo se conduce una revisión de una decisión difícil, donde esta defensa se vuelve un ejercicio colectivo, y `SE-540` reunirá todo en un dossier. Cambia después un solo dato, el porcentaje de acierto por azar en las preguntas profundas de 20 % a 50 %, y observa cuánto se acerca la impresión de defender todo a la de declarar el límite.
+Se presenta una entrada de portafolio sobre una cola de entregas. Pregunta 1: ¿qué hiciste? Respuesta con comando y datos sintéticos. Pregunta 3: ¿qué pasa si el trabajador muere a mitad de procesar? Aquí la persona no lo probó. Defender con seguridad sería afirmar que «se reintenta sin problema». La respuesta de [SE-538](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-538-portafolio-entrevistas-y-defensa-profesional/README.md) sería: «no lo probé; lo comprobaría matando el proceso a mitad, repitiendo la entrega y contando los duplicados». Esa respuesta convierte un hueco en un plan verificable. (El ejemplo es ilustrativo; la clase usa una entrada de portafolio comprobable y un verificador sobre cuatro entradas del autor.)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-538 — Portafolio, entrevistas y defensa profesional](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-538-portafolio-entrevistas-y-defensa-profesional/README.md)) son:
-
-- **Nadie puede reproducir mis resultados** — causa: sin comando, versión ni datos. Corrección: incluir comando, entorno y datos sintéticos.
-- **El comité duda de mi alcance** — causa: se describe participación y no autoría. Corrección: atribuir con precisión qué decidiste y hiciste.
+- **Nadie puede reproducir mis resultados.** Faltan comando, versión o datos; corrección de [SE-538](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-538-portafolio-entrevistas-y-defensa-profesional/README.md): incluir comando, entorno y datos sintéticos.
+- **El comité duda de mi alcance.** Se describe participación en lugar de autoría; hay que atribuir con precisión qué se decidió y qué se hizo.
+- **Confundirla con la defensa en profundidad de seguridad.** Son conceptos distintos (véase arriba).
+- **Memorizar respuestas.** Funciona en los primeros niveles y se rompe en los profundos.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-538 — Portafolio, entrevistas y defensa profesional](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-538-portafolio-entrevistas-y-defensa-profesional/README.md)) son: Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos y un verificador sobre cuatro entradas escritas por el autor, en Windows y Ubuntu (WSL2), con resultados idénticos.
+[SE-538](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-538-portafolio-entrevistas-y-defensa-profesional/README.md) usa datos sintéticos y un verificador sobre cuatro entradas escritas por el autor, y sus definiciones son operativas para el equipo de plataforma educativa; no mide el comportamiento de personas evaluadoras reales. Declarar un límite no compensa un trabajo sin sustancia: solo es valioso si el resto es sólido. Y depende del contexto: algunas evaluaciones esperan respuesta inmediata y no admiten «lo comprobaría».
 
 ## Relación con otros conceptos
 

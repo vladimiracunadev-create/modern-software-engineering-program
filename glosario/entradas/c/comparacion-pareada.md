@@ -2,43 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Comparación en sombra](./comparacion-en-sombra.md) · [Compatibilidad entre versiones →](./compatibilidad-entre-versiones.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 49](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 49](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/README.md)
 
 ## Definición
 
-Comparación de dos versiones sobre los mismos casos.
-
-Definición de trabajo de [SE-597 — Evals y LLMOps de sistemas con LLM](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-597-evals-y-llmops-de-sistemas-con-llm/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-603 — Experimentos y entrenamiento reproducible](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-603-experimentos-y-entrenamiento-reproducible/README.md): Comparación de dos configuraciones sobre los mismos datos y las mismas particiones.
+Una **comparación pareada** compara dos versiones de un sistema sobre *los mismos casos*, de modo que cada caso aporta un par de resultados. [SE-597](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-597-evals-y-llmops-de-sistemas-con-llm/README.md) la usa para decidir si una versión nueva de un sistema con modelos es mejor que la anterior; [SE-603](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-603-experimentos-y-entrenamiento-reproducible/README.md) la aplica a dos configuraciones sobre los mismos datos y las mismas particiones. Lo que importa en ella no son los casos donde ambas aciertan o ambas fallan, sino los casos donde **discrepan**.
 
 ## Por qué importa
 
-En [SE-597 — Evals y LLMOps de sistemas con LLM](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-597-evals-y-llmops-de-sistemas-con-llm/README.md), el tema «Comparación pareada» importa porque reduce la varianza al usar los mismos casos.
-
-En [SE-603 — Experimentos y entrenamiento reproducible](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-603-experimentos-y-entrenamiento-reproducible/README.md), el tema «Comparación pareada» importa porque reduce el ruido de la comparación.
+Cambia la forma de aprobar un cambio. Comparar dos tasas de acierto globales (82 % contra 84 %) mezcla la diferencia real con la variación entre conjuntos de casos. Al fijar los casos, la dificultad de cada uno se cancela y solo queda el efecto de la versión. Además obliga a dos preguntas distintas que suelen confundirse: ¿qué tan seguido declaro mejor algo que no lo es?, y ¿qué tan seguido detecto una mejora que sí existe?
 
 ## Cómo funciona
 
-Según [SE-597 — Evals y LLMOps de sistemas con LLM](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-597-evals-y-llmops-de-sistemas-con-llm/README.md):
+[SE-597](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-597-evals-y-llmops-de-sistemas-con-llm/README.md) usa el esquema de McNemar. Sea `b` el número de casos que la versión 2 acierta y la 1 falla, y `c` el de los que la 1 acierta y la 2 falla. El estadístico
 
-Comparar dos versiones sobre los mismos casos es una comparación **pareada**: interesan los casos donde las versiones discrepan. Sea *b* el número de casos que v2 acierta y v1 falla, y *c* el de los que v1 acierta y v2 falla; el estadístico z de McNemar, (b − c) / √(b + c), mide cuánto se aparta de cero esa diferencia. Si se exige z > 1,645 (una cola, 5 %), la tasa de **falsos positivos** (declarar mejor una versión idéntica) queda cerca del 5 %: en el experimento, 5,6 %, 5,1 %, 4,8 % y 6,8 % con 50, 100, 400 y 1 600 casos. La **potencia** (detectar una mejora real de unos 4 puntos) es otra cosa: 10,1 %, 15,2 %, 37,2 % y 81,8 %.
+```text
+z = (b − c) / √(b + c)
+```
+
+mide cuánto se aparta de cero la diferencia entre discrepancias. Si se exige `z > 1,645` (una cola, 5 %), la tasa de **falsos positivos**, es decir, declarar mejor una versión idéntica, queda cerca del 5 %. La causa de que funcione es que bajo «no hay diferencia» las discrepancias deberían repartirse parejo entre `b` y `c`.
+
+La **potencia** es otra magnitud: la probabilidad de detectar una mejora real. Depende sobre todo del número de casos, no del umbral.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-597 — Evals y LLMOps de sistemas con LLM](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-597-evals-y-llmops-de-sistemas-con-llm/README.md):
-
-*Escenario ilustrativo: las cifras de este ejemplo son supuestos de la narración, no mediciones.*
+En el experimento de [SE-597](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-597-evals-y-llmops-de-sistemas-con-llm/README.md) (sistemas sintéticos), con 50, 100, 400 y 1 600 casos los falsos positivos fueron 5,6 %, 5,1 %, 4,8 % y 6,8 %: la prueba protege igual con pocos o muchos casos. La potencia para una mejora real de unos 4 puntos fue 10,1 %, 15,2 %, 37,2 % y 81,8 %. Con 100 casos, entonces, una mejora real de 4 puntos casi nunca se detecta: la prueba no se equivoca al aprobar, pero tampoco aprueba. La conclusión práctica es dimensionar el conjunto de evaluación según la mejora que se quiere poder ver.
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+- **Creer que «sin diferencia significativa» significa «iguales».** Con pocos casos la potencia es baja: la ausencia de señal no es ausencia de efecto.
+- **Comparar sobre casos distintos o particiones distintas.** Rompe el emparejamiento y reintroduce la variación que se quería cancelar.
+- **Confundir falsos positivos con potencia.** Quedar cerca del 5 % de falsos positivos no dice nada de cuántas mejoras reales se pierden.
+- **Repetir la prueba hasta que sale.** Cada repetición sobre los mismos casos agrega oportunidades de falso positivo; fija el criterio antes.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-597 — Evals y LLMOps de sistemas con LLM](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-597-evals-y-llmops-de-sistemas-con-llm/README.md)) son: Los sistemas, la dificultad por caso, el sesgo del juez y la traza son sintéticos; la puerta usa una prueba z de McNemar de una cola con 800 evaluaciones por celda; no se evaluó ningún modelo real ni ninguna herramienta de evaluación. El siguiente paso, `SE-598`, trata las tres restricciones que decide un sistema en operación: cuánto cuesta, cuánto tarda y cómo se protege.
+[SE-597](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-597-evals-y-llmops-de-sistemas-con-llm/README.md) declara que los sistemas, la dificultad por caso, el sesgo del juez y la traza son sintéticos, que usa una prueba z de McNemar de una cola con 800 evaluaciones por celda, y que no se evaluó ningún modelo real ni herramienta de evaluación. McNemar sirve para resultados binarios (acierta/falla); para puntuaciones continuas o para varias métricas se necesita otra prueba. Asume casos independientes y representativos de lo que ocurrirá en producción: si el conjunto no refleja el uso real, la comparación es rigurosa sobre lo equivocado.
 
 ## Relación con otros conceptos
 

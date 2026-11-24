@@ -67,8 +67,8 @@ Por profundidad:
 
 | Profundidad | Entradas |
 | --- | --- |
-| compuesta desde las clases | 2608 |
-| desarrollada | 135 |
+| compuesta desde las clases | 2577 |
+| desarrollada | 166 |
 
 Por tipo:
 

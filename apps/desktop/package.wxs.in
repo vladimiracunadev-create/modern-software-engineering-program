@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Plantilla de WiX 5. scripts/build_apps.py sustituye los marcadores @...@. -->
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package Name="Ingenieria de Software Moderna" Manufacturer="Vladimir Acuna"
+           Version="@VERSION@" UpgradeCode="3d9f6b2e-8a41-4c75-b0e3-6a1c9d2f4e87"
+           Scope="perMachine" Compressed="yes">
+    <MajorUpgrade DowngradeErrorMessage="Ya hay una version mas reciente instalada." />
+    <MediaTemplate EmbedCab="yes" />
+    <Icon Id="AppIcon" SourceFile="@ICON@" />
+    <Property Id="ARPPRODUCTICON" Value="AppIcon" />
+    <Property Id="ARPURLINFOABOUT" Value="https://github.com/vladimiracunadev-create/modern-software-engineering-program" />
+
+    <StandardDirectory Id="ProgramFiles64Folder">
+      <Directory Id="INSTALLFOLDER" Name="Ingenieria de Software Moderna" />
+    </StandardDirectory>
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Directory Id="AppMenuFolder" Name="Ingenieria de Software Moderna" />
+    </StandardDirectory>
+
+    <ComponentGroup Id="Contenido" Directory="INSTALLFOLDER">
+      <Files Include="@APPDIR@\**" />
+    </ComponentGroup>
+
+    <Component Id="AccesoDirecto" Directory="AppMenuFolder" Guid="9e1a7c53-2b6d-4f08-a3d4-5c8b0e7f1a92">
+      <Shortcut Id="AtajoMenu" Name="Ingenieria de Software Moderna"
+                Target="[INSTALLFOLDER]@EXE@" WorkingDirectory="INSTALLFOLDER" Icon="AppIcon" />
+      <RemoveFolder Id="QuitarCarpetaMenu" Directory="AppMenuFolder" On="uninstall" />
+      <RegistryValue Root="HKCU" Key="Software\IngenieriaSoftwareModerna"
+                     Name="instalado" Type="integer" Value="1" KeyPath="yes" />
+    </Component>
+
+    <Feature Id="Principal" Title="Ingenieria de Software Moderna" Level="1">
+      <ComponentGroupRef Id="Contenido" />
+      <ComponentRef Id="AccesoDirecto" />
+    </Feature>
+  </Package>
+</Wix>

@@ -1,0 +1,11 @@
+{
+  "appId": "dev.vladimiracuna.ingenieriasoftware",
+  "appName": "Ingeniería de Software Moderna",
+  "webDir": "www",
+  "android": {
+    "allowMixedContent": false
+  },
+  "server": {
+    "androidScheme": "https"
+  }
+}

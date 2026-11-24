@@ -2,39 +2,31 @@
 
 [↑ Glosario](../../README.md) · [← Reescritura por estructura](./reescritura-por-estructura.md) · [Refactorización →](./refactorizacion.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 45](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 45](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md)
 
 ## Definición
 
-Cambio de estructura que conserva el comportamiento, hecho con todas las pruebas en verde.
-
-Definición de trabajo de [SE-542 — TDD: ciclo rojo-verde-refactor y diseño emergente](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-542-tdd-ciclo-rojo-verde-refactor-y-diseno-emergente/README.md).
+Un **refactor** es un cambio de estructura que conserva el comportamiento, hecho con todas las pruebas en verde ([SE-542](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-542-tdd-ciclo-rojo-verde-refactor-y-diseno-emergente/README.md)).
 
 ## Por qué importa
 
-En [SE-542 — TDD: ciclo rojo-verde-refactor y diseño emergente](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-542-tdd-ciclo-rojo-verde-refactor-y-diseno-emergente/README.md), el tema «Verde antes de refactor» importa porque refactorizar con una prueba en rojo mezcla dos cambios.
+La definición contiene su propia señal de alarma: si una prueba falla, el cambio no era un refactor. Esa regla distingue mejorar el diseño de cambiar el comportamiento por accidente, y separa los dos tipos de trabajo en commits y revisiones distintos.
 
 ## Cómo funciona
 
-Según [SE-542 — TDD: ciclo rojo-verde-refactor y diseño emergente](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-542-tdd-ciclo-rojo-verde-refactor-y-diseno-emergente/README.md):
-
-El refactor ocurre solo con todas las pruebas en verde y se detiene si alguna falla: si falla, el cambio no era un refactor. Es el momento del diseño: nombres, duplicación, una función extraída. Es también el punto donde la afirmación más repetida sobre TDD («produce mejor diseño») se pone a prueba, y es donde los profesionales discrepan. Las pruebas protegen el refactor, pero no lo guían: el diseño que sale depende de quien refactoriza. Esta clase no mide ese efecto.
+En el ciclo de TDD, el refactor es el tercer paso (rojo, verde, refactor): ocurre solo con las pruebas en verde y se detiene si alguna falla. Es el momento del diseño: nombres, eliminación de duplicación, una función extraída. Las pruebas **protegen** el refactor, pero no lo **guían**: el diseño que sale depende de quien refactoriza.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-542 — TDD: ciclo rojo-verde-refactor y diseño emergente](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-542-tdd-ciclo-rojo-verde-refactor-y-diseno-emergente/README.md):
-
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+Extraer el cálculo del promedio a una función con nombre propio, renombrar variables y quitar un bloque duplicado, ejecutando la suite después de cada paso pequeño; si un paso la rompe, se revierte.
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+Mezclar refactor con cambios de comportamiento en un mismo cambio; refactorizar sin pruebas que fijen el comportamiento; creer que TDD garantiza buen diseño.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- El refactor ocurre solo con todas las pruebas en verde y se detiene si alguna falla: si falla, el cambio no era un refactor. ([SE-542](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-542-tdd-ciclo-rojo-verde-refactor-y-diseno-emergente/README.md))
+[SE-542](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-542-tdd-ciclo-rojo-verde-refactor-y-diseno-emergente/README.md) señala que la afirmación de que TDD «produce mejor diseño» es donde los profesionales discrepan, y que la clase no mide ese efecto. Sin pruebas de caracterización, en código heredado, el refactor se hace después de fijar el comportamiento actual.
 
 ## Relación con otros conceptos
 

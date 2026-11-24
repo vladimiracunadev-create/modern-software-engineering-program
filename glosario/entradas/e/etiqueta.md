@@ -2,50 +2,34 @@
 
 [↑ Glosario](../../README.md) · [← ETag](./etag.md) · [Etiqueta alternativa →](./etiqueta-alternativa.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 39](../../../classes/part-39-build-release-y-cadena-de-suministro/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 39](../../../classes/part-39-build-release-y-cadena-de-suministro/README.md)
 
 ## Definición
 
-Nombre legible que apunta a una huella y que normalmente se puede reasignar.
-
-Definición de trabajo de [SE-470 — Artefactos, repositorios y promoción](../../../classes/part-39-build-release-y-cadena-de-suministro/se-470-artefactos-repositorios-y-promocion/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-602 — Datos de entrenamiento, etiquetas y feature stores](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-602-datos-de-entrenamiento-etiquetas-y-feature-stores/README.md): Valor que el modelo debe predecir, con su fuente, su ventana y su retraso.
+El programa usa **etiqueta** con dos sentidos distintos. En la cadena de entrega ([SE-470](../../../classes/part-39-build-release-y-cadena-de-suministro/se-470-artefactos-repositorios-y-promocion/README.md)), una etiqueta es un nombre legible que apunta a una huella y que normalmente se puede reasignar (por ejemplo, `api:1.4.0`). En aprendizaje automático ([SE-602](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-602-datos-de-entrenamiento-etiquetas-y-feature-stores/README.md)), la etiqueta es el valor que el modelo debe predecir, con su fuente, su ventana y su retraso. Esta entrada desarrolla ambos y avisa de que no son lo mismo.
 
 ## Por qué importa
 
-En [SE-470 — Artefactos, repositorios y promoción](../../../classes/part-39-build-release-y-cadena-de-suministro/se-470-artefactos-repositorios-y-promocion/README.md), el tema «Etiquetas mutables» importa porque un puntero movido cambia lo desplegado sin avisar.
+En entrega, confundir etiqueta con huella permite que «la misma versión» sea contenido distinto en dos momentos. En aprendizaje automático, una etiqueta sin su retraso invita a calcular métricas sobre decisiones que todavía no tienen respuesta y a presentarlas como resultados ([SE-602](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-602-datos-de-entrenamiento-etiquetas-y-feature-stores/README.md)).
 
 ## Cómo funciona
 
-Según [SE-470 — Artefactos, repositorios y promoción](../../../classes/part-39-build-release-y-cadena-de-suministro/se-470-artefactos-repositorios-y-promocion/README.md):
+**Sentido de entrega.** Un artefacto es la salida inmutable de un build; su huella es el resultado de aplicarle una función hash, de modo que un solo byte distinto produce otra huella. Un registro de contenedores permite referirse a una imagen por etiqueta (`api:1.4.0`) o por resumen (`api@sha256:…`); solo la segunda es inmutable. La etiqueta es un puntero que alguien puede mover.
 
-Un **artefacto** es la salida inmutable de un build: un archivo, una imagen de contenedor, un paquete. Su **huella** (digest) es el resultado de aplicarle una función hash; dos artefactos con la misma huella son el mismo contenido, y un solo byte distinto produce otra huella. Esto permite un direccionamiento por contenido: pedirle al repositorio «dame lo que tiene esta huella» devuelve exactamente eso o nada. Un repositorio de artefactos añade a ese almacén un índice (nombre y versión que apuntan a una huella), metadatos y control de acceso, pero el contenido sigue identificado por su huella. Por eso un registro de contenedores permite referirse a una imagen por etiqueta (`api:1.4.0`) o por resumen (`api@sha256:…`), y solo la segunda es inmutable.
-
-Según [SE-470 — Artefactos, repositorios y promoción](../../../classes/part-39-build-release-y-cadena-de-suministro/se-470-artefactos-repositorios-y-promocion/README.md):
-
-El equipo define la canalización de la API de entregas. El build produce un artefacto y registra su huella; el repositorio acepta etiquetas de versión una sola vez. Integración y preproducción ejecutan sus pruebas contra esa huella y escriben un metadato por etapa (resultado, fecha, versión de las pruebas); la promoción a producción solo se permite si ambos metadatos existen. El despliegue recibe la huella y la configuración del entorno por separado. La política de retención conserva las cinco últimas versiones, todas las que estuvieron en producción en los últimos 90 días y las que tienen una atestación vigente; cada trimestre se ensaya un retroceso a la tercera versión anterior para comprobar que el artefacto y su cadena de verificación siguen disponibles.
+**Sentido de datos.** La etiqueta tiene una fuente (de dónde sale la verdad), una ventana (en qué intervalo se observa) y un retraso (cuánto tarda en conocerse).
 
 ## Ejemplo
 
-Ejemplo de [SE-470 — Artefactos, repositorios y promoción](../../../classes/part-39-build-release-y-cadena-de-suministro/se-470-artefactos-repositorios-y-promocion/README.md) (sección «Ejemplo mínimo»):
-
-La huella antigua sigue existiendo y apunta a su contenido; la etiqueta ahora apunta a otro. Registra versión de Python, comando y salida; después modifica el programa para rechazar mover una etiqueta ya publicada.
+[SE-470](../../../classes/part-39-build-release-y-cadena-de-suministro/se-470-artefactos-repositorios-y-promocion/README.md): el repositorio de la API de entregas acepta etiquetas de versión una sola vez; integración y preproducción prueban contra la huella, y el despliegue recibe la huella y la configuración por separado.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Un defecto aparece solo en producción** — causa: se reconstruyó o se movió una etiqueta. Corrección: desplegar por huella y promover sin reconstruir. ([SE-470](../../../classes/part-39-build-release-y-cadena-de-suministro/se-470-artefactos-repositorios-y-promocion/README.md))
+- **Un defecto aparece solo en producción.** Se reconstruyó o se movió una etiqueta; corrección ([SE-470](../../../classes/part-39-build-release-y-cadena-de-suministro/se-470-artefactos-repositorios-y-promocion/README.md)): desplegar por huella y promover sin reconstruir.
+- **Métricas sobre etiquetas que aún no existen.** Se ignora el retraso de la etiqueta.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Por eso un registro de contenedores permite referirse a una imagen por etiqueta (`api:1.4.0`) o por resumen (`api@sha256:…`), y solo la segunda es inmutable. ([SE-470](../../../classes/part-39-build-release-y-cadena-de-suministro/se-470-artefactos-repositorios-y-promocion/README.md))
-- Una etiqueta sin su retraso invita a calcular métricas sobre decisiones que todavía no tienen respuesta y a presentarlas como resultados. ([SE-602](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-602-datos-de-entrenamiento-etiquetas-y-feature-stores/README.md))
+Una etiqueta inmutable por política (aceptada una sola vez) reduce el riesgo, pero la garantía fuerte sigue siendo la huella. En datos, ninguna etiqueta es verdad absoluta: tiene ruido y retraso de su fuente.
 
 ## Relación con otros conceptos
 

@@ -2,51 +2,34 @@
 
 [↑ Glosario](../../README.md) · [← Valor del aprendizaje](./valor-del-aprendizaje.md) · [Valor esperado de la información perfecta →](./valor-esperado-de-la-informacion-perfecta.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 39](../../../classes/part-39-build-release-y-cadena-de-suministro/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 39](../../../classes/part-39-build-release-y-cadena-de-suministro/README.md)
 
 ## Definición
 
-Dato (clave, constructor, repositorio, secuencia) que el verificador conoce por fuera del release.
-
-Definición de trabajo de [SE-479 — Taller: verificar la procedencia de un release](../../../classes/part-39-build-release-y-cadena-de-suministro/se-479-taller-verificar-la-procedencia-de-un-release/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-534 — Gestión de riesgos y decisiones ejecutivas](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-534-gestion-de-riesgos-y-decisiones-ejecutivas/README.md): Suma de los resultados posibles ponderados por su probabilidad.
+**Valor esperado** tiene dos sentidos en el programa, no relacionados entre sí. En [SE-534](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-534-gestion-de-riesgos-y-decisiones-ejecutivas/README.md) (gestión de riesgos) es la suma de los resultados posibles ponderados por su probabilidad. En [SE-479](../../../classes/part-39-build-release-y-cadena-de-suministro/se-479-taller-verificar-la-procedencia-de-un-release/README.md) (cadena de suministro) es el dato (clave, constructor, repositorio, secuencia) que el verificador conoce *por fuera* del release que está comprobando.
 
 ## Por qué importa
 
-En [SE-479 — Taller: verificar la procedencia de un release](../../../classes/part-39-build-release-y-cadena-de-suministro/se-479-taller-verificar-la-procedencia-de-un-release/README.md), el tema «Valores esperados y raíz de confianza» importa porque sin valores fijados de antemano no se verifica nada.
+En riesgos, ordenar por valor esperado evita mitigar lo que no pesa: [SE-534](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-534-gestion-de-riesgos-y-decisiones-ejecutivas/README.md) señala que una matriz con celdas que agrupan valores muy distintos hace elegir mal. En verificación de releases, que el valor esperado provenga de fuera es lo que da sentido a la comprobación.
 
 ## Cómo funciona
 
-Según [SE-479 — Taller: verificar la procedencia de un release](../../../classes/part-39-build-release-y-cadena-de-suministro/se-479-taller-verificar-la-procedencia-de-un-release/README.md):
+**Sentido de riesgos.** Se multiplica probabilidad por impacto y se ordenan los riesgos por ese producto, con rangos para no fingir precisión. La matriz de colores agrupa cosas muy distintas en una celda; el valor esperado conserva la magnitud.
 
-Un release serio es una **cadena de huellas firmadas**. La firma cubre el manifiesto; el manifiesto contiene las huellas del artefacto, del SBOM y de la procedencia; la procedencia contiene la huella del sujeto (que debe ser el artefacto), el constructor, el repositorio, el commit y los materiales (entre ellos, la huella del archivo de bloqueo); el SBOM debe coincidir con el bloqueo; y el artefacto contiene, a su vez, el bloqueo. Cada eslabón se comprueba contra el siguiente, de modo que alterar uno obliga a alterar todos los que lo referencian y a firmar de nuevo.
-
-Según [SE-479 — Taller: verificar la procedencia de un release](../../../classes/part-39-build-release-y-cadena-de-suministro/se-479-taller-verificar-la-procedencia-de-un-release/README.md):
-
-El equipo de seguridad de la universidad cliente define un procedimiento de aceptación. Los valores esperados (clave pública, nombre del producto, identificador del constructor, repositorio) se obtienen del contrato y de un canal independiente y se guardan en un archivo de configuración versionado; la secuencia más alta se registra en cada aceptación. El verificador recorre las doce comprobaciones y escribe un informe con los tres estados. Para cada release crítico, una segunda persona reconstruye el artefacto desde la fuente revisada en su propio entorno y compara la huella. Cuando la huella coincide, el informe lo registra como «procede de la fuente revisada»; cuando no, el release se rechaza y se abre una investigación.
+**Sentido de releases.** El verificador compara el release con valores obtenidos de un canal independiente (el contrato, un archivo de configuración versionado), nunca del mismo documento que verifica. Si los valores esperados se toman del release, un atacante que lo manipula manipula también lo que se espera.
 
 ## Ejemplo
 
-Ejemplo de [SE-479 — Taller: verificar la procedencia de un release](../../../classes/part-39-build-release-y-cadena-de-suministro/se-479-taller-verificar-la-procedencia-de-un-release/README.md) (sección «Ejemplo profesional»):
-
-El equipo de seguridad de la universidad cliente define un procedimiento de aceptación. Los valores esperados (clave pública, nombre del producto, identificador del constructor, repositorio) se obtienen del contrato y de un canal independiente y se guardan en un archivo de configuración versionado; la secuencia más alta se registra en cada aceptación. El verificador recorre las doce comprobaciones y escribe un informe con los tres estados. Para cada release crítico, una segunda persona reconstruye el artefacto desde la fuente revisada en su propio entorno y compara la huella.
+[SE-479](../../../classes/part-39-build-release-y-cadena-de-suministro/se-479-taller-verificar-la-procedencia-de-un-release/README.md): el equipo de seguridad guarda clave pública, nombre del producto, constructor y repositorio en configuración versionada obtenida del contrato, y registra la secuencia más alta aceptada para rechazar un release antiguo. [SE-534](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-534-gestion-de-riesgos-y-decisiones-ejecutivas/README.md): se generan carteras de treinta riesgos y se cuenta en cuántas el riesgo de mayor valor esperado no está entre los cinco que elige la matriz.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El verificador acepta un release de otro constructor** — causa: valores esperados tomados del documento. Corrección: configuración independiente y fijada de antemano. ([SE-479](../../../classes/part-39-build-release-y-cadena-de-suministro/se-479-taller-verificar-la-procedencia-de-un-release/README.md))
-- **Se mitigan riesgos que no pesan** — causa: matriz con celdas que agrupan valores muy distintos. Corrección: ordenar por valor esperado con rangos. ([SE-534](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-534-gestion-de-riesgos-y-decisiones-ejecutivas/README.md))
+- **El verificador acepta un release de otro constructor.** Valores esperados tomados del documento; usar configuración independiente y fijada de antemano.
+- **Se mitigan riesgos que no pesan.** Matriz con celdas muy heterogéneas; ordenar por valor esperado con rangos.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Las dos manipulaciones que un atacante «con trabajo» intenta, cambiar el artefacto y volver a firmar el manifiesto con una clave que no es la esperada, fallan en la comprobación de la firma; cambiar el artefacto y re-firmar con la clave real exige además actualizar la procedencia, y cada actualización deja una discrepancia con los valores esperados. ([SE-479](../../../classes/part-39-build-release-y-cadena-de-suministro/se-479-taller-verificar-la-procedencia-de-un-release/README.md))
-- Genera carteras de treinta riesgos y cuenta en cuántas el riesgo de mayor valor esperado no está entre los cinco que elige la matriz. ([SE-534](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-534-gestion-de-riesgos-y-decisiones-ejecutivas/README.md))
+Probabilidades e impactos estimados son inciertos: el producto da una falsa precisión si no se acompaña de rangos. Un valor esperado bajo no cubre eventos raros de impacto catastrófico, que se tratan aparte.
 
 ## Relación con otros conceptos
 

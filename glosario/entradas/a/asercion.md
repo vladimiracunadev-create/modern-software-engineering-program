@@ -2,43 +2,37 @@
 
 [↑ Glosario](../../README.md) · [← Artefacto inmutable](./artefacto-inmutable.md) · [Aserción semántica →](./asercion-semantica.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 37](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 37](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/README.md)
 
 ## Definición
 
-Comprobación en ejecución de un supuesto del programa.
-
-Definición de trabajo de [SE-452 — Codificación segura: MISRA y CERT](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-452-codificacion-segura-misra-y-cert/README.md).
+Una **aserción** es la comprobación en ejecución de un supuesto del programa ([SE-452](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-452-codificacion-segura-misra-y-cert/README.md)): una condición que el código declara cierta en un punto y que se verifica al llegar a él.
 
 ## Por qué importa
 
-En [SE-452 — Codificación segura: MISRA y CERT](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-452-codificacion-segura-misra-y-cert/README.md), el tema «Aserciones y retornos» importa porque convierten supuestos y errores en comprobaciones.
+Convierte un supuesto silencioso en un fallo inmediato y localizado. En sistemas críticos, [SE-452](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-452-codificacion-segura-misra-y-cert/README.md) recoge las reglas de Holzmann, diez reglas que caben en una página, escritas para que una herramienta las compruebe; una de ellas pide un mínimo de aserciones por función.
 
 ## Cómo funciona
 
-Según [SE-452 — Codificación segura: MISRA y CERT](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-452-codificacion-segura-misra-y-cert/README.md):
-
-Los lenguajes de uso general permiten construcciones difíciles de razonar: recursión sin cota, bucles que dependen de datos externos, punteros que se redirigen sin control, comportamientos indefinidos del lenguaje. Un estándar de codificación segura prohíbe o restringe esas construcciones para que el programa que queda sea analizable por herramientas y por personas. La idea de las reglas de Holzmann es notable por su economía: diez reglas que caben en una página, escritas para que una herramienta las compruebe. Entre ellas: flujo de control simple (sin saltos arbitrarios ni recursión), todos los bucles con una cota fija comprobable, funciones que caben en una página, un mínimo de aserciones por función, y comprobar siempre el valor de retorno de las funciones que pueden fallar.
-
-Según [SE-452 — Codificación segura: MISRA y CERT](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-452-codificacion-segura-misra-y-cert/README.md):
-
-Las ideas sí (cotas, comprobación de retornos, aserciones, sin excepciones vacías); las reglas de C sobre punteros o el preprocesador no aplican. El laboratorio usa Python por conveniencia y por eso emula la aritmética de C. Para código de seguridad real se usan lenguajes y subconjuntos con semántica definida.
+La aserción documenta una precondición, una postcondición o un invariante y falla de forma ruidosa cuando se viola, en lugar de dejar que el dato corrupto se propague. Funciona junto con otras reglas del estándar: flujo de control simple (sin saltos arbitrarios ni recursión), bucles con una cota fija comprobable, funciones que caben en una página y comprobación del valor de retorno de lo que puede fallar. La causa de su utilidad es que acorta la distancia entre el defecto y su síntoma.
 
 ## Ejemplo
 
-Ejemplo de [SE-452 — Codificación segura: MISRA y CERT](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-452-codificacion-segura-misra-y-cert/README.md) (sección «Preguntas frecuentes»):
-
-Las ideas sí (cotas, comprobación de retornos, aserciones, sin excepciones vacías); las reglas de C sobre punteros o el preprocesador no aplican. El laboratorio usa Python por conveniencia y por eso emula la aritmética de C. Para código de seguridad real se usan lenguajes y subconjuntos con semántica definida.
+```python
+def promedio(notas):
+    assert len(notas) > 0, "promedio requiere al menos una nota"
+    resultado = sum(notas) / len(notas)
+    assert 0 <= resultado <= 7
+    return resultado
+```
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+Usar aserciones para validar entradas externas (esas se validan con errores normales: las aserciones pueden desactivarse); poner efectos secundarios dentro de la condición.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Entre ellas: flujo de control simple (sin saltos arbitrarios ni recursión), todos los bucles con una cota fija comprobable, funciones que caben en una página, un mínimo de aserciones por función, y comprobar siempre el valor de retorno de las funciones que pueden fallar. ([SE-452](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-452-codificacion-segura-misra-y-cert/README.md))
+[SE-452](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-452-codificacion-segura-misra-y-cert/README.md) aclara que las ideas (cotas, comprobación de retornos, aserciones, sin excepciones vacías) se trasladan a otros lenguajes, mientras que las reglas de C sobre punteros o preprocesador no. En Python, ejecutar con optimización elimina las sentencias `assert`, así que no deben ser la única defensa.
 
 ## Relación con otros conceptos
 

@@ -2,44 +2,31 @@
 
 [↑ Glosario](../../README.md) · [← Captura de cambios](./captura-de-cambios.md) · [Característica autodeclarada →](./caracteristica-autodeclarada.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 50](../../../classes/part-50-machine-learning-en-produccion-y-mlops/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 50](../../../classes/part-50-machine-learning-en-produccion-y-mlops/README.md)
 
 ## Definición
 
-Variable de entrada calculada a partir de eventos anteriores a la decisión.
-
-Definición de trabajo de [SE-602 — Datos de entrenamiento, etiquetas y feature stores](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-602-datos-de-entrenamiento-etiquetas-y-feature-stores/README.md).
+En aprendizaje automático, una **característica** (*feature*) es una variable de entrada calculada a partir de eventos anteriores a la decisión ([SE-602](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-602-datos-de-entrenamiento-etiquetas-y-feature-stores/README.md)). Las características son lo que el modelo ve; el valor que debe predecir es la etiqueta.
 
 ## Por qué importa
 
-En [SE-602 — Datos de entrenamiento, etiquetas y feature stores](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-602-datos-de-entrenamiento-etiquetas-y-feature-stores/README.md), el tema «Almacén de características» importa porque reutiliza definiciones y registra versiones.
+La condición «anteriores a la decisión» es el punto de la definición. Una característica que contiene información que no estará disponible en el momento de decidir produce una **fuga**: el modelo parece excelente fuera de línea y falla en producción.
 
 ## Cómo funciona
 
-Según [SE-602 — Datos de entrenamiento, etiquetas y feature stores](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-602-datos-de-entrenamiento-etiquetas-y-feature-stores/README.md):
-
-Una fuga ocurre cuando una característica contiene información que no estará disponible en el momento de la decisión. La causa más frecuente no es un descuido grande sino una ventana mal cortada: un agregado que incluye el día de la decisión, una normalización calculada con todo el conjunto, un identificador que codifica el resultado. Se midió con una característica construida con la etiqueta más un poco de ruido, el equivalente a «entregas tardías de la semana» que incluye la entrega misma. Fuera de línea, el modelo con la fuga alcanzó un AUC de 0,987 frente a 0,851 del modelo sin ella: mejor en 0,136.
-
-Según [SE-602 — Datos de entrenamiento, etiquetas y feature stores](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-602-datos-de-entrenamiento-etiquetas-y-feature-stores/README.md):
-
-El equipo de *Avisos* descubre que su AUC de 0,98 de la semana pasada era fuga. Define una regla de revisión: toda característica nueva se acompaña de una fila de la tabla de características con su fuente, su ventana y su «disponible desde», y una prueba automatizada que recalcula la característica sobre un historial truncado en el instante de decisión y exige que dé lo mismo que sobre el historial completo. Esa prueba habría fallado con «entregas tardías de siete días» porque el valor cambia al añadir el futuro. Además se acuerda guardar en cada predicción las seis entradas y la versión del modelo.
+[SE-602](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-602-datos-de-entrenamiento-etiquetas-y-feature-stores/README.md) explica que la causa más frecuente de fuga no es un descuido grande sino una **ventana mal cortada**: un agregado que incluye el día de la decisión, una normalización calculada con todo el conjunto, un identificador que codifica el resultado. En su medición, un modelo con una característica contaminada («entregas tardías de la semana» que incluye la entrega misma) alcanzó un AUC de 0,987 frente a 0,851 sin ella: 0,136 de mejora ficticia.
 
 ## Ejemplo
 
-Ejemplo de [SE-602 — Datos de entrenamiento, etiquetas y feature stores](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-602-datos-de-entrenamiento-etiquetas-y-feature-stores/README.md) (sección «Ejemplo profesional»):
-
-El equipo de *Avisos* descubre que su AUC de 0,98 de la semana pasada era fuga. Define una regla de revisión: toda característica nueva se acompaña de una fila de la tabla de características con su fuente, su ventana y su «disponible desde», y una prueba automatizada que recalcula la característica sobre un historial truncado en el instante de decisión y exige que dé lo mismo que sobre el historial completo. Esa prueba habría fallado con «entregas tardías de siete días» porque el valor cambia al añadir el futuro. Además se acuerda guardar en cada predicción las seis entradas y la versión del modelo.
+El equipo de *Avisos* descubre que su AUC de 0,98 era fuga. Define una regla: toda característica nueva se documenta con su fuente, su ventana y su «disponible desde», y una prueba recalcula la característica sobre un historial truncado en el instante de decisión; si el valor cambia al añadir el futuro, la prueba falla.
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+Medir calidad con la característica contaminada; calcular normalizaciones con todo el conjunto; olvidar guardar con cada predicción las entradas y la versión del modelo.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Una fuga ocurre cuando una característica contiene información que no estará disponible en el momento de la decisión. ([SE-602](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-602-datos-de-entrenamiento-etiquetas-y-feature-stores/README.md))
-- Con pocas características y un solo modelo, una función compartida y una tabla versionada alcanzan. ([SE-602](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-602-datos-de-entrenamiento-etiquetas-y-feature-stores/README.md))
+La prueba de truncamiento detecta fugas temporales, no sesgos de otra naturaleza. Los números de la clase son de un laboratorio con datos sintéticos.
 
 ## Relación con otros conceptos
 

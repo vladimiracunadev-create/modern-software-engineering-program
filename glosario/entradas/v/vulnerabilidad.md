@@ -2,46 +2,32 @@
 
 [↑ Glosario](../../README.md) · [← Votación](./votacion.md) · [Warm-up →](../w/warm-up.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 38](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 38](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/README.md)
 
 ## Definición
 
-Debilidad en un sistema que una persona atacante puede aprovechar para vulnerar una propiedad de seguridad.
-
-Definición de trabajo de [SE-465 — Vulnerabilidades, divulgación y respuesta](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-465-vulnerabilidades-divulgacion-y-respuesta/README.md).
+Una **vulnerabilidad** es una debilidad en un sistema que una persona atacante puede aprovechar para vulnerar una propiedad de seguridad ([SE-465](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-465-vulnerabilidades-divulgacion-y-respuesta/README.md)): confidencialidad, integridad o disponibilidad.
 
 ## Por qué importa
 
-La clase donde se define, [SE-465 — Vulnerabilidades, divulgación y respuesta](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-465-vulnerabilidades-divulgacion-y-respuesta/README.md), existe con este propósito: la clase existe para que sepas qué hacer cuando alguien, dentro o fuera del equipo, encuentra una vulnerabilidad: cómo se recibe el reporte, cómo se puntúa sin engañarse, cómo se decide qué corregir primero, cómo se coordina la divulgación y cómo se aprende del caso.
+La palabra se usa para todo, desde un error teórico hasta una brecha explotada; lo que cambia la decisión es cuán explotable es en *tu* contexto y qué activo pone en riesgo. Confundir presencia con riesgo lleva a discutir puntajes en vez de actuar.
 
 ## Cómo funciona
 
-Según [SE-465 — Vulnerabilidades, divulgación y respuesta](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-465-vulnerabilidades-divulgacion-y-respuesta/README.md):
-
-La puerta de entrada de las vulnerabilidades es una decisión de diseño. El archivo `security.txt` (RFC 9116), publicado en `/.well-known/security.txt`, declara al menos un `Contact` y una fecha de `Expires`, y puede apuntar a la política de divulgación y a una clave de cifrado. Un buzón dedicado atendido por personas con nombre y suplente vale más que un correo general. La política escrita dice qué está dentro del alcance (qué dominios, qué tipos de prueba), qué está prohibido (acceder a datos de otras personas más allá de lo necesario para demostrar el defecto, degradar el servicio), cuándo se acusa recibo, cuándo se responde con una evaluación y cuánto se espera para corregir.
-
-Según [SE-465 — Vulnerabilidades, divulgación y respuesta](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-465-vulnerabilidades-divulgacion-y-respuesta/README.md):
-
-Cuando la vulnerabilidad afecta a un producto que otras organizaciones usan y que ellas deben actualizar. Para el código propio de una plataforma alojada que nadie más ejecuta, un registro interno y un aviso suelen bastar.
+[SE-465](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-465-vulnerabilidades-divulgacion-y-respuesta/README.md) trata la gestión: un canal de reporte con responsable y plazo (por ejemplo, un archivo `security.txt`, un buzón con suplentes y acuse automático) y una evaluación que no se reduce al puntaje CVSS. CVSS describe la gravedad técnica de un defecto en abstracto; el riesgo depende además de la exposición, de si hay explotación conocida y del activo afectado. Por eso la clase pide dejar el vector a la vista, calcular el puntaje ambiental y adjuntar evidencia de explotación.
 
 ## Ejemplo
 
-Ejemplo de [SE-465 — Vulnerabilidades, divulgación y respuesta](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-465-vulnerabilidades-divulgacion-y-respuesta/README.md) (sección «Preguntas frecuentes»):
-
-Cuando la vulnerabilidad afecta a un producto que otras organizaciones usan y que ellas deben actualizar. Para el código propio de una plataforma alojada que nadie más ejecuta, un registro interno y un aviso suelen bastar.
+Dos dependencias vulnerables con el mismo puntaje base: una está en un servicio expuesto a internet y la otra en una herramienta interna sin datos. Se corrige primero la expuesta.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-465 — Vulnerabilidades, divulgación y respuesta](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-465-vulnerabilidades-divulgacion-y-respuesta/README.md)) son:
-
-- **Un reporte se publica sin respuesta** — causa: canal sin responsable ni plazo. Corrección: `security.txt`, buzón con suplentes y acuse automático.
-- **Se discute el puntaje en vez del riesgo** — causa: CVSS tratado como medida. Corrección: vector a la vista, puntaje ambiental y evidencia de explotación.
+- **Un reporte se publica sin respuesta.** El canal no tiene responsable ni plazo; `security.txt`, buzón con suplentes y acuse automático.
+- **Se discute el puntaje en vez del riesgo.** CVSS tratado como medida; vector a la vista, puntaje ambiental y evidencia de explotación.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Para las vulnerabilidades propias de la plataforma no hay catálogo, y la señal de explotación sale de los propios registros: intentos sobre ese endpoint, anomalías de acceso, reportes duplicados (varias personas lo encontraron: probablemente otros también). ([SE-465](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-465-vulnerabilidades-divulgacion-y-respuesta/README.md))
+Una vulnerabilidad conocida no implica que haya sido explotada, ni su ausencia en una base pública que el sistema sea seguro: solo se reportan las que alguien encontró y publicó.
 
 ## Relación con otros conceptos
 

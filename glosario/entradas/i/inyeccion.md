@@ -2,46 +2,37 @@
 
 [↑ Glosario](../../README.md) · [← Invitado](./invitado.md) · [Inyección de comandos →](./inyeccion-de-comandos.md)
 
-> **Tipo:** práctica o técnica · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 38](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/README.md)
+> **Tipo:** práctica o técnica · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 38](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/README.md)
 
 ## Definición
 
-Vulnerabilidad en la que datos controlados por quien ataca se interpretan como instrucciones por un intérprete que los recibe junto con ellas.
-
-Definición de trabajo de [SE-460 — Validación, codificación y clases de inyección](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-460-validacion-codificacion-y-clases-de-inyeccion/README.md).
+La **inyección** es una vulnerabilidad en la que datos controlados por quien ataca se interpretan como instrucciones por un intérprete que los recibe junto con ellas ([SE-460](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-460-validacion-codificacion-y-clases-de-inyeccion/README.md)). Los ejemplos clásicos son SQL, órdenes del sistema y plantillas.
 
 ## Por qué importa
 
-En [SE-460 — Validación, codificación y clases de inyección](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-460-validacion-codificacion-y-clases-de-inyeccion/README.md), el tema «La inyección como cambio de papel» importa porque explica por qué los filtros fallan y la separación de canales no.
+Es una de las clases de vulnerabilidad más repetidas y su causa es de diseño, no de descuido: mezclar datos e instrucciones en el mismo canal. La defensa efectiva no depende de recordar escapar cada caso.
 
 ## Cómo funciona
 
-Según [SE-460 — Validación, codificación y clases de inyección](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-460-validacion-codificacion-y-clases-de-inyeccion/README.md):
-
-La misma estructura se repite: una ruta que viene del cliente es dato hasta que el sistema de archivos la resuelve (`..`, enlaces simbólicos, separadores distintos en Windows y POSIX); la defensa es resolver y comprobar el prefijo (la clase `SE-467` la reutiliza). Un comando armado como texto y pasado a un shell es la inyección de orden por excelencia; la defensa es no usar shell, pasar una lista de argumentos y validar los argumentos contra la forma esperada. Una plantilla del servidor que incluye datos del cliente puede ejecutar expresiones; una consulta a un directorio de usuarios y un documento XML con entidades externas son otros intérpretes. La pregunta es siempre la misma: ¿qué programa recibe este valor y qué sintaxis tiene?
-
-Según [SE-460 — Validación, codificación y clases de inyección](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-460-validacion-codificacion-y-clases-de-inyeccion/README.md):
-
-Sí, por otra razón. La validación de forma (longitud, rango, formato) reduce errores y abuso, y es una capa más; no es la defensa contra la inyección, que es la separación de canales. Mezclar ambas ideas es lo que lleva a confiar en un filtro.
+Si una consulta se construye concatenando texto del usuario, el intérprete no sabe dónde terminan las instrucciones del programador y dónde empiezan los datos. La carga `' OR 1=1 --` cierra el literal y añade lógica propia. La defensa correcta **separa los canales**: parámetros enlazados, de modo que el valor viaja aparte y nunca se interpreta como sintaxis. Una lista blanca se reserva para identificadores (nombres de columnas) que no pueden parametrizarse.
 
 ## Ejemplo
 
-Ejemplo de [SE-460 — Validación, codificación y clases de inyección](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-460-validacion-codificacion-y-clases-de-inyeccion/README.md) (sección «Preguntas frecuentes»):
-
-Sí, por otra razón. La validación de forma (longitud, rango, formato) reduce errores y abuso, y es una capa más; no es la defensa contra la inyección, que es la separación de canales. Mezclar ambas ideas es lo que lleva a confiar en un filtro.
+```python
+# vulnerable
+cur.execute("SELECT * FROM notas WHERE id = " + entrada)
+# seguro
+cur.execute("SELECT * FROM notas WHERE id = ?", (entrada,))
+```
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-460 — Validación, codificación y clases de inyección](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-460-validacion-codificacion-y-clases-de-inyeccion/README.md)) son:
-
-- **Se escapan comillas y una consulta numérica sigue vulnerable** — causa: defensa de literal aplicada a un número. Corrección: parámetros enlazados para todos los valores.
-- **Una lista de palabras no detiene `' OR 1=1 --`** — causa: la carga no contiene ninguna palabra de la lista. Corrección: separar canales; usar la lista blanca solo para identificadores.
+- **Se escapan comillas y una consulta numérica sigue vulnerable.** La defensa de literal no sirve para un número; usar parámetros enlazados para todos los valores ([SE-460](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-460-validacion-codificacion-y-clases-de-inyeccion/README.md)).
+- **Una lista de palabras no detiene `' OR 1=1 --`.** La carga no contiene ninguna palabra de la lista; separar canales.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un comando armado como texto y pasado a un shell es la inyección de orden por excelencia; la defensa es no usar shell, pasar una lista de argumentos y validar los argumentos contra la forma esperada. ([SE-460](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-460-validacion-codificacion-y-clases-de-inyeccion/README.md))
+Los parámetros enlazados protegen los *valores*, no los identificadores ni las estructuras de la consulta. El mismo principio se extiende a otros intérpretes (órdenes, plantillas, instrucciones a modelos), donde separar datos de instrucciones es más difícil.
 
 ## Relación con otros conceptos
 

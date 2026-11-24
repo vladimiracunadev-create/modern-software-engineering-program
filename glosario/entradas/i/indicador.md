@@ -2,51 +2,32 @@
 
 [↑ Glosario](../../README.md) · [← Indexar](./indexar.md) · [Indicador de carga →](./indicador-de-carga.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 36](../../../classes/part-36-calidad-rendimiento-y-resiliencia/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 36](../../../classes/part-36-calidad-rendimiento-y-resiliencia/README.md)
 
 ## Definición
 
-Resumen numérico de una medición con un estadístico, una ventana y un alcance declarados.
-
-Definición de trabajo de [SE-433 — Modelos de calidad y atributos medibles](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-433-modelos-de-calidad-y-atributos-medibles/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-495 — Métricas, dimensiones y cardinalidad](../../../classes/part-41-observabilidad-sre-e-incidentes/se-495-metricas-dimensiones-y-cardinalidad/README.md): Métrica que sube y baja y mide un estado en un instante.
+Un **indicador** es el resumen numérico de una medición con un estadístico, una ventana y un alcance declarados ([SE-433](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-433-modelos-de-calidad-y-atributos-medibles/README.md)). «p95 de latencia, ventana de 10 s, endpoint de entregas» es un indicador; «latencia» a secas no.
 
 ## Por qué importa
 
-En [SE-433 — Modelos de calidad y atributos medibles](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-433-modelos-de-calidad-y-atributos-medibles/README.md), el tema «Indicadores y estadísticos» importa porque la media oculta la cola y la ventana oculta los incidentes.
+Un número sin estadístico, ventana y alcance no se puede interpretar ni comparar. Además, un indicador acaba siendo objetivo de decisiones: cuando se vuelve meta, se optimiza el número y no lo que representa ([SE-433](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-433-modelos-de-calidad-y-atributos-medibles/README.md)).
 
 ## Cómo funciona
 
-Según [SE-433 — Modelos de calidad y atributos medibles](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-433-modelos-de-calidad-y-atributos-medibles/README.md):
-
-Un **indicador** resume un conjunto de mediciones en un número: una media, una mediana, un percentil, una tasa de errores. Cada estadístico responde una pregunta. La **media** responde «cuánto tarda en promedio» y la domina el cuerpo de la distribución; la **mediana** responde cuánto tarda la petición típica; el **percentil 95** responde cuánto tarda la peor de cada veinte y el **percentil 99** la peor de cada cien. Cuando una pequeña fracción de las peticiones es mucho más lenta, la media se desplaza poco y el percentil alto cambia de orden de magnitud. El mismo problema aparece con la **ventana**: un percentil sobre todo el mes diluye un incidente de tres horas porque 59 de cada 60 peticiones fueron normales, mientras que un percentil por día lo expone.
-
-Según [SE-433 — Modelos de calidad y atributos medibles](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-433-modelos-de-calidad-y-atributos-medibles/README.md):
-
-No exactamente. Un objetivo de nivel de servicio (SLO) es un objetivo sobre un indicador durante un periodo, normalmente con un margen de error permitido; un escenario de calidad es una descripción más amplia que puede ser de latencia, de recuperación o de seguridad. Un escenario de latencia bien escrito se puede convertir en un SLO.
+Cada declaración elimina una ambigüedad: el **estadístico** (media, percentil, máximo), la **ventana** (sobre qué intervalo) y el **alcance** (qué eventos entran). [SE-495](../../../classes/part-41-observabilidad-sre-e-incidentes/se-495-metricas-dimensiones-y-cardinalidad/README.md) añade un caso: un indicador leído a intervalos mayores que la duración de un pico nunca lo muestra; se registra un máximo por intervalo o un histograma. Los indicadores de servicio (SLI) son indicadores sobre eventos buenos y válidos, base de los objetivos (SLO).
 
 ## Ejemplo
 
-Ejemplo de [SE-433 — Modelos de calidad y atributos medibles](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-433-modelos-de-calidad-y-atributos-medibles/README.md) (sección «Preguntas frecuentes»):
-
-No exactamente. Un objetivo de nivel de servicio (SLO) es un objetivo sobre un indicador durante un periodo, normalmente con un margen de error permitido; un escenario de calidad es una descripción más amplia que puede ser de latencia, de recuperación o de seguridad. Un escenario de latencia bien escrito se puede convertir en un SLO.
+Un panel muestra la latencia media por minuto; los usuarios se quejan de picos de 3 s. La media los diluye. Se sustituye por el p99 con un máximo por intervalo, y los picos aparecen.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El objetivo se cumple y la experiencia no mejora** — causa: el indicador se volvió meta. Corrección: añadir un indicador complementario y revisar su validez. ([SE-433](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-433-modelos-de-calidad-y-atributos-medibles/README.md))
-- **El indicador nunca muestra el pico** — causa: intervalo de lectura mayor que la duración del pico. Corrección: registrar un máximo por intervalo o un histograma. ([SE-495](../../../classes/part-41-observabilidad-sre-e-incidentes/se-495-metricas-dimensiones-y-cardinalidad/README.md))
+- **El objetivo se cumple y la experiencia no mejora.** El indicador se volvió meta; añadir uno complementario y revisar su validez ([SE-433](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-433-modelos-de-calidad-y-atributos-medibles/README.md)).
+- **El indicador nunca muestra el pico.** Intervalo de lectura mayor que el pico ([SE-495](../../../classes/part-41-observabilidad-sre-e-incidentes/se-495-metricas-dimensiones-y-cardinalidad/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Existe además una trampa clásica: cuando un indicador se convierte en meta, deja de ser un buen indicador, porque la gente optimiza el indicador y no la necesidad. ([SE-433](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-433-modelos-de-calidad-y-atributos-medibles/README.md))
-- Un **indicador** (gauge) sube y baja y mide un estado instantáneo (conexiones abiertas, memoria usada, longitud de una cola); no se puede reconstruir lo que ocurrió entre dos lecturas. ([SE-495](../../../classes/part-41-observabilidad-sre-e-incidentes/se-495-metricas-dimensiones-y-cardinalidad/README.md))
+Ningún indicador agota lo que se quiere saber; es un resumen y descarta información. Se elige junto a la pregunta que debe responder.
 
 ## Relación con otros conceptos
 

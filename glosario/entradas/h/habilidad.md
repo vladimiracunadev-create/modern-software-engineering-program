@@ -2,46 +2,32 @@
 
 [↑ Glosario](../../README.md) · [← Guion de inyección](../g/guion-de-inyeccion.md) · [Hallazgo →](./hallazgo.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 47](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 47](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md)
 
 ## Definición
 
-Conjunto de instrucciones empaquetado con una descripción que el agente carga cuando considera que es relevante.
-
-Definición de trabajo de [SE-570 — Skills, plugins, hooks y entornos aislados](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md).
+Una **habilidad** (*skill*) es un conjunto de instrucciones, a veces con scripts y documentos de apoyo, empaquetado con una descripción, que el agente carga cuando la tarea lo pide. Es la definición de [SE-570](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md). En Claude Code, una habilidad es un directorio con un archivo `SKILL.md` cuyo encabezado incluye un nombre y una descripción.
 
 ## Por qué importa
 
-En [SE-570 — Skills, plugins, hooks y entornos aislados](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md), el tema «Habilidades y carga progresiva» importa porque el conocimiento que no se usa cuesta contexto y confunde la selección.
+Resuelve el problema de poner todo el conocimiento en el contexto de partida. El agente ve las descripciones de todas las habilidades y carga el cuerpo solo cuando decide que una es relevante o cuando la persona la invoca: es **carga progresiva**. La descripción es siempre visible y barata; el cuerpo es caro y solo entra cuando se usa.
 
 ## Cómo funciona
 
-Según [SE-570 — Skills, plugins, hooks y entornos aislados](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md):
-
-Una habilidad es un conjunto de instrucciones —y, a veces, de scripts y documentos de apoyo— que el agente carga cuando la tarea las pide. En Claude Code una habilidad es un directorio con un archivo `SKILL.md` cuyo encabezado incluye un nombre y una descripción; el agente ve las descripciones de todas las habilidades y carga el cuerpo solo cuando decide que una es relevante o cuando el usuario la invoca. Es una forma de carga progresiva: la descripción es siempre visible y barata, el cuerpo es caro y solo entra cuando se usa. Esto resuelve el problema de poner todo el conocimiento en el contexto de partida, pero crea otro: la **selección** depende de la descripción.
-
-Según [SE-570 — Skills, plugins, hooks y entornos aislados](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md):
-
-Escenario hipotético, construido para la clase y sin datos reales. El equipo de *Avisos* revisa sus controles. Escribe el gancho de política con tres decisiones explícitas: termina con 0 solo cuando ha comprobado y permite, con 2 cuando bloquea, y cualquier otro resultado se interpreta en la capa que lo invoca como bloqueo, para lo cual añade una regla de denegación de las órdenes que el gancho vigila como segunda barrera. Prueba el gancho como proceso con cuatro eventos de simulación (caída, tiempo agotado, entrada vacía y JSON inválido) y comprueba que ninguna acción peligrosa llega a ejecutarse. Reduce las habilidades cargadas al arrancar a las seis que usa el proyecto, reescribe sus descripciones con frases de activación y quita el solape entre dos de ellas.
+El mecanismo crea otro problema: la **selección** depende de la descripción. Una descripción vaga o solapada con otra hace que se active la habilidad equivocada o que ninguna se active. Por eso se escriben con frases de activación concretas («úsala cuando…») y se eliminan los solapes entre habilidades.
 
 ## Ejemplo
 
-Ejemplo de [SE-570 — Skills, plugins, hooks y entornos aislados](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md) (sección «Ejemplo profesional»):
-
-Escenario hipotético, construido para la clase y sin datos reales. El equipo de *Avisos* revisa sus controles. Escribe el gancho de política con tres decisiones explícitas: termina con 0 solo cuando ha comprobado y permite, con 2 cuando bloquea, y cualquier otro resultado se interpreta en la capa que lo invoca como bloqueo, para lo cual añade una regla de denegación de las órdenes que el gancho vigila como segunda barrera. Prueba el gancho como proceso con cuatro eventos de simulación (caída, tiempo agotado, entrada vacía y JSON inválido) y comprueba que ninguna acción peligrosa llega a ejecutarse.
+[SE-570](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md) (escenario hipotético, sin datos reales): el equipo de *Avisos* reduce las habilidades cargadas al arrancar a las seis que usa el proyecto, reescribe sus descripciones con frases de activación y quita el solape entre dos de ellas.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El agente carga mucho contexto al arrancar** — causa: todas las habilidades completas en memoria. Corrección: cargar descripciones y cuerpos bajo demanda. ([SE-570](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md))
-- **Se activa la habilidad equivocada** — causa: descripciones vagas o solapadas. Corrección: frases de activación y eliminar solapes. ([SE-570](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md))
+- **El agente carga mucho contexto al arrancar.** Todas las habilidades completas en memoria; cargar descripciones y cuerpos bajo demanda.
+- **Se activa la habilidad equivocada.** Descripciones vagas o solapadas; frases de activación y sin solapes.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- En Claude Code una habilidad es un directorio con un archivo `SKILL.md` cuyo encabezado incluye un nombre y una descripción; el agente ve las descripciones de todas las habilidades y carga el cuerpo solo cuando decide que una es relevante o cuando el usuario la invoca. ([SE-570](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md))
+Una habilidad es una instrucción, no un control: no impone nada. Lo que debe cumplirse siempre (bloquear una acción peligrosa) pertenece a un gancho de política o a un permiso, no a una habilidad que el agente puede no cargar.
 
 ## Relación con otros conceptos
 

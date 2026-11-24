@@ -2,45 +2,31 @@
 
 [↑ Glosario](../../README.md) · [← Guarda de versión](./guarda-de-version.md) · [Guardrail →](./guardrail.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** G — Operación, evolución y liderazgo · **Primera aparición:** [Parte 41](../../../classes/part-41-observabilidad-sre-e-incidentes/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** G — Operación, evolución y liderazgo · **Primera aparición:** [Parte 41](../../../classes/part-41-observabilidad-sre-e-incidentes/README.md)
 
 ## Definición
 
-Turno en que una persona o grupo responde a las páginas de un servicio.
-
-Definición de trabajo de [SE-499 — Runbooks, on-call y escalamiento](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md).
+La **guardia** (*on-call*) es el turno en que una persona o grupo responde a las páginas de un servicio ([SE-499](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md)).
 
 ## Por qué importa
 
-En [SE-499 — Runbooks, on-call y escalamiento](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md), el tema «Carga de la guardia» importa porque el tamaño del equipo decide cuántas noches se interrumpen.
+La guardia es un sistema con una capacidad finita. Si se diseña sin calcularla, termina siendo siempre la misma persona, con sueño interrumpido y rotación de personal. La sostenibilidad de la guardia es una condición de la fiabilidad del servicio.
 
 ## Cómo funciona
 
-Según [SE-499 — Runbooks, on-call y escalamiento](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md):
-
-La guardia es un sistema con una capacidad. Una persona en guardia una semana de cada n atiende todas las páginas de esa semana, y las nocturnas interrumpen el sueño. Con pocas personas, cada una pasa muchas semanas en guardia al año, y las ausencias (vacaciones, enfermedad, formación) concentran la carga en quienes quedan. El libro de SRE parte de que no más del 25 % del tiempo de una persona debe ser de guardia y deduce de ahí un mínimo de personas para sostener una rotación continua con primaria y secundaria (ocho en un solo sitio), además de limitar las incidencias por turno. La medida concreta que decide si una guardia es sostenible es la de noches interrumpidas por persona y año, no el número de páginas.
-
-Según [SE-499 — Runbooks, on-call y escalamiento](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md):
-
-Supón, como caso hipotético de la plataforma y no como medición, que el equipo reescribe el runbook de `EntregasConsumoRapido` con el formato anterior, lo añade al repositorio junto al código del servicio y escribe un verificador que se ejecuta en la integración continua (campos, comandos con salida esperada, reversión de lo destructivo, fecha menor de 90 días y alerta existente en el catálogo). Cada trimestre una persona que no escribió el runbook lo ejecuta en el entorno de pruebas, con un despliegue defectuoso inyectado, y anota qué paso falló o confundió.
+Una persona en guardia una semana de cada *n* atiende todas las páginas de esa semana, y las nocturnas interrumpen el sueño. Con pocas personas, cada una pasa muchas semanas al año en guardia, y las ausencias (vacaciones, enfermedad, formación) concentran la carga en quienes quedan. [SE-499](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md) cita el libro de SRE: no más del 25 % del tiempo de una persona debe ser de guardia, de lo que se deduce un mínimo de personas para una rotación continua con primaria y secundaria (ocho en un solo sitio), además de limitar las incidencias por turno. La medida concreta de sostenibilidad es el número de noches interrumpidas por persona y por periodo.
 
 ## Ejemplo
 
-Ejemplo de [SE-499 — Runbooks, on-call y escalamiento](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md) (sección «Ejemplo profesional»):
-
-Supón, como caso hipotético de la plataforma y no como medición, que el equipo reescribe el runbook de `EntregasConsumoRapido` con el formato anterior, lo añade al repositorio junto al código del servicio y escribe un verificador que se ejecuta en la integración continua (campos, comandos con salida esperada, reversión de lo destructivo, fecha menor de 90 días y alerta existente en el catálogo). Cada trimestre una persona que no escribió el runbook lo ejecuta en el entorno de pruebas, con un despliegue defectuoso inyectado, y anota qué paso falló o confundió.
+[SE-499](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md) (caso hipotético): el equipo reescribe el runbook de `EntregasConsumoRapido`, lo guarda junto al código y añade un verificador de integración continua (campos, comandos con salida esperada, reversión de lo destructivo, fecha menor de 90 días y alerta existente en el catálogo). Cada trimestre una persona que no lo escribió lo ejecuta en pruebas con un despliegue defectuoso inyectado.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La guardia es siempre la misma persona** — causa: equipo pequeño o ausencias sin plan. Corrección: calcular la carga y ampliar la rotación o reducir el alcance. ([SE-499](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md))
+**La guardia es siempre la misma persona.** Equipo pequeño o ausencias sin plan; calcular la carga y ampliar la rotación o reducir el alcance.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- El libro de SRE parte de que no más del 25 % del tiempo de una persona debe ser de guardia y deduce de ahí un mínimo de personas para sostener una rotación continua con primaria y secundaria (ocho en un solo sitio), además de limitar las incidencias por turno. ([SE-499](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md))
+Las cifras (25 %, ocho personas) son de un modelo de operación grande; un equipo pequeño debe reducir el alcance del servicio que cubre o compartir la rotación, no copiar el número.
 
 ## Relación con otros conceptos
 

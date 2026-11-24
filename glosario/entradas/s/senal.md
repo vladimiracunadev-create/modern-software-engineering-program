@@ -2,46 +2,32 @@
 
 [↑ Glosario](../../README.md) · [← Semver](./semver.md) · [Señal de fallo →](./senal-de-fallo.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** G — Operación, evolución y liderazgo · **Primera aparición:** [Parte 41](../../../classes/part-41-observabilidad-sre-e-incidentes/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** G — Operación, evolución y liderazgo · **Primera aparición:** [Parte 41](../../../classes/part-41-observabilidad-sre-e-incidentes/README.md)
 
 ## Definición
 
-Dato que un sistema emite sobre su comportamiento, en forma de registro, métrica, traza o perfil.
-
-Definición de trabajo de [SE-493 — Señales, eventos y observabilidad útil](../../../classes/part-41-observabilidad-sre-e-incidentes/se-493-senales-eventos-y-observabilidad-util/README.md).
+Una **señal** es cualquier dato que un sistema emite sobre su propio comportamiento. [SE-493](../../../classes/part-41-observabilidad-sre-e-incidentes/se-493-senales-eventos-y-observabilidad-util/README.md) distingue cuatro clases: **registros** (un evento discreto con contexto), **métricas** (un número agregado en el tiempo), **trazas** (el recorrido de una petición por varios servicios, formado por tramos llamados *spans*) y **perfiles** (dónde gasta tiempo o memoria el código). La **telemetría** es el conjunto de lo que se recoge y se envía fuera del proceso.
 
 ## Por qué importa
 
-En [SE-493 — Señales, eventos y observabilidad útil](../../../classes/part-41-observabilidad-sre-e-incidentes/se-493-senales-eventos-y-observabilidad-util/README.md), el tema «Señales, eventos y telemetría» importa porque cada tipo de señal responde preguntas distintas y cuesta distinto.
+Lo que no emite señal no se puede diagnosticar. Elegir qué señales emitir decide qué preguntas podrán responderse cuando algo falle: [SE-493](../../../classes/part-41-observabilidad-sre-e-incidentes/se-493-senales-eventos-y-observabilidad-util/README.md) pone la vara en la capacidad de decir qué pregunta *no* se podría responder y qué señal habría que añadir, no en que el servicio tenga un panel.
 
 ## Cómo funciona
 
-Según [SE-493 — Señales, eventos y observabilidad útil](../../../classes/part-41-observabilidad-sre-e-incidentes/se-493-senales-eventos-y-observabilidad-util/README.md):
-
-Una **señal** es cualquier dato que un sistema emite sobre su propio comportamiento. Las clases habituales son los **registros** (un evento discreto con contexto: «entrega 123 aceptada en 83 ms»), las **métricas** (un número agregado en el tiempo: «peticiones por segundo por endpoint»), las **trazas** (el recorrido de una petición por varios servicios, formado por tramos llamados spans) y los **perfiles** (dónde gasta tiempo o memoria el código). Un **evento ancho** es un registro estructurado con muchos campos (versión, cliente, curso, duración, identificador de traza) escrito una vez por unidad de trabajo. La **telemetría** es el conjunto de lo que se recoge y se envía fuera del proceso.
-
-Según [SE-493 — Señales, eventos y observabilidad útil](../../../classes/part-41-observabilidad-sre-e-incidentes/se-493-senales-eventos-y-observabilidad-util/README.md):
-
-Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** la guardia despierta al equipo de la pasarela y el servicio degradado es el de almacenamiento. **Hipótesis rivales:** (a) la pasarela tiene un defecto; (b) la red entre pasarela y API está degradada; (c) la pasarela mide una duración que incluye a todos. **Prueba:** compara el p99 de cada servicio con su línea base; si el aumento relativo mayor está en el almacenamiento y la pasarela solo suma una constante, la hipótesis (c) explica la señal. **Conclusión:** una duración inclusiva sube por el servicio más profundo de la cadena. **Regresión:** añade una prueba que reproduzca la cadena, degrade cada servicio por turno y compruebe que el procedimiento de atribución lo localiza.
+Cada clase responde a preguntas distintas. El registro dice qué pasó en una unidad de trabajo («entrega 123 aceptada en 83 ms»); la métrica dice cuánto y con qué tendencia («peticiones por segundo por endpoint»); la traza dice por dónde pasó una petición; el perfil, por qué el código gasta recursos. Un **evento ancho** es un registro estructurado con muchos campos (versión, cliente, curso, duración, identificador de traza) escrito una vez por unidad de trabajo, de modo que se puede agrupar por cualquier campo.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-493 — Señales, eventos y observabilidad útil](../../../classes/part-41-observabilidad-sre-e-incidentes/se-493-senales-eventos-y-observabilidad-util/README.md):
-
-Supón, como caso hipotético de la plataforma y no como medición, que el equipo revisa el incidente de las 14:03 y escribe una tabla de preguntas para la API de entregas:
+[SE-493](../../../classes/part-41-observabilidad-sre-e-incidentes/se-493-senales-eventos-y-observabilidad-util/README.md): la guardia despierta al equipo de la pasarela, pero el servicio degradado es el de almacenamiento. Hipótesis rivales: defecto en la pasarela, red degradada, o duración inclusiva. Se compara el p99 de cada servicio con su línea base; si el mayor aumento relativo está en almacenamiento y la pasarela solo suma una constante, la duración inclusiva explica la señal.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-493 — Señales, eventos y observabilidad útil](../../../classes/part-41-observabilidad-sre-e-incidentes/se-493-senales-eventos-y-observabilidad-util/README.md)) son:
-
-- **Todos los paneles se ven mal a la vez** — causa: duración inclusiva: todos incluyen al servicio lento. Corrección: comparar con la línea base de cada servicio o medir el tiempo propio.
-- **El panel global está sano y un cliente protesta** — causa: promedio dominado por los clientes grandes. Corrección: agrupar por segmento o usar una sonda rotativa.
+- **Todos los paneles se ven mal a la vez.** Duración inclusiva: todos incluyen al servicio lento; comparar con la línea base de cada servicio o medir el tiempo propio.
+- **El panel global está sano y un cliente protesta.** El promedio lo dominan los clientes grandes; agrupar por segmento.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La transferencia está lograda cuando puedes decir qué pregunta no se podría responder y qué señal habría que añadir, no cuando el servicio tiene un panel. ([SE-493](../../../classes/part-41-observabilidad-sre-e-incidentes/se-493-senales-eventos-y-observabilidad-util/README.md))
+Más señales no equivalen a más comprensión: cuestan almacenamiento y atención, y una señal sin pregunta asociada es ruido. Una señal es un síntoma, no la causa.
 
 ## Relación con otros conceptos
 

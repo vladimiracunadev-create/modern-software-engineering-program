@@ -2,44 +2,31 @@
 
 [↑ Glosario](../../README.md) · [← PDU](./pdu.md) · [Peor caso →](./peor-caso.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 37](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 37](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/README.md)
 
 ## Definición
 
-Condición o estado del sistema que, con ciertas circunstancias, puede llevar a daño.
-
-Definición de trabajo de [SE-445 — Riesgo, peligro y seguridad funcional: HARA, FMEA, FTA y STPA](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-445-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa/README.md).
+Un **peligro** (*hazard*) es una condición o estado del sistema que, con ciertas circunstancias, puede llevar a daño ([SE-445](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-445-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa/README.md)). Ejemplo de la clase: «calentador conectado con la puerta abierta».
 
 ## Por qué importa
 
-En [SE-445 — Riesgo, peligro y seguridad funcional: HARA, FMEA, FTA y STPA](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-445-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa/README.md), el tema «Peligro, riesgo y control» importa porque fija el vocabulario con el que se discute qué es aceptable.
+Separar peligro, riesgo y control evita documentos donde el control aparece como si fuera el peligro («falta un limitador») o donde el riesgo se declara aceptable sin decir quién lo acepta ni con qué supuestos.
 
 ## Cómo funciona
 
-Según [SE-445 — Riesgo, peligro y seguridad funcional: HARA, FMEA, FTA y STPA](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-445-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa/README.md):
-
-Un peligro es una condición o un estado: «calentador conectado con la puerta abierta». Un riesgo añade cuánto daño y con qué frecuencia: «una quemadura grave, una vez cada cien mil usos, si el operador no reacciona». Un control es lo que cambia uno de los dos factores y se puede verificar: «el contacto de la puerta corta la potencia por hardware». Confundirlos produce documentos donde el control aparece como si fuera el peligro («falta un limitador») o donde el riesgo se declara aceptable sin decir quién lo acepta ni con qué supuestos. La disciplina mínima es escribir cada peligro con su contexto operativo (en qué fase de uso, con qué usuario, con qué entorno) y cada control con su método de verificación.
-
-Según [SE-445 — Riesgo, peligro y seguridad funcional: HARA, FMEA, FTA y STPA](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-445-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa/README.md):
-
-El equipo del *Horno de curado* hace un análisis de peligros antes de un piloto de tres meses en un laboratorio. El árbol de fallos muestra una probabilidad de sobretemperatura aceptable y el FMEA tiene pocas filas con RPN alto. Al repasar el árbol con el técnico que calibra los equipos aparece algo que nadie había escrito: el mismo técnico ajusta, el mismo día y con el mismo patrón, el sensor del lazo y el del limitador. El equipo añade el evento «calibración compartida», recalcula y la probabilidad del tope sube de golpe. La decisión no es cambiar el árbol, es cambiar el proceso: calibrar con patrones distintos y registrar quién y cuándo, y añadir al requisito del limitador un sensor de otro principio de medición.
+[SE-445](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-445-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa/README.md) fija tres piezas: el **peligro** es una condición; el **riesgo** añade cuánto daño y con qué frecuencia («una quemadura grave, una vez cada cien mil usos, si el operador no reacciona»); el **control** es lo que cambia uno de esos dos factores y se puede verificar («el contacto de la puerta corta la potencia por hardware»). La disciplina mínima es escribir cada peligro con su contexto operativo (fase de uso, usuario, entorno) y cada control con la forma de verificarlo.
 
 ## Ejemplo
 
-Ejemplo de [SE-445 — Riesgo, peligro y seguridad funcional: HARA, FMEA, FTA y STPA](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-445-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa/README.md) (sección «Ejemplo profesional»):
-
-El equipo del *Horno de curado* hace un análisis de peligros antes de un piloto de tres meses en un laboratorio. El árbol de fallos muestra una probabilidad de sobretemperatura aceptable y el FMEA tiene pocas filas con RPN alto. Al repasar el árbol con el técnico que calibra los equipos aparece algo que nadie había escrito: el mismo técnico ajusta, el mismo día y con el mismo patrón, el sensor del lazo y el del limitador. El equipo añade el evento «calibración compartida», recalcula y la probabilidad del tope sube de golpe.
+[SE-445](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-445-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa/README.md): el equipo del *Horno de curado* analiza peligros antes de un piloto de tres meses. El árbol de fallos muestra una probabilidad de sobretemperatura aceptable. Al repasarlo con el técnico aparece algo no escrito: el mismo técnico calibra, el mismo día y con el mismo patrón, el sensor del lazo y el del limitador. Se añade el evento «calibración compartida» y la probabilidad sube de golpe. La decisión es cambiar el proceso (patrones distintos, registrar quién y cuándo).
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+Describir el control como peligro; analizar fallos como independientes cuando comparten causa.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Confundirlos produce documentos donde el control aparece como si fuera el peligro («falta un limitador») o donde el riesgo se declara aceptable sin decir quién lo acepta ni con qué supuestos. ([SE-445](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-445-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa/README.md))
-- Escribe tres peligros con contexto, construye un árbol de fallos de uno de ellos y busca al menos una causa común. ([SE-445](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-445-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa/README.md))
+El caso es un ejercicio de la clase, no una medición de un equipo real. Un análisis de peligros cubre los que se imaginaron; la búsqueda de causas comunes es lo que reduce el riesgo de no verlos.
 
 ## Relación con otros conceptos
 

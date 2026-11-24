@@ -2,49 +2,32 @@
 
 [↑ Glosario](../../README.md) · [← Dispersión](./dispersion.md) · [Disponibilidad compuesta →](./disponibilidad-compuesta.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 36](../../../classes/part-36-calidad-rendimiento-y-resiliencia/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 36](../../../classes/part-36-calidad-rendimiento-y-resiliencia/README.md)
 
 ## Definición
 
-Fracción del tiempo en que un sistema cumple su función, igual a MTBF/(MTBF + MTTR) para un componente.
-
-Definición de trabajo de [SE-440 — Disponibilidad, durabilidad y recuperación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md).
+La **disponibilidad** es la fracción del tiempo en que un sistema cumple su función; para un componente es MTBF / (MTBF + MTTR), con MTBF el tiempo medio entre fallos y MTTR el tiempo medio de reparación ([SE-440](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md)).
 
 ## Por qué importa
 
-En [SE-440 — Disponibilidad, durabilidad y recuperación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md), el tema «Disponibilidad y su aritmética» importa porque convierte un porcentaje en minutos y muestra qué capa manda.
+[SE-440](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md) existe para distinguir tres promesas que se confunden bajo la palabra «fiable»: que el servicio responda (disponibilidad), que los datos no se pierdan (durabilidad) y que, si algo se rompe, se vuelva a un estado conocido en un tiempo y con una pérdida acotados (recuperación). Mezclarlas lleva a medir una y prometer otra.
 
 ## Cómo funciona
 
-Según [SE-440 — Disponibilidad, durabilidad y recuperación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md):
-
-La **disponibilidad** de un componente es la fracción del tiempo en que funciona: MTBF/(MTBF + MTTR), donde MTBF es el tiempo medio entre fallos y MTTR el tiempo medio de reparación. Con un MTBF de 500 h y un MTTR de 0,5 h resulta 0,999. Para pasar de un porcentaje a minutos: el 99 % deja 5 256 minutos de caída al año, el 99,9 % deja 526, el 99,99 % deja 52,6 y el 99,999 % deja 5,3. La composición importa más que cada cifra. En **serie** (la solicitud necesita web, aplicación y base de datos) las disponibilidades se multiplican: 0,999³ = 0,997, tres veces peor que cada una.
-
-Según [SE-440 — Disponibilidad, durabilidad y recuperación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md):
-
-El equipo escribe el presupuesto de fiabilidad de la plataforma. Para disponibilidad prometen el 99,5 % mensual en el horario de entregas (unos 3,6 horas de caída al mes) y lo desglosan: web 99,95 %, aplicación 99,9 %, base de datos 99,9 %, con una causa común declarada de despliegue: cuatro al año, con un procedimiento de reversión en diez minutos como mitigación. Para durabilidad, tres réplicas en dominios de fallo distintos y un tiempo de reparación objetivo de 24 h, con una prueba mensual que restaura una copia en un entorno aparte.
+Mejorar la disponibilidad se logra alargando el MTBF o acortando el MTTR; acortar la reparación suele ser más barato. En arquitecturas con varias capas, las capas en **serie** multiplican sus disponibilidades (la cadena es más débil que su eslabón más débil) y las réplicas en **paralelo** la mejoran, pero solo si fallan de forma independiente. Una causa común (el mismo despliegue, la misma zona) anula el beneficio.
 
 ## Ejemplo
 
-Ejemplo de [SE-440 — Disponibilidad, durabilidad y recuperación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md) (sección «Ejemplo mínimo»):
-
-El fragmento calcula la disponibilidad de tres capas en serie. Antes de ejecutarlo, predice si supera el 99,8 %.
+Un componente con MTBF de 999 horas y MTTR de 1 hora tiene 999/1000 = 99,9 %. Si cinco capas en serie tienen cada una 99,9 %, la cadena ronda el 99,5 %. (Cálculo ilustrativo de la fórmula de la clase.)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-440 — Disponibilidad, durabilidad y recuperación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md)) son:
-
-- **El sistema cae más de lo que da la cuenta** — causa: fallos en serie ignorados o causa común. Corrección: calcular con todas las capas y listar lo que comparten las réplicas.
-- **Duplicar un componente no mejora nada** — causa: la limitación está en otra capa. Corrección: mejorar el eslabón más débil de la serie.
-
-Según [SE-440](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md): **Punto profesional.** La clase existe para que distingas tres promesas que se confunden bajo la palabra «fiable»: que el servicio responda (disponibilidad), que los datos no se pierdan (durabilidad) y que, si algo se rompe, se vuelva a un estado conocido en un tiempo y con una pérdida acotados (recuperación).
+- **El sistema cae más de lo que da la cuenta.** Fallos en serie ignorados o causa común; calcular con todas las capas y listar lo que comparten las réplicas.
+- **Duplicar un componente no mejora nada.** La limitación está en otra capa; mejorar el eslabón más débil.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Además, la redundancia solo beneficia a la capa donde se aplica: duplicar la aplicación no mejora la disponibilidad de la base de datos. ([SE-440](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md))
-- **una réplica que no mejora la disponibilidad porque comparte la causa del fallo**. ([SE-440](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md))
+La fórmula supone fallos y reparaciones independientes y estadísticamente estables; no describe degradaciones parciales (lentitud) ni pérdida de datos. Para esas, el SLI debe medir buenos eventos, no tiempo en pie.
 
 ## Relación con otros conceptos
 

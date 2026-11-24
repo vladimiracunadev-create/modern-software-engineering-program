@@ -2,38 +2,32 @@
 
 [↑ Glosario](../../README.md) · [← Sandbox](./sandbox.md) · [SBOM →](./sbom.md)
 
-> **Tipo:** métrica · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 36](../../../classes/part-36-calidad-rendimiento-y-resiliencia/README.md)
+> **Tipo:** métrica · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 36](../../../classes/part-36-calidad-rendimiento-y-resiliencia/README.md)
 
 ## Definición
 
-Estado en que la utilización se acerca a 1 y la cola crece sin que aumente el trabajo útil.
-
-Definición de trabajo de [SE-436 — Latencia, throughput, saturación y capacidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-436-latencia-throughput-saturacion-y-capacidad/README.md).
+La **saturación** es el estado en que la utilización se acerca a 1 y la cola crece sin que aumente el trabajo útil ([SE-436](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-436-latencia-throughput-saturacion-y-capacidad/README.md)).
 
 ## Por qué importa
 
-La clase donde se define, [SE-436 — Latencia, throughput, saturación y capacidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-436-latencia-throughput-saturacion-y-capacidad/README.md), existe con este propósito: la clase existe para que expliques con un modelo por qué la latencia crece tanto cuando un servidor se acerca a la saturación, para que distingas qué magnitudes se pueden sumar o promediar (rendimiento, concurrencia, tiempos medios) de las que no (percentiles), y para que planifiques la capacidad desde un objetivo de cola y no desde una utilización «razonable» heredada.
+Explica por qué la latencia se dispara con una utilización que parece «razonable»: los sistemas con colas no degradan de forma lineal. Planificar con la media y no con el objetivo de percentil lleva a operar demasiado cerca del borde.
 
 ## Cómo funciona
 
-[SE-436 — Latencia, throughput, saturación y capacidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-436-latencia-throughput-saturacion-y-capacidad/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+Cuando la tasa de llegada se acerca a la capacidad, cualquier ráfaga forma cola, y la cola se vacía lentamente porque casi no hay capacidad sobrante. El tiempo de espera crece de forma no lineal al acercarse la utilización a 1. La fórmula de Pollaczek–Khinchine relaciona la espera con la variabilidad del servicio: un servicio más variable que el exponencial espera más de lo que predice la fórmula simple.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-436 — Latencia, throughput, saturación y capacidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-436-latencia-throughput-saturacion-y-capacidad/README.md):
-
-El equipo recalcula la flota para el cierre. Parte del escenario de `SE-433`: p99 ≤ 1,5 s con 1 000 solicitudes por segundo. Supón, como dato hipotético de la plataforma y no como medición, que el servicio de listado tiene 50 ms de media y un cv² de 2,1 por una consulta con cursos grandes: con la fórmula de Pollaczek–Khinchine estimaría que a una utilización del 70 % el p99 se acerca a 1,5 s, y fijaría el 70 % como límite de planificación en lugar del 80 %.
+Un servicio con utilización del 70 % responde con holgura; a 95 % la cola ya es larga con ráfagas ordinarias. (Ilustración cualitativa; los experimentos de [SE-436](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-436-latencia-throughput-saturacion-y-capacidad/README.md) son sobre la API de entregas.)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-436 — Latencia, throughput, saturación y capacidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-436-latencia-throughput-saturacion-y-capacidad/README.md)) son:
-
-- **La latencia se dispara con una utilización «razonable»** — causa: se planificó con la media. Corrección: calcular la utilización máxima desde el objetivo de percentil.
-- **La espera es mayor de lo que predice la fórmula** — causa: servicio más variable que el exponencial. Corrección: medir cv² y usar Pollaczek–Khinchine.
+- **La latencia se dispara con una utilización «razonable».** Se planificó con la media; calcular la utilización máxima desde el objetivo de percentil.
+- **La espera es mayor de lo que predice la fórmula.** El servicio es más variable que el exponencial; medir cv² y usar Pollaczek–Khinchine.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-436 — Latencia, throughput, saturación y capacidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-436-latencia-throughput-saturacion-y-capacidad/README.md)) son: Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con tiempo virtual y semillas fijas en Windows y Ubuntu (WSL2) con resultados idénticos en ambos sistemas. No se midió ningún servidor real; las llegadas de Poisson, los servicios exponencial, lognormal y bimodal, los ocho servidores y la fórmula de un solo servidor son modelos del autor, no hay dependencias ni ráfagas, y cerca del 100 % de utilización la simulación no alcanza el régimen estable.
+Los modelos de cola suponen llegadas y servicios con ciertas distribuciones; en la práctica se miden. Más allá de la saturación, reintentos y colas pueden sostener el problema (fallo metaestable).
 
 ## Relación con otros conceptos
 

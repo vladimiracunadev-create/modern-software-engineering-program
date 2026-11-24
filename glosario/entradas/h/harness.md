@@ -2,44 +2,31 @@
 
 [↑ Glosario](../../README.md) · [← Happy path](./happy-path.md) · [Harness gobernado →](./harness-gobernado.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 48](../../../classes/part-48-harness-y-agentic-engineering/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 48](../../../classes/part-48-harness-y-agentic-engineering/README.md)
 
 ## Definición
 
-Todo lo que rodea al modelo en un agente: instrucciones, contexto, herramientas, permisos, bucle, parada, verificación y registro.
-
-Definición de trabajo de [SE-577 — Anatomía de un harness: modelo, contexto, herramientas y bucles](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md).
+El **harness** (arnés) es todo lo que rodea al modelo en un agente: instrucciones, contexto, herramientas, permisos, bucle, parada, verificación y registro. Es la definición de [SE-577](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md), que cita la formulación de Böckeler: un agente es el modelo más todo lo que lo rodea.
 
 ## Por qué importa
 
-En [SE-577 — Anatomía de un harness: modelo, contexto, herramientas y bucles](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md), el tema «Definición de harness» importa porque permite ubicar un fallo en una pieza concreta en vez de en «la IA».
+El comportamiento observado depende del arnés tanto como del modelo. Cuando un asistente deja de ejecutar las pruebas, la causa puede estar en el modelo, en el prompt o en el entorno; sin separarlas por trazas, se culpa al modelo y el defecto queda.
 
 ## Cómo funciona
 
-Según [SE-577 — Anatomía de un harness: modelo, contexto, herramientas y bucles](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md):
-
-Böckeler resume la idea con una ecuación: un agente es el modelo más todo lo que lo rodea. La definición es deliberadamente amplia y ella misma propone acotarla al caso de los agentes de código: parte del harness ya viene incorporado en el producto (el mensaje de sistema, el mecanismo de recuperación de código), y el usuario construye un harness *exterior* con lo que el producto ofrece (instrucciones del repositorio, hooks, permisos, compuertas de verificación). En esta clase el harness es lo exterior más lo mínimo interior que el laboratorio necesita para ejecutarse.
-
-Según [SE-577 — Anatomía de un harness: modelo, contexto, herramientas y bucles](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md):
-
-No. Un framework es una biblioteca para construir agentes; el harness es el entorno configurado alrededor de un agente concreto. Puede construirse con un framework, con un producto de agentes de código o con un script. Lo que define al harness es qué decide (permisos, parada, verificación), no qué biblioteca usa.
+[SE-577](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md) acota la definición amplia al caso de los agentes de código: parte del arnés viene incorporada en el producto (el mensaje de sistema, la recuperación de código) y la persona construye un arnés *exterior* con lo que el producto ofrece: instrucciones del repositorio, ganchos, permisos y compuertas de verificación. El arnés decide qué acciones se traducen en efectos, cuándo se detiene el agente y qué se verifica.
 
 ## Ejemplo
 
-Ejemplo de [SE-577 — Anatomía de un harness: modelo, contexto, herramientas y bucles](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md) (sección «Ejemplo mínimo»):
-
-La tarea `T1`: `add(a, b)` devuelve `a - b`. El harness completo hace cuatro pasos: lee `calc.py`; aplica el reemplazo `a - b` por `a + b`; ejecuta las pruebas, que pasan; y el agente declara la tarea terminada. En la traza aparecen exactamente `read`, `write`, `run_tests` y la solicitud de cierre. Quitar la herramienta de escritura produce una traza de doce lecturas; quitar el contexto, otra de doce lecturas. Las dos trazas son iguales y los fallos distintos: por eso la traza necesita más que el nombre de la herramienta.
+En [SE-577](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md), un asistente de código da por terminados tres cambios con pruebas en rojo. Las trazas muestran que no ejecutó pruebas porque una reorganización había movido la línea de verificación a un archivo que el producto ya no cargaba. Se corrige en el arnés y se añade una compuerta, sin tocar el modelo.
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+Confundirlo con un *framework*: un framework es una biblioteca para construir agentes; el arnés es el entorno configurado alrededor de un agente concreto, y puede construirse con un framework, un producto o un script. Lo que lo define es qué decide (permisos, parada, verificación), no qué biblioteca usa.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Quitar la herramienta de escritura deja al agente leyendo en bucle, porque la política no tiene otra salida: el agente no «sabe» que no puede escribir hasta que lo intenta, y el harness que no lo registra deja una traza idéntica a la del contexto perdido. ([SE-577](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md))
-- Un framework es una biblioteca para construir agentes; el harness es el entorno configurado alrededor de un agente concreto. ([SE-577](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md))
+Quitar una herramienta cambia el comportamiento sin avisar al agente; un arnés que no registra las herramientas ofrecidas deja trazas ambiguas. La definición es deliberadamente amplia y por eso conviene fijar qué parte se considera exterior.
 
 ## Relación con otros conceptos
 

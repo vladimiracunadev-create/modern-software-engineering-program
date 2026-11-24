@@ -2,46 +2,32 @@
 
 [↑ Glosario](../../README.md) · [← Prueba de frontera](./prueba-de-frontera.md) · [Prueba de pico →](./prueba-de-pico.md)
 
-> **Tipo:** práctica o técnica · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 35](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md)
+> **Tipo:** práctica o técnica · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 35](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md)
 
 ## Definición
 
-Prueba que ejecuta dos o más piezas reales juntas y comprueba el acuerdo entre ellas.
-
-Definición de trabajo de [SE-423 — Integración, componentes y contratos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md).
+Una **prueba de integración** ejecuta dos o más piezas reales juntas y comprueba el acuerdo entre ellas ([SE-423](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md)).
 
 ## Por qué importa
 
-La clase donde se define, [SE-423 — Integración, componentes y contratos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md), existe con este propósito: la clase existe para que compruebes que las piezas de un sistema funcionan juntas sin levantar el sistema entero, y para que protejas el acuerdo entre un proveedor y sus consumidores con un contrato que cada parte pueda verificar.
+Los componentes se comunican por interfaces (una respuesta JSON, una tabla compartida, una cola) y cada uno asume algo sobre la otra parte: nombres, tipos, valores posibles, orden, cuántos elementos por página. Un defecto de integración es una asunción que ya no se cumple. Ninguna prueba de una sola parte lo ve, porque cada una se comprueba contra su propia versión de la asunción.
 
 ## Cómo funciona
 
-Según [SE-423 — Integración, componentes y contratos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md):
-
-Los componentes se comunican a través de interfaces: una respuesta JSON, una tabla compartida, una cola. Cada uno asume algo sobre la otra parte: nombres, tipos, valores posibles, orden, cuántos elementos aparecen por página. Un defecto de integración es una asunción que ya no se cumple. Ninguna prueba de una sola parte lo ve, porque cada una se comprueba contra su propia versión de la asunción. Las pruebas de integración ejecutan dos o más piezas reales juntas y comprueban que la asunción de una coincide con el comportamiento de la otra.
-
-Según [SE-423 — Integración, componentes y contratos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md):
-
-El equipo del servicio de notas mantiene en su repositorio una carpeta `contratos/` con un archivo por consumidor (`panel.json`, `exportador.json`, `avisos.json`) que lista los campos, tipos y valores que ese consumidor usa y, desde un incidente, el orden de la lista. La integración continua del servicio ejecuta los tres contratos contra su respuesta en cada propuesta de cambio y falla con el nombre del consumidor afectado. Los equipos de los consumidores abren un contrato nuevo cuando empiezan a usar un campo, y retiran las cláusulas que dejaron de usar. Las pruebas de integración del panel ejecutan el panel contra la respuesta real del servicio con una base sembrada, una por interfaz del recorrido; los tres recorridos de extremo a extremo (`SE-424`) quedan para el comportamiento visible.
+La prueba ejecuta las piezas reales y verifica que la asunción de una coincide con el comportamiento de la otra. Se complementa con **contratos por consumidor**: el proveedor ejecuta en su integración continua un archivo por consumidor que lista los campos, tipos y valores que ese consumidor usa, y falla con el nombre del consumidor afectado.
 
 ## Ejemplo
 
-Ejemplo de [SE-423 — Integración, componentes y contratos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md) (sección «Ejemplo profesional»):
-
-El equipo del servicio de notas mantiene en su repositorio una carpeta `contratos/` con un archivo por consumidor (`panel.json`, `exportador.json`, `avisos.json`) que lista los campos, tipos y valores que ese consumidor usa y, desde un incidente, el orden de la lista. La integración continua del servicio ejecuta los tres contratos contra su respuesta en cada propuesta de cambio y falla con el nombre del consumidor afectado. Los equipos de los consumidores abren un contrato nuevo cuando empiezan a usar un campo, y retiran las cláusulas que dejaron de usar.
+[SE-423](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md): el servicio de notas guarda una carpeta `contratos/` con `panel.json`, `exportador.json` y `avisos.json`; su integración continua ejecuta los tres en cada propuesta de cambio. Los consumidores abren un contrato cuando empiezan a usar un campo y retiran cláusulas que dejaron de usar. Las pruebas de integración del panel lo ejecutan contra la respuesta real del servicio con una base sembrada.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-423 — Integración, componentes y contratos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md)) son:
-
-- **El consumidor falla en producción y sus pruebas pasan** — causa: el doble refleja una versión antigua del proveedor. Corrección: verificar el doble contra el proveedor con el mismo contrato.
-- **El proveedor recibe alarmas por cambios que nadie usa** — causa: comparación de esquema completo. Corrección: contratos por consumidor.
+- **El consumidor falla en producción y sus pruebas pasan.** El doble refleja una versión antigua del proveedor; verificarlo con el mismo contrato.
+- **El proveedor recibe alarmas por cambios que nadie usa.** Comparación de esquema completo; contratos por consumidor.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Las pruebas de integración siguen siendo necesarias para lo que el contrato no dice (transacciones, ordenamiento, efectos). ([SE-423](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md))
+Las pruebas de integración siguen siendo necesarias para lo que el contrato no dice: transacciones, ordenamiento, efectos. Son más lentas y frágiles que las unitarias; se reserva su uso para las interfaces.
 
 ## Relación con otros conceptos
 

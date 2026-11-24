@@ -2,45 +2,31 @@
 
 [↑ Glosario](../../README.md) · [← Reducción por simetría](./reduccion-por-simetria.md) · [Reemplazo atómico →](./reemplazo-atomico.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 40](../../../classes/part-40-ci-cd-iac-y-platform-engineering/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 40](../../../classes/part-40-ci-cd-iac-y-platform-engineering/README.md)
 
 ## Definición
 
-Acción que destruye un recurso y lo vuelve a crear porque una propiedad no se puede cambiar en sitio.
-
-Definición de trabajo de [SE-486 — Infraestructura como código en pipeline](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-486-infraestructura-como-codigo-en-pipeline/README.md).
+En infraestructura como código, un **reemplazo** es una acción que destruye un recurso y lo vuelve a crear porque una propiedad no se puede cambiar en sitio ([SE-486](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-486-infraestructura-como-codigo-en-pipeline/README.md)).
 
 ## Por qué importa
 
-La clase donde se define, [SE-486 — Infraestructura como código en pipeline](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-486-infraestructura-como-codigo-en-pipeline/README.md), existe con este propósito: la clase existe para que trates los cambios de infraestructura con la misma disciplina que los de código —revisión, verificación automática, aplicación controlada— sin olvidar lo que los distingue: se aplican sobre un sistema vivo que tiene estado, el orden importa y un error puede borrar datos.
+Un cambio que parece menor en el código declarativo puede traducirse en destruir y recrear. Si el recurso tiene estado (una base de datos), el reemplazo borra datos. La revisión de un plan debe separar cambios en sitio de reemplazos y borrados.
 
 ## Cómo funciona
 
-Según [SE-486 — Infraestructura como código en pipeline](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-486-infraestructura-como-codigo-en-pipeline/README.md):
-
-El plan es el documento que más conviene leer: dice qué se creará, qué se cambiará y qué se destruirá. Un plan con diez creaciones es rutina; un plan con una destrucción merece una pausa; un **reemplazo** de un recurso con estado (una base de datos, un volumen) merece una aprobación explícita y una copia verificada. La revisión humana funciona si el plan es legible y si quien lo revisa sabe qué buscar; se refuerza con una **política** que marque automáticamente las acciones destructivas y los permisos amplios.
-
-Según [SE-486 — Infraestructura como código en pipeline](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-486-infraestructura-como-codigo-en-pipeline/README.md):
-
-El equipo de la API de entregas rediseña el flujo de infraestructura. Cada cambio abre una revisión que ejecuta un plan y lo publica como comentario; una política marca en rojo cualquier acción de borrado o reemplazo y cualquier permiso de administración. Tras la fusión, una canalización aplica el plan guardado de la revisión; si el plan recalculado difiere, se detiene y pide revisión. Los reemplazos de recursos con estado exigen la aprobación de una segunda persona y una copia reciente verificada. El estado se guarda cifrado, con versionado y con bloqueo por entorno; una canalización de comprobación de deriva ejecuta un plan sin aplicar cada seis horas y crea una incidencia con responsable cuando encuentra diferencias.
+La herramienta compara el **estado deseado** que declara el código con el **estado real** y calcula un plan. Para cada propiedad, el proveedor decide si admite modificación en sitio o exige recrear. El plan marca el reemplazo (en algunas herramientas con un símbolo propio), y solo quien lo lee atentamente lo detecta. Una política automática que marque borrados y reemplazos, y una copia verificada antes de aplicar, convierten la revisión en control.
 
 ## Ejemplo
 
-Ejemplo de [SE-486 — Infraestructura como código en pipeline](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-486-infraestructura-como-codigo-en-pipeline/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la API de entregas rediseña el flujo de infraestructura. Cada cambio abre una revisión que ejecuta un plan y lo publica como comentario; una política marca en rojo cualquier acción de borrado o reemplazo y cualquier permiso de administración. Tras la fusión, una canalización aplica el plan guardado de la revisión; si el plan recalculado difiere, se detiene y pide revisión. Los reemplazos de recursos con estado exigen la aprobación de una segunda persona y una copia reciente verificada.
+Cambiar el nombre de una base de datos o su motor puede exigir reemplazo. [SE-486](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-486-infraestructura-como-codigo-en-pipeline/README.md) documenta el caso de «se destruyó una base de datos con un cambio menor»: el reemplazo no fue revisado.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Se destruyó una base de datos con un cambio «menor»** — causa: reemplazo no revisado. Corrección: política que marca borrados y reemplazos; copia verificada. ([SE-486](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-486-infraestructura-como-codigo-en-pipeline/README.md))
+Revisar el diff del código y no el plan; asumir que cambiar una propiedad es siempre una modificación.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- **Dónde deja de valer:** los grafos (densidad de dependencias del 25 %), la proporción de recursos con estado (25 %) y los porcentajes de cambio son supuestos del autor; un proveedor real impone sus propias reglas de qué cambios son en sitio y cuáles son reemplazos. ([SE-486](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-486-infraestructura-como-codigo-en-pipeline/README.md))
+Qué cambios son en sitio y cuáles son reemplazos lo decide cada proveedor; los porcentajes de la clase (25 % de recursos con estado, etc.) son supuestos del autor.
 
 ## Relación con otros conceptos
 

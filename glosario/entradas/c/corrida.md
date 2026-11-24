@@ -2,43 +2,31 @@
 
 [↑ Glosario](../../README.md) · [← Correlación entre comprobaciones](./correlacion-entre-comprobaciones.md) · [Corriente media →](./corriente-media.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 50](../../../classes/part-50-machine-learning-en-produccion-y-mlops/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 50](../../../classes/part-50-machine-learning-en-produccion-y-mlops/README.md)
 
 ## Definición
 
-Una ejecución de entrenamiento con datos, configuración, semilla y entorno determinados.
-
-Definición de trabajo de [SE-603 — Experimentos y entrenamiento reproducible](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-603-experimentos-y-entrenamiento-reproducible/README.md).
+Una **corrida** (de entrenamiento) es una ejecución de entrenamiento con datos, configuración, semilla y entorno determinados ([SE-603](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-603-experimentos-y-entrenamiento-reproducible/README.md)).
 
 ## Por qué importa
 
-En [SE-603 — Experimentos y entrenamiento reproducible](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-603-experimentos-y-entrenamiento-reproducible/README.md), el tema «Huellas de datos y configuración» importa porque permiten saber si dos corridas usan lo mismo.
+Si no se puede reconstruir una corrida, no se puede explicar por qué un modelo es como es ni comparar dos modelos con honestidad. El costo de guardar el registro es despreciable frente al de no poder reconstruirlo.
 
 ## Cómo funciona
 
-Según [SE-603 — Experimentos y entrenamiento reproducible](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-603-experimentos-y-entrenamiento-reproducible/README.md):
-
-Una corrida de entrenamiento es una función de cinco cosas: los datos (filas y orden), las etiquetas, la configuración (hiperparámetros, preprocesamiento), el generador aleatorio con su semilla y el entorno (versiones de numpy y scikit-learn, sistema operativo, hilos). Si una cambia, el modelo puede cambiar. Reproducir significa poder fijar las cinco y comprobarlo. Por eso el registro de la corrida guarda una huella (un resumen criptográfico) de los datos y de las etiquetas, una huella de la configuración serializada, la semilla, las versiones y el valor de la métrica. En el laboratorio, ese registro ocupa 209 bytes; el costo de guardarlo es despreciable frente al de no poder reconstruir un modelo.
-
-Según [SE-603 — Experimentos y entrenamiento reproducible](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-603-experimentos-y-entrenamiento-reproducible/README.md):
-
-El equipo de *Avisos-ML* adopta una regla de promoción. Un candidato solo pasa al registro de modelos si, sobre cinco muestras de entrenamiento y tres semillas por muestra, su AUC pareado frente al modelo actual mejora en promedio y el intervalo de las diferencias no incluye el cero; si se probaron más de diez configuraciones, la evaluación final se hace sobre una partición reservada que no se usó para elegir. La regla se escribe en un archivo del repositorio y la ejecuta una tarea de la integración continua que falla si falta el `run.json` con las huellas. Dos meses después, una persona nueva propone un cambio con un AUC un punto mayor en una sola corrida: la tarea lo rechaza porque la diferencia pareada no supera el ruido.
+[SE-603](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-603-experimentos-y-entrenamiento-reproducible/README.md) la describe como una función de cinco cosas: los datos (filas y orden), las etiquetas, la configuración (hiperparámetros, preprocesamiento), el generador aleatorio con su semilla y el entorno (versiones de las bibliotecas, sistema operativo, hilos). Si una cambia, el modelo puede cambiar. Reproducir significa poder fijar las cinco y comprobarlo; por eso el registro guarda una huella de los datos y las etiquetas, una huella de la configuración serializada, la semilla, las versiones y el valor de la métrica. En el laboratorio, ese registro ocupa 209 bytes.
 
 ## Ejemplo
 
-Ejemplo de [SE-603 — Experimentos y entrenamiento reproducible](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-603-experimentos-y-entrenamiento-reproducible/README.md) (sección «Ejemplo mínimo»):
-
-Una huella de datos y un registro de corrida en ocho líneas:
+[SE-603](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-603-experimentos-y-entrenamiento-reproducible/README.md): el equipo de *Avisos-ML* promueve un candidato solo si, sobre cinco muestras de entrenamiento y tres semillas por muestra, su AUC pareado mejora en promedio y el intervalo de las diferencias no incluye el cero. Una tarea de integración continua falla si falta el `run.json` con las huellas. Un cambio con un AUC un punto mayor en una sola corrida es rechazado: la diferencia pareada no supera el ruido.
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+Comparar dos modelos con una corrida cada uno: la variación por semilla puede explicar la diferencia. No registrar el orden de las filas.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Una corrida de entrenamiento es una función de cinco cosas: los datos (filas y orden), las etiquetas, la configuración (hiperparámetros, preprocesamiento), el generador aleatorio con su semilla y el entorno (versiones de numpy y scikit-learn, sistema operativo, hilos). ([SE-603](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-603-experimentos-y-entrenamiento-reproducible/README.md))
+La reproducibilidad exacta puede romperse por hardware o bibliotecas no deterministas aunque las cinco cosas se fijen; en ese caso se compara con repeticiones y se reporta dispersión.
 
 ## Relación con otros conceptos
 

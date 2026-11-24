@@ -2,42 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Cola de rechazos](./cola-de-rechazos.md) · [Cola justa →](./cola-justa.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 31](../../../classes/part-31-integracion-eventos-y-mensajeria/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 31](../../../classes/part-31-integracion-eventos-y-mensajeria/README.md)
 
 ## Definición
 
-Canal en el que varios consumidores compiten y cada mensaje se entrega a uno y se borra al confirmarse.
-
-Definición de trabajo de [SE-375 — Brokers, colas, topics y logs distribuidos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-375-brokers-colas-topics-y-logs-distribuidos/README.md).
+Una **cola de trabajo** es un canal en el que varios consumidores compiten por los mensajes: cada mensaje se entrega a uno solo y se borra al confirmarse ([SE-375](../../../classes/part-31-integracion-eventos-y-mensajeria/se-375-brokers-colas-topics-y-logs-distribuidos/README.md)). Su propósito es repartir carga, no difundir información.
 
 ## Por qué importa
 
-En [SE-375 — Brokers, colas, topics y logs distribuidos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-375-brokers-colas-topics-y-logs-distribuidos/README.md), el tema «Cola de trabajo» importa porque reparte trabajo: cada mensaje se procesa una vez y desaparece.
+Elegir entre una cola de trabajo y un log o un tópico con suscripciones decide qué se puede hacer después. En una cola, un mensaje confirmado deja de existir: no se puede reprocesar tras un defecto ni mostrar a un segundo interesado. Quien necesita que varios servicios reaccionen al mismo hecho, o que un servicio nuevo vea la historia, no puede apoyarse en una cola de trabajo.
 
 ## Cómo funciona
 
-Según [SE-375 — Brokers, colas, topics y logs distribuidos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-375-brokers-colas-topics-y-logs-distribuidos/README.md), en la sección «Cola de trabajo»:
+Varios **consumidores competidores** leen del mismo canal. El corredor entrega cada mensaje a uno de ellos; cuando ese consumidor lo confirma, el mensaje se borra. Por eso añadir consumidores acelera el vaciado: el trabajo se divide entre más manos. [SE-375](../../../classes/part-31-integracion-eventos-y-mensajeria/se-375-brokers-colas-topics-y-logs-distribuidos/README.md) subraya que la limitación es **estructural**, no un defecto de configuración: el mensaje confirmado no existe. Un segundo consumidor que lee de la misma cola no recibe una copia, sino que toma otra parte del trabajo.
 
-En una **cola de trabajo** varios consumidores competidores toman mensajes de un mismo canal; cada mensaje lo recibe uno y, al confirmarse, se borra. Sirve para repartir carga: se agregan consumidores y la cola se vacía más rápido. Su limitación es estructural: el mensaje confirmado no existe, de modo que no se puede reprocesar ni mostrar a un segundo interesado. Un segundo consumidor que lee de la misma cola no ve una copia: toma una parte del trabajo.
+Contrasta con el **log**, donde los mensajes se conservan por retención o compactación y cada consumidor mantiene su propia posición de lectura, de modo que muchos pueden leer lo mismo y un consumidor nuevo puede empezar desde el principio. Y con la difusión por suscripciones separadas, donde cada suscriptor recibe su copia. La clase obliga a decidir según el consumidor: ¿necesita repartir trabajo, difundir un hecho o reconstruir estado?
 
 ## Ejemplo
 
-Ejemplo de [SE-375 — Brokers, colas, topics y logs distribuidos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-375-brokers-colas-topics-y-logs-distribuidos/README.md) (sección «Ejemplo profesional»):
-
-El equipo asigna cada flujo de la plataforma a una estructura. **Calificar entregas:** cola de trabajo con tres consumidores, tiempo máximo de edad de 24 horas y una cola de mensajes fallidos. **Eventos de entrega** (`EntregaRecibida`, `CalificacionPublicada`): un log por particiones con clave `estudiante_id`, para que los eventos de cada estudiante lleguen en orden, con ocho particiones y retención de 14 días; las suscripciones de avisos y analítica son dos grupos. **Estado de cursos para el portal:** log compactado por `curso_id`, para reconstruir el portal desde cero.
+Un servicio recibe entregas y las manda a una cola para generar miniaturas. Tres procesos trabajadores compiten por los mensajes: si la cola se acumula, se añaden más procesos. Pero si un servicio de estadísticas también necesita ver cada entrega y se conecta a la misma cola, recibirá solo una parte de los mensajes y a los trabajadores les faltará esa parte. Para que ambos vean todo hace falta una suscripción por consumidor o un log.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-375 — Brokers, colas, topics y logs distribuidos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-375-brokers-colas-topics-y-logs-distribuidos/README.md)) son:
-
-- **La mitad de los mensajes no llega a un consumidor** — causa: dos consumidores comparten una cola. Corrección: suscripciones separadas para difundir.
-- **Un servicio nuevo no ve datos anteriores** — causa: tópico sin retención. Corrección: un log, o cargar la historia desde otra fuente.
+- **La mitad de los mensajes no llega a un consumidor**: dos consumidores comparten una cola; se corrige con suscripciones separadas para difundir ([SE-375](../../../classes/part-31-integracion-eventos-y-mensajeria/se-375-brokers-colas-topics-y-logs-distribuidos/README.md)).
+- **Un servicio nuevo no ve datos anteriores**: el tópico no tiene retención; se corrige con un log o cargando la historia de otra fuente.
+- **Esperar reprocesar tras confirmar**: el mensaje confirmado ya no existe.
+- **Confundir competir con difundir**: son dos semánticas de entrega distintas.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- En una **cola de trabajo** varios consumidores competidores toman mensajes de un mismo canal; cada mensaje lo recibe uno y, al confirmarse, se borra. ([SE-375](../../../classes/part-31-integracion-eventos-y-mensajeria/se-375-brokers-colas-topics-y-logs-distribuidos/README.md))
+No sirve cuando varios consumidores independientes necesitan cada mensaje, cuando hay que auditar o reproducir la historia, ni para reconstruir un estado: ahí corresponde un log, con retención o compactación. Tampoco garantiza por sí sola orden ni ausencia de duplicados; eso depende de la semántica de entrega y de que el consumidor sea idempotente. Para trabajo que cabe en una llamada síncrona corta, la cola añade complejidad innecesaria.
 
 ## Relación con otros conceptos
 

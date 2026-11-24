@@ -2,43 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← Compatibilidad y sintaxis](./compatibilidad-y-sintaxis.md) · [Competencia →](./competencia.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 31](../../../classes/part-31-integracion-eventos-y-mensajeria/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 31](../../../classes/part-31-integracion-eventos-y-mensajeria/README.md)
 
 ## Definición
 
-Acción que deshace o neutraliza el efecto de un paso anterior.
-
-Definición de trabajo de [SE-411 — Alta, aprovisionamiento y configuración por cliente](../../../classes/part-34-saas-y-plataformas-de-producto/se-411-alta-aprovisionamiento-y-configuracion-por-cliente/README.md).
+Una **compensación** es una acción **nueva** que deshace o neutraliza el efecto de un paso anterior, sin borrarlo del historial ([SE-377](../../../classes/part-31-integracion-eventos-y-mensajeria/se-377-outbox-inbox-sagas-y-compensacion/README.md)). No es una reversión: reembolsar un cobro no «des-cobra», y cancelar un cupo no borra que alguien lo vio ocupado. Es el mecanismo con que una saga se recupera cuando no puede haber una transacción única que abarque varios servicios.
 
 ## Por qué importa
 
-En [SE-377 — Outbox, inbox, sagas y compensación](../../../classes/part-31-integracion-eventos-y-mensajeria/se-377-outbox-inbox-sagas-y-compensacion/README.md), el tema «Compensación» importa porque un paso compensado no equivale a un paso no ocurrido.
-
-En [SE-573 — Human-in-the-loop, aprobación y acciones reversibles](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-573-human-in-the-loop-aprobacion-y-acciones-reversibles/README.md), el tema «Compensación» importa porque lo que no se deshace se contrarresta, con límites.
+En un flujo que cruza sistemas, un fallo a mitad de camino deja efectos reales ya producidos. La decisión que cambia es cómo se diseña el flujo: no se pregunta solo «cómo hago cada paso» sino «cómo se contrarresta cada paso si falla uno posterior» y, sobre todo, «qué pasos no tienen contrapartida». Esa pregunta decide el orden de los pasos.
 
 ## Cómo funciona
 
-Según [SE-377 — Outbox, inbox, sagas y compensación](../../../classes/part-31-integracion-eventos-y-mensajeria/se-377-outbox-inbox-sagas-y-compensacion/README.md), en la sección «Compensación»:
+[SE-377](../../../classes/part-31-integracion-eventos-y-mensajeria/se-377-outbox-inbox-sagas-y-compensacion/README.md) fija las ideas centrales:
 
-Una compensación es una acción **nueva** que contrarresta el efecto de otra, no una reversión: reembolsar un cobro no «des-cobra», y cancelar un cupo no borra que alguien lo vio ocupado. Algunas acciones no tienen compensación (un correo enviado, un archivo publicado), y esos pasos se llaman **irreversibles**. La regla de diseño es ordenar los pasos de modo que los compensables vayan primero, el irreversible lo más tarde posible (un **pivote**: tras él la saga solo puede avanzar), y los pasos posteriores al pivote puedan reintentarse hasta lograrse. Las compensaciones también fallan: deben ser idempotentes, reintentables y dejar un estado «atascado» observable si no logran terminar.
+- La compensación es otra operación de negocio, visible y registrada, con sus propios efectos (el reembolso aparece en el extracto).
+- Algunas acciones **no tienen compensación**: un correo enviado, un archivo publicado. Son pasos irreversibles.
+- La regla de diseño: ordenar los pasos de modo que los compensables vayan primero y el irreversible lo más tarde posible. Ese paso se llama **pivote**: tras él la saga solo puede avanzar, y los pasos posteriores deben poder reintentarse hasta lograrse.
+- Las compensaciones también fallan. Por eso deben ser **idempotentes**, reintentables y dejar un estado «atascado» observable si no logran terminar, para que alguien actúe.
+
+[SE-573](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-573-human-in-the-loop-aprobacion-y-acciones-reversibles/README.md) lleva esto a los flujos con agentes: un flujo queda a medias cuando no hay compensación o las compensaciones fallan, y la corrección es compensar con reintentos y registro. En [SE-411](../../../classes/part-34-saas-y-plataformas-de-producto/se-411-alta-aprovisionamiento-y-configuracion-por-cliente/README.md) el término aparece en el contexto de una plataforma SaaS, donde un aprovisionamiento a medias debe poder deshacerse.
 
 ## Ejemplo
 
-Ejemplo de [SE-377 — Outbox, inbox, sagas y compensación](../../../classes/part-31-integracion-eventos-y-mensajeria/se-377-outbox-inbox-sagas-y-compensacion/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la plataforma diseña tres piezas. **Outbox:** tabla `outbox(id, tipo, clave, cuerpo, creado, publicado_en)` en la misma base de las entregas; la operación que registra la entrega inserta la fila en la misma transacción. **Relevo:** un proceso que lee lotes de 100 filas sin `publicado_en`, publica, marca y limpia las publicadas con más de siete días; si se cae entre publicar y marcar, el mensaje se publica de nuevo. **Inbox:** el calificador tiene `inbox(mensaje_id primary key)` y hace `INSERT OR IGNORE` en la misma transacción del efecto.
+Una inscripción reserva un cupo, cobra y envía un correo de bienvenida. Si el cobro falla, se compensa el cupo liberándolo. Si el correo es el último paso y es irreversible, se coloca después de los compensables: el cobro, que sí tiene compensación (reembolso), va antes. Si el envío falla tras el pivote, no se deshace el cobro; se reintenta el envío. Ejemplo ilustrativo del orden que enseña [SE-377](../../../classes/part-31-integracion-eventos-y-mensajeria/se-377-outbox-inbox-sagas-y-compensacion/README.md).
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Un flujo queda a medias** — causa: sin compensación o compensaciones que fallan. Corrección: compensar con reintentos y registro. ([SE-573](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-573-human-in-the-loop-aprobacion-y-acciones-reversibles/README.md))
+- **Un flujo queda a medias** ([SE-573](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-573-human-in-the-loop-aprobacion-y-acciones-reversibles/README.md)): sin compensación o con compensaciones que fallan; se corrige compensando con reintentos y registro.
+- **Creer que compensar es revertir**: el efecto original sigue existiendo y visible.
+- **Compensación no idempotente**: un reintento reembolsa dos veces.
+- **Poner el paso irreversible al principio**: se pierde la posibilidad de deshacer lo demás.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Una compensación es una acción **nueva** que contrarresta el efecto de otra, no una reversión: reembolsar un cobro no «des-cobra», y cancelar un cupo no borra que alguien lo vio ocupado. ([SE-377](../../../classes/part-31-integracion-eventos-y-mensajeria/se-377-outbox-inbox-sagas-y-compensacion/README.md))
+No todo se puede compensar, y la compensación no restituye el estado anterior exacto: terceros pudieron haber observado el estado intermedio. Cuando la consistencia inmediata es indispensable y todo ocurre en una sola base, una transacción local es más simple y segura que una saga con compensaciones. Y una compensación mal diseñada añade más fallos de los que evita: requiere reintento, registro y alertas sobre los casos atascados.
 
 ## Relación con otros conceptos
 

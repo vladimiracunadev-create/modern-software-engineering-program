@@ -2,51 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← Condición de revisión](./condicion-de-revision.md) · [Confabulación →](./confabulacion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 26](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 26](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/README.md)
 
 ## Definición
 
-Señal medible que indica cuándo retirar o simplificar el patrón.
-
-Definición de trabajo de [SE-313 — Criterios para usar un catálogo de patrones](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-313-criterios-para-usar-un-catalogo-de-patrones/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-323 — Taller: refactorizar con patrones y medir su costo](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-323-taller-refactorizar-con-patrones-y-medir-su-costo/README.md): Señal medible para retirar el patrón.
+Una **condición de salida** es la señal medible que indica cuándo retirar o simplificar un patrón de diseño ([SE-313](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-313-criterios-para-usar-un-catalogo-de-patrones/README.md), [SE-323](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-323-taller-refactorizar-con-patrones-y-medir-su-costo/README.md)). Se escribe en el momento de aplicar el patrón, no cuando ya molesta, y responde a la pregunta «¿qué tendría que ocurrir para que esto ya no compense?».
 
 ## Por qué importa
 
-En [SE-313 — Criterios para usar un catálogo de patrones](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-313-criterios-para-usar-un-catalogo-de-patrones/README.md), el tema «Condición de salida» importa porque un patrón que no se puede retirar acumula costo
-
-En [SE-323 — Taller: refactorizar con patrones y medir su costo](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-323-taller-refactorizar-con-patrones-y-medir-su-costo/README.md), el tema «Condición de salida» importa porque evita que el patrón se quede por costumbre
-
-En [SE-324 — Proyecto: catálogo de patrones de un sistema real](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-324-proyecto-catalogo-de-patrones-de-un-sistema-real/README.md), el tema «Condición de salida» importa porque evita el patrón por costumbre
+Un patrón aplicado tiene un costo estructural permanente: clases, indirección, nombres que aprender. Se justifica mientras la fuerza que lo motivó siga presente. Sin una condición de salida, el patrón sobrevive a su razón y se vuelve, en palabras de la clase, un monumento. La decisión que cambia es tratar un patrón como una apuesta con fecha de revisión, no como una mejora definitiva.
 
 ## Cómo funciona
 
-Según [SE-313 — Criterios para usar un catálogo de patrones](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-313-criterios-para-usar-un-catalogo-de-patrones/README.md):
+[SE-313](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-313-criterios-para-usar-un-catalogo-de-patrones/README.md) pide que todo patrón aplicado lleve su condición de salida. Para el `Strategy` de tarifas, ejemplos de la clase: «si quedan dos canales, volver a una función con un `if`», o «si en un año no se añadió ninguna variante». Dos rasgos las hacen útiles:
 
-Todo patrón aplicado debe tener una **condición de salida**: la señal medible que dirá que ya no compensa. Para el `Strategy` de tarifas puede ser «si quedan dos canales, volver a una función con un `if`», o «si en un año no se añadió ninguna variante». Escribirla obliga a nombrar la fuerza (si no hay forma de saber cuándo dejó de importar, probablemente nunca fue clara) y evita que el patrón se vuelva un monumento. La condición de salida se registra junto al patrón en el catálogo de `SE-324`.
+1. **Es medible**: se puede comprobar con un conteo o una observación del repositorio, no con una impresión.
+2. **Está atada a la fuerza**: la fuerza es la presión de diseño que justificó el patrón (por ejemplo, variantes que se añaden con frecuencia). Escribir la condición obliga a nombrarla. Si no hay forma de saber cuándo dejó de importar la fuerza, probablemente nunca fue clara.
 
-Según [SE-313 — Criterios para usar un catálogo de patrones](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-313-criterios-para-usar-un-catalogo-de-patrones/README.md):
+La condición se registra junto al patrón en el catálogo de [SE-324](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-324-proyecto-catalogo-de-patrones-de-un-sistema-real/README.md), de modo que quien lea el patrón dentro de un año sepa qué comprobar. [SE-323](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-323-taller-refactorizar-con-patrones-y-medir-su-costo/README.md) la retoma con patrones de resiliencia: también ahí se define la señal que indica retirar el patrón.
 
-Puede proponer candidatos y escribir la implementación, pero la fuerza y la condición de salida dependen de un contexto que está en las personas y en el código; un agente que elige el patrón sin ese contexto reproduce la costumbre. El puente con agentes de la clase muestra cómo pedirle el criterio y no el patrón.
+El puente con agentes de [SE-313](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-313-criterios-para-usar-un-catalogo-de-patrones/README.md) añade un matiz: un agente puede proponer candidatos y escribir la implementación, pero la fuerza y la condición de salida dependen de un contexto que está en las personas y en el código; un agente que elige el patrón sin ese contexto reproduce la costumbre.
 
 ## Ejemplo
 
-Ejemplo de [SE-313 — Criterios para usar un catálogo de patrones](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-313-criterios-para-usar-un-catalogo-de-patrones/README.md) (sección «Preguntas frecuentes»):
-
-Puede proponer candidatos y escribir la implementación, pero la fuerza y la condición de salida dependen de un contexto que está en las personas y en el código; un agente que elige el patrón sin ese contexto reproduce la costumbre. El puente con agentes de la clase muestra cómo pedirle el criterio y no el patrón.
+Se aplica `Strategy` para calcular tarifas por canal de venta, con la condición de salida «si quedan dos canales o si en un año no se añade ninguna variante, se vuelve a una función con un `if`». Un año después se revisa el repositorio: no hubo variantes nuevas y solo quedan dos canales. La condición se cumple y se simplifica el código, con la red de pruebas existente. Ejemplo tomado de los casos que cita [SE-313](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-313-criterios-para-usar-un-catalogo-de-patrones/README.md).
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+- **Aplicar el patrón sin escribir cuándo retirarlo**: nadie revisa y el patrón persiste.
+- **Condición vaga** («cuando ya no haga falta»): no es medible.
+- **Confundirla con la condición de aborto o de parada** de otros contextos: aquí se trata de retirar una decisión de diseño, no de detener un experimento.
+- **Dejarla solo en la cabeza de quien aplicó el patrón**: debe quedar en el catálogo.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Todo patrón aplicado debe tener una **condición de salida**: la señal medible que dirá que ya no compensa. ([SE-313](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-313-criterios-para-usar-un-catalogo-de-patrones/README.md))
+La señal no decide por sí sola: es el disparador de una revisión, no una orden automática de retirar. Lo que se mide puede ser un mal indicador de la fuerza, y la clase no ofrece umbrales universales: los ejemplos son del caso de tarifas. Para decisiones muy pequeñas y locales, escribir una condición puede costar más que el patrón mismo.
 
 ## Relación con otros conceptos
 

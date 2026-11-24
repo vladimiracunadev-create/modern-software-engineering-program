@@ -2,40 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Clarificación](./clarificacion.md) · [Clase de cambio →](./clase-de-cambio.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 25](../../../classes/part-25-diseno-patrones-y-refactorizacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 25](../../../classes/part-25-diseno-patrones-y-refactorizacion/README.md)
 
 ## Definición
 
-Situación en que un cambio interno de la base, sin cambiar su interfaz, rompe a sus subclases.
-
-Definición de trabajo de [SE-303 — Composición, herencia y delegación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-303-composicion-herencia-y-delegacion/README.md).
+La **clase base frágil** es la situación en que un cambio interno de la clase base, sin cambiar su interfaz, rompe a sus subclases ([SE-303](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-303-composicion-herencia-y-delegacion/README.md)). El defecto no está en la base ni en la subclase por separado: está en que la subclase depende de un detalle de implementación que la base nunca prometió.
 
 ## Por qué importa
 
-En [SE-303 — Composición, herencia y delegación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-303-composicion-herencia-y-delegacion/README.md), el tema «Clase base frágil» importa porque la subclase falla cuando la base cambia sin cambiar su interfaz.
+La herencia parece gratis: se reutiliza código y se redefine solo lo distinto. Pero quien hereda asume el compromiso de seguir a la base durante toda su vida. La decisión que cambia este concepto es cuándo heredar y cuándo componer: si la base puede evolucionar sin avisar, cada subclase es un cliente que conoce demasiado de ella, una forma de acoplamiento a la implementación y no solo a la interfaz.
 
 ## Cómo funciona
 
-Según [SE-303 — Composición, herencia y delegación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-303-composicion-herencia-y-delegacion/README.md), en la sección «Clase base frágil»:
+[SE-303](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-303-composicion-herencia-y-delegacion/README.md) lo muestra con un caso clásico. Una colección implementa `agregar_todos` llamando internamente a su propio `agregar`. Una subclase que cuenta los elementos sobrescribe `agregar` y también `agregar_todos`, y suma en ambos. Con esa base, cada elemento se cuenta dos veces: una en `agregar_todos` y otra cuando este llama a `agregar`. Si la base cambia a un `extend` interno que ya no pasa por `agregar`, la subclase pasa a contar bien. Ninguna de las dos versiones de la base viola su documentación; la subclase simplemente dependía de **cómo** la base se llama a sí misma.
 
-El problema aparece cuando la base cambia **sin cambiar su interfaz**. Un caso clásico: una colección implementa `agregar_todos` llamando a su propio `agregar`. Una subclase que cuenta los elementos sobrescribe `agregar` y `agregar_todos` y suma en ambos: con esa implementación de la base cuenta el doble. Si la base cambia a un `extend` interno, la subclase pasa a contar bien. Ninguna de las dos bases rompe su documentación, y la subclase depende del detalle. Quien hereda asume el compromiso de seguir a la base.
+La causa es que al sobrescribir, el método de la subclase se convierte en parte del flujo interno de la base: la llamada `self.agregar` despacha a la versión de la subclase. La interfaz pública no dice qué métodos se invocan entre sí, así que ese orden es un detalle invisible que sostiene el comportamiento de las subclases. La salida que enseña [SE-303](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-303-composicion-herencia-y-delegacion/README.md) es **componer y reenviar solo lo prometido**: mantener la base como atributo y delegar únicamente en su interfaz documentada.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-303 — Composición, herencia y delegación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-303-composicion-herencia-y-delegacion/README.md):
-
-El equipo decide opción por opción. `Fragil`, `Seguro`, `Urgente` y `Refrigerado` se vuelven decoradores de un `CalculadoraEnvio` con la interfaz `costo(envio)`, y el orden se fija por una regla escrita: primero los recargos fijos, después los porcentuales. Una prueba recorre los 24 órdenes y comprueba que solo el orden de la regla es válido. La colección contadora se reescribe por composición. Se deja la herencia para `EnvioInternacional(Envio)`, que sí es un «es un» sustituible, vive en el mismo paquete y comparte el contrato de `SE-302`.
+Una clase `ContadorLista` hereda de la colección y cuenta en `agregar` y en `agregar_todos`. Con la base original suma el doble; tras el cambio interno de la base suma lo correcto, sin que nadie tocara la subclase. Con composición, `ContadorLista` guarda una colección interna, cuenta una sola vez en sus propios métodos y reenvía; el cambio interno de la base ya no la afecta. Es el experimento de [SE-303](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-303-composicion-herencia-y-delegacion/README.md) con clases de Python y datos sintéticos.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-303 — Composición, herencia y delegación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-303-composicion-herencia-y-delegacion/README.md)) son:
-
-- **Un contador cuenta doble tras un cambio interno de la base** — causa: herencia que sobrescribe métodos que la base también usa. Corrección: componer y reenviar solo lo prometido.
-- **Cada nueva opción duplica las subclases** — causa: herencia por combinación. Corrección: componer con decoradores o con una lista de recargos.
+- **Un contador cuenta doble tras un cambio interno de la base**: herencia que sobrescribe métodos que la base también usa; se corrige componiendo.
+- **Cada nueva opción duplica las subclases**: herencia por combinación; se corrige con decoradores o con una lista de recargos.
+- **Creer que si la interfaz no cambia, nada se rompe**: la fragilidad existe justo cuando la interfaz no cambia.
+- **Pensar que toda herencia es mala**: lo frágil es sobrescribir métodos que la base usa internamente.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-303 — Composición, herencia y delegación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-303-composicion-herencia-y-delegacion/README.md)) son: Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final. Se ejecutaron tres análisis con clases reales de Python y datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ninguna base de código real; las colecciones, los recargos y las jerarquías aleatorias son construcciones del autor. La siguiente clase nombra patrones que combinan herencia, composición y delegación y examina cuándo describen un problema que existe.
+[SE-303](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-303-composicion-herencia-y-delegacion/README.md) aclara que sus análisis usan clases reales de Python con datos sintéticos; las colecciones, los recargos y las jerarquías aleatorias son construcciones del autor, no una medición de código real. El problema afecta sobre todo a jerarquías donde la base y las subclases evolucionan por separado; si la base es del mismo equipo, pequeña y cambia junto con sus subclases, el riesgo baja. Una base diseñada y documentada para extensión, con los puntos de enganche prometidos, deja de ser frágil en esos puntos.
 
 ## Relación con otros conceptos
 

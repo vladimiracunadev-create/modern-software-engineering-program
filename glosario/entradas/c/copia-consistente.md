@@ -2,39 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Convergencia](./convergencia.md) · [Copia profunda →](./copia-profunda.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 29](../../../classes/part-29-datos-persistencia-y-recuperacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 29](../../../classes/part-29-datos-persistencia-y-recuperacion/README.md)
 
 ## Definición
 
-Copia que corresponde a un único instante confirmado de la base.
-
-Definición de trabajo de [SE-357 — Backups, restauración y pruebas de recuperación](../../../classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion/README.md).
+Una **copia consistente** es una copia que corresponde a un único instante confirmado de la base de datos ([SE-357](../../../classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion/README.md)). No basta con que cada página del archivo sea válida: el conjunto debe reflejar un momento en que todas las transacciones confirmadas estaban completas y ninguna a medias.
 
 ## Por qué importa
 
-En [SE-357 — Backups, restauración y pruebas de recuperación](../../../classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion/README.md), el tema «Copia consistente» importa porque copiar un archivo en uso puede dar un estado a medias.
+Una copia de seguridad solo vale si se puede restaurar a algo correcto. Copiar el archivo de una base mientras otra transacción escribe puede producir una copia con parte de los cambios y no el resto: cada página es válida, pero el conjunto no corresponde a ningún momento. La decisión que cambia es cómo se hacen las copias: con una técnica que garantice el instante, no con una copia de archivos con la base en uso.
 
 ## Cómo funciona
 
-Según [SE-357 — Backups, restauración y pruebas de recuperación](../../../classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion/README.md), en la sección «Copia consistente»:
+[SE-357](../../../classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion/README.md) presenta tres caminos:
 
-Copiar el archivo de una base mientras otra transacción escribe puede producir una copia con parte de los cambios y no el resto: cada página es válida, el conjunto no corresponde a ningún momento. Hay tres caminos: parar las escrituras, usar un mecanismo del motor que tome una instantánea consistente (la API de copia en línea de SQLite, `pg_dump` o la copia base con archivado de PostgreSQL) o copiar a nivel del sistema de archivos con una instantánea atómica. Lo que no es seguro es la copia ingenua con la base en uso, que además puede dar «éxito» y pasar una comprobación estructural.
+1. **Parar las escrituras** durante la copia.
+2. **Usar un mecanismo del motor** que tome una instantánea consistente: la API de copia en línea de SQLite, `pg_dump` o la copia base con archivado de PostgreSQL.
+3. **Copiar a nivel del sistema de archivos** con una instantánea atómica.
+
+Lo que no es seguro es la **copia ingenua con la base en uso**. Y su peligro es doble: puede dar «éxito» y además pasar una comprobación estructural, porque cada página individual es válida. El fallo está en la relación entre páginas, que la comprobación de estructura no examina. Por eso [SE-357](../../../classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion/README.md) pide verificar con reglas de negocio (por ejemplo, que los totales cuadren) y no solo con la integridad del archivo; esa verificación se completa con la prueba de restauración.
+
+En el experimento de la clase, con bases de SQLite y 200 mutaciones, se compara la copia ingenua con la copia consistente: la primera produce restauraciones que «terminan bien» con datos erróneos; la segunda, no.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-357 — Backups, restauración y pruebas de recuperación](../../../classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion/README.md):
-
-El equipo de la plataforma fija con la dirección un RPO de 15 minutos para entregas y calificaciones y de 24 horas para registros de acceso, y un RTO de 2 horas. De ahí deriva la estrategia: una copia completa diaria con la API del motor, el registro de cambios archivado cada 5 minutos a un almacén en otra región, y una retención de 14 días para las copias y de 7 para el registro.
+Una plataforma copia el archivo de su base cada noche mientras sigue recibiendo entregas. Una noche la copia coincide con una transacción que modifica dos tablas relacionadas: la copia contiene el cambio de una tabla y no el de la otra. La comprobación de integridad pasa. Meses después se restaura y los datos no cuadran. Con la API de copia en línea o con una instantánea atómica, la copia corresponde a un instante confirmado.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La restauración termina bien y los datos son erróneos** — causa: copia ingenua con la base en uso. Corrección: API de copia consistente y verificación de negocio. ([SE-357](../../../classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion/README.md))
+- **La restauración termina bien y los datos son erróneos**: copia ingenua con la base en uso; se corrige con la API de copia consistente y verificación de negocio ([SE-357](../../../classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion/README.md)).
+- **Dar por buena una copia porque pasó la comprobación estructural**.
+- **Copiar archivos con el motor en marcha** pensando que el sistema de archivos ya es atómico.
+- **No restaurar nunca**: una copia que no se ha restaurado es una hipótesis.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-357 — Backups, restauración y pruebas de recuperación](../../../classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. Las bases son pequeñas y de SQLite; las 200 mutaciones son construcciones del autor y los fallos de la primera simulación son uniformes con una escritura constante. No se midió el tiempo de restauración ni se probó cifrado, almacenamiento remoto, otro motor o datos de producción.
+[SE-357](../../../classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion/README.md) aclara que sus experimentos usan bases pequeñas de SQLite y datos sintéticos; las 200 mutaciones son construcciones del autor y los fallos de la primera simulación son uniformes. No se midió el tiempo de restauración ni se probó cifrado, almacenamiento remoto, otro motor o datos de producción. Una copia consistente da un instante: cuánta información se pierde entre ese instante y el fallo lo define el objetivo de punto de recuperación y, si se necesita menos pérdida, el archivado continuo del registro de cambios.
 
 ## Relación con otros conceptos
 

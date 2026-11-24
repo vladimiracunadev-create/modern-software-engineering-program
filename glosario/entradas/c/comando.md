@@ -2,42 +2,40 @@
 
 [↑ Glosario](../../README.md) · [← Comandante del incidente](./comandante-del-incidente.md) · [Comando compuesto →](./comando-compuesto.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 31](../../../classes/part-31-integracion-eventos-y-mensajeria/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 31](../../../classes/part-31-integracion-eventos-y-mensajeria/README.md)
 
 ## Definición
 
-Mensaje que expresa una intención dirigida a un destinatario esperado y que puede ser rechazada.
-
-Definición de trabajo de [SE-374 — Mensajes, eventos, comandos y documentos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos/README.md).
+Un **comando** es un mensaje que expresa una intención dirigida a un destinatario esperado y que puede ser rechazada ([SE-374](../../../classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos/README.md)). Se nombra en imperativo («califica esta entrega») y se contrapone al evento, que describe un hecho ya ocurrido.
 
 ## Por qué importa
 
-En [SE-374 — Mensajes, eventos, comandos y documentos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos/README.md), el tema «Comando» importa porque dirige una intención a un destinatario y puede ser rechazada.
+Distinguir comando de evento decide quién conoce a quién y qué ocurre si nadie responde. Con un comando, el emisor sabe qué quiere que pase y quién debe hacerlo; por eso necesita saber si se aceptó. Confundirlo con un evento lleva a difundir una orden a todos los oyentes y a que la acción ocurra varias veces, o a no notar que nadie la ejecutó.
 
 ## Cómo funciona
 
-Según [SE-374 — Mensajes, eventos, comandos y documentos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos/README.md), en la sección «Comando»:
+Tres rasgos lo definen en [SE-374](../../../classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos/README.md):
 
-Un **comando** expresa una intención dirigida: «califica esta entrega». Tiene un destinatario esperado, se nombra en imperativo y puede ser rechazado (la entrega no existe, el plazo venció). Por eso el emisor suele necesitar saber si se aceptó, y un comando sin manejador es un error que debería ser visible. La confusión habitual es difundirlo a todos los oyentes: entonces cada uno lo ejecuta y la acción ocurre varias veces. Un comando es adecuado cuando el emisor sabe qué quiere que ocurra y quién debe hacerlo.
+1. **Destinatario esperado**: está dirigido a quien debe ejecutarlo. Un comando sin manejador es un error que debe ser visible, no un mensaje que se pierde en silencio.
+2. **Imperativo**: nombra lo que se quiere que ocurra, no lo que ocurrió.
+3. **Puede ser rechazado**: el receptor valida y puede negarse (la entrega no existe, el plazo venció). Por eso el emisor suele necesitar el resultado.
+
+La diferencia con el evento es de cardinalidad y de acoplamiento: un comando espera **uno** y falla si no está; un evento acepta **cero o muchos**. En un evento, quien lo emite no sabe quién lo escucha; en un comando, el emisor depende de que alguien lo atienda, de modo que el acoplamiento es más fuerte y deliberado. La falla clásica es difundir el comando a todos los oyentes: cada uno lo ejecuta y la acción ocurre varias veces.
 
 ## Ejemplo
 
-Ejemplo de [SE-374 — Mensajes, eventos, comandos y documentos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos/README.md) (sección «Ejemplo mínimo»):
-
-El fragmento muestra un bus con un manejador y otro mensaje enviado sin manejador. Antes de ejecutarlo, predice qué ocurre con el comando y con el evento cuando no hay manejador.
+`CalificarEntrega(entrega_id=17, nota=8)` va a un manejador concreto. Este puede rechazarlo si la entrega no existe o si el plazo venció, y responde aceptado o rechazado. En cambio `EntregaCalificada` es un evento: se publica después de que ocurrió y lo pueden leer cero, uno o varios servicios (aviso por correo, estadísticas) sin que el emisor lo sepa. Ejemplo ilustrativo siguiendo la distinción de [SE-374](../../../classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos/README.md).
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Una acción se ejecuta varias veces** — causa: un comando se difundió a varios oyentes. Corrección: un destinatario por comando y rechazo si no hay uno. ([SE-374](../../../classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos/README.md))
+- **Una acción se ejecuta varias veces**: un comando se difundió a varios oyentes; se corrige con un destinatario por comando y rechazo si no hay uno ([SE-374](../../../classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos/README.md)).
+- **Nombrarlo en pasado**: un comando en pasado se lee como evento y oculta quién debe actuar.
+- **Ignorar el rechazo**: asumir que fue aceptado sin confirmar.
+- **Enviar un evento esperando que alguien lo ejecute**: el evento no garantiza ningún destinatario.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Por eso el emisor suele necesitar saber si se aceptó, y un comando sin manejador es un error que debería ser visible. ([SE-374](../../../classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos/README.md))
-- Un comando espera uno y falla si no está; un evento acepta cero o muchos. ([SE-374](../../../classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos/README.md))
+El comando es adecuado cuando el emisor sabe qué quiere y quién debe hacerlo. Si el emisor solo anuncia un hecho y le da igual quién reaccione, es un evento. Un comando asíncrono no elimina la necesidad de manejar reintentos y duplicados: sigue sujeto a la semántica de entrega y requiere un manejador idempotente si puede repetirse. Y exigir respuesta acopla en tiempo al emisor con el receptor; conviene valorarlo frente a un enfoque basado en eventos.
 
 ## Relación con otros conceptos
 

@@ -2,40 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Complejidad cognitiva](./complejidad-cognitiva.md) · [Complemento →](./complemento.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 25](../../../classes/part-25-diseno-patrones-y-refactorizacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 25](../../../classes/part-25-diseno-patrones-y-refactorizacion/README.md)
 
 ## Definición
 
-La que se deriva del problema que el software resuelve y no puede eliminarse sin cambiar el problema.
-
-Definición de trabajo de [SE-309 — Complejidad accidental y esencial](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-309-complejidad-accidental-y-esencial/README.md).
+La **complejidad esencial** es la que se deriva del problema que el software resuelve y no puede eliminarse sin cambiar el problema ([SE-309](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-309-complejidad-accidental-y-esencial/README.md)). Es la contraparte de la accidental: no depende de cómo se escriba el programa, sino de cuántos casos, reglas y excepciones tiene el negocio.
 
 ## Por qué importa
 
-En [SE-309 — Complejidad accidental y esencial](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-309-complejidad-accidental-y-esencial/README.md), el tema «Complejidad esencial» importa porque es el mínimo que el problema exige.
+Si se confunde con la accidental, se intenta «simplificar» lo que no se puede simplificar y se pierden reglas del negocio. Si se ignora, se fingen soluciones simples que no cubren los casos reales. La decisión que cambia es qué se hace con ella: **se gestiona, no se elimina**. Se hace explícita, se escribe en un lugar legible y se prueba.
 
 ## Cómo funciona
 
-Según [SE-309 — Complejidad accidental y esencial](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-309-complejidad-accidental-y-esencial/README.md), en la sección «Complejidad esencial»:
+El ejemplo de [SE-309](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-309-complejidad-accidental-y-esencial/README.md) es aritmético: si el negocio tiene cuatro zonas, tres bandas de peso y tres opciones, hay 4 × 3 × 3 = 96 casos distintos y no existe un programa correcto con menos. Se reconoce con una prueba de ablación mental: **al quitarla, cambia lo que el sistema hace**. Si se elimina un caso y el sistema deja de cumplir una regla, era esencial.
 
-Es la que viene del problema: si el negocio tiene cuatro zonas, tres bandas de peso y tres opciones, hay 96 casos distintos y no existe un programa correcto con menos. Se reconoce porque, al quitarla, cambia lo que el sistema hace. Se gestiona, no se elimina: se hace explícita, se escribe en un lugar legible (una tabla, un conjunto de reglas) y se prueba.
+Gestionarla significa darle una forma que la deje visible. [SE-309](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-309-complejidad-accidental-y-esencial/README.md) propone una tabla o un conjunto de reglas: los 96 casos viven como datos en un solo lugar, no repartidos en 96 ramas. La complejidad no baja (los casos siguen siendo 96), pero deja de interactuar con otras partes. Esa separación es la que permite luego atacar la accidental sin riesgo: se conserva la lista de casos como la verdad contra la cual se comprueba la equivalencia.
 
 ## Ejemplo
 
-Caso medido en la sección «Complejidad esencial» de [SE-309 — Complejidad accidental y esencial](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-309-complejidad-accidental-y-esencial/README.md):
-
-Es la que viene del problema: si el negocio tiene cuatro zonas, tres bandas de peso y tres opciones, hay 96 casos distintos y no existe un programa correcto con menos. Se reconoce porque, al quitarla, cambia lo que el sistema hace. Se gestiona, no se elimina: se hace explícita, se escribe en un lugar legible (una tabla, un conjunto de reglas) y se prueba.
+Una empresa de envíos cobra según la zona de destino, la banda de peso y la opción (estándar, exprés, con seguro). Esas combinaciones son reglas de negocio: cada una produce una tarifa. Se registran en una tabla de 96 filas y se prueba que cada fila produce el valor esperado. Simplificar el código no toca la tabla; cambiar una tarifa es cambiar una fila, con su propia prueba. Ilustración del caso de `tarifas` en [SE-309](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-309-complejidad-accidental-y-esencial/README.md).
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-309 — Complejidad accidental y esencial](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-309-complejidad-accidental-y-esencial/README.md)) son:
-
-- **Una función con 96 caminos de código para 96 casos** — causa: cada caso tiene su propio código. Corrección: pasar los casos a una tabla y una regla común.
-- **Se reduce la complejidad y se pierde una regla** — causa: se simplificó sin la lista de casos del negocio. Corrección: escribir los casos antes y comprobar la equivalencia.
+- **Una función con 96 caminos de código para 96 casos**: confundir esencial con una razón para repetir código; se corrige pasando los casos a una tabla y una regla común.
+- **Se reduce la complejidad y se pierde una regla**: se simplificó sin la lista de casos del negocio.
+- **Declarar esencial todo lo que duele**: parte de lo que duele es de la forma.
+- **Ocultar la complejidad esencial** en código disperso: sigue ahí, pero ahora nadie la ve.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-309 — Complejidad accidental y esencial](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-309-complejidad-accidental-y-esencial/README.md)) son: Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final. Se ejecutaron tres análisis con código de ejemplo y datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ningún proyecto real ni se validó la complejidad cognitiva con personas; la regla de tarifa, las opciones binarias y las cinco funciones son construcciones del autor. La siguiente clase pone precio a la complejidad que se decide no reducir.
+Lo que es esencial depende de dónde se trace la frontera del problema: si el negocio cambia sus reglas (menos zonas, menos opciones), parte de la complejidad esencial desaparece, pero eso es cambiar el problema, no el código. [SE-309](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-309-complejidad-accidental-y-esencial/README.md) precisa que sus definiciones son operativas para `tarifas`, que sus análisis usan datos sintéticos y que las opciones binarias y las cinco funciones son construcciones del autor. No hay una medida universal de cuánta complejidad es esencial.
 
 ## Relación con otros conceptos
 

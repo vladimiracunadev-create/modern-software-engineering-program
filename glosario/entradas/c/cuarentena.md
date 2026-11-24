@@ -2,48 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← Cuantización](./cuantizacion.md) · [Cuasi-identificador →](./cuasi-identificador.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 31](../../../classes/part-31-integracion-eventos-y-mensajeria/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 31](../../../classes/part-31-integracion-eventos-y-mensajeria/README.md)
 
 ## Definición
 
-Destino de los registros que no se pueden traducir sin ambigüedad, con el motivo del rechazo.
+La **cuarentena** es, en el sentido principal del programa ([SE-381](../../../classes/part-31-integracion-eventos-y-mensajeria/se-381-anti-corruption-layers-y-traduccion-de-modelos/README.md)), el destino de los registros que no se pueden traducir sin ambigüedad, conservados con el motivo del rechazo. El término tiene otros sentidos en el programa, que esta entrada distingue:
 
-Definición de trabajo de [SE-381 — Anti-corruption layers y traducción de modelos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-381-anti-corruption-layers-y-traduccion-de-modelos/README.md).
+- En [SE-430](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-430-flakiness-diagnostico-y-mantenimiento/README.md) (pruebas): estado en el que una prueba se ejecuta sin bloquear la integración, con responsable y fecha de salida.
+- En [SE-558](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-558-generacion-de-pruebas-documentacion-y-migraciones/README.md) (desarrollo asistido por IA): conjunto de filas apartadas durante una migración por no cumplir la validación, conservadas sin cambios.
 
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-430 — Flakiness, diagnóstico y mantenimiento](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-430-flakiness-diagnostico-y-mantenimiento/README.md): Estado en el que una prueba se ejecuta sin bloquear, con responsable y fecha de salida.
-- En [SE-558 — Generación de pruebas, documentación y migraciones](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-558-generacion-de-pruebas-documentacion-y-migraciones/README.md): Conjunto de filas apartadas durante una migración por no cumplir la validación, conservadas sin cambios.
+Los tres comparten la idea de apartar algo sin descartarlo ni dejarlo pasar, con registro de por qué.
 
 ## Por qué importa
 
-En [SE-381 — Anti-corruption layers y traducción de modelos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-381-anti-corruption-layers-y-traduccion-de-modelos/README.md), el tema «Cuarentena» importa porque lo ambiguo no se adivina: se aparta con un motivo.
+Ante un dato ambiguo hay tres respuestas malas: aceptarlo adivinando, rechazarlo en silencio o romper el flujo entero. [SE-381](../../../classes/part-31-integracion-eventos-y-mensajeria/se-381-anti-corruption-layers-y-traduccion-de-modelos/README.md) lo dice así: adivinar es fabricar datos. La cuarentena es la cuarta respuesta, y la que permite decidir con información. La decisión que cambia es tratar lo no traducible como un resultado esperado del proceso, con un destino y un responsable.
 
 ## Cómo funciona
 
-Según [SE-381 — Anti-corruption layers y traducción de modelos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-381-anti-corruption-layers-y-traduccion-de-modelos/README.md), en la sección «Cuarentena»:
+En [SE-381](../../../classes/part-31-integracion-eventos-y-mensajeria/se-381-anti-corruption-layers-y-traduccion-de-modelos/README.md), una nota vacía no es una nota cero; `"N/P"` puede significar «no presentó» o «no procede»; una fecha `03/04/2026` es el 3 de abril o el 4 de marzo según una convención que el proveedor puede no haber declarado. La política correcta es **apartar** el registro a una cuarentena con su motivo, **contar** cuántos hay por motivo y **decidir** con el dueño del dato si se añade una regla, se pide una aclaración o se descarta. La cuarentena hace visible lo que no se pudo traducir, y por eso la capa que rechaza en silencio es tan peligrosa como la que acepta todo.
 
-No todo se puede traducir sin ambigüedad. Una nota vacía no es una nota cero; `"N/P"` puede significar «no presentó» o «no procede»; una fecha `03/04/2026` es el 3 de abril o el 4 de marzo según una convención que el proveedor puede no haber declarado. Adivinar es fabricar datos. La política correcta es **apartar** el registro a una cuarentena con su motivo, contar cuántos hay por motivo y decidir con el dueño del dato si se añade una regla, se pide una aclaración o se descarta. La capa que rechaza en silencio es tan peligrosa como la que acepta todo; la cuarentena hace visible lo que no se pudo traducir.
+En pruebas ([SE-430](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-430-flakiness-diagnostico-y-mantenimiento/README.md)), una prueba inestable se pone en cuarentena para que no bloquee a todos, pero con responsable, fecha de revisión y criterio de salida; sin eso se olvida. En migraciones ([SE-558](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-558-generacion-de-pruebas-documentacion-y-migraciones/README.md)), las filas que no cumplen la validación se apartan sin modificarse para revisarlas después.
 
 ## Ejemplo
 
-Ejemplo de [SE-381 — Anti-corruption layers y traducción de modelos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-381-anti-corruption-layers-y-traduccion-de-modelos/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la plataforma crea el módulo `integracion/academico/` con tres archivos. **`mapa.md`** documenta cada campo (nombre externo, tipo, unidad, nombre interno y regla), los nueve estados y su traducción a los cuatro conceptos de la plataforma, y qué se conserva. **`traducir.py`** es la única parte del código que importa el esquema externo: produce objetos del dominio, aparta a la cuarentena (con motivo) lo que no puede traducir y guarda siempre el código de estado original junto al traducido. **`tests/`** contiene 30 registros reales anonimizados del proveedor, cada uno con su rareza, y una prueba de contrato que falla si el proveedor cambia un nombre.
+Una capa recibe filas de un sistema antiguo. Una fila trae `"N/P"` en la nota. La capa no la traduce: la envía a la cuarentena con el motivo «nota ambigua». Al final del día se cuenta: 14 por «nota ambigua», 3 por «fecha imposible». Con el dueño del dato se añade la regla correspondiente y se reprocesan. Ejemplo ilustrativo del flujo de [SE-381](../../../classes/part-31-integracion-eventos-y-mensajeria/se-381-anti-corruption-layers-y-traduccion-de-modelos/README.md).
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Registros que desaparecen sin rastro** — causa: la capa rechaza en silencio. Corrección: cuarentena con motivo, conteo y alarma. ([SE-381](../../../classes/part-31-integracion-eventos-y-mensajeria/se-381-anti-corruption-layers-y-traduccion-de-modelos/README.md))
-- **La capa crece sin control** — causa: hace más de traducir. Corrección: mantener solo traducción, validación y cuarentena. ([SE-381](../../../classes/part-31-integracion-eventos-y-mensajeria/se-381-anti-corruption-layers-y-traduccion-de-modelos/README.md))
-- **Las pruebas en cuarentena se olvidan** — causa: sin responsable ni fecha. Corrección: responsable, fecha de revisión y criterio de salida. ([SE-430](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-430-flakiness-diagnostico-y-mantenimiento/README.md))
+- **Registros que desaparecen sin rastro**: la capa rechaza en silencio; se corrige con cuarentena con motivo, conteo y alarma ([SE-381](../../../classes/part-31-integracion-eventos-y-mensajeria/se-381-anti-corruption-layers-y-traduccion-de-modelos/README.md)).
+- **La capa crece sin control**: hace más que traducir; debe limitarse a traducción, validación y cuarentena.
+- **Las pruebas en cuarentena se olvidan**: sin responsable ni fecha; se corrige con responsable, fecha de revisión y criterio de salida ([SE-430](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-430-flakiness-diagnostico-y-mantenimiento/README.md)).
+- **Tratar la cuarentena como basurero**: si nadie la revisa, equivale a descartar.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La capa que rechaza en silencio es tan peligrosa como la que acepta todo; la cuarentena hace visible lo que no se pudo traducir. ([SE-381](../../../classes/part-31-integracion-eventos-y-mensajeria/se-381-anti-corruption-layers-y-traduccion-de-modelos/README.md))
+La cuarentena solo vale si alguien la revisa; sin conteo, alarma y dueño, es una pérdida disfrazada. No resuelve la ambigüedad, solo la aplaza con evidencia. Para datos cuyo significado es inequívoco, o cuyo volumen ambiguo sea cero, no hace falta. Y en pruebas, mantener demasiadas en cuarentena oculta una regresión real.
 
 ## Relación con otros conceptos
 

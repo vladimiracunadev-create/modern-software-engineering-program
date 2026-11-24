@@ -2,50 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Condición](./condicion.md) · [Condición de carrera →](./condicion-de-carrera.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 32](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 32](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/README.md)
 
 ## Definición
 
-Regla automática que detiene el experimento y revierte la falla al cumplirse.
-
-Definición de trabajo de [SE-506 — Diseñar experimentos de fallo: alcance y radio de impacto](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-394 — Caos controlado y pruebas de distribución](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-394-caos-controlado-y-pruebas-de-distribucion/README.md): Umbral de una métrica que detiene el experimento.
+Una **condición de aborto** es una regla evaluada de forma automática durante un experimento que, si se cumple, lo detiene y revierte la falla ([SE-506](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md)). [SE-394](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-394-caos-controlado-y-pruebas-de-distribucion/README.md) la usa en el sentido de umbral de una métrica que detiene el experimento. Es el freno de seguridad de la ingeniería del caos.
 
 ## Por qué importa
 
-En [SE-506 — Diseñar experimentos de fallo: alcance y radio de impacto](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md), el tema «Condiciones de aborto» importa porque la medida de aborto debe verse el daño que pretende limitar.
+Un experimento de falla inyectada puede salirse de lo previsto: el servicio puede degradarse más de lo esperado o la falla puede alcanzar a otro servicio. Sin freno automático, el daño depende de que una persona mire a tiempo. La decisión que cambia es que el experimento solo se autoriza cuando se sabe, antes de empezar, en qué punto se detiene solo.
 
 ## Cómo funciona
 
-Según [SE-506 — Diseñar experimentos de fallo: alcance y radio de impacto](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md), en la sección «Condiciones de aborto»:
+[SE-506](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md) cita dos implementaciones reales. AWS FIS usa **condiciones de parada**: alarmas de CloudWatch construidas a partir del estado estable que detienen el experimento si el servicio alcanza un estado inaceptable; un experimento detenido no se puede reanudar. ChAP incorpora un interruptor propio que lo termina automáticamente si se supera un presupuesto de error predefinido.
 
-Una **condición de aborto** es una regla evaluada de forma automática durante el experimento que, si se cumple, lo detiene y revierte la falla. AWS FIS la implementa como condiciones de parada: alarmas de CloudWatch construidas a partir del estado estable que detienen el experimento si el servicio alcanza un estado inaceptable, y aclara que un experimento detenido no se puede reanudar. ChAP incorpora un interruptor propio del experimento que lo termina automáticamente si se supera un presupuesto de error predefinido. Tres rasgos separan una condición útil de una decorativa. Se evalúa sobre el **grupo experimental** y no sobre el tráfico global, porque un grupo del 1 % no mueve el global.
-
-Se pone a prueba con una sorpresa. El experimento planeado inyecta 20 % de errores, pero a los 60 s la falla empeora a 100 %, como ocurriría si la falla compartiera un recurso con otro servicio. Se comparan cuatro políticas: sin aborto; abortar si el servicio global falla más de 1 % en una ventana de 10 s; abortar si el grupo experimental falla más de 50 % en 10 s; y abortar al acumular 300 peticiones dañadas. Se mide el daño total en peticiones para cuatro radios.
-
-**Cómo leer la figura.** Cada grupo de barras es un radio y cada barra una política; la escala es logarítmica. Sin aborto, el daño crece de 104 a 11 444 peticiones del radio menor al mayor. Con 2 % del tráfico, el aborto por el SLO global y el del grupo experimental se disparan a los 65 s (cinco segundos después del cambio) y limitan el daño a 34; el presupuesto de 300 peticiones se agota a los 240 s y deja pasar 305. Con 10 % y 50 %, el SLO global aborta a los 10 s, **antes de que la falla empeore**, porque el 20 % de errores esperado ya consume más del 1 % global: el experimento nunca habría llegado a ver lo que quería probar.
+La clase da tres rasgos que separan una condición útil de una decorativa. El primero: se evalúa sobre el **grupo experimental** y no sobre el tráfico global, porque un grupo del 1 % no mueve el global. Los otros los muestra una simulación: el experimento planeado inyecta 20 % de errores, pero a los 60 s la falla empeora a 100 %. Se comparan cuatro políticas (sin aborto; abortar si el global falla más de 1 % en 10 s; abortar si el grupo experimental falla más de 50 % en 10 s; abortar al acumular 300 peticiones dañadas) y se mide el daño en peticiones. Sin aborto, el daño crece de 104 a 11 444 peticiones del radio menor al mayor; con 2 % del tráfico, los abortos por umbral se disparan a los 65 s y limitan el daño a 34.
 
 ## Ejemplo
 
-Ejemplo de [SE-506 — Diseñar experimentos de fallo: alcance y radio de impacto](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md) (sección «Ejemplo mínimo»):
-
-Imprime `54.0 1350.0`. El experimento con 2 % daña unas 54 peticiones; el de 50 %, 1 350. Registra versión de Python, comando y salida; luego decide a qué fracción el costo supera 300 peticiones y compáralo con la condición de aborto por presupuesto.
+Un experimento inyecta latencia en el 1 % del tráfico. Su condición de aborto es una alarma sobre la tasa de errores del grupo experimental; si supera el 50 % durante 10 segundos, el experimento se detiene y la falla se revierte. Si la falla empeora por compartir un recurso con otro servicio, el freno actúa en segundos en lugar de esperar a una persona.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El experimento «terminó» sin conclusión** — causa: falta el estado estable o la condición de aborto. Corrección: definirlos antes y registrar el resultado. ([SE-394](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-394-caos-controlado-y-pruebas-de-distribucion/README.md))
+- **El experimento «terminó» sin conclusión**: falta el estado estable o la condición de aborto; se definen antes y se registra el resultado ([SE-394](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-394-caos-controlado-y-pruebas-de-distribucion/README.md)).
+- **Medir sobre el tráfico global**: un grupo pequeño no mueve el global y la condición nunca dispara.
+- **Condición inalcanzable**: un umbral que nunca se cumple es decorativo; un linter de forma, como el de [SE-394](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-394-caos-controlado-y-pruebas-de-distribucion/README.md), lo comprueba.
+- **Confiar solo en el aborto**: no sustituye acotar el alcance.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un linter de forma comprueba que cada campo exista, que el alcance no sea el 100 % del tráfico, que la condición de aborto sea alcanzable y que la hipótesis contenga un umbral. ([SE-394](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-394-caos-controlado-y-pruebas-de-distribucion/README.md))
-- Puede hacerse, pero solo con un alcance acotado, una hipótesis medible y una condición de aborto, y después de haber ensayado en entornos de prueba. ([SE-394](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-394-caos-controlado-y-pruebas-de-distribucion/README.md))
+La condición reduce el daño pero no lo elimina: entre la causa y la detección hay una ventana, y el daño acumulado en esa ventana ya ocurrió. [SE-394](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-394-caos-controlado-y-pruebas-de-distribucion/README.md) permite experimentos en producción solo con alcance acotado, hipótesis medible, condición de aborto y ensayo previo en entornos de prueba. Las cifras de la simulación son del escenario construido en la clase; el valor del umbral y de la ventana depende de cada servicio.
 
 ## Relación con otros conceptos
 

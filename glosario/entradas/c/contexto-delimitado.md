@@ -2,45 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Contexto del inquilino](./contexto-del-inquilino.md) · [Contextos →](./contextos.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 27](../../../classes/part-27-arquitectura-de-software-y-dominio/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 27](../../../classes/part-27-arquitectura-de-software-y-dominio/README.md)
 
 ## Definición
 
-Frontera dentro de la cual un modelo y su lenguaje son consistentes.
-
-Definición de trabajo de [SE-546 — DDD como lenguaje ubicuo y contexto para agentes](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-546-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-329 — Domain-Driven Design estratégico y táctico](../../../classes/part-27-arquitectura-de-software-y-dominio/se-329-domain-driven-design-estrategico-y-tactico/README.md): Frontera dentro de la cual un modelo y su lenguaje tienen un significado único y preciso.
-- En [SE-381 — Anti-corruption layers y traducción de modelos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-381-anti-corruption-layers-y-traduccion-de-modelos/README.md): Ámbito dentro del cual un modelo y su vocabulario tienen un significado único.
+Un **contexto delimitado** (*bounded context*) es la frontera dentro de la cual un modelo y su lenguaje son consistentes y tienen un significado único y preciso ([SE-546](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-546-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md), [SE-329](../../../classes/part-27-arquitectura-de-software-y-dominio/se-329-domain-driven-design-estrategico-y-tactico/README.md), [SE-381](../../../classes/part-31-integracion-eventos-y-mensajeria/se-381-anti-corruption-layers-y-traduccion-de-modelos/README.md)). Es un concepto del diseño orientado al dominio: la consistencia se garantiza dentro del límite, no en todo el sistema.
 
 ## Por qué importa
 
-En [SE-546 — DDD como lenguaje ubicuo y contexto para agentes](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-546-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md), el tema «Contexto delimitado» importa porque dice dónde vale un modelo; fuera de él, la palabra puede significar otra cosa.
+La misma palabra significa cosas distintas en áreas distintas del negocio. Pretender un modelo único para todo el sistema produce, según [SE-546](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-546-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md), un objeto con campos para todos los usos que nadie entiende por completo. La decisión que cambia es dónde trazar las fronteras: en lugar de unificar definiciones, se acepta que cada contexto tiene la suya y se invierte en una traducción explícita entre ellas.
 
 ## Cómo funciona
 
-Según [SE-546 — DDD como lenguaje ubicuo y contexto para agentes](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-546-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md), en la sección «Contexto delimitado»:
+[SE-546](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-546-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md) da un ejemplo sobre la palabra «entrega». En el contexto académico, una entrega es el trabajo de una persona estudiante, con un estado «pendiente» o «recibida». En el contexto de avisos, una entrega es un elemento con vencimiento y un indicador de si ya se entregó. Los dos contextos no necesitan acordar una definición única; necesitan una **traducción explícita en su frontera**.
 
-Un **contexto delimitado** es el límite dentro del cual un modelo y su lenguaje son consistentes. Dentro del contexto académico, «entrega» es el trabajo de una persona estudiante, con un estado «pendiente» o «recibida». Dentro del contexto de avisos, «entrega» es un elemento con vencimiento y un indicador de si ya se entregó. Los dos contextos no necesitan acordar una definición única; necesitan una **traducción explícita** en su frontera. El error de pretender un modelo único para todo el sistema produce un objeto con campos para todos los usos que nadie entiende por completo.
+Esa traducción es el punto de contacto: la capa anticorrupción convierte el vocabulario de un contexto al del otro, y es el único lugar donde se conocen ambos. Dentro de cada contexto, el modelo puede ser simple y coherente, porque no tiene que servir a usos ajenos. Las fronteras se relacionan en el mapa de contextos, que registra qué contexto depende de cuál y de qué manera: por ejemplo, adoptando el modelo ajeno tal cual (conformista) o traduciéndolo. [SE-329](../../../classes/part-27-arquitectura-de-software-y-dominio/se-329-domain-driven-design-estrategico-y-tactico/README.md) lo trata como una decisión de arquitectura de dominio y [SE-381](../../../classes/part-31-integracion-eventos-y-mensajeria/se-381-anti-corruption-layers-y-traduccion-de-modelos/README.md) como una frontera de integración, donde un modelo y su vocabulario tienen un significado único.
 
 ## Ejemplo
 
-Ejemplo de [SE-546 — DDD como lenguaje ubicuo y contexto para agentes](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-546-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md) (sección «Preguntas frecuentes»):
-
-El lenguaje ubicuo vale en cualquier tamaño: un glosario de diez términos ya reduce errores. Los contextos delimitados importan cuando hay dos o más modelos con la misma palabra; en un sistema con un solo modelo no hacen falta.
+El contexto académico guarda `entrega` con `estado = recibida`. El contexto de avisos guarda `entrega` con `vence_en` y `entregada = true/false`. Entre ambos, una función traduce `recibida` a `true`. Si mañana el contexto académico añade «en revisión», se decide en un solo lugar si cuenta como entregada. Ejemplo de [SE-546](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-546-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md).
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+- **Un modelo único para todo el sistema**: produce un objeto con campos para todos los usos.
+- **Creer que un contexto es un servicio**: un contexto delimitado es una frontera de modelo y lenguaje; puede o no coincidir con un servicio desplegable.
+- **Fronteras sin traducción explícita**: el vocabulario de uno se filtra al otro.
+- **Dibujar el contexto por organigrama** en vez de por significado de las palabras.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un **contexto delimitado** es el límite dentro del cual un modelo y su lenguaje son consistentes. ([SE-546](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-546-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md))
-- Los contextos delimitados importan cuando hay dos o más modelos con la misma palabra; en un sistema con un solo modelo no hacen falta. ([SE-546](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-546-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md))
+[SE-546](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-546-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md) lo limita expresamente: los contextos delimitados importan cuando hay dos o más modelos con la misma palabra; en un sistema con un solo modelo no hacen falta. Trazar fronteras tiene costo (traducción, mantenimiento) y un sistema pequeño o con un vocabulario único no lo recupera. Y las fronteras no se descubren por decreto: dependen de entender el dominio con quienes lo conocen.
 
 ## Relación con otros conceptos
 

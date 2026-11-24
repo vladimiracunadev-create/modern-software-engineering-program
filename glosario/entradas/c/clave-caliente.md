@@ -2,39 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Clausura transitiva](./clausura-transitiva.md) · [Clave de caché →](./clave-de-cache.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 29](../../../classes/part-29-datos-persistencia-y-recuperacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 29](../../../classes/part-29-datos-persistencia-y-recuperacion/README.md)
 
 ## Definición
 
-Clave que recibe una fracción desproporcionada de las peticiones.
-
-Definición de trabajo de [SE-355 — Replicación, partición y distribución](../../../classes/part-29-datos-persistencia-y-recuperacion/se-355-replicacion-particion-y-distribucion/README.md).
+Una **clave caliente** es una clave que recibe una fracción desproporcionada de las peticiones ([SE-355](../../../classes/part-29-datos-persistencia-y-recuperacion/se-355-replicacion-particion-y-distribucion/README.md)). En un sistema particionado por clave, la partición que la contiene soporta una carga muy superior a la de las demás, aunque los datos estén repartidos de forma equilibrada.
 
 ## Por qué importa
 
-En [SE-355 — Replicación, partición y distribución](../../../classes/part-29-datos-persistencia-y-recuperacion/se-355-replicacion-particion-y-distribucion/README.md), el tema «Clave caliente» importa porque una clave muy popular no se reparte con ninguna función.
+Particionar por clave promete escalar horizontalmente: más nodos, más capacidad. La clave caliente rompe esa promesa, porque la capacidad que se añade no llega al nodo saturado. La decisión que cambia es dónde se busca la solución: no en comprar más nodos, sino en rediseñar la clave o en sacar la carga de esa partición. Reconocerla evita gastar en escala que no alivia el cuello de botella.
 
 ## Cómo funciona
 
-Según [SE-355 — Replicación, partición y distribución](../../../classes/part-29-datos-persistencia-y-recuperacion/se-355-replicacion-particion-y-distribucion/README.md), en la sección «Clave caliente»:
+El reparto por clave solo equilibra la carga si la popularidad de las claves es aproximadamente uniforme. [SE-355](../../../classes/part-29-datos-persistencia-y-recuperacion/se-355-replicacion-particion-y-distribucion/README.md) señala el caso real: unos pocos estudiantes o cursos concentran muchas peticiones. Como una clave vive en una sola partición, esa partición recibe todo el tráfico de la clave, y **añadir nodos no la alivia** porque la clave no se reparte entre ellos. En la simulación de [SE-355](../../../classes/part-29-datos-persistencia-y-recuperacion/se-355-replicacion-particion-y-distribucion/README.md) la popularidad sigue una distribución de Zipf (supuesto del autor), donde pocas claves acumulan la mayoría de las peticiones.
 
-Si la popularidad de las claves no es uniforme (unos pocos estudiantes o cursos concentran muchas peticiones), una sola partición recibe una fracción desproporcionada, y añadir nodos no la alivia. Las salidas son cambiar la clave (repartir por un campo más fino), dividir la clave caliente en subclaves (lecturas a todas, a costa de complejidad) o servirla desde una caché (`SE-356`). Un rango contiguo de identificadores es la peor opción cuando los identificadores recientes son los populares, porque todo el tráfico va a la última partición.
+[SE-355](../../../classes/part-29-datos-persistencia-y-recuperacion/se-355-replicacion-particion-y-distribucion/README.md) da tres salidas:
+
+1. **Cambiar la clave**, repartiendo por un campo más fino.
+2. **Dividir la clave caliente en subclaves**: las escrituras se reparten, a costa de que las lecturas deban consultar todas y de complejidad adicional.
+3. **Servirla desde una caché** ([SE-356](../../../classes/part-29-datos-persistencia-y-recuperacion/se-356-caches-y-consistencia-entre-capas/README.md)), que absorbe las lecturas repetidas.
+
+Y un agravante: un rango contiguo de identificadores es la peor elección cuando los identificadores recientes son los populares, porque todo el tráfico cae en la última partición.
 
 ## Ejemplo
 
-Ejemplo de [SE-355 — Replicación, partición y distribución](../../../classes/part-29-datos-persistencia-y-recuperacion/se-355-replicacion-particion-y-distribucion/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la plataforma decide con medidas. Para «mis entregas» elige una réplica de lectura con la garantía de leer lo propio: el cliente guarda el número de versión de su última escritura y la réplica solo responde si ya lo aplicó; si no, la petición va al líder, y se vigila que esa fracción se mantenga por debajo del 10 %.
+Una plataforma de entregas particiona por identificador de curso. Un curso muy activo en fecha de entrega recibe la mayor parte del tráfico y su nodo se satura, mientras los otros están ociosos. Duplicar los nodos no cambia nada. Repartir por curso y estudiante reparte la carga; o se divide el curso caliente en subclaves, o se sirve su lectura desde caché. Ilustración del escenario de [SE-355](../../../classes/part-29-datos-persistencia-y-recuperacion/se-355-replicacion-particion-y-distribucion/README.md).
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Un nodo está saturado y los demás ociosos** — causa: clave caliente o rango contiguo. Corrección: cambiar la clave, repartir en subclaves o usar caché. ([SE-355](../../../classes/part-29-datos-persistencia-y-recuperacion/se-355-replicacion-particion-y-distribucion/README.md))
+- **Un nodo está saturado y los demás ociosos**: clave caliente o rango contiguo; se corrige cambiando la clave, repartiendo en subclaves o con caché.
+- **Responder con más nodos**: no mueve la carga de la clave.
+- **Confundirla con un desequilibrio de datos**: el problema es de tráfico, no de volumen almacenado.
+- **Olvidar el costo del reparto en subclaves**: las lecturas pasan a tocar varias particiones.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-355 — Replicación, partición y distribución](../../../classes/part-29-datos-persistencia-y-recuperacion/se-355-replicacion-particion-y-distribucion/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres simulaciones con semilla fija en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ninguna base de datos distribuida ni red: el retardo exponencial, la lectura uniforme y la popularidad Zipf son supuestos del autor, el cuórum no modela fallos de nodos ni escrituras parciales y no se midió latencia ni el costo de mover datos.
+[SE-355](../../../classes/part-29-datos-persistencia-y-recuperacion/se-355-replicacion-particion-y-distribucion/README.md) advierte que sus tres simulaciones con semilla fija no usaron base distribuida ni red; el retardo exponencial, la lectura uniforme y la popularidad Zipf son supuestos del autor, y no se midió latencia ni el costo de mover datos. El concepto aplica a sistemas particionados por clave; con carga realmente uniforme o con un solo nodo, no es el problema. La caché solo ayuda con lecturas, no con escrituras sobre la misma clave.
 
 ## Relación con otros conceptos
 

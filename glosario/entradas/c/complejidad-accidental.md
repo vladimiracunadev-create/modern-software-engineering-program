@@ -2,40 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Complejidad](./complejidad.md) · [Complejidad ciclomática →](./complejidad-ciclomatica.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 25](../../../classes/part-25-diseno-patrones-y-refactorizacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 25](../../../classes/part-25-diseno-patrones-y-refactorizacion/README.md)
 
 ## Definición
 
-La que introduce la solución elegida y puede reducirse con otra forma.
-
-Definición de trabajo de [SE-309 — Complejidad accidental y esencial](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-309-complejidad-accidental-y-esencial/README.md).
+La **complejidad accidental** es la que introduce la solución elegida y puede reducirse con otra forma de resolver lo mismo ([SE-309](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-309-complejidad-accidental-y-esencial/README.md)). Frente a la esencial, que viene del problema, esta viene de cómo se escribió el programa. La distinción es de Brooks, que la usó para decir que las herramientas pueden atacar la primera clase de complejidad y no la segunda.
 
 ## Por qué importa
 
-En [SE-309 — Complejidad accidental y esencial](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-309-complejidad-accidental-y-esencial/README.md), el tema «Complejidad accidental» importa porque la añade la forma de la solución y se puede reducir.
+Cuando un código es difícil, la pregunta útil es si la dificultad viene del problema o de la forma de la solución. Si viene de la forma, hay trabajo que se puede quitar sin cambiar lo que el sistema hace; si viene del problema, intentar quitarla rompe reglas del negocio. La decisión que cambia es dónde se invierte el esfuerzo de simplificar y dónde se debe respetar la complejidad.
 
 ## Cómo funciona
 
-Según [SE-309 — Complejidad accidental y esencial](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-309-complejidad-accidental-y-esencial/README.md), en la sección «Complejidad accidental»:
+[SE-309](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-309-complejidad-accidental-y-esencial/README.md) enumera sus fuentes típicas: estado mutable que hay que seguir, banderas que interactúan, anidamiento que repite casos, capas sin razón y nombres que obligan a traducir. Se reconoce con una prueba concreta: **el mismo comportamiento se puede escribir con menos partes que interactúan**. Si al simplificar el comportamiento observable es idéntico, lo eliminado era accidental.
 
-Es la que introduce la solución: estado mutable que hay que seguir, banderas que interactúan, anidamiento que repite casos, capas sin razón, nombres que obligan a traducir. Brooks la separó de la esencial para decir que las herramientas pueden atacar la primera y no la segunda. Se reconoce porque el mismo comportamiento se puede escribir con menos partes que interactúan. Se reduce cambiando la forma, siempre con una red de pruebas (`SE-307`).
+Se reduce **cambiando la forma**, y siempre con una red de pruebas ([SE-307](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-307-refactorizacion-segura-apoyada-por-pruebas/README.md)) que garantice que el comportamiento no cambió. El ejemplo de la clase es una función de tarifas con cuatro zonas, tres bandas de peso y tres opciones: 96 casos. Escrita con un camino de código por caso, tiene 96 caminos; pasando los casos a una tabla y una regla común, el comportamiento es el mismo con mucho menos código que interactúa. Los 96 casos siguen existiendo (eso es complejidad esencial); lo que desaparece es la repetición.
 
 ## Ejemplo
 
-Caso medido en la sección «Complejidad accidental» de [SE-309 — Complejidad accidental y esencial](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-309-complejidad-accidental-y-esencial/README.md):
-
-Es la que introduce la solución: estado mutable que hay que seguir, banderas que interactúan, anidamiento que repite casos, capas sin razón, nombres que obligan a traducir. Brooks la separó de la esencial para decir que las herramientas pueden atacar la primera y no la segunda. Se reconoce porque el mismo comportamiento se puede escribir con menos partes que interactúan. Se reduce cambiando la forma, siempre con una red de pruebas (`SE-307`).
+Una función de `tarifas` anidada con un `if` por cada combinación de zona, banda y opción acumula 96 ramas. Se reescribe como una tabla de tarifas base más una regla de recargos. La complejidad ciclomática baja y los 96 resultados son idénticos, comprobados con una prueba que recorre todos los casos. Es el análisis con datos sintéticos que describe [SE-309](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-309-complejidad-accidental-y-esencial/README.md).
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-309 — Complejidad accidental y esencial](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-309-complejidad-accidental-y-esencial/README.md)) son:
-
-- **Una función con 96 caminos de código para 96 casos** — causa: cada caso tiene su propio código. Corrección: pasar los casos a una tabla y una regla común.
-- **Se reduce la complejidad y se pierde una regla** — causa: se simplificó sin la lista de casos del negocio. Corrección: escribir los casos antes y comprobar la equivalencia.
+- **Una función con 96 caminos de código para 96 casos**: cada caso tiene su propio código; se corrige pasando los casos a una tabla y una regla común.
+- **Se reduce la complejidad y se pierde una regla**: se simplificó sin la lista de casos del negocio; se corrige escribiendo los casos antes y comprobando la equivalencia.
+- **Llamar accidental a lo que es del negocio**: simplificar una regla real es cambiar el sistema.
+- **Simplificar sin pruebas**: no hay forma de saber si el comportamiento se conservó.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-309 — Complejidad accidental y esencial](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-309-complejidad-accidental-y-esencial/README.md)) son: Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final. Se ejecutaron tres análisis con código de ejemplo y datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ningún proyecto real ni se validó la complejidad cognitiva con personas; la regla de tarifa, las opciones binarias y las cinco funciones son construcciones del autor. La siguiente clase pone precio a la complejidad que se decide no reducir.
+La frontera entre accidental y esencial no es automática: depende de qué se considere «el problema», y dos personas pueden clasificar distinto. [SE-309](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-309-complejidad-accidental-y-esencial/README.md) advierte que sus definiciones son operativas para `tarifas` y que sus análisis usan código de ejemplo con datos sintéticos; no se midió ningún proyecto real ni se validó la complejidad cognitiva con personas. Reducir la complejidad accidental tiene costo (tiempo, riesgo de regresión), y la clase siguiente pone precio a la que se decide no reducir.
 
 ## Relación con otros conceptos
 

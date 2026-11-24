@@ -2,46 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Cuello de botella](./cuello-de-botella.md) · [Cuota →](./cuota.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 29](../../../classes/part-29-datos-persistencia-y-recuperacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 29](../../../classes/part-29-datos-persistencia-y-recuperacion/README.md)
 
 ## Definición
 
-Número mínimo de réplicas que deben responder para dar una operación por válida; R + W > N asegura el solapamiento.
-
-Definición de trabajo de [SE-355 — Replicación, partición y distribución](../../../classes/part-29-datos-persistencia-y-recuperacion/se-355-replicacion-particion-y-distribucion/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-390 — Consistencia, disponibilidad y particiones](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-390-consistencia-disponibilidad-y-particiones/README.md): Número mínimo de réplicas que deben participar en una operación.
+El **cuórum** es el número mínimo de réplicas que deben responder o participar para dar una operación por válida ([SE-355](../../../classes/part-29-datos-persistencia-y-recuperacion/se-355-replicacion-particion-y-distribucion/README.md), [SE-390](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-390-consistencia-disponibilidad-y-particiones/README.md)). En los sistemas sin líder fijo se expresa con tres números: N réplicas por dato, W confirmaciones para escribir y R consultas para leer; la condición `R + W > N` asegura que lectura y escritura se solapen.
 
 ## Por qué importa
 
-En [SE-355 — Replicación, partición y distribución](../../../classes/part-29-datos-persistencia-y-recuperacion/se-355-replicacion-particion-y-distribucion/README.md), el tema «Cuórum» importa porque R + W > N garantiza que una lectura vea la última escritura.
+Cuando un dato vive en varias réplicas, cada operación debe decidir cuántas consultar o confirmar. Pocas hacen el sistema rápido y disponible, pero pueden devolver datos viejos; muchas dan lecturas más actuales a costa de latencia y de tolerar menos caídas. La decisión que cambia es elegir (W, R) con un cálculo, no por defecto ni por «rapidez».
 
 ## Cómo funciona
 
-Según [SE-355 — Replicación, partición y distribución](../../../classes/part-29-datos-persistencia-y-recuperacion/se-355-replicacion-particion-y-distribucion/README.md), en la sección «Cuórum»:
+[SE-355](../../../classes/part-29-datos-persistencia-y-recuperacion/se-355-replicacion-particion-y-distribucion/README.md) lo explica así. Cada dato vive en N réplicas. Una escritura se confirma al llegar a W réplicas; una lectura consulta R réplicas y se queda con la versión más nueva. Si **R + W > N**, el conjunto de réplicas leídas y el de réplicas escritas siempre comparten al menos una, y por tanto la lectura ve la última escritura confirmada. Si no, puede no verla.
 
-En un sistema sin líder fijo, cada dato vive en N réplicas. Una escritura se confirma al llegar a W réplicas y una lectura consulta R, y se queda con la versión más nueva. Si **R + W > N**, los conjuntos de lectura y de escritura siempre se solapan y la lectura ve la última escritura confirmada; si no, puede no verla. Con N = 3, W = 2 y R = 2 se cumple y se tolera la caída de una réplica; con W = 1 y R = 1 es el más rápido y el que más lecturas viejas devuelve. El cuórum no garantiza consistencia fuerte en todos los casos (hay detalles de escrituras parciales y relojes) pero da una condición clara y medible.
+Valores de la clase: con N = 3, W = 2 y R = 2 se cumple la condición y se tolera la caída de una réplica; con W = 1 y R = 1 es el más rápido y el que más lecturas viejas devuelve. [SE-390](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-390-consistencia-disponibilidad-y-particiones/README.md) lo presenta como número mínimo de réplicas que deben participar y relaciona los errores típicos: una persona que no ve su propia escritura (lectura de una réplica atrasada, corregible con consistencia de sesión o lectura del cuórum) y un cuórum 1/1 elegido sin calcular lo que se pierde.
+
+La propia clase advierte que el cuórum no garantiza consistencia fuerte en todos los casos: hay detalles de escrituras parciales y de relojes. Lo que da es una condición clara y medible.
 
 ## Ejemplo
 
-Ejemplo de [SE-355 — Replicación, partición y distribución](../../../classes/part-29-datos-persistencia-y-recuperacion/se-355-replicacion-particion-y-distribucion/README.md) (sección «Ejemplo mínimo»):
-
-El fragmento calcula la probabilidad de una lectura obsoleta en un cuórum. Antes de ejecutarlo, predice el resultado para N = 3, W = 1, R = 2.
+Con N = 3, una escritura llega a las réplicas A y B (W = 2) mientras C está atrasada. Una lectura con R = 2 consulta B y C: B tiene la versión nueva, C la vieja; el lector toma la más nueva y ve la escritura. Con R = 1 podría consultar solo C y devolver un dato viejo. Cálculo directo de la condición de [SE-355](../../../classes/part-29-datos-persistencia-y-recuperacion/se-355-replicacion-particion-y-distribucion/README.md).
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Una persona no ve su propia escritura** — causa: lectura de una réplica atrasada. Corrección: consistencia de sesión o lectura del cuórum. ([SE-390](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-390-consistencia-disponibilidad-y-particiones/README.md))
-- **El cuórum es 1/1 por «rapidez»** — causa: no se calculó lo que se pierde. Corrección: elegir (W, R) con `W + R > N` si importa lo último. ([SE-390](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-390-consistencia-disponibilidad-y-particiones/README.md))
+- **Una persona no ve su propia escritura**: lectura de una réplica atrasada; consistencia de sesión o lectura del cuórum ([SE-390](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-390-consistencia-disponibilidad-y-particiones/README.md)).
+- **El cuórum es 1/1 por «rapidez»**: no se calculó lo que se pierde; elegir (W, R) con `W + R > N` si importa lo último.
+- **Creer que R + W > N garantiza consistencia fuerte**: no cubre escrituras parciales ni relojes.
+- **Confundirlo con el quórum de un consenso con líder**: es una familia de mecanismos distinta, con líder y mayoría.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- El cuórum no garantiza consistencia fuerte en todos los casos (hay detalles de escrituras parciales y relojes) pero da una condición clara y medible. ([SE-355](../../../classes/part-29-datos-persistencia-y-recuperacion/se-355-replicacion-particion-y-distribucion/README.md))
+[SE-355](../../../classes/part-29-datos-persistencia-y-recuperacion/se-355-replicacion-particion-y-distribucion/README.md) aclara que sus simulaciones no modelan fallos de nodos ni escrituras parciales ni miden latencia o costo de mover datos; el retardo exponencial y la lectura uniforme son supuestos del autor. Si lo importante es disponibilidad o latencia sobre frescura, puede bastar un cuórum bajo; si hay un líder único que ordena las escrituras, la replicación sigue otro modelo y la condición no es la misma.
 
 ## Relación con otros conceptos
 

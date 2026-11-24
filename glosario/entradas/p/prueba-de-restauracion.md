@@ -2,40 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← Prueba de resistencia](./prueba-de-resistencia.md) · [Prueba de trabajo →](./prueba-de-trabajo.md)
 
-> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 29](../../../classes/part-29-datos-persistencia-y-recuperacion/README.md)
+> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 29](../../../classes/part-29-datos-persistencia-y-recuperacion/README.md)
 
 ## Definición
 
-Ejercicio que restaura una copia en un entorno aislado y verifica su contenido y su tiempo.
-
-Definición de trabajo de [SE-357 — Backups, restauración y pruebas de recuperación](../../../classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion/README.md).
+La **prueba de restauración** es el ejercicio que restaura una copia en un entorno aislado y verifica su contenido y su tiempo ([SE-357](../../../classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion/README.md)). Es la única prueba de la hipótesis de que se puede volver: una copia que nunca se restauró es una suposición.
 
 ## Por qué importa
 
-En [SE-357 — Backups, restauración y pruebas de recuperación](../../../classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion/README.md), el tema «Prueba de restauración» importa porque una copia sin restaurar es una hipótesis.
+Hacer copias de seguridad es fácil; recuperar es lo que cuenta. Las copias pueden estar incompletas, corruptas, inconsistentes o simplemente ser inutilizables con los procedimientos que el equipo conoce. La decisión que cambia es qué se considera «respaldado»: no lo que tiene una copia, sino lo que se ha restaurado con éxito, y en qué tiempo.
 
 ## Cómo funciona
 
-Según [SE-357 — Backups, restauración y pruebas de recuperación](../../../classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion/README.md), en la sección «Prueba de restauración»:
+[SE-357](../../../classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion/README.md) define el procedimiento: restaurar una copia reciente en un entorno aislado, ejecutar la verificación, medir el tiempo y registrar quién lo hizo y qué falló. Dos reglas de frecuencia:
 
-La prueba de restauración es la única que prueba la hipótesis de que se puede volver. Consiste en restaurar una copia reciente en un entorno aislado, ejecutar la verificación, medir el tiempo y registrar quién lo hizo y qué falló. Se hace periódicamente (una copia no ensayada en el último trimestre se considera no verificada) y después de cada cambio que afecte al respaldo (una migración, un cambio de proveedor). También hay que ensayar el caso inverso: qué pasa cuando la última copia está dañada y hay que usar la anterior, y cuántos datos más se pierden.
+- **Periódica**: una copia no ensayada en el último trimestre se considera **no verificada**.
+- **Tras cada cambio** que afecte al respaldo: una migración, un cambio de proveedor.
+
+La verificación debe ser **de negocio**, no solo estructural: una copia ingenua tomada con la base en uso puede restaurarse «con éxito» y tener datos erróneos, porque cada página es válida pero el conjunto no corresponde a ningún instante. Por eso la clase combina la prueba de restauración con la copia consistente: la primera prueba el camino de vuelta, la segunda garantiza el contenido.
+
+También hay que ensayar el **caso inverso**: qué pasa cuando la última copia está dañada y hay que usar la anterior, y cuántos datos más se pierden. Eso conecta con el objetivo de punto de recuperación: la restauración mide el tiempo realmente necesario (que alimenta el RTO) y revela cuánta información se pierde (el RPO real).
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-357 — Backups, restauración y pruebas de recuperación](../../../classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion/README.md):
-
-El equipo de la plataforma fija con la dirección un RPO de 15 minutos para entregas y calificaciones y de 24 horas para registros de acceso, y un RTO de 2 horas. De ahí deriva la estrategia: una copia completa diaria con la API del motor, el registro de cambios archivado cada 5 minutos a un almacén en otra región, y una retención de 14 días para las copias y de 7 para el registro.
+Cada trimestre, el equipo restaura la copia más reciente en un entorno aislado, ejecuta consultas de verificación de negocio (totales, conteos, relaciones), mide cuánto tarda y anota quién lo hizo y qué falló. En una prueba descubren que el procedimiento depende de una clave que solo conocía una persona. Lo corrigen antes de necesitarlo. Ilustración del procedimiento de [SE-357](../../../classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion/README.md).
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-357 — Backups, restauración y pruebas de recuperación](../../../classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion/README.md)) son:
-
-- **La restauración termina bien y los datos son erróneos** — causa: copia ingenua con la base en uso. Corrección: API de copia consistente y verificación de negocio.
-- **Se pierden horas de trabajo tras un borrado accidental** — causa: solo copia diaria y sin registro de cambios. Corrección: archivar el registro para recuperar a un instante.
+- **La restauración termina bien y los datos son erróneos**: copia ingenua con la base en uso; se corrige con la API de copia consistente y verificación de negocio.
+- **Se pierden horas de trabajo tras un borrado accidental**: solo copia diaria y sin registro de cambios; se corrige archivando el registro para recuperar a un instante.
+- **Comprobar solo que el archivo existe o que el motor arranca**.
+- **No registrar quién y cómo**: el conocimiento queda en una persona.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-357 — Backups, restauración y pruebas de recuperación](../../../classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. Las bases son pequeñas y de SQLite; las 200 mutaciones son construcciones del autor y los fallos de la primera simulación son uniformes con una escritura constante. No se midió el tiempo de restauración ni se probó cifrado, almacenamiento remoto, otro motor o datos de producción.
+[SE-357](../../../classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion/README.md) aclara que sus experimentos usan bases pequeñas de SQLite y datos sintéticos; no se midió el tiempo de restauración con volumen real ni se probó cifrado, almacenamiento remoto, otro motor o datos de producción. Una restauración probada en un entorno aislado no garantiza el tiempo en una emergencia real (con otro volumen, otra red y menos calma). Y verifica un momento: la copia de hoy, no las futuras.
 
 ## Relación con otros conceptos
 

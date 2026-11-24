@@ -2,55 +2,43 @@
 
 [↑ Glosario](../../README.md) · [← Retardo de replicación](./retardo-de-replicacion.md) · [Retención bruta y neta →](./retencion-bruta-y-neta.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 29](../../../classes/part-29-datos-persistencia-y-recuperacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 29](../../../classes/part-29-datos-persistencia-y-recuperacion/README.md)
 
 ## Definición
 
-Plazo durante el cual se conserva cada tipo de dato.
-
-Definición de trabajo de [SE-358 — Privacidad, retención y ciclo de vida del dato](../../../classes/part-29-datos-persistencia-y-recuperacion/se-358-privacidad-retencion-y-ciclo-de-vida-del-dato/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-369 — Gobierno, privacidad y retención de datos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-369-gobierno-privacidad-y-retencion-de-datos/README.md): Plazo máximo durante el que se conserva un dato.
-- En [SE-370 — Costos y operación de plataformas de datos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-370-costos-y-operacion-de-plataformas-de-datos/README.md): Plazo de conservación, con su costo en TB-mes.
-- En [SE-525 — Retiro, archivado y disposición de sistemas](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-525-retiro-archivado-y-disposicion-de-sistemas/README.md): Tiempo durante el que se conserva un tipo de dato y fundamento de ese plazo.
-- En [SE-470 — Artefactos, repositorios y promoción](../../../classes/part-39-build-release-y-cadena-de-suministro/se-470-artefactos-repositorios-y-promocion/README.md): Política que decide qué artefactos se conservan y durante cuánto tiempo.
+La **retención** es el plazo durante el cual se conserva cada tipo de dato ([SE-358](../../../classes/part-29-datos-persistencia-y-recuperacion/se-358-privacidad-retencion-y-ciclo-de-vida-del-dato/README.md)). El programa lo usa con matices cercanos: plazo máximo de conservación ([SE-369](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-369-gobierno-privacidad-y-retencion-de-datos/README.md)), plazo con su costo en TB-mes ([SE-370](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-370-costos-y-operacion-de-plataformas-de-datos/README.md)), tiempo con su fundamento ([SE-525](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-525-retiro-archivado-y-disposicion-de-sistemas/README.md)) y, en construcción y releases, la política que decide qué artefactos se conservan y cuánto tiempo ([SE-470](../../../classes/part-39-build-release-y-cadena-de-suministro/se-470-artefactos-repositorios-y-promocion/README.md)).
 
 ## Por qué importa
 
-En [SE-358 — Privacidad, retención y ciclo de vida del dato](../../../classes/part-29-datos-persistencia-y-recuperacion/se-358-privacidad-retencion-y-ciclo-de-vida-del-dato/README.md), el tema «Retención» importa porque un plazo sin purga programada convierte el dato en pasivo.
-
-En [SE-369 — Gobierno, privacidad y retención de datos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-369-gobierno-privacidad-y-retencion-de-datos/README.md), el tema «Retención» importa porque conservar es un costo y un riesgo.
-
-En [SE-409 — Qué hace distinto a un producto SaaS](../../../classes/part-34-saas-y-plataformas-de-producto/se-409-que-hace-distinto-a-un-producto-saas/README.md), el tema «Retención» importa porque decide si lo gastado en conseguir un cliente se recupera.
+Conservar datos para siempre «por si acaso» tiene costos: almacenamiento, riesgo en una filtración y a veces falta de base legal para seguir guardándolos. Borrar demasiado pronto destruye lo que debía conservarse. La decisión que cambia es que el plazo de cada tipo de dato se fija con una justificación, no por inercia.
 
 ## Cómo funciona
 
-Según [SE-358 — Privacidad, retención y ciclo de vida del dato](../../../classes/part-29-datos-persistencia-y-recuperacion/se-358-privacidad-retencion-y-ciclo-de-vida-del-dato/README.md), en la sección «Retención»:
+[SE-358](../../../classes/part-29-datos-persistencia-y-recuperacion/se-358-privacidad-retencion-y-ciclo-de-vida-del-dato/README.md) fija cuatro reglas:
 
-La **retención** fija cuánto tiempo se conserva cada tipo de dato, según su finalidad y las obligaciones aplicables, que decide la institución con asesoría y no el equipo técnico solo. Una retención sin ejecución es un deseo: hace falta un trabajo programado que purgue lo vencido, una medida de cuánto hay vencido y un plazo para cada copia. Un registro de accesos que se conserva «por si acaso» crece sin límite, aumenta el daño de una filtración y puede dejar de tener base para conservarse. El plazo también cubre los respaldos: una copia con datos vencidos los conserva hasta que ella misma expira.
+1. El plazo depende de la **finalidad** y de las **obligaciones aplicables**, y lo decide la institución con asesoría, no el equipo técnico solo.
+2. Una retención sin ejecución es un deseo: hace falta un **trabajo programado de purga**, una **medida de cuánto hay vencido** y un plazo para cada copia.
+3. Un registro de accesos conservado «por si acaso» crece sin límite, aumenta el daño de una filtración y puede dejar de tener base para conservarse.
+4. El plazo también cubre los **respaldos**: una copia con datos vencidos los conserva hasta que ella misma expira.
+
+[SE-525](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-525-retiro-archivado-y-disposicion-de-sistemas/README.md) añade matiz de modernización: un corte único de retención borra actas que debían conservarse; la corrección son reglas por tipo con fundamento y retención legal, y una tabla de retención con proceso de borrado verificado. [SE-370](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-370-costos-y-operacion-de-plataformas-de-datos/README.md) pone el costo (TB-mes) como parte de la decisión, y [SE-470](../../../classes/part-39-build-release-y-cadena-de-suministro/se-470-artefactos-repositorios-y-promocion/README.md) aplica la idea a artefactos: la retención de los artefactos se justifica con la profundidad de los retrocesos que se quieran poder hacer.
+
+Lo que se compra con retención es frente a la compactación: retener descarta por antigüedad, compactar conserva el último valor por clave.
 
 ## Ejemplo
 
-Ejemplo de [SE-358 — Privacidad, retención y ciclo de vida del dato](../../../classes/part-29-datos-persistencia-y-recuperacion/se-358-privacidad-retencion-y-ciclo-de-vida-del-dato/README.md) (sección «Caso conductor»):
-
-La capa de datos de la plataforma de entregas sigue siendo el caso conductor. Esta clase deja el décimo artefacto: el inventario de datos personales con su retención, su procedimiento de borrado y su política de anonimización. `SE-359` pone a prueba lo aprendido sobre migraciones con un taller. Cambia después una sola decisión, el plazo de retención de los eventos de acceso, y observa qué cambia en el volumen, en el riesgo y en las copias.
+La tabla de eventos crece sin parar porque nadie purga. Se define: eventos de depuración, 30 días; registros de acceso, un plazo fijado con asesoría; actas, retención legal. Un trabajo programado borra lo vencido, mide cuánto queda fuera de plazo y alerta si crece. Los respaldos tienen su propio plazo para que los datos vencidos no sobrevivan en ellos. Aplicación de [SE-358](../../../classes/part-29-datos-persistencia-y-recuperacion/se-358-privacidad-retencion-y-ciclo-de-vida-del-dato/README.md).
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La tabla de eventos crece sin parar** — causa: retención sin purga programada. Corrección: trabajo de purga con medida de lo vencido. ([SE-358](../../../classes/part-29-datos-persistencia-y-recuperacion/se-358-privacidad-retencion-y-ciclo-de-vida-del-dato/README.md))
-- **Se borran actas que debían conservarse** — causa: corte único de retención. Corrección: reglas por tipo con fundamento y retención legal. ([SE-525](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-525-retiro-archivado-y-disposicion-de-sistemas/README.md))
-- **Se guardan datos personales de hace diez años** — causa: no hay retención ni disposición. Corrección: tabla de retención y proceso de borrado verificado. ([SE-525](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-525-retiro-archivado-y-disposicion-de-sistemas/README.md))
+- **La tabla de eventos crece sin parar**: retención sin purga programada; se corrige con un trabajo de purga y medida de lo vencido.
+- **Se borran actas que debían conservarse**: corte único de retención; se corrige con reglas por tipo con fundamento.
+- **Se guardan datos personales de hace diez años**: no hay retención ni disposición.
+- **Olvidar las copias**: el dato vencido sigue vivo en los respaldos.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La **retención** fija cuánto tiempo se conserva cada tipo de dato, según su finalidad y las obligaciones aplicables, que decide la institución con asesoría y no el equipo técnico solo. ([SE-358](../../../classes/part-29-datos-persistencia-y-recuperacion/se-358-privacidad-retencion-y-ciclo-de-vida-del-dato/README.md))
-- Traslada el análisis a otro tipo de artefacto (un paquete de biblioteca publicado en un índice, una aplicación móvil enviada a una tienda): cambia el almacén y conserva el procedimiento de identificar por contenido, promover sin reconstruir, guardar el estado como metadatos y justificar la retención con la profundidad de los retrocesos. ([SE-470](../../../classes/part-39-build-release-y-cadena-de-suministro/se-470-artefactos-repositorios-y-promocion/README.md))
+Los plazos concretos son decisiones de cada institución y de la normativa que le aplique; las clases no fijan cifras generales. Retención y borrado deben coordinarse con las obligaciones de conservación (legales o contractuales), que pueden pedir lo contrario de reducir. En un entorno desechable de pruebas sin datos reales, la política formal es innecesaria.
 
 ## Relación con otros conceptos
 

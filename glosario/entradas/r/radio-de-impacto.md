@@ -2,52 +2,44 @@
 
 [↑ Glosario](../../README.md) · [← Radio de explosión](./radio-de-explosion.md) · [Radio de una filtración →](./radio-de-una-filtracion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 28](../../../classes/part-28-estilos-arquitectonicos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 28](../../../classes/part-28-estilos-arquitectonicos/README.md)
 
 ## Definición
 
-Fracción de clientes afectada por un fallo.
+El **radio de impacto** es, en el sentido principal del programa ([SE-344](../../../classes/part-28-estilos-arquitectonicos/se-344-arquitectura-celular-y-radio-de-impacto/README.md)), la fracción de clientes afectada por un fallo. Otras clases lo usan con matices cercanos:
 
-Definición de trabajo de [SE-344 — Arquitectura celular y radio de impacto](../../../classes/part-28-estilos-arquitectonicos/se-344-arquitectura-celular-y-radio-de-impacto/README.md).
+- En [SE-443](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-443-taller-someter-un-sistema-a-presion-controlada/README.md) (resiliencia): la fracción del sistema o del tráfico que un experimento afecta.
+- En [SE-410](../../../classes/part-34-saas-y-plataformas-de-producto/se-410-aislamiento-multi-inquilino-y-vecino-ruidoso/README.md) (SaaS): el conjunto de clientes afectados por un fallo.
+- En [SE-520](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md) (modernización): el número de paquetes que deben cambiar como consecuencia de actualizar uno.
 
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-443 — Taller: someter un sistema a presión controlada](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-443-taller-someter-un-sistema-a-presion-controlada/README.md): Fracción del sistema o del tráfico que un experimento afecta.
-- En [SE-520 — Dependencias obsoletas y riesgo acumulado](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md): Número de paquetes que deben cambiar como consecuencia de actualizar uno.
-- En [SE-410 — Aislamiento multi-inquilino y vecino ruidoso](../../../classes/part-34-saas-y-plataformas-de-producto/se-410-aislamiento-multi-inquilino-y-vecino-ruidoso/README.md): Conjunto de clientes afectados por un fallo.
+Se parece al radio de explosión; la diferencia que usa el programa es que el radio de impacto se expresa como fracción de clientes y se compara entre arquitecturas.
 
 ## Por qué importa
 
-En [SE-344 — Arquitectura celular y radio de impacto](../../../classes/part-28-estilos-arquitectonicos/se-344-arquitectura-celular-y-radio-de-impacto/README.md), el tema «Radio de impacto» importa porque convierte la disponibilidad en la fracción de clientes afectada.
+La disponibilidad habitual es un promedio sobre el tiempo y no dice cuántos clientes ven el problema cuando algo falla. Dos sistemas con la misma disponibilidad pueden diferir mucho: uno cae para todos un minuto, otro para el 1 % durante horas. La decisión que cambia es qué se optimiza: acotar cuántos se ven afectados por un único fallo, además de cuánto dura.
 
 ## Cómo funciona
 
-Según [SE-344 — Arquitectura celular y radio de impacto](../../../classes/part-28-estilos-arquitectonicos/se-344-arquitectura-celular-y-radio-de-impacto/README.md):
+[SE-344](../../../classes/part-28-estilos-arquitectonicos/se-344-arquitectura-celular-y-radio-de-impacto/README.md) define el radio como la fracción de clientes que quedan sin servicio por un único fallo. En una flota compartida, cualquier fallo que se propague por la flota alcanza al **100 %**. El objetivo de las **celdas** es poner un techo: con ocho celdas y reparto uniforme, un fallo contenido en una celda afecta a una octava parte, el 12,5 %. Ese techo es un escenario de calidad medible, que se puede comprobar inyectando el fallo («un fallo de cualquier inquilino afecta como máximo al 15 % de los inquilinos», en términos de [SE-337](../../../classes/part-28-estilos-arquitectonicos/se-337-estilos-como-respuestas-a-fuerzas-de-calidad/README.md)).
 
-La disponibilidad habitual es un promedio sobre el tiempo; no dice cuántos clientes se ven afectados cuando algo falla. El radio de impacto es la fracción de clientes que quedan sin servicio por un único fallo. En una flota compartida, cualquier fallo que se propague por la flota alcanza al 100 %. El objetivo de las celdas es poner un techo: si hay ocho celdas con un reparto uniforme, un fallo contenido en una celda afecta a una octava parte, el 12,5 %. Ese techo es un escenario de calidad medible en el sentido de `SE-337` («un fallo de cualquier inquilino afecta como máximo al 15 % de los inquilinos»), y se puede comprobar inyectando el fallo.
+La clase compara opciones tras un incidente: ocho celdas dan 12,5 %; fragmentación aleatoria sobre la flota existente da un 3,6 % caído del todo ante una petición venenosa. Pero el costo cuenta: el equipo descarta empezar con celdas completas porque el costo de capacidad del 20 % y la operación de ocho copias superan lo que puede asumir ese año, y elige un camino por etapas (tope de reintentos por inquilino y cortacircuitos, luego fragmentación aleatoria, y celdas solo para el cliente más grande).
 
-Según [SE-344 — Arquitectura celular y radio de impacto](../../../classes/part-28-estilos-arquitectonicos/se-344-arquitectura-celular-y-radio-de-impacto/README.md):
-
-Tras el incidente del martes, el equipo de *Avisos* calcula el radio de impacto de cada opción. Con ocho celdas, el 12,5 %; con fragmentación aleatoria sobre la flota existente, un 3,6 % caído del todo con un venenoso. El equipo descarta empezar con celdas completas porque el costo de capacidad del 20 % y la operación de ocho copias superan lo que puede asumir este año, y elige un camino por etapas: primero un tope de reintentos por inquilino y un cortacircuitos (para que el cliente que reintenta no tumbe trabajadores), después fragmentación aleatoria de dos trabajadores de ocho para los envíos, y celdas solo para el cliente más grande, que se aísla en una celda propia.
+En [SE-520](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md), el mismo concepto se aplica a dependencias: antes de actualizar un paquete se calcula el radio de impacto en el grafo, es decir, cuántos otros paquetes deben cambiar.
 
 ## Ejemplo
 
-Ejemplo de [SE-344 — Arquitectura celular y radio de impacto](../../../classes/part-28-estilos-arquitectonicos/se-344-arquitectura-celular-y-radio-de-impacto/README.md) (sección «Ejemplo profesional»):
-
-Tras el incidente del martes, el equipo de *Avisos* calcula el radio de impacto de cada opción. Con ocho celdas, el 12,5 %; con fragmentación aleatoria sobre la flota existente, un 3,6 % caído del todo con un venenoso.
+El equipo calcula el radio de impacto de los fallos más probables: una petición venenosa, un despliegue defectuoso, una base saturada, y expresa cada uno como una fracción de clientes. Eso les permite comparar la arquitectura actual con alternativas por una cifra común. Ejercicio de [SE-344](../../../classes/part-28-estilos-arquitectonicos/se-344-arquitectura-celular-y-radio-de-impacto/README.md).
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Se actualiza una dependencia y se rompe otra** — causa: no se miró el grafo. Corrección: calcular el radio de impacto antes de decidir. ([SE-520](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md))
+- **Se actualiza una dependencia y se rompe otra**: no se miró el grafo; se calcula el radio de impacto antes de decidir ([SE-520](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md)).
+- **Confundirlo con disponibilidad**: no son la misma medida.
+- **Calcularlo sin la distribución real de clientes**: un cliente dominante cambia las fracciones.
+- **Suponer que el reparto uniforme se cumple**.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- El radio de impacto es la fracción de clientes que quedan sin servicio por un único fallo. ([SE-344](../../../classes/part-28-estilos-arquitectonicos/se-344-arquitectura-celular-y-radio-de-impacto/README.md))
-- Calcula el radio de impacto de los fallos más probables de tu sistema (una petición venenosa, un despliegue defectuoso, una base saturada) y expresa cada uno como una fracción de clientes. ([SE-344](../../../classes/part-28-estilos-arquitectonicos/se-344-arquitectura-celular-y-radio-de-impacto/README.md))
+Las cifras de la clase (8 celdas, 12,5 %, 3,6 %, costo del 20 %) son del escenario construido; en otros sistemas cambian. Acotar el radio tiene un costo (capacidad, operación) que puede no justificarse para cargas pequeñas. Y el radio mide la fracción de clientes afectados, no la gravedad del daño a cada uno.
 
 ## Relación con otros conceptos
 

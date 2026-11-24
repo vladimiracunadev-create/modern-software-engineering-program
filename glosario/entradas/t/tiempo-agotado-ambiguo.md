@@ -2,40 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Throughput](./throughput.md) · [Tiempo de ciclo o plazo →](./tiempo-de-ciclo-o-plazo.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 32](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 32](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/README.md)
 
 ## Definición
 
-Ausencia de respuesta que no permite saber si la operación se ejecutó.
-
-Definición de trabajo de [SE-389 — Fallos parciales y modelos de red](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-389-fallos-parciales-y-modelos-de-red/README.md).
+Un **tiempo agotado ambiguo** es la ausencia de respuesta que no permite saber si la operación se ejecutó ([SE-389](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-389-fallos-parciales-y-modelos-de-red/README.md)). Cuando el cliente espera y no recibe nada, no puede distinguir entre varias historias posibles, y la decisión de qué hacer a continuación se toma a ciegas.
 
 ## Por qué importa
 
-En [SE-389 — Fallos parciales y modelos de red](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-389-fallos-parciales-y-modelos-de-red/README.md), el tema «Tiempo agotado ambiguo» importa porque hace imposible saber si la operación ocurrió.
+Es la raíz de muchos duplicados y de muchas pérdidas en sistemas distribuidos. Reintentar «por si acaso» puede ejecutar dos veces una acción que ya ocurrió; no reintentar puede dejar sin hacer una que nunca llegó. La decisión que cambia es que los reintentos solo se hacen sobre operaciones que lo toleran, y que de las demás se consulta el estado.
 
 ## Cómo funciona
 
-Según [SE-389 — Fallos parciales y modelos de red](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-389-fallos-parciales-y-modelos-de-red/README.md), en la sección «Tiempo agotado ambiguo»:
+[SE-389](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-389-fallos-parciales-y-modelos-de-red/README.md) enumera las tres historias que caben cuando no hay respuesta:
 
-Cuando el cliente no recibe respuesta caben tres historias: la petición se perdió y no se ejecutó; se ejecutó y la respuesta se perdió; o se ejecutó y la respuesta llegará tarde. Desde fuera son idénticas. Lo que sí se puede es repartir la incertidumbre: con pérdidas simétricas, más de la mitad de los tiempos agotados corresponde a una operación ya ejecutada. La consecuencia es de diseño: reintentar solo es seguro si la operación es idempotente o va con una clave que permita al servidor reconocer el duplicado (`SE-392`), y si no lo es, el cliente debe consultar el estado en lugar de repetir.
+1. La petición se perdió y **no se ejecutó**.
+2. Se ejecutó y **la respuesta se perdió**.
+3. Se ejecutó y **la respuesta llegará tarde**.
+
+Desde fuera son idénticas. La clase no las distingue, las reparte: con pérdidas simétricas, **más de la mitad** de los tiempos agotados corresponde a una operación ya ejecutada. Por eso reintentar sin precaución es peligroso.
+
+La consecuencia de diseño: reintentar es seguro solo si la operación es **idempotente** o va con una **clave de idempotencia** que permita al servidor reconocer el duplicado ([SE-392](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-392-idempotencia-y-procesamiento-distribuido/README.md)). Si no lo es, el cliente debe **consultar el estado** en lugar de repetir. Esto conecta con el detector de fallos, que tiene la misma incertidumbre a nivel de nodo (¿caído o lento?), con el presupuesto de reintentos, que acota el efecto de insistir, y con el timeout, que decide cuánto esperar antes de declarar la ambigüedad.
 
 ## Ejemplo
 
-Caso medido en la sección «Tiempo agotado ambiguo» de [SE-389 — Fallos parciales y modelos de red](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-389-fallos-parciales-y-modelos-de-red/README.md):
-
-Cuando el cliente no recibe respuesta caben tres historias: la petición se perdió y no se ejecutó; se ejecutó y la respuesta se perdió; o se ejecutó y la respuesta llegará tarde. Desde fuera son idénticas. Lo que sí se puede es repartir la incertidumbre: con pérdidas simétricas, más de la mitad de los tiempos agotados corresponde a una operación ya ejecutada.
+Un cliente envía el cobro de una inscripción y el tiempo se agota. Si reintenta sin clave de idempotencia, puede cobrar dos veces. Con una clave de idempotencia, el servidor reconoce el segundo envío como duplicado y devuelve el resultado del primero. Alternativamente, el cliente consulta si la inscripción ya figura como pagada antes de repetir. Resolución descrita en [SE-389](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-389-fallos-parciales-y-modelos-de-red/README.md).
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-389 — Fallos parciales y modelos de red](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-389-fallos-parciales-y-modelos-de-red/README.md)) son:
-
-- **Registros duplicados tras una lentitud** — causa: reintento de una operación ya ejecutada. Corrección: clave de idempotencia o consulta del estado.
-- **El servicio de abajo cae cuando el de arriba se recupera** — causa: reintentos multiplicados por varias capas. Corrección: reintentar en una sola capa con presupuesto.
+- **Registros duplicados tras una lentitud**: reintento de una operación ya ejecutada; se corrige con clave de idempotencia o consulta del estado.
+- **El servicio de abajo cae cuando el de arriba se recupera**: reintentos multiplicados por varias capas; se corrige reintentando en una sola capa con presupuesto.
+- **Interpretar el timeout como fallo seguro**: solo dice que no hubo respuesta a tiempo.
+- **Suponer que «no hubo respuesta» equivale a «no se ejecutó»**.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-389 — Fallos parciales y modelos de red](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-389-fallos-parciales-y-modelos-de-red/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con semillas fijas en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ninguna red, servicio ni tiempo de respuesta reales: las probabilidades, la distribución lognormal y los parámetros de los reintentos son construcciones del autor, y no se evaluaron detectores adaptativos. La siguiente clase usa estas incertidumbres para preguntar qué garantías se pueden mantener cuando la red se parte.
+[SE-389](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-389-fallos-parciales-y-modelos-de-red/README.md) indica que no midió ninguna red ni servicio real: las probabilidades, la distribución lognormal y los parámetros de reintentos son construcciones del autor. La cifra de «más de la mitad» depende del supuesto de pérdidas simétricas. En operaciones puramente de lectura, o idempotentes por naturaleza, la ambigüedad no causa daño y reintentar es seguro.
 
 ## Relación con otros conceptos
 

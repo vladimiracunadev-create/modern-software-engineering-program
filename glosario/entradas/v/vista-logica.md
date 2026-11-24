@@ -2,41 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← Vista de ejecución](./vista-de-ejecucion.md) · [VLAN →](./vlan.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 27](../../../classes/part-27-arquitectura-de-software-y-dominio/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 27](../../../classes/part-27-arquitectura-de-software-y-dominio/README.md)
 
 ## Definición
 
-Vista que muestra módulos y las dependencias permitidas entre ellos.
-
-Definición de trabajo de [SE-326 — Vistas lógica, runtime, datos y despliegue](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md).
+La **vista lógica** es la vista arquitectónica que muestra módulos o componentes y las dependencias *permitidas* entre ellos ([SE-326](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md)). Responde a la pregunta «¿qué puedo cambiar sin romper a quién?» y gobierna la modificabilidad.
 
 ## Por qué importa
 
-En [SE-326 — Vistas lógica, runtime, datos y despliegue](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md), el tema «Vista lógica» importa porque gobierna la modificabilidad: quién puede depender de quién.
+Un diagrama de módulos suele leerse como una descripción del sistema, pero describe una intención. La decisión que cambia es cómo se trata ese diagrama: como una regla que se verifica contra el código y las trazas, no como un dibujo que se acepta.
 
 ## Cómo funciona
 
-Según [SE-326 — Vistas lógica, runtime, datos y despliegue](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md), en la sección «Vista lógica»:
+[SE-326](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md) señala el defecto característico de la vista lógica: **declara lo permitido, no lo que ocurre**. Con el tiempo, el código acumula dependencias que nadie dibujó: un módulo importa algo de otro por comodidad, y el diagrama sigue mostrando las flechas originales. La vista deja de ser un mapa fiel y pasa a ser una ilusión de orden.
 
-La **vista lógica** muestra módulos o componentes y las dependencias *permitidas* entre ellos. Responde a «¿qué puedo cambiar sin romper a quién?» y gobierna la modificabilidad. Su defecto característico es que declara lo permitido, no lo que ocurre: con el tiempo, el código acumula dependencias que nadie dibujó. Por eso conviene tratarla como una regla que se verifica contra el código o contra las trazas, no como un dibujo que se acepta. Una arista declarada que nunca se usa es otra señal: o el diagrama está viejo o hay código muerto.
+La corrección es tratarla como una regla comprobable: comparar con las dependencias reales del código (un comprobador de importaciones) o con las trazas de ejecución en cada cambio. Hay dos señales de desajuste:
+
+- Una **dependencia real no dibujada**: el código la usa y el diagrama no la permite (violación).
+- Una **arista declarada que nunca se usa**: o el diagrama está viejo o hay código muerto.
+
+Se relaciona con el monolito modular, que impone justo esta clase de regla con un comprobador, y con la vista de ejecución, que muestra la otra cara: lo que realmente se llama y en qué orden. La clase subraya que son vistas distintas y que mezclarlas produce diagramas que no responden bien a ninguna pregunta.
 
 ## Ejemplo
 
-Ejemplo de [SE-326 — Vistas lógica, runtime, datos y despliegue](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md) (sección «Ejemplo mínimo»):
-
-El atajo `web → bd` no estaba en la vista lógica. Registra versión, comando y salida; añade una dependencia declarada que nunca se use y comprueba que aparece en la segunda diferencia.
+La vista lógica dice que Avisos puede depender de Entregas pero no de Calificaciones. Un comprobador recorre las importaciones y detecta que Avisos importa una función interna de Calificaciones, una arista que nadie dibujó. La integración falla hasta que se corrige. Aplicación del principio de [SE-326](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md).
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El código tiene dependencias que nadie dibujó** — causa: la vista lógica declara lo permitido y no se verifica. Corrección: comparar con trazas o con el código en cada cambio. ([SE-326](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md))
+- **El código tiene dependencias que nadie dibujó**: la vista lógica declara lo permitido y no se verifica; se corrige comparando con trazas o con el código en cada cambio.
+- **Tomar el diagrama como descripción de la realidad**.
+- **Mezclarla con la vista de ejecución** en un solo dibujo.
+- **Ignorar las aristas declaradas pero no usadas**.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La **vista lógica** muestra módulos o componentes y las dependencias *permitidas* entre ellos. ([SE-326](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md))
+La vista lógica solo dice qué dependencias están permitidas, no cuánto se usan ni cuándo: para latencia y capacidad hace falta la vista de ejecución. Su valor depende de verificarla; sin comprobación automática, tiende a desactualizarse. En sistemas muy pequeños, mantenerla formalmente puede costar más de lo que aporta.
 
 ## Relación con otros conceptos
 

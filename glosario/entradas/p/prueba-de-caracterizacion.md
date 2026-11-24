@@ -2,52 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Prueba de arquitectura](./prueba-de-arquitectura.md) · [Prueba de carga →](./prueba-de-carga.md)
 
-> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 25](../../../classes/part-25-diseno-patrones-y-refactorizacion/README.md)
+> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 25](../../../classes/part-25-diseno-patrones-y-refactorizacion/README.md)
 
 ## Definición
 
-Prueba que fija el comportamiento actual de un código, sea o no el correcto, para detectar cambios no deseados.
-
-Definición de trabajo de [SE-519 — Pruebas de caracterización y seams](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-311 — Taller: refactorizar sin alterar comportamiento](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-311-taller-refactorizar-sin-alterar-comportamiento/README.md): Prueba que fija lo que el código hace hoy, sin afirmar que sea lo correcto.
-- En [SE-323 — Taller: refactorizar con patrones y medir su costo](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-323-taller-refactorizar-con-patrones-y-medir-su-costo/README.md): Prueba que documenta el comportamiento actual, correcto o no.
-- En [SE-558 — Generación de pruebas, documentación y migraciones](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-558-generacion-de-pruebas-documentacion-y-migraciones/README.md): Prueba que fija el comportamiento actual, sea o no el correcto.
+Una **prueba de caracterización** es una prueba que fija el comportamiento actual de un código, sea o no el correcto, para detectar cambios no deseados ([SE-519](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md)). [SE-311](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-311-taller-refactorizar-sin-alterar-comportamiento/README.md), [SE-323](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-323-taller-refactorizar-con-patrones-y-medir-su-costo/README.md) y [SE-558](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-558-generacion-de-pruebas-documentacion-y-migraciones/README.md) la usan en el mismo sentido: fija lo que el código hace hoy, sin afirmar que sea lo correcto. Es el fundamento del maestro dorado.
 
 ## Por qué importa
 
-En [SE-519 — Pruebas de caracterización y seams](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md), el tema «Código heredado y pruebas de caracterización» importa porque permiten cambiar sin conocer la especificación, que no existe.
+En un sistema heredado muchas veces no hay especificación fiable: la especificación es el propio sistema. Escribir antes «lo correcto» puede ser imposible o carísimo. La decisión que cambia es el orden del trabajo: primero se observa y se registra lo que el código hace, y con esa red de seguridad se refactoriza o se moderniza.
 
 ## Cómo funciona
 
-Según [SE-519 — Pruebas de caracterización y seams](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md):
+Una prueba normal expresa lo que el código **debería** hacer según una especificación. Una prueba de caracterización expresa lo que **hace hoy**: se ejecuta el código con una entrada, se observa la salida y se escribe como expectativa. Su valor es que sirve de red de seguridad: si después de un cambio la salida difiere, el cambio alteró un comportamiento, y entonces alguien decide si fue deseado ([SE-519](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md)).
 
-Una prueba normal expresa lo que el código debería hacer según una especificación. Una **prueba de caracterización** expresa lo que el código hace hoy: se ejecuta el código con una entrada, se observa la salida y se escribe como expectativa. Su valor es que sirve de red de seguridad: si después de un cambio la salida difiere, el cambio alteró un comportamiento, y entonces alguien decide si fue deseado. La técnica invierte el orden habitual (primero se observa, luego se afirma) porque en un sistema heredado la especificación es el propio sistema. El resultado puede incluir comportamientos que hoy parecen errores: se registran igual, porque otros sistemas pueden depender de ellos, y se marcan para decidir aparte.
+La técnica invierte el orden habitual (primero se observa, luego se afirma). El resultado puede incluir comportamientos que hoy parecen errores; se registran igual, porque otros sistemas pueden depender de ellos, y se marcan para decidir aparte.
 
-Según [SE-323 — Taller: refactorizar con patrones y medir su costo](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-323-taller-refactorizar-con-patrones-y-medir-su-costo/README.md):
-
-Un **maestro dorado** (también llamado prueba de caracterización o de aprobación) registra la salida del código **actual** para un conjunto de entradas y exige que el código nuevo produzca exactamente lo mismo. No dice que el comportamiento sea correcto; dice que **no cambió**. En el experimento se generan 5000 entradas con semilla fija (canal, urgencia, horas, adjuntos y tamaño del grupo) y se guarda la salida de la función antigua. El refactor produce **la misma salida en las 5000** (0 diferencias). La semilla es parte de la evidencia: sin ella, otra persona no puede repetir la comprobación.
+[SE-323](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-323-taller-refactorizar-con-patrones-y-medir-su-costo/README.md) la presenta como maestro dorado (también llamado prueba de aprobación): en el experimento se generan 5 000 entradas con semilla fija (canal, urgencia, horas, adjuntos y tamaño del grupo) y se guarda la salida de la función antigua; el refactor produce la misma salida en las 5 000 (0 diferencias). La semilla es parte de la evidencia: sin ella, otra persona no puede repetir la comprobación. La calidad depende de que las entradas cubran los bordes de decisión, y de medir mutantes para saber si las pruebas detectarían un cambio real.
 
 ## Ejemplo
 
-Ejemplo de [SE-519 — Pruebas de caracterización y seams](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md) (sección «Caso conductor»):
-
-El módulo de calificaciones es el caso conductor de la [Parte 43](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/README.md). Esta clase deja el tercer artefacto: la prueba de caracterización de `nota_final` con su costura. `SE-520` preguntará qué riesgo acumulan las dependencias que el módulo usa, y `SE-521` cómo se sustituye el módulo por partes apoyándose en estas pruebas. Cambia después un solo dato, el porcentaje de partes ausentes del 5 % a cero, y observa qué mutantes dejan de ser detectables.
+Una función heredada de cálculo de plazos no tiene pruebas. Se generan entradas representativas y de borde, se ejecuta la función y se guardan las salidas como expectativas. Se refactoriza por pasos y se ejecutan las pruebas tras cada paso. Una diferencia en un caso concreto revela un cambio de comportamiento antes de llegar a producción. Procedimiento de [SE-519](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md).
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-519 — Pruebas de caracterización y seams](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md)) son:
-
-- **La prueba pasa y producción cambia** — causa: los ejemplos no cubren los bordes de decisión. Corrección: añadir casos de borde y medir mutantes.
-- **La prueba falla de forma intermitente** — causa: orden de un conjunto, reloj o azar. Corrección: repetir con condiciones distintas y normalizar la fuente.
+- **La prueba pasa y producción cambia**: los ejemplos no cubren los bordes de decisión; se corrige añadiendo casos de borde y midiendo mutantes.
+- **La prueba falla de forma intermitente**: orden de un conjunto, reloj o azar; se corrige repitiendo con condiciones distintas y normalizando la fuente.
+- **Actualizarla sin pensar cuando falla**: deja de proteger.
+- **Tratarla como especificación**: registra defectos junto con virtudes.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Una prueba de caracterización que se actualiza sin pensar cuando falla deja de proteger. ([SE-519](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md))
+Es útil cuando no hay pruebas finas y se quiere cambiar sin definir primero lo correcto; donde existen pruebas que documentan la intención, esas son preferibles. No dice que el comportamiento sea bueno, solo que no cambió. Y protege únicamente los comportamientos que las entradas ejercitan: sin buena cobertura y medición de mutantes, da una confianza que el código no tiene.
 
 ## Relación con otros conceptos
 

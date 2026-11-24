@@ -2,49 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Punto de no retorno](./punto-de-no-retorno.md) · [Puntuación de Brier →](./puntuacion-de-brier.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 27](../../../classes/part-27-arquitectura-de-software-y-dominio/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 27](../../../classes/part-27-arquitectura-de-software-y-dominio/README.md)
 
 ## Definición
 
-Parámetro cuyo cambio pequeño invierte la decisión o cambia mucho una medida.
-
-Definición de trabajo de [SE-347 — Taller: seleccionar un estilo con escenarios de calidad](../../../classes/part-28-estilos-arquitectonicos/se-347-taller-seleccionar-un-estilo-con-escenarios-de-calidad/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-335 — Taller: revisar una arquitectura contra escenarios](../../../classes/part-27-arquitectura-de-software-y-dominio/se-335-taller-revisar-una-arquitectura-contra-escenarios/README.md): Parámetro del que depende de forma notable un atributo de calidad.
-- En [SE-337 — Estilos como respuestas a fuerzas de calidad](../../../classes/part-28-estilos-arquitectonicos/se-337-estilos-como-respuestas-a-fuerzas-de-calidad/README.md): Parámetro cuyo cambio pequeño invierte la decisión.
+Un **punto de sensibilidad** es un parámetro cuyo cambio pequeño invierte la decisión o cambia mucho una medida ([SE-347](../../../classes/part-28-estilos-arquitectonicos/se-347-taller-seleccionar-un-estilo-con-escenarios-de-calidad/README.md), [SE-337](../../../classes/part-28-estilos-arquitectonicos/se-337-estilos-como-respuestas-a-fuerzas-de-calidad/README.md)). En la evaluación de arquitecturas con métodos como ATAM, [SE-335](../../../classes/part-27-arquitectura-de-software-y-dominio/se-335-taller-revisar-una-arquitectura-contra-escenarios/README.md) lo define como un parámetro del que depende de forma notable un atributo de calidad.
 
 ## Por qué importa
 
-En [SE-347 — Taller: seleccionar un estilo con escenarios de calidad](../../../classes/part-28-estilos-arquitectonicos/se-347-taller-seleccionar-un-estilo-con-escenarios-de-calidad/README.md), el tema «Punto de sensibilidad» importa porque señala qué vigilar.
+Una recomendación de arquitectura sale de un modelo con supuestos. Saber **cuáles** de esos supuestos deciden el resultado permite saber dónde conviene invertir en medir y dónde da igual. La decisión que cambia es dónde se pone la atención: en los pocos parámetros que mueven la decisión, no en los muchos que no.
 
 ## Cómo funciona
 
-Según [SE-347 — Taller: seleccionar un estilo con escenarios de calidad](../../../classes/part-28-estilos-arquitectonicos/se-347-taller-seleccionar-un-estilo-con-escenarios-de-calidad/README.md):
+[SE-347](../../../classes/part-28-estilos-arquitectonicos/se-347-taller-seleccionar-un-estilo-con-escenarios-de-calidad/README.md) calcula la utilidad de varios candidatos (monolito modular, microservicios, celdas) variando el tamaño de la organización de 2 a 30 equipos. Resultado del modelo de la clase: con cliente dominante, la celda gana en todos los tamaños (su utilidad baja de 0,813 con 2 equipos a 0,696 con 30 y sigue por encima del monolito y de los microservicios). Sin cliente dominante, el monolito modular gana hasta 25 equipos y los microservicios desde 26: la utilidad del monolito cae con la coordinación (0,807 con 2 equipos, 0,668 con 30), mientras la de los microservicios se mantiene en 0,670 porque su coordinación es cero.
 
-Para saber cómo depende la decisión del tamaño de la organización se calculó la utilidad de cada candidato con 2 a 30 equipos. Con cliente dominante, la celda gana en todos los tamaños: su utilidad baja de 0,813 con 2 equipos a 0,696 con 30, y sigue por encima del monolito (0,698 y 0,582) y de los microservicios (0,583, que no depende de los equipos porque su coordinación es cero). Sin cliente dominante, el monolito modular gana hasta 25 equipos y los microservicios, desde 26, porque la utilidad del monolito cae con la coordinación (0,807 con 2 equipos, 0,668 con 30) mientras la de los microservicios se mantiene en 0,670.
+El punto de sensibilidad respecto de los equipos es **26**: ahí se invierte la decisión. En [SE-335](../../../classes/part-27-arquitectura-de-software-y-dominio/se-335-taller-revisar-una-arquitectura-contra-escenarios/README.md), ATAM concluye con tres clases de hallazgo: **riesgos** (decisiones que pueden causar problemas), **puntos de sensibilidad** (parámetros de los que depende mucho un atributo) y **compromisos** (decisiones que mejoran un atributo a costa de otro). Cada hallazgo se apoya en un escenario concreto, lo que lo hace discutible y repetible.
 
-Según [SE-335 — Taller: revisar una arquitectura contra escenarios](../../../classes/part-27-arquitectura-de-software-y-dominio/se-335-taller-revisar-una-arquitectura-contra-escenarios/README.md):
-
-Un método como ATAM evalúa una arquitectura contra escenarios de calidad en lugar de contra una lista de buenas prácticas. Se presentan los drivers, se genera y prioriza un conjunto de escenarios (un árbol de utilidad), se analiza cómo responde la arquitectura a cada uno y se concluye con tres tipos de hallazgo: **riesgos** (decisiones que pueden causar problemas), **puntos de sensibilidad** (parámetros de los que depende mucho un atributo) y **compromisos** (decisiones que mejoran un atributo a costa de otro). La ventaja es que cada afirmación se apoya en un escenario concreto y se puede discutir y repetir.
+Su utilidad práctica: indica qué dato vale la pena medir con precisión. Si la decisión cambia con 26 equipos, importa saber si la organización está cerca de ese valor.
 
 ## Ejemplo
 
-Ejemplo de [SE-335 — Taller: revisar una arquitectura contra escenarios](../../../classes/part-27-arquitectura-de-software-y-dominio/se-335-taller-revisar-una-arquitectura-contra-escenarios/README.md) (sección «Ejemplo profesional»):
-
-El equipo convoca la revisión con tres perfiles (rendimiento, operaciones, evolución del negocio) y pide a cada uno cinco escenarios fuera de su zona. Ejecuta el modelo sobre la propuesta en servicios: seis fallas, cuatro con raíz en archivos y antivirus. Propone tres variantes (monolito modular, monolito con archivos asíncronos y una tercera con más instancias) y las evalúa contra los mismos escenarios. La segunda cumple el pico (120 peticiones por segundo de capacidad) y arregla E02 y E09; deja E04, E08, E10 y E12.
+Con el modelo de [SE-347](../../../classes/part-28-estilos-arquitectonicos/se-347-taller-seleccionar-un-estilo-con-escenarios-de-calidad/README.md), una organización con 24 equipos sin cliente dominante elegiría el monolito modular, pero está a dos equipos del punto de inversión. Saber que el punto es 26 le dice que debe vigilar el crecimiento y preparar las fronteras para una separación posterior, no que deba migrar hoy.
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+- **Tomar el valor como regla general**: [SE-347](../../../classes/part-28-estilos-arquitectonicos/se-347-taller-seleccionar-un-estilo-con-escenarios-de-calidad/README.md) advierte que «separa cuando hay más de unos 25 equipos» sale de ese modelo y no de un estudio.
+- **Confundirlo con un riesgo**: el punto de sensibilidad es un parámetro; el riesgo, una decisión que puede causar problemas.
+- **Ignorar que cambia al cambiar los supuestos**: es una propiedad del modelo.
+- **Buscarlo sin escenarios**: sin un atributo de calidad concreto no hay sensibilidad que medir.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- El punto de sensibilidad respecto de los equipos es 26: la regla «separa cuando hay más de unos 25 equipos» sale de este modelo y no de un estudio, y es una cifra que depende de todos los supuestos anteriores. ([SE-347](../../../classes/part-28-estilos-arquitectonicos/se-347-taller-seleccionar-un-estilo-con-escenarios-de-calidad/README.md))
-- **riesgos** (decisiones que pueden causar problemas), **puntos de sensibilidad** (parámetros de los que depende mucho un atributo) y **compromisos** (decisiones que mejoran un atributo a costa de otro). ([SE-335](../../../classes/part-27-arquitectura-de-software-y-dominio/se-335-taller-revisar-una-arquitectura-contra-escenarios/README.md))
+La cifra de 26 depende de todos los supuestos del modelo de la clase (pesos, coordinación, utilidades), que son del autor. Cambiar un peso mueve el punto. El análisis de sensibilidad solo cubre los parámetros que el modelo incluye; un factor omitido no aparece. Sirve para decidir dónde mirar, no para sustituir la medición de la organización real.
 
 ## Relación con otros conceptos
 

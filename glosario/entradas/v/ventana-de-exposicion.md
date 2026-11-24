@@ -2,46 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Ventana de deprecación](./ventana-de-deprecacion.md) · [Ventana de gracia →](./ventana-de-gracia.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 33](../../../classes/part-33-cloud-plataforma-e-infraestructura/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 33](../../../classes/part-33-cloud-plataforma-e-infraestructura/README.md)
 
 ## Definición
 
-Tiempo transcurrido entre la publicación de un aviso de seguridad y el momento en que el sistema deja de usar la versión afectada.
-
-Definición de trabajo de [SE-520 — Dependencias obsoletas y riesgo acumulado](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-397 — IaaS, PaaS, SaaS y responsabilidad compartida](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-397-iaas-paas-saas-y-responsabilidad-compartida/README.md): Tiempo que transcurre entre que existe una vulnerabilidad y que se corrige o se mitiga.
+La **ventana de exposición** es el tiempo transcurrido entre la publicación de un aviso de seguridad y el momento en que el sistema deja de usar la versión afectada ([SE-520](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md)). [SE-397](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-397-iaas-paas-saas-y-responsabilidad-compartida/README.md) la formula en un sentido más amplio: el tiempo que transcurre entre que existe una vulnerabilidad y que se corrige o se mitiga.
 
 ## Por qué importa
 
-En [SE-520 — Dependencias obsoletas y riesgo acumulado](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md), el tema «Ventana de exposición» importa porque la política determina cuántos días un aviso queda abierto.
+Mientras la ventana está abierta, el sistema es vulnerable a una falla ya conocida y, a menudo, explotable. Reducirla es una de las pocas defensas que dependen enteramente de la organización. La decisión que cambia es la política de actualización de dependencias: no «cuando se pueda», sino con una cadencia que acote cuánto tiempo se permanece expuesto.
 
 ## Cómo funciona
 
-Según [SE-520 — Dependencias obsoletas y riesgo acumulado](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md), en la sección «Ventana de exposición»:
+[SE-520](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md) descompone la ventana en tres tramos:
 
-Cuando se publica un aviso de seguridad sobre una dependencia, el tiempo hasta que tu sistema deje de usar la versión afectada tiene tres tramos: hasta que el proveedor publica una versión corregida, hasta que tu política decide aplicarla y hasta que el cambio llega a producción. El primer tramo no depende de ti; los otros dos, sí. Una política **continua** (actualizar en cuanto hay corrección, tras una breve verificación) reduce el segundo tramo a días; una por **lotes** (mensual, trimestral, anual) lo ata al calendario: en promedio, un aviso espera a la mitad del periodo y, en el peor caso, al periodo completo. La política puede combinarse con prioridad: avisos con explotación activa conocida (como los de un catálogo de vulnerabilidades explotadas) se atienden fuera del lote.
+1. Hasta que el **proveedor publica** una versión corregida.
+2. Hasta que **tu política decide** aplicarla.
+3. Hasta que **el cambio llega a producción**.
+
+El primer tramo no depende de ti; los otros dos, sí. Una política **continua** (actualizar en cuanto hay corrección, tras una breve verificación) reduce el segundo tramo a días. Una política por **lotes** (mensual, trimestral, anual) lo ata al calendario: en promedio, un aviso espera a la mitad del periodo y, en el peor caso, al periodo completo. La política puede combinarse con prioridad: un carril rápido para avisos con explotación activa conocida, y el lote regular para el resto.
+
+La clase explica por qué las actualizaciones espaciadas son más difíciles: se acumulan cambios incompatibles, y la actualización «de una hora» dura semanas; actualizar en pasos pequeños con una cadencia mantiene bajo el costo y la ventana. La política se escribe, se revisa con datos (ventana de exposición real, rezago medio) y admite excepciones documentadas, como una dependencia que se mantiene en una versión por razones de compatibilidad con un sistema externo.
 
 ## Ejemplo
 
-Caso medido en la sección «Ventana de exposición» de [SE-520 — Dependencias obsoletas y riesgo acumulado](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md):
-
-Cuando se publica un aviso de seguridad sobre una dependencia, el tiempo hasta que tu sistema deje de usar la versión afectada tiene tres tramos: hasta que el proveedor publica una versión corregida, hasta que tu política decide aplicarla y hasta que el cambio llega a producción. El primer tramo no depende de ti; los otros dos, sí.
+Se publica un aviso crítico sobre una biblioteca. El proveedor libera la corrección al día siguiente. Con política mensual, el equipo la aplica en la próxima ventana (hasta 30 días después); con política continua y carril rápido para explotación conocida, la aplica en un par de días. La diferencia es el tamaño del segundo tramo. Aplicación del razonamiento de [SE-520](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md).
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-520 — Dependencias obsoletas y riesgo acumulado](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md)) son:
-
-- **La actualización «de una hora» dura semanas** — causa: se acumularon cambios incompatibles. Corrección: actualizar en pasos pequeños con una cadencia.
-- **Un aviso queda abierto meses** — causa: política por lotes sin prioridad. Corrección: añadir un carril rápido para avisos con explotación conocida.
+- **La actualización «de una hora» dura semanas**: se acumularon cambios incompatibles; se corrige actualizando en pasos pequeños con una cadencia.
+- **Un aviso queda abierto meses**: política por lotes sin prioridad; se añade un carril rápido para avisos con explotación conocida.
+- **Medir solo la fecha de publicación del aviso**: la ventana incluye el despliegue.
+- **No medir la ventana real**.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La política se escribe, se revisa con datos (ventana de exposición real, rezago medio) y admite excepciones documentadas, como una dependencia que se mantiene en una versión por razones de compatibilidad con un sistema externo. ([SE-520](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md))
+El primer tramo (que el proveedor publique una corrección) escapa al control del equipo, y para dependencias sin soporte puede no cerrarse nunca; ahí corresponde mitigar o reemplazar. Una política continua exige pruebas fiables: sin ellas, actualizar rápido es arriesgado. [SE-520](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md) presenta la cadencia como decisión con compromisos, no como una cifra única.
 
 ## Relación con otros conceptos
 

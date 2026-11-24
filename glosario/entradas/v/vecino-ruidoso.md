@@ -2,50 +2,43 @@
 
 [↑ Glosario](../../README.md) · [← Vary](./vary.md) · [Vendorización →](./vendorizacion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 28](../../../classes/part-28-estilos-arquitectonicos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 28](../../../classes/part-28-estilos-arquitectonicos/README.md)
 
 ## Definición
 
-Inquilino cuya carga degrada el servicio de otros.
-
-Definición de trabajo de [SE-342 — Multi-tenancy y aislamiento](../../../classes/part-28-estilos-arquitectonicos/se-342-multi-tenancy-y-aislamiento/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-410 — Aislamiento multi-inquilino y vecino ruidoso](../../../classes/part-34-saas-y-plataformas-de-producto/se-410-aislamiento-multi-inquilino-y-vecino-ruidoso/README.md): Inquilino cuyo consumo degrada el servicio de otros.
-- En [SE-398 — Máquinas virtuales, contenedores y aislamiento](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md): Carga que, al consumir recursos compartidos, degrada el servicio que reciben las demás.
+Un **vecino ruidoso** (*noisy neighbor*) es un inquilino cuya carga degrada el servicio de otros que comparten los mismos recursos ([SE-342](../../../classes/part-28-estilos-arquitectonicos/se-342-multi-tenancy-y-aislamiento/README.md), [SE-410](../../../classes/part-34-saas-y-plataformas-de-producto/se-410-aislamiento-multi-inquilino-y-vecino-ruidoso/README.md)). [SE-398](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md) lo generaliza a cualquier carga que, al consumir recursos compartidos, degrada el servicio que reciben las demás, por ejemplo en contenedores sobre un mismo nodo.
 
 ## Por qué importa
 
-En [SE-342 — Multi-tenancy y aislamiento](../../../classes/part-28-estilos-arquitectonicos/se-342-multi-tenancy-y-aislamiento/README.md), el tema «Vecino ruidoso» importa porque un inquilino puede degradar a todos.
-
-En [SE-410 — Aislamiento multi-inquilino y vecino ruidoso](../../../classes/part-34-saas-y-plataformas-de-producto/se-410-aislamiento-multi-inquilino-y-vecino-ruidoso/README.md), el tema «Vecino ruidoso» importa porque un cliente puede degradar a todos sin tocar sus datos.
+En un sistema compartido, el rendimiento de un cliente depende de lo que hagan los demás. Un solo cliente intensivo puede volver lento a todos, sin que haya fallo alguno. La decisión que cambia es cuánto aislamiento se da a cada inquilino, sabiendo que más aislamiento cuesta más.
 
 ## Cómo funciona
 
-Según [SE-342 — Multi-tenancy y aislamiento](../../../classes/part-28-estilos-arquitectonicos/se-342-multi-tenancy-y-aislamiento/README.md):
+[SE-342](../../../classes/part-28-estilos-arquitectonicos/se-342-multi-tenancy-y-aislamiento/README.md) presenta el espectro de aislamiento en una plataforma de varios inquilinos:
 
-El extremo compartido es una sola base, un solo esquema y una columna que identifica al inquilino. El siguiente punto da a cada inquilino su esquema dentro de la misma base. Después, una base por inquilino. En el extremo opuesto, un despliegue completo (cómputo y datos) por inquilino. Cada paso hacia el aislamiento reduce el riesgo de fuga y el de vecino ruidoso, y sube el costo por inquilino y el trabajo de operaciones. Un diseño real suele mezclar: los inquilinos pequeños comparten y los grandes o regulados tienen recursos dedicados. La decisión no es una vez para siempre: debe poder moverse un inquilino de un nivel a otro, y eso es un requisito de diseño desde el inicio.
+1. **Todo compartido**: una sola base, un solo esquema y una columna que identifica al inquilino.
+2. **Un esquema por inquilino** dentro de la misma base.
+3. **Una base por inquilino**.
+4. **Un despliegue completo** (cómputo y datos) por inquilino.
 
-Según [SE-342 — Multi-tenancy y aislamiento](../../../classes/part-28-estilos-arquitectonicos/se-342-multi-tenancy-y-aislamiento/README.md):
+Cada paso hacia el aislamiento reduce el riesgo de **fuga de datos** y el de **vecino ruidoso**, y sube el costo por inquilino y el trabajo de operaciones. Un diseño real suele mezclar: los inquilinos pequeños comparten y los grandes o regulados tienen recursos dedicados. La decisión no es para siempre: debe poder moverse un inquilino de un nivel a otro, y eso es un requisito de diseño desde el inicio.
 
-Tras el incidente del informe del rector, el equipo de *Avisos* escribe una prueba de fuga: crea dos inquilinos con datos distintos y ejecuta cada endpoint, informe y trabajo por lotes como el inquilino A, comprobando que nada del B aparece. La prueba encuentra tres rutas más con el mismo defecto, todas de informes antiguos. Introducen una barrera en la capa de acceso a datos: cada solicitud establece el inquilino una vez, y el acceso a tablas pasa por vistas por inquilino. Para el cliente con exigencia de residencia deciden una base separada en la región correspondiente, con el mismo esquema y la misma migración orquestada; calculan que, con tres bases dedicadas, la migración es manejable y fijan un umbral (veinte bases) a partir del cual la orquestación debe automatizarse.
+En [SE-398](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md), la causa técnica es la competencia por recursos compartidos (CPU, memoria, disco, red) en un mismo nodo. Los mecanismos del núcleo para repartir y limitar el consumo (grupos de control, o cgroups) son la herramienta que acota cuánto puede tomar cada carga. [SE-410](../../../classes/part-34-saas-y-plataformas-de-producto/se-410-aislamiento-multi-inquilino-y-vecino-ruidoso/README.md) lo conecta con el producto SaaS: el cliente más grande suele ser el que más degrada a los demás y el que justifica recursos dedicados. En resiliencia, el patrón de mamparos (bulkhead) y las celdas aplican la misma idea de separar para que una carga no consuma lo de las otras.
 
 ## Ejemplo
 
-Ejemplo de [SE-342 — Multi-tenancy y aislamiento](../../../classes/part-28-estilos-arquitectonicos/se-342-multi-tenancy-y-aislamiento/README.md) (sección «Ejemplo profesional»):
-
-Tras el incidente del informe del rector, el equipo de *Avisos* escribe una prueba de fuga: crea dos inquilinos con datos distintos y ejecuta cada endpoint, informe y trabajo por lotes como el inquilino A, comprobando que nada del B aparece. La prueba encuentra tres rutas más con el mismo defecto, todas de informes antiguos. Introducen una barrera en la capa de acceso a datos: cada solicitud establece el inquilino una vez, y el acceso a tablas pasa por vistas por inquilino.
+Tras un incidente por un informe pesado, el equipo del caso de [SE-342](../../../classes/part-28-estilos-arquitectonicos/se-342-multi-tenancy-y-aislamiento/README.md) comprueba el aislamiento con una prueba de fuga entre inquilinos, y para el cliente con exigencia de residencia decide una base separada en su región. Para el cliente más grande, que degrada a los demás por volumen, se asignan recursos dedicados. Los pequeños siguen compartiendo.
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+- **Creer que el aislamiento de datos resuelve el rendimiento**: una base con esquemas separados puede seguir compartiendo CPU y disco.
+- **Aislar a todos por igual**: eleva el costo sin necesidad.
+- **No poder mover a un inquilino de nivel**: la decisión se vuelve irreversible.
+- **Medir solo promedios**: el vecino ruidoso se ve en la cola de latencia de los otros.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Cada paso hacia el aislamiento reduce el riesgo de fuga y el de vecino ruidoso, y sube el costo por inquilino y el trabajo de operaciones. ([SE-342](../../../classes/part-28-estilos-arquitectonicos/se-342-multi-tenancy-y-aislamiento/README.md))
+No aparece con un solo inquilino o con recursos holgados respecto a la carga. Aislar completamente cada inquilino elimina el problema pero pierde las economías de escala que justificaban compartir. [SE-342](../../../classes/part-28-estilos-arquitectonicos/se-342-multi-tenancy-y-aislamiento/README.md) presenta el espectro como decisiones de arquitectura con costos, no como una receta con umbrales universales.
 
 ## Relación con otros conceptos
 

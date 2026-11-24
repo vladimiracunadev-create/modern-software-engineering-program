@@ -2,53 +2,48 @@
 
 [↑ Glosario](../../README.md) · [← Radio de efecto](./radio-de-efecto.md) · [Radio de impacto →](./radio-de-impacto.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 27](../../../classes/part-27-arquitectura-de-software-y-dominio/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 27](../../../classes/part-27-arquitectura-de-software-y-dominio/README.md)
 
 ## Definición
 
-Conjunto de lo que un experimento puede dañar si sale mal, descrito por fracción de tráfico, alcance, duración, intensidad y profundidad.
+El **radio de explosión** es el conjunto de lo que algo puede dañar si sale mal. El programa lo usa con tres matices:
 
-Definición de trabajo de [SE-506 — Diseñar experimentos de fallo: alcance y radio de impacto](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-326 — Vistas lógica, runtime, datos y despliegue](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md): Conjunto de recorridos o funciones que dejan de funcionar cuando falla un elemento.
-- En [SE-394 — Caos controlado y pruebas de distribución](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-394-caos-controlado-y-pruebas-de-distribucion/README.md): Alcance máximo del daño que puede causar un experimento.
-- En [SE-403 — Entornos, cuentas y separación de responsabilidades](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md): Conjunto de recursos que un error o una credencial comprometida puede afectar.
+- En [SE-506](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md) (ingeniería del caos): lo que un experimento puede dañar, descrito por fracción de tráfico, alcance, duración, intensidad y profundidad. [SE-394](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-394-caos-controlado-y-pruebas-de-distribucion/README.md) lo resume como el alcance máximo del daño de un experimento.
+- En [SE-326](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md) (arquitectura): el conjunto de recorridos o funciones que dejan de funcionar cuando falla un elemento.
+- En [SE-403](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md) (cloud): el conjunto de recursos que un error o una credencial comprometida puede afectar.
 
 ## Por qué importa
 
-La clase donde se define, [SE-506 — Diseñar experimentos de fallo: alcance y radio de impacto](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md), existe con este propósito: la clase existe para que dimensiones el **radio de explosión** de un experimento (a cuánta gente, durante cuánto tiempo y con qué intensidad se le hace daño) y para que escribas las **condiciones de aborto** que lo detienen antes de que el daño supere lo acordado.
+Un fallo, un experimento o una credencial robada tienen un daño máximo. Si ese máximo es la plataforma entera, cada error es potencialmente catastrófico. La decisión que cambia es diseñar para acotar: separar, limitar y dosificar, de modo que lo peor posible sea tolerable.
 
 ## Cómo funciona
 
-Según [SE-506 — Diseñar experimentos de fallo: alcance y radio de impacto](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md):
+[SE-506](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md) plantea el radio como una responsabilidad: se admite un impacto negativo de corto plazo, pero se debe contener. No es un solo número: se controla en cinco dimensiones que se combinan:
 
-El **radio de explosión** es el conjunto de lo que el experimento puede dañar si sale mal. Los principios lo plantean como una responsabilidad: se admite un impacto negativo de corto plazo, pero se debe contener. No es un solo número. Se controla en cinco dimensiones que se combinan: la **fracción del tráfico** afectada; el **alcance** (qué clientes, instancias, zonas o regiones); la **duración**; la **intensidad** de la falla (10 % de errores o 100 %) y la **profundidad** (si afecta solo a la llamada probada o a lo que depende de ella). Chaos Mesh, por ejemplo, define el alcance con selectores por espacio de nombres, etiquetas, anotaciones o nodos, y la propia documentación presenta eso como el control del radio.
+1. **Fracción del tráfico** afectada.
+2. **Alcance**: qué clientes, instancias, zonas o regiones.
+3. **Duración**.
+4. **Intensidad** de la falla (10 % de errores o 100 %).
+5. **Profundidad**: si afecta solo a la llamada probada o a lo que depende de ella.
 
-Según [SE-326 — Vistas lógica, runtime, datos y despliegue](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md):
+Herramientas como Chaos Mesh definen el alcance con selectores por espacio de nombres, etiquetas, anotaciones o nodos; la documentación lo presenta como el control del radio.
 
-Reproduce el fallo clásico de la clase: **replicar la base de datos y creer que el sistema ya no tiene un punto único de fallo**. Calcula el radio de explosión de la topología con la base replicada y la web en un solo nodo.
+En arquitectura, [SE-326](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md) reproduce el fallo clásico: replicar la base de datos y creer que el sistema ya no tiene un punto único de fallo, cuando la web sigue en un solo nodo; calcular el radio de explosión de la topología revela qué sigue cayendo. En cloud, [SE-403](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md) muestra que separar por entorno y por carga reduce el máximo daño posible de una credencial robada o de un comando mal escrito.
 
 ## Ejemplo
 
-Caso medido en la sección «Las dimensiones del radio de explosión» de [SE-506 — Diseñar experimentos de fallo: alcance y radio de impacto](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md):
-
-El **radio de explosión** es el conjunto de lo que el experimento puede dañar si sale mal. Los principios lo plantean como una responsabilidad: se admite un impacto negativo de corto plazo, pero se debe contener. No es un solo número. Se controla en cinco dimensiones que se combinan: la **fracción del tráfico** afectada; el **alcance** (qué clientes, instancias, zonas o regiones); la **duración**; la **intensidad** de la falla (10 % de errores o 100 %) y la **profundidad** (si afecta solo a la llamada probada o a lo que depende de ella).
+Un experimento de caos inyecta latencia. Con el radio definido como 1 % del tráfico, una zona, 5 minutos, intensidad moderada y solo la llamada probada, el daño máximo es pequeño aunque la falla resulte peor de lo previsto. Con un radio sin acotar, la misma falla puede tumbar la plataforma. Principio de [SE-506](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md).
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-506 — Diseñar experimentos de fallo: alcance y radio de impacto](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md)) son:
-
-- **El experimento no detecta nada y se declara confirmado** — causa: radio sin potencia suficiente. Corrección: calcular la fracción mínima y declarar el efecto mínimo detectable.
-- **El experimento aborta de inmediato** — causa: condición global consumida por la falla esperada. Corrección: medir el grupo experimental y separar el umbral de aborto del de la hipótesis.
+- **El experimento no detecta nada y se declara confirmado**: radio sin potencia suficiente; se calcula la fracción mínima y se declara el efecto mínimo detectable.
+- **El experimento aborta de inmediato**: condición global consumida por la falla esperada; se mide el grupo experimental y se separa el umbral de aborto del de la hipótesis.
+- **Reducirlo a un porcentaje**: son cinco dimensiones.
+- **Creer que replicar un componente elimina el punto único de fallo**.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Calcula el radio de explosión de la topología con la base replicada y la web en un solo nodo. ([SE-326](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md))
-- Separar por entorno y por carga reduce el **radio de explosión**: el máximo daño posible de una credencial robada o de un comando mal escrito. ([SE-403](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md))
+Un radio muy pequeño reduce el daño pero también la potencia para detectar el efecto: hay un compromiso entre seguridad y capacidad de aprender del experimento. El radio describe el máximo previsto: un fallo que se propaga por dependencias no consideradas puede exceder el cálculo. Y no sustituye una condición de aborto que detenga el daño en curso.
 
 ## Relación con otros conceptos
 

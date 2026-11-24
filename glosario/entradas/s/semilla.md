@@ -2,51 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Semiabierto](./semiabierto.md) · [Semver →](./semver.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 34](../../../classes/part-34-saas-y-plataformas-de-producto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 34](../../../classes/part-34-saas-y-plataformas-de-producto/README.md)
 
 ## Definición
 
-Valor inicial de un generador pseudoaleatorio que permite repetir su secuencia.
-
-Definición de trabajo de [SE-428 — Datos deterministas y gestión de fixtures](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-428-datos-deterministas-y-gestion-de-fixtures/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-603 — Experimentos y entrenamiento reproducible](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-603-experimentos-y-entrenamiento-reproducible/README.md): Valor inicial de un generador pseudoaleatorio.
-- En [SE-411 — Alta, aprovisionamiento y configuración por cliente](../../../classes/part-34-saas-y-plataformas-de-producto/se-411-alta-aprovisionamiento-y-configuracion-por-cliente/README.md): Datos iniciales que se crean para que el cliente tenga algo con qué empezar.
+Una **semilla** es el valor inicial de un generador pseudoaleatorio que permite repetir su secuencia ([SE-428](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-428-datos-deterministas-y-gestion-de-fixtures/README.md), [SE-603](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-603-experimentos-y-entrenamiento-reproducible/README.md)). Con la misma semilla, el generador produce los mismos «azares» en el mismo orden. En [SE-411](../../../classes/part-34-saas-y-plataformas-de-producto/se-411-alta-aprovisionamiento-y-configuracion-por-cliente/README.md) el término tiene otro sentido: los datos iniciales que se crean para que un cliente nuevo tenga algo con qué empezar (*seed data*).
 
 ## Por qué importa
 
-En [SE-428 — Datos deterministas y gestión de fixtures](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-428-datos-deterministas-y-gestion-de-fixtures/README.md), el tema «Datos aleatorios con semilla» importa porque un fallo raro necesita reproducirse.
+Los datos aleatorios amplían los casos que se prueban, pero rompen la reproducibilidad: un fallo que no se puede repetir no se puede investigar. La decisión que cambia es que el azar se conserva, pero su origen se registra. Con la semilla impresa, un fallo intermitente se vuelve determinista.
 
 ## Cómo funciona
 
-Según [SE-428 — Datos deterministas y gestión de fixtures](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-428-datos-deterministas-y-gestion-de-fixtures/README.md):
+[SE-428](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-428-datos-deterministas-y-gestion-de-fixtures/README.md) lo plantea así: la corrección no es quitar el azar sino **registrar la semilla**. Cada ejecución genera con una semilla impresa en el informe, y quien ve un fallo lo repite con ella. La clase añade un efecto de composición: una propiedad que falla con probabilidad pequeña por elemento falla con probabilidad mucho mayor con veinte elementos, de modo que un generador con muchos elementos por prueba hace aflorar casos raros a menudo y los hace parecer intermitentes.
 
-Los datos aleatorios amplían los casos y rompen la reproducibilidad. La corrección no es quitar el azar sino registrar la semilla: cada ejecución genera con una semilla impresa en el informe, y quien ve un fallo lo repite con ella. Además hay un efecto de composición: una propiedad que falla con probabilidad pequeña por elemento falla con probabilidad mucho mayor con veinte elementos, de modo que un generador con muchos elementos por prueba hace aflorar casos raros a menudo y los hace parecer intermitentes.
+La clase fija reglas concretas para el equipo de la plataforma: la suite se ejecuta cada noche en un orden aleatorio con semilla impresa y un fallo se repite con una opción `--semilla`; toda prueba con datos aleatorios recibe un generador con semilla de un único punto; los constructores crean datos con valores por defecto y los valores con significado se nombran. Un inventario trimestral busca usos de reloj, `uuid`, `random` y conjuntos sin orden definido, que son las fuentes habituales de no determinismo.
 
-Según [SE-428 — Datos deterministas y gestión de fixtures](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-428-datos-deterministas-y-gestion-de-fixtures/README.md):
-
-El equipo de la plataforma adopta cuatro reglas. Primera: cada prueba de servicio abre una transacción sobre una base creada una vez por proceso y la deshace al terminar; las pruebas de migración, que hacen commit, crean su propia base. Segunda: la suite se ejecuta cada noche en un orden aleatorio con semilla impresa; un fallo se repite con `--semilla`. Tercera: toda prueba con datos aleatorios recibe un generador con semilla de un único punto, y la semilla va en el informe. Cuarta: los constructores (`entrega(nota=None)`) crean datos con valores por defecto; los valores con significado se nombran (`LIMITE_24H`). Un inventario trimestral recorre las pruebas con `grep` de `now(`, `uuid`, `random` y `set(` y comprueba que cada uso está inyectado, fijado u ordenado.
+En [SE-603](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-603-experimentos-y-entrenamiento-reproducible/README.md) (ML en producción), una corrida de entrenamiento es función de cinco cosas: los datos (filas y orden), las etiquetas, la configuración, el generador aleatorio con su semilla y el entorno (versiones de numpy y scikit-learn, sistema operativo, hilos). Fijar la semilla es una condición para reproducir un modelo, pero no la única.
 
 ## Ejemplo
 
-Ejemplo de [SE-428 — Datos deterministas y gestión de fixtures](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-428-datos-deterministas-y-gestion-de-fixtures/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la plataforma adopta cuatro reglas. Primera: cada prueba de servicio abre una transacción sobre una base creada una vez por proceso y la deshace al terminar; las pruebas de migración, que hacen commit, crean su propia base. Segunda: la suite se ejecuta cada noche en un orden aleatorio con semilla impresa; un fallo se repite con `--semilla`. Tercera: toda prueba con datos aleatorios recibe un generador con semilla de un único punto, y la semilla va en el informe. Cuarta: los constructores (`entrega(nota=None)`) crean datos con valores por defecto; los valores con significado se nombran (`LIMITE_24H`).
+Una prueba con datos generados al azar falla una de cada diez ejecuciones. Con la semilla impresa en el informe de la ejecución fallida, se vuelve a lanzar con `--semilla 12345` y falla siempre, lo que permite depurarla. Sin la semilla, el fallo habría parecido intermitente e inexplicable. Procedimiento de [SE-428](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-428-datos-deterministas-y-gestion-de-fixtures/README.md).
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Una prueba falla una vez de cada diez** — causa: datos aleatorios sin semilla o propiedad mal enunciada. Corrección: registrar la semilla y revisar la propiedad. ([SE-428](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-428-datos-deterministas-y-gestion-de-fixtures/README.md))
+- **Una prueba falla una vez de cada diez**: datos aleatorios sin semilla o propiedad mal enunciada; se corrige registrando la semilla y revisando la propiedad.
+- **Fijar una semilla en el código y olvidarla**: se pierde la exploración de casos nuevos.
+- **Creer que la semilla basta para reproducir un entrenamiento**: también cuentan los datos, la configuración y el entorno.
+- **Mezclar sentidos**: la semilla de un generador no es el dato inicial de un cliente.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La corrección no es quitar el azar sino registrar la semilla: cada ejecución genera con una semilla impresa en el informe, y quien ve un fallo lo repite con ella. ([SE-428](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-428-datos-deterministas-y-gestion-de-fixtures/README.md))
-- Una corrida de entrenamiento es una función de cinco cosas: los datos (filas y orden), las etiquetas, la configuración (hiperparámetros, preprocesamiento), el generador aleatorio con su semilla y el entorno (versiones de numpy y scikit-learn, sistema operativo, hilos). ([SE-603](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-603-experimentos-y-entrenamiento-reproducible/README.md))
+Una semilla garantiza repetir la secuencia solo si el resto del programa es determinista: relojes, orden de hilos y orden de iteración de conjuntos pueden seguir introduciendo variación. Un generador pseudoaleatorio no sirve para fines criptográficos. Y reproducir un fallo con la semilla no explica su causa: solo permite estudiarlo.
 
 ## Relación con otros conceptos
 

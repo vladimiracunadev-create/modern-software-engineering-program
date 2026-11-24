@@ -2,48 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Vendorización](./vendorizacion.md) · [Ventana de contexto →](./ventana-de-contexto.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 30](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 30](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/README.md)
 
 ## Definición
 
-Conjunto de observaciones recientes que se compara con la referencia.
-
-Definición de trabajo de [SE-608 — Monitoreo, deriva y reentrenamiento](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-608-monitoreo-deriva-y-reentrenamiento/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-362 — Ingesta batch y streaming](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-362-ingesta-batch-y-streaming/README.md): Intervalo del tiempo del evento sobre el que se agrega.
+Una **ventana** es, en el sentido principal del programa ([SE-608](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-608-monitoreo-deriva-y-reentrenamiento/README.md)), el conjunto de observaciones recientes que se compara con una referencia, por ejemplo para detectar deriva en un modelo. [SE-362](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-362-ingesta-batch-y-streaming/README.md) usa el término en procesamiento de flujos: un intervalo del tiempo del evento sobre el que se agrega. En ambos, una ventana acota el tramo de datos sobre el que se calcula algo.
 
 ## Por qué importa
 
-En [SE-608 — Monitoreo, deriva y reentrenamiento](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-608-monitoreo-deriva-y-reentrenamiento/README.md), el tema «Ventana» importa porque una ventana pequeña es ruidosa y una grande es lenta.
+Un flujo de datos no tiene fin, así que cualquier medida o comparación necesita un recorte. La decisión que cambia es qué tramo se mira y de qué tamaño: una ventana corta reacciona rápido y da ruido; una larga es estable y tarda en notar el cambio.
 
 ## Cómo funciona
 
-Según [SE-608 — Monitoreo, deriva y reentrenamiento](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-608-monitoreo-deriva-y-reentrenamiento/README.md):
+En monitoreo de modelos ([SE-608](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-608-monitoreo-deriva-y-reentrenamiento/README.md)), un plan debe tener tres capas, porque cada una ve lo que las otras no:
 
-La calidad de entrada comprueba el rango, los nulos, el esquema y las unidades de cada lote: es inmediata, barata y detecta las fallas más frecuentes (un campo en cero, una unidad cambiada). La distribución compara las entradas y las salidas de una ventana con una referencia: tarda horas o días en acumular datos y produce falsas alarmas. La métrica con etiquetas mide el desempeño real, y tarda el retraso de la etiqueta (`SE-602`), que en *Avisos-ML* es de siete días. Un plan de monitoreo debe tener las tres, porque cada una ve lo que las otras no, y debe asignar a cada una una acción: la calidad de entrada bloquea o degrada, la distribución abre un diagnóstico, la métrica con etiquetas puede disparar un reentrenamiento.
+- **Calidad de entrada**: comprueba rango, nulos, esquema y unidades de cada lote. Es inmediata y barata, y detecta las fallas más frecuentes (un campo en cero, una unidad cambiada).
+- **Distribución**: compara las entradas y las salidas de una **ventana** con una referencia. Tarda horas o días en acumular datos y produce falsas alarmas.
+- **Métrica con etiquetas**: mide el desempeño real, pero tarda el retraso de la etiqueta (siete días en el ejemplo de la clase).
 
-Según [SE-608 — Monitoreo, deriva y reentrenamiento](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-608-monitoreo-deriva-y-reentrenamiento/README.md):
+El ejemplo de *Avisos-ML* usa PSI por característica sobre ventanas diarias de 5 000 observaciones, con umbral de 0,2 como ticket de baja urgencia, y una guarda de 10 puntos sobre la tasa de marcados por segmento. A cada capa se le asigna una acción: la calidad de entrada bloquea o degrada, la distribución abre un diagnóstico, la métrica con etiquetas puede disparar un reentrenamiento.
 
-El equipo de *Avisos-ML* redefine su monitoreo en tres capas. Calidad de entrada: comprobaciones de rango y nulos por característica con un umbral del 1 %, que bloquean el lote y degradan a la regla (`SE-601`), con dueño operaciones. Distribución: PSI por característica sobre ventanas diarias de 5 000 observaciones, con umbral de 0,2 como ticket de baja urgencia con dueño datos, y tasa de marcados por segmento con una guarda de 10 puntos. Etiquetas: AUC semanal por segmento con las etiquetas de hace siete días, y una muestra de 200 casos revisados cada semana para detectar caídas grandes antes.
+En procesamiento de flujos ([SE-362](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-362-ingesta-batch-y-streaming/README.md)), la ventana se define sobre el **tiempo del evento** (cuándo ocurrió el hecho), no sobre el tiempo de llegada, lo que obliga a tratar los datos tardíos: hay que decidir cuánto esperar antes de cerrar una ventana. Los tamaños y umbrales son decisiones que dependen del volumen y de la variable observada.
 
 ## Ejemplo
 
-Ejemplo de [SE-608 — Monitoreo, deriva y reentrenamiento](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-608-monitoreo-deriva-y-reentrenamiento/README.md) (sección «Ejemplo mínimo»):
-
-Con una ventana de la misma distribución devuelve valores cercanos a cero y con un desplazamiento de la media, valores crecientes. El recorte de 1e-4 evita logaritmos de cero; el número de tramos y el recorte son decisiones que cambian el valor, de modo que el umbral debe calibrarse con datos propios.
+Cada día se toma la ventana de las últimas 5 000 observaciones de cada característica y se compara con la referencia de entrenamiento usando PSI. Si supera 0,2, se abre un ticket de baja urgencia con dueño del equipo de datos; el bloqueo inmediato queda para fallas de calidad de entrada. Plan de monitoreo de [SE-608](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-608-monitoreo-deriva-y-reentrenamiento/README.md).
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+- **Una ventana demasiado pequeña**: el ruido genera falsas alarmas continuas.
+- **Una ventana demasiado grande**: la deriva se nota tarde.
+- **Confundir tiempo del evento con tiempo de llegada** al agregar flujos.
+- **Usar un solo tipo de comprobación**: cada capa ve lo que las otras no.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Son convenciones, no leyes: dependen del número de tramos, del tamaño de la ventana y de la naturaleza de la variable. ([SE-608](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-608-monitoreo-deriva-y-reentrenamiento/README.md))
-- El que calibres con tus datos: mide la tasa de falsas alarmas con ventanas sin deriva y la sensibilidad con derivas que te importen. ([SE-608](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-608-monitoreo-deriva-y-reentrenamiento/README.md))
+[SE-608](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-608-monitoreo-deriva-y-reentrenamiento/README.md) advierte que los umbrales son convenciones, no leyes: dependen del número de tramos, del tamaño de la ventana y de la naturaleza de la variable; hay que calibrarlos con datos propios, midiendo la tasa de falsas alarmas con ventanas sin deriva y la sensibilidad con derivas que importen. Una ventana no explica la causa de un cambio, solo lo señala.
 
 ## Relación con otros conceptos
 

@@ -2,43 +2,40 @@
 
 [↑ Glosario](../../README.md) · [← Puntuación de Brier](./puntuacion-de-brier.md) · [QA / Test Automation Engineer →](../q/qa-test-automation-engineer.md)
 
-> **Tipo:** métrica · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 25](../../../classes/part-25-diseno-patrones-y-refactorizacion/README.md)
+> **Tipo:** métrica · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 25](../../../classes/part-25-diseno-patrones-y-refactorizacion/README.md)
 
 ## Definición
 
-Fracción de mutantes no equivalentes que alguna prueba mata.
-
-Definición de trabajo de [SE-426 — Mutación, fuzzing y generación de casos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-426-mutacion-fuzzing-y-generacion-de-casos/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-307 — Refactorización segura apoyada por pruebas](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-307-refactorizacion-segura-apoyada-por-pruebas/README.md): Fracción de mutantes no equivalentes que una suite detecta.
+La **puntuación de mutación** es la fracción de mutantes no equivalentes que alguna prueba mata ([SE-426](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-426-mutacion-fuzzing-y-generacion-de-casos/README.md)). [SE-307](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-307-refactorizacion-segura-apoyada-por-pruebas/README.md) la usa en el mismo sentido: la fracción de mutantes no equivalentes que una batería detecta. Mide la capacidad de una batería de pruebas para notar cambios en el código.
 
 ## Por qué importa
 
-En [SE-426 — Mutación, fuzzing y generación de casos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-426-mutacion-fuzzing-y-generacion-de-casos/README.md), el tema «Puntuación de mutación» importa porque mide detección, no ejecución.
+La cobertura de líneas dice qué se ejecutó, no qué se comprobó. Una batería puede ejecutar todo y afirmar casi nada. La puntuación de mutación responde a otra pregunta: si esta línea cambia, ¿falla algo? La decisión que cambia es cómo se valora una batería de pruebas: por lo que detecta, no por lo que recorre.
 
 ## Cómo funciona
 
-Según [SE-426 — Mutación, fuzzing y generación de casos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-426-mutacion-fuzzing-y-generacion-de-casos/README.md), en la sección «Puntuación de mutación»:
+Un **mutante** es una copia del programa con un cambio pequeño y deliberado (invertir una comparación, cambiar un `<` por `<=`). Si alguna prueba falla con el mutante, está **muerto**; si todas pasan, sobrevive. Algunos mutantes son **equivalentes**: se comportan igual que el original y ninguna prueba puede distinguirlos; se excluyen del cálculo. La puntuación es:
 
-Es la fracción de mutantes no equivalentes que alguna prueba mata. Responde a una pregunta distinta de la cobertura: no «¿se ejecutó esta línea?» sino «si esta línea cambia, ¿falla algo?». Para una batería con aserciones débiles, la diferencia es grande: ejecutar todas las líneas y no comprobar casi ningún valor da cobertura alta y puntuación baja. La puntuación no es una probabilidad de detectar defectos reales; es una comparación entre baterías sobre el mismo conjunto de mutantes.
+mutantes muertos ÷ mutantes no equivalentes.
+
+[SE-426](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-426-mutacion-fuzzing-y-generacion-de-casos/README.md) explica por qué difiere de la cobertura. Para una batería con aserciones débiles, la diferencia es grande: ejecutar todas las líneas y no comprobar casi ningún valor da cobertura alta y puntuación baja. Por eso añadir casos que ejecutan líneas sin afirmar fronteras sube la cobertura pero no la cantidad de mutantes muertos; la corrección es medir la puntuación al añadir casos.
+
+La clase aclara su sentido: la puntuación no es una probabilidad de detectar defectos reales; es una **comparación entre baterías sobre el mismo conjunto de mutantes**. [SE-307](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-307-refactorizacion-segura-apoyada-por-pruebas/README.md) la usa como red de seguridad antes de refactorizar: si la puntuación es baja, la batería no detectaría un cambio de comportamiento.
 
 ## Ejemplo
 
-Ejemplo de [SE-307 — Refactorización segura apoyada por pruebas](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-307-refactorizacion-segura-apoyada-por-pruebas/README.md) (sección «Caso conductor»):
-
-El componente `tarifas` conserva el diagnóstico de `SE-306` y gana una red de pruebas con una puntuación de mutación medida, valores de borde derivados del código y una comparación con la versión anterior. `SE-308` examinará cómo diseñar para el cambio, la prueba y la operación desde el principio. Cambia después una sola decisión, el tamaño del paso, y observa cuántos sospechosos tiene el primer fallo.
+El módulo sintético de [SE-426](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-426-mutacion-fuzzing-y-generacion-de-casos/README.md) tiene 21 líneas, 18 mutantes y cuatro defectos escritos por el autor. Una batería recorre todas las líneas (cobertura del 100 %) pero solo mata una parte de los mutantes, porque casi no comprueba valores de frontera. Al añadir casos que afirman los bordes, la puntuación sube. Un mutante que cambia `<` por `<=` sobrevive hasta que un caso lo prueba en el valor exacto.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La cobertura sube y los mutantes muertos no** — causa: se añadieron casos que ejecutan líneas sin afirmar fronteras. Corrección: medir la puntuación de mutación al añadir casos. ([SE-426](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-426-mutacion-fuzzing-y-generacion-de-casos/README.md))
+- **La cobertura sube y los mutantes muertos no**: se añadieron casos que ejecutan líneas sin afirmar fronteras; se corrige midiendo la puntuación de mutación.
+- **Tratarla como probabilidad de hallar defectos reales**.
+- **Contar los equivalentes** como supervivientes: falsean la puntuación a la baja.
+- **Perseguir el 100 %**: el último tramo suele ser equivalentes o de poco valor.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-426 — Mutación, fuzzing y generación de casos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-426-mutacion-fuzzing-y-generacion-de-casos/README.md)) son: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con un módulo sintético de 21 líneas, 18 mutantes y cuatro defectos escritos por el autor, en Windows y Ubuntu (WSL2), con salidas idénticas. No se usó una herramienta de mutación ni un fuzzer real, y los generadores estructurado y guiado contienen valores que el autor sabía que importaban. La equivalencia se decidió con una rejilla finita.
+[SE-426](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-426-mutacion-fuzzing-y-generacion-de-casos/README.md) precisa que usó un módulo sintético de 21 líneas, 18 mutantes y cuatro defectos del autor, sin herramienta de mutación ni fuzzer real; los generadores contienen valores que el autor sabía que importaban, y la equivalencia se decidió con una rejilla finita. Decidir si un mutante es equivalente puede ser indecidible en general. Generar y ejecutar mutantes cuesta tiempo, lo que obliga a acotar el alcance en bases de código grandes.
 
 ## Relación con otros conceptos
 

@@ -2,39 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Registro de decisiones](./registro-de-decisiones.md) · [Registro de eventos →](./registro-de-eventos.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 31](../../../classes/part-31-integracion-eventos-y-mensajeria/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 31](../../../classes/part-31-integracion-eventos-y-mensajeria/README.md)
 
 ## Definición
 
-Servicio que guarda versiones de esquemas y verifica su compatibilidad antes de aceptar una nueva.
-
-Definición de trabajo de [SE-380 — Compatibilidad de esquemas y registros](../../../classes/part-31-integracion-eventos-y-mensajeria/se-380-compatibilidad-de-esquemas-y-registros/README.md).
+Un **registro de esquemas** es un servicio que guarda las versiones de cada esquema y verifica su compatibilidad antes de aceptar una nueva ([SE-380](../../../classes/part-31-integracion-eventos-y-mensajeria/se-380-compatibilidad-de-esquemas-y-registros/README.md)). Convierte una regla de compatibilidad que vivía en un documento en una comprobación automática.
 
 ## Por qué importa
 
-En [SE-380 — Compatibilidad de esquemas y registros](../../../classes/part-31-integracion-eventos-y-mensajeria/se-380-compatibilidad-de-esquemas-y-registros/README.md), el tema «Registro de esquemas» importa porque convierte una regla de equipo en una comprobación automática.
+En un sistema de mensajes, productores y consumidores evolucionan por separado. Un cambio incompatible de un productor rompe a los consumidores que no se han actualizado. La decisión que cambia es dónde se detecta el problema: en la integración continua del productor, antes de publicar, y no en producción cuando un consumidor falla.
 
 ## Cómo funciona
 
-Según [SE-380 — Compatibilidad de esquemas y registros](../../../classes/part-31-integracion-eventos-y-mensajeria/se-380-compatibilidad-de-esquemas-y-registros/README.md), en la sección «Registro de esquemas»:
+[SE-380](../../../classes/part-31-integracion-eventos-y-mensajeria/se-380-compatibilidad-de-esquemas-y-registros/README.md) describe el mecanismo en tres piezas:
 
-Un **registro de esquemas** guarda las versiones de cada esquema y comprueba, antes de aceptar una nueva, que respete el modo de compatibilidad configurado para ese tema. El mensaje lleva el identificador de su esquema y el lector lo recupera para interpretar los datos. Así la regla pasa de estar en un documento a ser una comprobación que se ejecuta en la integración continua del productor: un cambio incompatible no llega a publicarse. No sustituye el diseño (el registro solo conoce la forma, no el sentido de un campo renombrado) ni el ensayo con los consumidores reales, pero cierra la mayor parte de los errores de forma.
+1. **Versiones**: el registro guarda cada versión de cada esquema.
+2. **Modo de compatibilidad configurado por tema**: hacia atrás (los lectores nuevos leen datos viejos), hacia adelante (los lectores viejos leen datos nuevos) o ambos.
+3. **Verificación previa**: antes de aceptar una versión nueva, el registro comprueba que respete el modo configurado; si no, la rechaza.
+
+El mensaje lleva el **identificador de su esquema** y el lector lo recupera del registro para interpretar los datos. Así la regla pasa de estar en un documento a ser una comprobación que se ejecuta en la integración continua del productor: un cambio incompatible no llega a publicarse.
+
+La clase es explícita con su alcance. El registro **solo conoce la forma**, no el sentido: un campo renombrado o un cambio de unidad que conserve el tipo pasa la verificación y rompe a los consumidores (cambio semántico). Tampoco sustituye el ensayo con los consumidores reales (por ejemplo, la prueba de contrato). Pero cierra la mayor parte de los errores de forma. Se relaciona con el contrato de datos y con el patrón de expandir y contraer para cambios incompatibles.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-380 — Compatibilidad de esquemas y registros](../../../classes/part-31-integracion-eventos-y-mensajeria/se-380-compatibilidad-de-esquemas-y-registros/README.md):
-
-El equipo de la plataforma fija las reglas de evolución de `EntregaRecibida`. **Modo del registro:** compatibilidad completa, porque el log se retiene 14 días y hay consumidores que se despliegan con semanas de desfase. **Reglas:** se permite añadir campos opcionales con valor por defecto y quitar campos opcionales; se prohíbe renombrar, cambiar tipos y volver obligatorio un campo. **Lectores:** todos los consumidores usan lectores tolerantes sobre los campos que necesitan y validan su tipo; los estados desconocidos se conservan y se derivan a una cola de revisión con una alarma.
+El productor quiere eliminar un campo obligatorio del esquema de `entrega`. El registro, configurado en compatibilidad hacia atrás, rechaza la versión porque los lectores nuevos no podrían leer los datos viejos que tienen ese campo. El productor lo hace opcional primero, espera la migración y luego lo retira en una fase posterior. Razonamiento de [SE-380](../../../classes/part-31-integracion-eventos-y-mensajeria/se-380-compatibilidad-de-esquemas-y-registros/README.md).
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Los cambios incompatibles llegan a producción** — causa: no hay verificación automática de compatibilidad. Corrección: registro de esquemas o prueba de contrato en la integración continua. ([SE-380](../../../classes/part-31-integracion-eventos-y-mensajeria/se-380-compatibilidad-de-esquemas-y-registros/README.md))
+- **Los cambios incompatibles llegan a producción**: no hay verificación automática de compatibilidad; se corrige con un registro de esquemas o una prueba de contrato en la integración continua.
+- **Creer que el registro valida el significado**: solo valida la forma.
+- **Elegir un modo de compatibilidad sin saber quién despliega primero**: hacia atrás o hacia adelante dependen del orden de actualización.
+- **No guardar el identificador del esquema en el mensaje**.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-380 — Compatibilidad de esquemas y registros](../../../classes/part-31-integracion-eventos-y-mensajeria/se-380-compatibilidad-de-esquemas-y-registros/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó Avro, Protocol Buffers, JSON Schema ni registro de esquemas: los esquemas, los lectores, el despliegue en cinco pasos del 20 % y el 6 % de valores nuevos son construcciones del autor, y los resultados no se extrapolan a ningún formato ni producto.
+[SE-380](../../../classes/part-31-integracion-eventos-y-mensajeria/se-380-compatibilidad-de-esquemas-y-registros/README.md) precisa que no usó Avro, Protocol Buffers, JSON Schema ni un registro real: los esquemas, los lectores, el despliegue en cinco pasos del 20 % y el 6 % de valores nuevos son construcciones del autor, y los resultados no se extrapolan a ningún formato ni producto. Para un sistema con un solo productor y un solo consumidor que se despliegan juntos, el registro añade infraestructura que puede no compensar.
 
 ## Relación con otros conceptos
 

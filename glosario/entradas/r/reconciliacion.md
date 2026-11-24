@@ -2,54 +2,45 @@
 
 [↑ Glosario](../../README.md) · [← Recomposición](./recomposicion.md) · [Reconstrucción de la solución →](./reconstruccion-de-la-solucion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 29](../../../classes/part-29-datos-persistencia-y-recuperacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 29](../../../classes/part-29-datos-persistencia-y-recuperacion/README.md)
 
 ## Definición
 
-Comparación periódica de dos registros independientes del mismo hecho.
+La **reconciliación** es la comparación periódica de dos registros independientes del mismo hecho, para detectar y reparar sus diferencias ([SE-596](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-596-ejecucion-durable-reintentos-e-idempotencia/README.md)). El programa la usa con matices:
 
-Definición de trabajo de [SE-596 — Ejecución durable, reintentos e idempotencia](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-596-ejecucion-durable-reintentos-e-idempotencia/README.md).
+- En [SE-378](../../../classes/part-31-integracion-eventos-y-mensajeria/se-378-cdc-etl-elt-y-sincronizacion/README.md) y [SE-352](../../../classes/part-29-datos-persistencia-y-recuperacion/se-352-restricciones-invariantes-y-consistencia/README.md) (datos): comparación periódica entre dos fuentes para detectar y reparar diferencias que ninguna restricción impide.
+- En [SE-379](../../../classes/part-31-integracion-eventos-y-mensajeria/se-379-webhooks-polling-y-suscripciones/README.md) (integración): comparación periódica entre lo recibido y el listado del proveedor para procesar lo que faltó.
+- En [SE-487](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-487-gitops-y-reconciliacion/README.md) (CI/CD): comparación periódica del estado real con el deseado y aplicación de la diferencia.
+- En [SE-524](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-524-compatibilidad-coexistencia-y-doble-escritura/README.md) (modernización): comparación de dos copias para encontrar y reparar diferencias.
 
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-379 — Webhooks, polling y suscripciones](../../../classes/part-31-integracion-eventos-y-mensajeria/se-379-webhooks-polling-y-suscripciones/README.md): Comparación periódica entre lo recibido y el listado del proveedor para procesar lo que faltó.
-- En [SE-487 — GitOps y reconciliación](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-487-gitops-y-reconciliacion/README.md): Comparación periódica del estado real con el deseado y aplicación de la diferencia.
-- En [SE-524 — Compatibilidad, coexistencia y doble escritura](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-524-compatibilidad-coexistencia-y-doble-escritura/README.md): Comparación de dos copias para encontrar y reparar diferencias.
-- En [SE-352 — Restricciones, invariantes y consistencia](../../../classes/part-29-datos-persistencia-y-recuperacion/se-352-restricciones-invariantes-y-consistencia/README.md): Comparación periódica entre dos fuentes para detectar y reparar diferencias que ninguna restricción impide.
+No debe confundirse con la conciliación contable de [SE-417](../../../classes/part-34-saas-y-plataformas-de-producto/se-417-pagos-idempotencia-y-conciliacion/README.md) (otra entrada), aunque comparten la idea de contrastar fuentes.
 
 ## Por qué importa
 
-En [SE-378 — CDC, ETL, ELT y sincronización](../../../classes/part-31-integracion-eventos-y-mensajeria/se-378-cdc-etl-elt-y-sincronizacion/README.md), el tema «Reconciliación» importa porque es la única defensa contra lo que ningún mecanismo ve.
-
-En [SE-596 — Ejecución durable, reintentos e idempotencia](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-596-ejecucion-durable-reintentos-e-idempotencia/README.md), el tema «Reconciliación» importa porque detecta lo que el diario no pudo saber.
-
-En [SE-399 — Orquestación y scheduling](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-399-orquestacion-y-scheduling/README.md), el tema «Reconciliación» importa porque el tiempo que una réplica falta depende de cada cuánto mira el controlador.
+Ningún mecanismo de sincronización es infalible: un evento perdido, un conector parado dos días o un esquema que cambió sin aviso dejan divergencias silenciosas. La decisión que cambia es no confiar solo en el flujo en tiempo real: se añade una verificación periódica que encuentre lo que falló antes que un usuario.
 
 ## Cómo funciona
 
-Según [SE-378 — CDC, ETL, ELT y sincronización](../../../classes/part-31-integracion-eventos-y-mensajeria/se-378-cdc-etl-elt-y-sincronizacion/README.md), en la sección «Reconciliación»:
+[SE-378](../../../classes/part-31-integracion-eventos-y-mensajeria/se-378-cdc-etl-elt-y-sincronizacion/README.md) explica el mecanismo: una lápida olvidada, un conector parado o un cambio de esquema dejan divergencias. La reconciliación **compara periódicamente origen y destino** con conteos, sumas de control por rangos o muestras, y reporta las diferencias. Es también la herramienta de arranque y reparación: al detectar una divergencia, se vuelve a tomar una instantánea del rango afectado.
 
-Ningún mecanismo es infalible: una lápida olvidada, un conector parado dos días o un esquema que cambió sin aviso dejan divergencias. La **reconciliación** compara periódicamente origen y destino con conteos, sumas de control por rangos o muestras, y reporta las diferencias antes de que las encuentre un usuario. Es también la herramienta de arranque y reparación: cuando se detecta una divergencia, se vuelve a tomar una instantánea del rango afectado. Su costo se acota comparando agregados por rango y descendiendo solo donde difieren.
+Su costo se acota comparando **agregados por rango** y descendiendo solo donde difieren ([SE-524](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-524-compatibilidad-coexistencia-y-doble-escritura/README.md)): si la suma del rango coincide, no hace falta mirar sus filas; si difiere, se parte el rango y se repite. Así la reconciliación que tardaba horas porque comparaba todo siempre pasa a comparar solo lo distinto.
+
+En integración ([SE-379](../../../classes/part-31-integracion-eventos-y-mensajeria/se-379-webhooks-polling-y-suscripciones/README.md)), recibir webhooks no basta: pueden perderse. Se compara periódicamente lo recibido con el listado del proveedor, desde un punto de control, y se alerta si el avance se detiene. En despliegue ([SE-487](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-487-gitops-y-reconciliacion/README.md)), la reconciliación continua del estado real contra el deseado es el principio de los controladores declarativos.
 
 ## Ejemplo
 
-Ejemplo de [SE-378 — CDC, ETL, ELT y sincronización](../../../classes/part-31-integracion-eventos-y-mensajeria/se-378-cdc-etl-elt-y-sincronizacion/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la plataforma decide por destino. **Portal de reportes:** consulta una vista del propio origen, sin copia, porque tolera la carga y necesita el valor actual. **Analítica:** captura de cambios sobre el registro de la base con instantánea inicial, carga cruda (ELT) en una zona sin datos de contacto y transformación posterior, con la versión de cada fila como guarda; el flujo se aplica de forma idempotente y se descarta cualquier cambio con versión menor. **Búsqueda de entregas:** los eventos de negocio del outbox de `SE-377`, porque solo le interesan los cambios con significado de negocio.
+Un servicio recibe eventos de pago por webhook. Tras un mantenimiento, el endpoint estuvo caído y se perdieron algunos. Cada hora, un trabajo lista los pagos del proveedor desde el último punto de control, compara con lo recibido y procesa lo que faltó. Si el punto de control no avanza, genera una alerta. Mecanismo de [SE-379](../../../classes/part-31-integracion-eventos-y-mensajeria/se-379-webhooks-polling-y-suscripciones/README.md).
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Se pierden avisos tras un mantenimiento** — causa: no hay reconciliación periódica. Corrección: listado desde un punto de control y alerta si no avanza. ([SE-379](../../../classes/part-31-integracion-eventos-y-mensajeria/se-379-webhooks-polling-y-suscripciones/README.md))
-- **La reconciliación tarda horas** — causa: compara todo siempre. Corrección: sumas por rangos y bajar solo a los distintos. ([SE-524](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-524-compatibilidad-coexistencia-y-doble-escritura/README.md))
+- **Se pierden avisos tras un mantenimiento**: no hay reconciliación periódica; se corrige con listado desde un punto de control y alerta si no avanza.
+- **La reconciliación tarda horas**: compara todo siempre; se corrige con sumas por rangos y descendiendo solo a los distintos.
+- **Confundirla con reintentar**: reintentar repara fallos conocidos; reconciliar encuentra los desconocidos.
+- **Reconciliar sin decidir cuál fuente manda**.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La **reconciliación** compara periódicamente origen y destino con conteos, sumas de control por rangos o muestras, y reporta las diferencias antes de que las encuentre un usuario. ([SE-378](../../../classes/part-31-integracion-eventos-y-mensajeria/se-378-cdc-etl-elt-y-sincronizacion/README.md))
-- La transferencia está lograda cuando puedes decir qué se perdería sin la reconciliación, no cuando el manejador devuelve 200. ([SE-379](../../../classes/part-31-integracion-eventos-y-mensajeria/se-379-webhooks-polling-y-suscripciones/README.md))
+Detecta divergencias con un retraso igual a su periodo: no sustituye la consistencia en tiempo real. Requiere dos fuentes realmente independientes y una clave común para compararlas; si ambas comparten el error, no lo ve. Y la reparación automática exige criterio claro sobre qué fuente es la verdad.
 
 ## Relación con otros conceptos
 

@@ -2,51 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Presupuesto de recursos](./presupuesto-de-recursos.md) · [Presupuesto de rendimiento →](./presupuesto-de-rendimiento.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 26](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 26](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/README.md)
 
 ## Definición
 
-Límite global de reintentos como fracción de las peticiones.
-
-Definición de trabajo de [SE-320 — Resiliencia: timeout, retry con jitter y circuit breaker](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-320-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-389 — Fallos parciales y modelos de red](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-389-fallos-parciales-y-modelos-de-red/README.md): Límite de la fracción de tráfico que puede ser reintento.
-- En [SE-373 — Integración síncrona y asíncrona](../../../classes/part-31-integracion-eventos-y-mensajeria/se-373-integracion-sincrona-y-asincrona/README.md): Límite a la fracción de llamadas que pueden ser reintentos, para que insistir no empeore el fallo.
-- En [SE-438 — Timeouts, retries, backoff y jitter](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-438-timeouts-retries-backoff-y-jitter/README.md): Límite a la fracción de solicitudes que pueden ser reintentos.
+Un **presupuesto de reintentos** es un límite global a la fracción de peticiones que pueden ser reintentos ([SE-320](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-320-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/README.md), [SE-373](../../../classes/part-31-integracion-eventos-y-mensajeria/se-373-integracion-sincrona-y-asincrona/README.md), [SE-389](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-389-fallos-parciales-y-modelos-de-red/README.md), [SE-438](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-438-timeouts-retries-backoff-y-jitter/README.md)). En lugar de limitar cuántas veces reintenta cada llamada, limita cuánto del tráfico total puede ser reintento, para que insistir no empeore el fallo.
 
 ## Por qué importa
 
-En [SE-320 — Resiliencia: timeout, retry con jitter y circuit breaker](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-320-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/README.md), el tema «Presupuesto de reintentos» importa porque acota la carga extra
+Reintentar parece inocuo: si algo falla, se vuelve a intentar. Pero cuando el servicio está en dificultades, cada reintento añade carga justo donde ya sobra, y puede convertir un fallo breve en una caída prolongada. La decisión que cambia es dónde se pone el límite: no solo por llamada, sino sobre el total, de modo que la insistencia sea acotada pase lo que pase.
 
 ## Cómo funciona
 
-Según [SE-320 — Resiliencia: timeout, retry con jitter y circuit breaker](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-320-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/README.md):
+[SE-320](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-320-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/README.md) muestra la amenaza con aritmética. Si el cliente web reintenta 3 veces, el servicio de aplicación que lo atiende reintenta 3 veces y el cliente del proveedor reintenta 3 veces, una sola petición del usuario puede producir 3 × 3 × 3 = **27** intentos sobre el proveedor cuando este falla. El efecto es **multiplicativo** porque cada capa reintenta sin saber que las demás también lo hacen.
 
-Si el cliente web reintenta 3 veces, el servicio de aplicación que lo atiende reintenta 3 veces y el cliente del proveedor reintenta 3 veces, una sola petición del usuario puede producir 3 × 3 × 3 = **27** intentos sobre el proveedor cuando este falla. Un **presupuesto de reintentos** acota el total: cada capa puede reintentar como máximo una fracción de sus peticiones (el ejemplo del experimento usa el 10 %), de modo que el factor de amplificación de las tres capas es 1,1³ ≈ **1,33**. El valor del presupuesto es una decisión; lo que el cálculo muestra es la forma de la amenaza (multiplicativa) y de su solución (acotar globalmente, no por llamada).
+El presupuesto acota el total: cada capa puede reintentar como máximo una fracción de sus peticiones. En el ejemplo de la clase, el 10 %, de modo que el factor de amplificación de las tres capas es 1,1³ ≈ **1,33**. El valor del presupuesto es una decisión; lo que el cálculo muestra es la forma de la amenaza (multiplicativa) y de su solución: acotar globalmente, no por llamada.
 
-Según [SE-320 — Resiliencia: timeout, retry con jitter y circuit breaker](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-320-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/README.md):
-
-**Corrección.** Se añade jitter completo, se acota con un presupuesto de reintentos, se añade el interruptor y se prueba con una simulación que reproduce la caída y comprueba el pico.
+La clase lo combina con otras defensas: **jitter completo** (aleatorizar la espera para que los clientes no reintenten sincronizados), el interruptor (circuit breaker) y una simulación que reproduce la caída y comprueba el pico. [SE-389](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-389-fallos-parciales-y-modelos-de-red/README.md) simula un presupuesto del 10 % por capa con distintas tasas de fallo, para 1 000 clientes que fallaron a la vez, comparando retroceso con y sin jitter. [SE-373](../../../classes/part-31-integracion-eventos-y-mensajeria/se-373-integracion-sincrona-y-asincrona/README.md) y [SE-438](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-438-timeouts-retries-backoff-y-jitter/README.md) aplican la misma idea a integración y a calidad: la regla de reintentar en una sola capa, con retroceso, aleatoriedad y presupuesto.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-320 — Resiliencia: timeout, retry con jitter y circuit breaker](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-320-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/README.md):
-
-*Escenario ilustrativo: las cifras de este ejemplo son supuestos de la narración, no mediciones.*
+Un proveedor falla durante 30 segundos. Sin presupuesto, cada una de las tres capas reintenta tres veces y el proveedor recibe hasta 27 veces el tráfico habitual, lo que impide su recuperación. Con un presupuesto del 10 % por capa, el exceso nunca pasa de un 33 % y el proveedor puede recuperarse. Cálculo de [SE-320](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-320-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/README.md).
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La carga se triplica tras un fallo breve** — causa: reintento inmediato sin límite. Corrección: presupuesto de reintentos y espera con jitter. ([SE-438](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-438-timeouts-retries-backoff-y-jitter/README.md))
+- **La carga se triplica tras un fallo breve**: reintento inmediato sin límite; se corrige con presupuesto y espera con jitter ([SE-438](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-438-timeouts-retries-backoff-y-jitter/README.md)).
+- **Reintentar en todas las capas**: la amplificación se multiplica.
+- **Confundirlo con un número máximo de intentos por llamada**: es un límite sobre la fracción global.
+- **Reintentar operaciones no idempotentes** sin protección.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Aparte, se simula un presupuesto de reintentos del 10 % por capa con distintas tasas de fallo del servicio y se compara un retroceso sin jitter con uno con jitter completo, para 1 000 clientes que fallaron a la vez. ([SE-389](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-389-fallos-parciales-y-modelos-de-red/README.md))
+El valor del 10 % es un ejemplo, no una recomendación general: se decide según el servicio y su tolerancia. El presupuesto limita la amplificación pero no arregla el fallo: sin un interruptor que deje de llamar y sin degradación, las peticiones simplemente fallan. Y los experimentos de las clases son simulaciones con parámetros del autor, no mediciones de sistemas reales.
 
 ## Relación con otros conceptos
 

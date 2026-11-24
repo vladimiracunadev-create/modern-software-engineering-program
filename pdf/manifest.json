@@ -1,0 +1,333 @@
+{
+ "program": "Programa de Ingeniería de Software Moderna",
+ "commit": "e6575e51e5624ac10a40ae1fa2ea1bcda1ebf6d4",
+ "date": "2026-11-24T10:52:26-03:00",
+ "browser": "",
+ "tag": "pdf-2026-11-24-e6575e51",
+ "volumes": [
+  {
+   "file": "ingenieria-software-moderna_libro-completo.pdf",
+   "title": "Libro completo",
+   "pages": 13029,
+   "bytes": 185000876,
+   "sha256": "53468b686ae570abe2b295ffc08d8d43d2bb6e32c181fa2b3f4cca2d3b513f52",
+   "counts": {
+    "parts": 51,
+    "classes": 612,
+    "cases": 32,
+    "roles": 47,
+    "glossary_pages": 1,
+    "glossary_entries": 2743
+   },
+   "figures": 3299,
+   "links": {
+    "repo": 150,
+    "bare_linked": 1,
+    "bare_portal": 0,
+    "internal": 84414,
+    "portal": 0,
+    "external": 20785,
+    "unwrapped": 25,
+    "images": 3378,
+    "remote_images": 0
+   }
+  },
+  {
+   "file": "ingenieria-software-moderna_etapa-a-fundamentos.pdf",
+   "title": "Etapa A · Fundamentos de la profesión",
+   "pages": 631,
+   "bytes": 17476452,
+   "sha256": "50af9e748755d34710348a7a3dfb9db5d6809952a41f1af024a5ee7fd8e4d9a0",
+   "counts": {
+    "parts": 5,
+    "classes": 60,
+    "cases": 0,
+    "roles": 0,
+    "glossary_pages": 0,
+    "glossary_entries": 0
+   },
+   "figures": 238,
+   "links": {
+    "repo": 0,
+    "bare_linked": 1,
+    "bare_portal": 0,
+    "internal": 574,
+    "portal": 1125,
+    "external": 880,
+    "unwrapped": 62,
+    "images": 260,
+    "remote_images": 0
+   }
+  },
+  {
+   "file": "ingenieria-software-moderna_etapa-b-programacion.pdf",
+   "title": "Etapa B · Programación y construcción",
+   "pages": 669,
+   "bytes": 19470077,
+   "sha256": "d239fa92d7645c5312e828b0dfc7505babfc763931af482b8e0c6e70416a8404",
+   "counts": {
+    "parts": 5,
+    "classes": 60,
+    "cases": 0,
+    "roles": 0,
+    "glossary_pages": 0,
+    "glossary_entries": 0
+   },
+   "figures": 234,
+   "links": {
+    "repo": 0,
+    "bare_linked": 0,
+    "bare_portal": 0,
+    "internal": 674,
+    "portal": 975,
+    "external": 1168,
+    "unwrapped": 60,
+    "images": 245,
+    "remote_images": 0
+   }
+  },
+  {
+   "file": "ingenieria-software-moderna_etapa-c-producto.pdf",
+   "title": "Etapa C · Producto, requisitos y especificación",
+   "pages": 1180,
+   "bytes": 34345482,
+   "sha256": "6fcbaaaca5ca371266c7f65f6f67529407ca7053a86a827015d8651da2ee4ad4",
+   "counts": {
+    "parts": 8,
+    "classes": 96,
+    "cases": 0,
+    "roles": 0,
+    "glossary_pages": 0,
+    "glossary_entries": 0
+   },
+   "figures": 393,
+   "links": {
+    "repo": 0,
+    "bare_linked": 0,
+    "bare_portal": 0,
+    "internal": 1138,
+    "portal": 1484,
+    "external": 1684,
+    "unwrapped": 96,
+    "images": 393,
+    "remote_images": 0
+   }
+  },
+  {
+   "file": "ingenieria-software-moderna_etapa-d-superficies.pdf",
+   "title": "Etapa D · Superficies y formas de software",
+   "pages": 1077,
+   "bytes": 31773438,
+   "sha256": "4030ad88bb80320b3c361b159060cfb6ad8581b7a14bdc6c728c8a252e6f4dd8",
+   "counts": {
+    "parts": 7,
+    "classes": 84,
+    "cases": 0,
+    "roles": 0,
+    "glossary_pages": 0,
+    "glossary_entries": 0
+   },
+   "figures": 344,
+   "links": {
+    "repo": 0,
+    "bare_linked": 0,
+    "bare_portal": 0,
+    "internal": 964,
+    "portal": 1386,
+    "external": 1418,
+    "unwrapped": 85,
+    "images": 344,
+    "remote_images": 0
+   }
+  },
+  {
+   "file": "ingenieria-software-moderna_etapa-e-arquitectura.pdf",
+   "title": "Etapa E · Diseño, arquitectura, datos e integración",
+   "pages": 1582,
+   "bytes": 51427145,
+   "sha256": "d1d8a7c17f43a79a2e9a25c377fe55dcf08cb2beda3ee64c84c94c1c6866e713",
+   "counts": {
+    "parts": 10,
+    "classes": 120,
+    "cases": 0,
+    "roles": 0,
+    "glossary_pages": 0,
+    "glossary_entries": 0
+   },
+   "figures": 495,
+   "links": {
+    "repo": 0,
+    "bare_linked": 0,
+    "bare_portal": 0,
+    "internal": 1404,
+    "portal": 1902,
+    "external": 2046,
+    "unwrapped": 127,
+    "images": 495,
+    "remote_images": 0
+   }
+  },
+  {
+   "file": "ingenieria-software-moderna_etapa-f-calidad-entrega.pdf",
+   "title": "Etapa F · Calidad, seguridad y entrega",
+   "pages": 964,
+   "bytes": 27044912,
+   "sha256": "b40b81c8bb6ddb5913f5189bde3f34a1c0796b75a84cad0212f7a4da95204558",
+   "counts": {
+    "parts": 6,
+    "classes": 72,
+    "cases": 0,
+    "roles": 0,
+    "glossary_pages": 0,
+    "glossary_entries": 0
+   },
+   "figures": 295,
+   "links": {
+    "repo": 0,
+    "bare_linked": 0,
+    "bare_portal": 0,
+    "internal": 829,
+    "portal": 1170,
+    "external": 1190,
+    "unwrapped": 78,
+    "images": 295,
+    "remote_images": 0
+   }
+  },
+  {
+   "file": "ingenieria-software-moderna_etapa-g-operacion-liderazgo.pdf",
+   "title": "Etapa G · Operación, evolución y liderazgo",
+   "pages": 660,
+   "bytes": 17220893,
+   "sha256": "e8049164be95d63f0b30084cfcdc50b1adca7ec81fa309063933f6d733a46cd2",
+   "counts": {
+    "parts": 4,
+    "classes": 48,
+    "cases": 0,
+    "roles": 0,
+    "glossary_pages": 0,
+    "glossary_entries": 0
+   },
+   "figures": 196,
+   "links": {
+    "repo": 0,
+    "bare_linked": 0,
+    "bare_portal": 0,
+    "internal": 551,
+    "portal": 816,
+    "external": 980,
+    "unwrapped": 51,
+    "images": 196,
+    "remote_images": 0
+   }
+  },
+  {
+   "file": "ingenieria-software-moderna_etapa-h-ia.pdf",
+   "title": "Etapa H · Ingeniería de software nativa con IA",
+   "pages": 941,
+   "bytes": 24799007,
+   "sha256": "f17a37fed699b395da714520e3527b5f5fbccf7dd7aab4e0ae88bda3ea72a47d",
+   "counts": {
+    "parts": 6,
+    "classes": 72,
+    "cases": 0,
+    "roles": 0,
+    "glossary_pages": 0,
+    "glossary_entries": 0
+   },
+   "figures": 297,
+   "links": {
+    "repo": 0,
+    "bare_linked": 0,
+    "bare_portal": 0,
+    "internal": 844,
+    "portal": 1238,
+    "external": 1292,
+    "unwrapped": 78,
+    "images": 297,
+    "remote_images": 0
+   }
+  },
+  {
+   "file": "ingenieria-software-moderna_casos-de-estudio.pdf",
+   "title": "Casos de estudio",
+   "pages": 960,
+   "bytes": 27671059,
+   "sha256": "bbc8a298e1bf75b4a3f9130f78af8f1f02676661ffcb3ecabb8dfbeac0c43537",
+   "counts": {
+    "parts": 0,
+    "classes": 0,
+    "cases": 32,
+    "roles": 0,
+    "glossary_pages": 0,
+    "glossary_entries": 0
+   },
+   "figures": 757,
+   "links": {
+    "repo": 0,
+    "bare_linked": 0,
+    "bare_portal": 0,
+    "internal": 71,
+    "portal": 1724,
+    "external": 306,
+    "unwrapped": 0,
+    "images": 757,
+    "remote_images": 0
+   }
+  },
+  {
+   "file": "ingenieria-software-moderna_glosario.pdf",
+   "title": "Glosario",
+   "pages": 3938,
+   "bytes": 63609350,
+   "sha256": "da820bb205872beae78cebed53ee92e9657e2e806eb602ab129d728e110a96ba",
+   "counts": {
+    "parts": 0,
+    "classes": 0,
+    "cases": 0,
+    "roles": 0,
+    "glossary_pages": 1,
+    "glossary_entries": 2743
+   },
+   "figures": 0,
+   "links": {
+    "repo": 0,
+    "bare_linked": 0,
+    "bare_portal": 0,
+    "internal": 15590,
+    "portal": 41748,
+    "external": 9789,
+    "unwrapped": 0,
+    "images": 0,
+    "remote_images": 0
+   }
+  },
+  {
+   "file": "ingenieria-software-moderna_guias-de-rol.pdf",
+   "title": "Guías de rol",
+   "pages": 453,
+   "bytes": 17819284,
+   "sha256": "d86b42d81bed2909af068a991f543737384a4a5adcc52bba1c7a889d7be1950e",
+   "counts": {
+    "parts": 0,
+    "classes": 0,
+    "cases": 0,
+    "roles": 47,
+    "glossary_pages": 0,
+    "glossary_entries": 0
+   },
+   "figures": 50,
+   "links": {
+    "repo": 151,
+    "bare_linked": 0,
+    "bare_portal": 0,
+    "internal": 351,
+    "portal": 7102,
+    "external": 173,
+    "unwrapped": 0,
+    "images": 96,
+    "remote_images": 0
+   }
+  }
+ ]
+}

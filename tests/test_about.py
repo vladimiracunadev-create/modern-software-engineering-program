@@ -43,6 +43,10 @@ class AboutTest(unittest.TestCase):
         self.assertIn(f"{counts['clases']} clases desarrolladas en {counts['partes']} partes", text)
         self.assertIn(f"{counts['roles']} rutas por rol", text)
         self.assertIn(f"{counts['casos']} casos de estudio", text)
+        inventory = (ROOT / "glosario" / "INVENTARIO.md").read_text(encoding="utf-8")
+        concepts = re.search(r"(\d+) conceptos", inventory).group(1)
+        self.assertIn(f"glosario de {concepts} conceptos", text)
+        self.assertIn("PDF", text)
 
     def test_names_the_parts_still_in_preparation(self) -> None:
         catalog = json.loads((ROOT / "catalog.json").read_text(encoding="utf-8"))

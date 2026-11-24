@@ -20,6 +20,7 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 | Sitio | 664 páginas HTML generadas desde el manifiesto, más las 34 de `site/casos/`, las 2744 de `site/glosario/`, las de `site/legacy/` (mapa de identificadores antiguos) y `site/404.html` |
 | Casos de estudio | 32 casos (16 de éxito y 16 de fallo) en `casos/`; no son clases ni roles y no cuentan en las 612 clases ni en las 51 partes |
 | Glosario | 2743 conceptos (625 troncales y 2118 de apoyo; el avance de las entradas desarrolladas a mano figura en `glosario/README.md`) con entrada propia en `glosario/` y en `site/glosario/`; no son clases ni roles y no cuentan en las 612 clases ni en las 51 partes |
+| PDF | 12 volúmenes (libro completo de 13.029 páginas, ocho etapas, casos, glosario y guías de rol) publicados como activos del release `pdf-2026-11-24-e6575e51`, con sumas en `pdf/SHA256SUMS`; ver `docs/PDF.md` |
 | Portal definitivo | catálogo navegable con las 612 clases desarrolladas, sin presentarlas como aprobadas por una revisión humana independiente |
 | Publicación | GitHub Pages activo; workflow y respuesta HTTPS verificados el 30 de septiembre de 2026 |
 

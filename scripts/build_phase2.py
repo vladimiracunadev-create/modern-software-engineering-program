@@ -599,6 +599,18 @@ def source_registry(program: dict, baseline: dict) -> dict:
     }
 
 
+def pdf_state() -> str:
+    """Fila de STATUS sobre los PDF, derivada de pdf/manifest.json (los binarios viven en un release, no en git)."""
+    path = ROOT / "pdf" / "manifest.json"
+    if not path.exists():
+        return "sin PDF publicados todavía; la generación y la verificación están en `docs/PDF.md`"
+    manifest = json.loads(path.read_text(encoding="utf-8"))
+    book = next(v for v in manifest["volumes"] if v["file"].endswith("libro-completo.pdf"))
+    pages = f"{book['pages']:,}".replace(",", ".")
+    return (f"{len(manifest['volumes'])} volúmenes (libro completo de {pages} páginas, ocho etapas, casos, glosario y guías de rol) "
+            f"publicados como activos del release `{manifest['tag']}`, con sumas en `pdf/SHA256SUMS`; ver `docs/PDF.md`")
+
+
 def status_document(program: dict) -> str:
     glossary = build_glossary.summary()
     phase3 = program.get("phase_3_target", {"classes": 0})
@@ -645,6 +657,7 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 | Sitio | {1 + program['part_count'] + program['class_count']} páginas HTML generadas desde el manifiesto, más las {2 + len(CASES)} de `site/casos/`, las {glossary['total'] + 1} de `site/glosario/`, las de `site/legacy/` (mapa de identificadores antiguos) y `site/404.html` |
 | Casos de estudio | {len(CASES)} casos ({count_of('exito')} de éxito y {count_of('fallo')} de fallo) en `casos/`; no son clases ni roles y no cuentan en las {program['class_count']} clases ni en las {program['part_count']} partes |
 | Glosario | {glossary['total']} conceptos ({glossary['troncal']} troncales y {glossary['apoyo']} de apoyo; el avance de las entradas desarrolladas a mano figura en `glosario/README.md`) con entrada propia en `glosario/` y en `site/glosario/`; no son clases ni roles y no cuentan en las {program['class_count']} clases ni en las {program['part_count']} partes |
+| PDF | {pdf_state()} |
 | Portal definitivo | catálogo navegable con las {program['class_count']} clases desarrolladas, sin presentarlas como aprobadas por una revisión humana independiente |
 | Publicación | GitHub Pages activo; workflow y respuesta HTTPS verificados el 30 de septiembre de 2026 |
 

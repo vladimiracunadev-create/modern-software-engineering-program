@@ -116,6 +116,26 @@ class PublishedRecordTests(unittest.TestCase):
                 self.assertEqual(curriculum["class_count"], vol["counts"]["classes"])
                 self.assertEqual(curriculum["part_count"], vol["counts"]["parts"])
 
+    def test_readme_status_and_about_quote_the_real_state(self) -> None:
+        manifest_path = ROOT / "pdf" / "manifest.json"
+        if not manifest_path.exists():
+            self.skipTest("todavía no se ha publicado ningún PDF")
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        status = (ROOT / "STATUS.md").read_text(encoding="utf-8")
+        curriculum = bp.load_curriculum()
+        self.assertIn(manifest["tag"], readme)
+        self.assertIn(manifest["tag"], status)
+        for vol in manifest["volumes"]:
+            self.assertIn(vol["file"], readme, vol["file"])
+        book = next(v for v in manifest["volumes"] if v["file"].endswith("libro-completo.pdf"))
+        self.assertEqual(curriculum["class_count"], book["counts"]["classes"])
+        self.assertEqual(curriculum["part_count"], book["counts"]["parts"])
+        self.assertEqual(len(list((ROOT / "roles").glob("*.md"))) - 1, book["counts"]["roles"])
+        self.assertEqual(sum(len(bp.case_listing(k)) for k in ("exito", "fallo")), book["counts"]["cases"])
+        self.assertEqual(len(vp.glossary_slugs()), book["counts"]["glossary_entries"])
+        self.assertEqual(vp.inventory_count(), book["counts"]["glossary_entries"])
+
     def test_no_pdf_is_tracked_in_git(self) -> None:
         tracked = bp.git("ls-files", "*.pdf")
         self.assertEqual("", tracked, "los PDF van como activos de un Release, no en git")

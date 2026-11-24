@@ -499,9 +499,9 @@ Además de las partes, los roles y los casos, el programa ofrece una superficie 
 {fmt(c['total'])} conceptos ({c['troncal']} troncales y {fmt(c['apoyo'])} de apoyo). No son clases ni roles y no cambian el
 número de clases: cada entrada define el término, explica por qué importa y cómo funciona, advierte de errores y límites, lo
 relaciona con otros conceptos y enlaza las clases y los casos donde se enseña. Se consulta cuando una clase usa un término que no
-dominas y se usa para volver a la clase que lo desarrolla. De los {fmt(c['total'])} conceptos, {c['desarrolladas']} tienen una entrada
-desarrollada a mano y {fmt(c['total'] - c['desarrolladas'])} se componen, con atribución, a partir de lo que las clases ya enseñan;
-el estado de cada entrada figura en su cabecera.
+dominas y se usa para volver a la clase que lo desarrolla. Las entradas se desarrollan a mano por familias y las demás se componen,
+con atribución, a partir de lo que las clases ya enseñan; el estado de cada entrada figura en su cabecera y el avance, en el
+[glosario](glosario/README.md).
 
 - 🔎 [**Buscar un término en el portal**](https://vladimiracunadev-create.github.io/modern-software-engineering-program/glosario/index.html), con búsqueda por término y por sigla.
 - 🔤 [**Índice alfabético y por familias**](glosario/README.md): cómo se lee una entrada, conteos y accesos a todas las entradas.

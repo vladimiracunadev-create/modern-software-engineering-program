@@ -2,51 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Camino a producción](./camino-a-produccion.md) · [Camino dorado →](./camino-dorado.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
 
 ## Definición
 
-Secuencia de elementos dependientes de mayor duración; define la duración mínima de la entrega si las duraciones fueran las supuestas.
-
-Definición de trabajo de [SE-186 — Planificación de entregas y gestión de dependencias](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-482 — Pipelines, jobs, matrices y cachés](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-482-pipelines-jobs-matrices-y-caches/README.md): Cadena de dependencias de mayor duración acumulada, que fija la duración mínima.
-- En [SE-156 — Proyecto: especificación de requisitos revisable](../../../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md): Cadena de requisitos dependientes de mayor duración acumulada, que fija el mínimo de tiempo con recursos ilimitados.
-- En [SE-402 — Infraestructura como código y estado](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md): Cadena de dependencias cuya suma de duraciones fija el tiempo mínimo de aplicar el conjunto.
-- En [SE-340 — Microservicios y sus costes reales](../../../classes/part-28-estilos-arquitectonicos/se-340-microservicios-y-sus-costes-reales/README.md): Secuencia de llamadas de la que depende la respuesta al usuario.
+El **camino crítico** es la secuencia de elementos dependientes de mayor duración acumulada: fija la duración mínima de la entrega si las duraciones fueran las supuestas. Es el sentido de [SE-186](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md). Las clases lo reutilizan con el mismo núcleo en otros grafos: la cadena de requisitos dependientes ([SE-156](../../../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md)), la cadena de jobs de una canalización ([SE-482](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-482-pipelines-jobs-matrices-y-caches/README.md)), la cadena de dependencias al aplicar infraestructura como código ([SE-402](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md)) y, en [SE-340](../../../classes/part-28-estilos-arquitectonicos/se-340-microservicios-y-sus-costes-reales/README.md), la secuencia de llamadas de la que depende la respuesta al usuario.
 
 ## Por qué importa
 
-En [SE-186 — Planificación de entregas y gestión de dependencias](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md), el tema «Camino crítico» importa porque identifica qué retrasos retrasan la entrega; no cuántas veces ocurrirá.
+Dice dónde mirar. Cualquier retraso en un elemento del camino crítico retrasa la entrega; un retraso fuera de él, dentro de su holgura, no. Cambia la decisión de dónde poner a la gente, qué dependencia externa atacar primero y qué optimizar: acelerar un eslabón que no es crítico no acorta nada.
 
 ## Cómo funciona
 
-Según [SE-186 — Planificación de entregas y gestión de dependencias](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md), en la sección «Camino crítico»:
+El cálculo es el recorrido del grafo de dependencias sumando duraciones y quedándose con la cadena más larga; la suma es la duración mínima con recursos ilimitados ([SE-156](../../../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md)). La consecuencia práctica es que añadir recursos tiene un piso: en una canalización, añadir ejecutores no baja de un mínimo porque el camino crítico ya está alcanzado ([SE-482](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-482-pipelines-jobs-matrices-y-caches/README.md)); hay que acortar su eslabón más largo.
 
-El camino crítico es la secuencia de elementos dependientes más larga: cualquier retraso en uno de ellos retrasa la entrega. Calcularlo con duraciones típicas es útil para saber dónde mirar, y engañoso si se toma como duración esperada. Con duraciones inciertas, otros caminos casi tan largos también pueden convertirse en críticos en una parte de las ejecuciones. La noción útil es la probabilidad de que un elemento sea crítico, y no su etiqueta determinista.
+[SE-186](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md) añade el matiz decisivo: calcularlo con duraciones típicas sirve para saber dónde mirar, y engaña si se toma como duración esperada. Con duraciones inciertas, otros caminos casi tan largos también se vuelven críticos en una parte de las ejecuciones. La noción útil es la **probabilidad de que un elemento sea crítico**, no su etiqueta determinista. En una red ancha, comprometer el plazo del camino crítico determinista subestima el riesgo.
 
 ## Ejemplo
 
-Ejemplo de [SE-186 — Planificación de entregas y gestión de dependencias](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md) (sección «Ejemplo mínimo»):
-
-El fragmento calcula la duración de una red pequeña con camino crítico de 6 días. Antes de ejecutarlo, predice cuánto vale la duración si el elemento C tarda 1 día más.
+[SE-186](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md) incluye un fragmento que calcula la duración de una red pequeña cuyo camino crítico es de 6 días, y pide predecir antes de ejecutar cuánto vale la duración si el elemento C tarda un día más. La respuesta depende de si C está en el camino crítico: si lo está, la entrega se mueve un día; si tiene holgura, puede no moverse. El ejercicio entrena justo esa lectura.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Todo el equipo espera a la misma entrega externa** — causa: el camino crítico pasa por una dependencia. Corrección: dividir el trabajo para que avance sin ella, con un contrato o un doble. ([SE-186](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md))
-- **La canalización no baja de un mínimo al añadir ejecutores** — causa: el camino crítico ya está alcanzado. Corrección: calcular el camino crítico y acortar su eslabón más largo. ([SE-482](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-482-pipelines-jobs-matrices-y-caches/README.md))
-- **El plan supone que todo es secuencial** — causa: las dependencias no están declaradas. Corrección: escribir el grafo y calcular el camino crítico. ([SE-156](../../../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md))
+- **Todo el equipo espera la misma entrega externa.** El camino crítico pasa por una dependencia; corrección de [SE-186](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md): dividir el trabajo para que avance sin ella, con un contrato o un doble.
+- **El plan supone que todo es secuencial.** Las dependencias no están declaradas; escribir el grafo y calcular ([SE-156](../../../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md)).
+- **Esperar que más recursos acorten siempre.** No bajan del camino crítico ([SE-482](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-482-pipelines-jobs-matrices-y-caches/README.md)).
+- **Tratarlo como duración esperada.** Es un mínimo bajo supuestos, no un pronóstico.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- El camino crítico es la secuencia de elementos dependientes más larga: cualquier retraso en uno de ellos retrasa la entrega. ([SE-186](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md))
-- **comprometer el plazo del camino crítico determinista en una red ancha**. ([SE-186](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md))
+Presupone que las dependencias están completas y que las duraciones son las supuestas; con incertidumbre alta, o redes anchas con muchos caminos casi iguales, la etiqueta determinista pierde valor y conviene simular y hablar de probabilidad de ser crítico. Tampoco modela restricciones de recursos compartidos: el cálculo habla de recursos ilimitados. Y no dice nada sobre la calidad o el valor de lo que se entrega, solo sobre el tiempo.
 
 ## Relación con otros conceptos
 

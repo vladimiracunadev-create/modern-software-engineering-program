@@ -2,49 +2,40 @@
 
 [↑ Glosario](../../README.md) · [← Constitución](./constitucion.md) · [Constructor de datos →](./constructor-de-datos.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 17](../../../classes/part-17-documentacion-y-conocimiento-tecnico/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 17](../../../classes/part-17-documentacion-y-conocimiento-tecnico/README.md)
 
 ## Definición
 
-Construcción que, con el mismo código y las mismas herramientas, produce artefactos idénticos bit a bit.
-
-Definición de trabajo de [SE-527 — Taller: estabilizar antes de modernizar](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-527-taller-estabilizar-antes-de-modernizar/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-212 — Docs as code, revisión y publicación](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-212-docs-as-code-revision-y-publicacion/README.md): Construcción que produce los mismos bytes a partir de las mismas fuentes.
-- En [SE-408 — Proyecto: plataforma mínima reproducible](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-408-proyecto-plataforma-minima-reproducible/README.md): Proceso que, con las mismas entradas, produce siempre los mismos bytes.
+Una **construcción reproducible** es aquella que, con el mismo código fuente y las mismas herramientas, produce artefactos idénticos bit a bit. Es el sentido de [SE-527](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-527-taller-estabilizar-antes-de-modernizar/README.md); [SE-212](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-212-docs-as-code-revision-y-publicacion/README.md) y [SE-408](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-408-proyecto-plataforma-minima-reproducible/README.md) lo repiten con otras palabras («los mismos bytes a partir de las mismas fuentes»). Se distingue de una construcción meramente «repetible» (que funciona cada vez) en que el resultado debe poder compararse byte a byte.
 
 ## Por qué importa
 
-En [SE-527 — Taller: estabilizar antes de modernizar](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-527-taller-estabilizar-antes-de-modernizar/README.md), el tema «Construcción reproducible» importa porque sin ella, no se sabe qué se probó.
-
-En [SE-212 — Docs as code, revisión y publicación](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-212-docs-as-code-revision-y-publicacion/README.md), el tema «Construcción reproducible» importa porque si la construcción varía, no se puede comparar lo revisado con lo publicado.
+Cambia lo que una huella puede afirmar. Según [SE-527](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-527-taller-estabilizar-antes-de-modernizar/README.md), cuando la construcción no es reproducible no se puede verificar que lo que se despliega es lo que se probó, ni comparar dos artefactos para ver si cambió algo. [SE-212](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-212-docs-as-code-revision-y-publicacion/README.md) lo aplica a la documentación: si la construcción varía, no se puede comparar lo revisado con lo publicado. La reproducibilidad es la condición para que una huella publicada signifique algo.
 
 ## Cómo funciona
 
-Según [SE-527 — Taller: estabilizar antes de modernizar](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-527-taller-estabilizar-antes-de-modernizar/README.md), en la sección «Construcción reproducible»:
+[SE-527](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-527-taller-estabilizar-antes-de-modernizar/README.md) identifica tres causas habituales de no reproducibilidad:
 
-Una construcción es **reproducible** si, dado el mismo código fuente y las mismas herramientas, produce un artefacto idéntico bit a bit. Cuando no lo es, no se puede verificar que lo que se despliega es lo que se probó, ni comparar artefactos de dos construcciones para ver si cambió algo. Las causas habituales son tres. Las **fechas** incrustadas: la fecha de modificación de los archivos fuente o del momento de construcción. El **orden** en que se leen o se empaquetan los archivos, que depende del sistema. Y las **rutas** absolutas del equipo que construye.
+- **Fechas** incrustadas: la fecha de modificación de los archivos fuente o el momento de la construcción.
+- **Orden** en que se leen o se empaquetan los archivos, que depende del sistema.
+- **Rutas absolutas** del equipo que construye.
+
+La corrección es eliminar cada dependencia ambiental: fijar o normalizar las marcas de tiempo, ordenar de forma determinista la entrada y evitar rutas absolutas en el resultado. El verificador es simple: construir dos veces (idealmente en equipos distintos) y comparar las huellas. Si coinciden, el proceso es reproducible respecto a esa entrada; si no, la diferencia señala la causa.
 
 ## Ejemplo
 
-Ejemplo de [SE-212 — Docs as code, revisión y publicación](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-212-docs-as-code-revision-y-publicacion/README.md) (sección «Ejemplo profesional»):
-
-La documentación de la plataforma de entregas se construye en cada pull request: un comprobador de enlaces y anclas con la regla del sitio, un linter de Markdown consciente de los bloques de código, los comprobadores de las clases anteriores (opciones del README, grafo de ADR, diagrama frente a importaciones, ejemplos de la API, linter de runbooks) y una construcción reproducible cuya huella se publica junto a la página. La revisión humana mira exactitud, tarea de la audiencia y tipo de página, con una lista corta.
+La documentación de la plataforma de entregas ([SE-212](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-212-docs-as-code-revision-y-publicacion/README.md)) se construye en cada pull request con comprobadores de enlaces y de Markdown, y con una construcción reproducible cuya huella se publica junto a la página. La revisión humana mira exactitud, tarea de la audiencia y tipo de página; la huella permite comprobar después que lo publicado es lo revisado.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-527 — Taller: estabilizar antes de modernizar](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-527-taller-estabilizar-antes-de-modernizar/README.md)) son:
-
-- **La suite sale roja y verde sin cambios** — causa: pruebas inestables. Corrección: cuarentena con dueño y plazo, y corregir la causa.
-- **Un defecto intermitente llega a producción** — causa: reintentos globales que lo escondieron. Corrección: eliminar los reintentos globales y repetir solo lo nuevo.
+- **Confundirla con una construcción automatizada.** Automatizar no garantiza bytes idénticos.
+- **Ignorar el orden del sistema de archivos.** El mismo árbol se empaqueta distinto en dos equipos.
+- **Esperar reproducibilidad con herramientas sin fijar.** «Las mismas herramientas» incluye versiones.
+- **La suite sale roja y verde sin cambios.** Es inestabilidad de pruebas, no de construcción; corrección de [SE-527](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-527-taller-estabilizar-antes-de-modernizar/README.md): cuarentena con dueño y plazo, y corregir la causa.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Una construcción reproducible no es un fin en sí misma: es la condición para que una huella signifique algo. ([SE-527](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-527-taller-estabilizar-antes-de-modernizar/README.md))
+Según [SE-527](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-527-taller-estabilizar-antes-de-modernizar/README.md), no es un fin en sí misma: es la condición para que una huella signifique algo. Si nadie compara huellas, la reproducibilidad no aporta nada. Tampoco garantiza que el artefacto sea correcto ni seguro: dos construcciones idénticas pueden ser idénticamente defectuosas. Y lograrla en proyectos con muchas dependencias puede ser costoso; en ese caso se prioriza por riesgo, empezando por lo que se despliega.
 
 ## Relación con otros conceptos
 

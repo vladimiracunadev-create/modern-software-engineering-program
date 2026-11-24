@@ -2,50 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Análisis de alcance](./analisis-de-alcance.md) · [Análisis de sensibilidad →](./analisis-de-sensibilidad.md)
 
-> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
+> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
 
 ## Definición
 
-Determinación de los elementos que un cambio puede afectar a partir de los enlaces.
-
-Definición de trabajo de [SE-151 — Trazabilidad desde necesidad hasta evidencia](../../../classes/part-12-ingenieria-de-requisitos/se-151-trazabilidad-desde-necesidad-hasta-evidencia/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-449 — Dispositivos médicos: IEC 62304](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-449-dispositivos-medicos-iec-62304/README.md): Evaluación del efecto de un cambio sobre riesgos, requisitos y pruebas.
+**Análisis de impacto** es la determinación de los elementos que un cambio puede afectar, a partir de los enlaces entre artefactos. El sentido principal es el de [SE-151](../../../classes/part-12-ingenieria-de-requisitos/se-151-trazabilidad-desde-necesidad-hasta-evidencia/README.md) y [SE-168](../../../classes/part-13-especificaciones-contratos-y-modelos/se-168-proyecto-paquete-de-especificaciones-trazables/README.md): dado un requisito o artefacto que cambia, su alcance es el conjunto de artefactos alcanzables siguiendo los enlaces hacia sus consecuencias. En [SE-449](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-449-dispositivos-medicos-iec-62304/README.md) (dispositivos médicos, IEC 62304) el mismo término se aplica a la evaluación del efecto de un cambio sobre riesgos, requisitos y pruebas, con el rigor que la norma exige.
 
 ## Por qué importa
 
-En [SE-151 — Trazabilidad desde necesidad hasta evidencia](../../../classes/part-12-ingenieria-de-requisitos/se-151-trazabilidad-desde-necesidad-hasta-evidencia/README.md), el tema «Análisis de impacto» importa porque dice a qué elementos afecta un cambio antes de hacerlo.
-
-En [SE-168 — Proyecto: paquete de especificaciones trazables](../../../classes/part-13-especificaciones-contratos-y-modelos/se-168-proyecto-paquete-de-especificaciones-trazables/README.md), el tema «Análisis de impacto» importa porque estimar el alcance de un cambio decide cuánto revisar y cuánto cuesta cambiar.
+Responde, antes de tocar nada, cuánto hay que revisar y a quién avisar. Cambia la decisión de aceptar o no un cambio y la de estimar su costo. Sin él, el riesgo es olvidar algo: modificar un requisito y no actualizar la prueba que lo verificaba, o el módulo que dependía de él.
 
 ## Cómo funciona
 
-Según [SE-151 — Trazabilidad desde necesidad hasta evidencia](../../../classes/part-12-ingenieria-de-requisitos/se-151-trazabilidad-desde-necesidad-hasta-evidencia/README.md), en la sección «Análisis de impacto»:
+El mecanismo es un recorrido de grafo. Según [SE-151](../../../classes/part-12-ingenieria-de-requisitos/se-151-trazabilidad-desde-necesidad-hasta-evidencia/README.md), dado un cambio en un requisito se recorren los enlaces: las pruebas que lo verifican, los módulos que esas pruebas ejercitan y los requisitos que dependen de él. El tamaño del conjunto resultante estima el costo del cambio y el riesgo de olvido. [SE-168](../../../classes/part-13-especificaciones-contratos-y-modelos/se-168-proyecto-paquete-de-especificaciones-trazables/README.md) precisa que es una **cota superior**: no todo lo alcanzable necesita cambiar, pero todo lo alcanzable merece mirarse.
 
-Dado un cambio en un requisito, el alcance se obtiene recorriendo los enlaces: las pruebas que lo verifican, los módulos que esas pruebas ejercitan y los requisitos que dependen de él. El tamaño de ese conjunto es una estimación del costo del cambio y del riesgo de olvidar algo. Si el alcance de casi cualquier cambio es casi todo el sistema, la matriz no ayuda a decidir; si el alcance es siempre cero, probablemente faltan enlaces.
-
-Según [SE-168 — Proyecto: paquete de especificaciones trazables](../../../classes/part-13-especificaciones-contratos-y-modelos/se-168-proyecto-paquete-de-especificaciones-trazables/README.md), en la sección «Análisis de impacto»:
-
-Dado un artefacto que cambia, su alcance es el conjunto de artefactos alcanzables siguiendo los enlaces hacia sus consecuencias. Estimarlo antes de cambiar responde cuánto hay que revisar y a quién avisar. Es una cota superior (no todo lo alcanzable necesita cambiar) y depende de cuán denso sea el grafo: pocos enlaces por artefacto acotan el alcance; muchos lo disparan. Un alcance grande no es malo por sí mismo: es una señal de que el cambio merece una revisión específica.
+La calidad del resultado depende de la densidad del grafo. Pocos enlaces por artefacto acotan el alcance; demasiados lo disparan. Dos síntomas diagnostican la matriz: si casi cualquier cambio alcanza casi todo el sistema, la matriz no ayuda a decidir (se enlazó todo con todo); si el alcance es siempre cero, probablemente faltan enlaces. Un alcance grande no es malo por sí mismo: señala que el cambio merece una revisión específica.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-151 — Trazabilidad desde necesidad hasta evidencia](../../../classes/part-12-ingenieria-de-requisitos/se-151-trazabilidad-desde-necesidad-hasta-evidencia/README.md):
-
-La cadena del requisito conductor, con una etiqueta en cada artefacto y un verificador al integrar:
+En la cadena del requisito conductor de [SE-151](../../../classes/part-12-ingenieria-de-requisitos/se-151-trazabilidad-desde-necesidad-hasta-evidencia/README.md) cada artefacto lleva una etiqueta y un verificador comprueba los enlaces al integrar. Si cambia el tope de penalización por entrega tardía, se recorre el enlace hacia las pruebas que lo verifican y hacia el módulo de cálculo; el resultado es una lista concreta de artefactos a revisar y de personas a avisar, antes de modificar nada.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-151 — Trazabilidad desde necesidad hasta evidencia](../../../classes/part-12-ingenieria-de-requisitos/se-151-trazabilidad-desde-necesidad-hasta-evidencia/README.md)) son:
-
-- **Una auditoría tarda un día en encontrar una prueba** — causa: la matriz está en un documento que nadie actualiza. Corrección: poner la etiqueta en la prueba y verificarla al integrar.
-- **Casi todo cambio «afecta» a casi todo** — causa: se enlazó todo con todo. Corrección: reducir los enlaces a los que responden preguntas concretas.
+- **Casi todo cambio «afecta» a casi todo.** Se enlazó todo con todo; corrección de [SE-151](../../../classes/part-12-ingenieria-de-requisitos/se-151-trazabilidad-desde-necesidad-hasta-evidencia/README.md): reducir los enlaces a los que responden preguntas concretas.
+- **Matriz en un documento que nadie actualiza.** Una auditoría tarda un día en encontrar una prueba; corrección: etiquetar la prueba y verificar al integrar.
+- **Leer la cota superior como lista de cambios obligatorios.** Es lo que hay que revisar, no lo que hay que modificar.
+- **Confundir enlace con evidencia.** Que exista un enlace no prueba que la verificación sea buena.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-151 — Trazabilidad desde necesidad hasta evidencia](../../../classes/part-12-ingenieria-de-requisitos/se-151-trazabilidad-desde-necesidad-hasta-evidencia/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se analizó ningún repositorio real, las tasas de deterioro son hipótesis y la traza cubre un módulo de juguete. La siguiente clase cruza la matriz con obligaciones externas: datos personales, seguridad y regulación.
+El análisis solo ve lo que está enlazado: dependencias implícitas (comportamiento compartido, datos comunes, configuración) no aparecen si nadie las registró. Las clases lo practican sobre un módulo de juguete con datos sintéticos, no sobre un repositorio real, y las tasas de deterioro de los enlaces son hipótesis. En un contexto regulado ([SE-449](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-449-dispositivos-medicos-iec-62304/README.md)) el análisis es una obligación documentada; en uno informal puede bastar con una revisión de las pruebas y consumidores directos.
 
 ## Relación con otros conceptos
 

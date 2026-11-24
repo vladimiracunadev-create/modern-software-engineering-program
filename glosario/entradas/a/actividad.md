@@ -2,43 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Active Record](./active-record.md) · [Activo →](./activo.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 11](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 11](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md)
 
 ## Definición
 
-Lo que ocurre dentro del producto (sesiones, vistas), sin garantizar que alguien logre algo.
-
-Definición de trabajo de [SE-135 — Resultados, outputs, actividad y vanity metrics](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md).
+En el programa, **actividad** es lo que ocurre dentro del producto: inicios de sesión, vistas, clics, mensajes. Es la definición de [SE-135](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md): mide movimiento, no logro. Una persona puede generar mucha actividad sin conseguir nada de lo que vino a hacer, y puede conseguir su objetivo con muy poca. Por eso la clase la sitúa entre la producción del equipo (lo que se entrega) y el resultado (lo que cambia para quien usa el producto).
 
 ## Por qué importa
 
-En [SE-135 — Resultados, outputs, actividad y vanity metrics](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md), el tema «Actividad» importa porque es lo que ocurre en el producto: sesiones, clics, mensajes; mide movimiento, no logro.
+Cambia la decisión de qué número se convierte en meta. Según [SE-135](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md), la actividad es el primer indicio de que algo se usa, pero puede crecer por razones ajenas al valor: una notificación, o un cambio de diseño que obliga a más clics. Un equipo que persigue actividad puede «mejorar» el panel empeorando el producto. En el experimento de los equipos de [SE-135](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md), la actividad correlaciona apenas 0,20 con el resultado: informa algo, pero no lo bastante para ser meta.
 
 ## Cómo funciona
 
-Según [SE-135 — Resultados, outputs, actividad y vanity metrics](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md), en la sección «Actividad»:
+La actividad se cuenta fácil porque el producto ya la registra. Esa facilidad es su trampa: lo que se mide sin esfuerzo tiende a sustituir a lo que importa. [SE-135](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md) propone clasificar cada métrica de una auditoría en cuatro tipos (producción, actividad, resultado, vanidad) y exigir para cada una la decisión que informa y una métrica contraria. La actividad no se descarta: sirve como señal temprana y para diagnosticar. Lo que no sirve es premiarla.
 
-La actividad es lo que ocurre dentro del producto: inicios de sesión, vistas, mensajes. Es el primer indicio de que algo se usa y puede crecer por razones ajenas al valor (una notificación, un cambio de diseño que obliga a más clics). La actividad que se acerca al valor (enviar una entrega aceptada) se distingue de la que no (abrir la aplicación), y `SE-136` desarrolla esa diferencia con la tarea útil.
+La diferencia útil está dentro de la propia actividad. Enviar una entrega aceptada es actividad cercana al valor; abrir la aplicación no lo es. [SE-136](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-136-metricas-de-adopcion-retencion-y-tarea-util/README.md) desarrolla esa distinción con la «tarea útil»: el evento que prueba que la persona logró algo. Además, una cifra acumulada («sesiones totales») solo crece y esconde el estancamiento; por eso [SE-135](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md) recomienda métricas por periodo (activos del mes, retenidos).
 
 ## Ejemplo
 
-Ejemplo de [SE-135 — Resultados, outputs, actividad y vanity metrics](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md) (sección «Ejemplo profesional»):
-
-En la plataforma, `metric-audit.md` tiene una fila por métrica con definición calculable (numerador, denominador, ventana, filtros), tipo (producción, actividad, resultado, vanidad), decisión que informa, métrica contraria y fecha de revisión. El contrato es que ninguna métrica se convierte en meta sin su métrica contraria y sin la pregunta «qué haría distinto si bajara». Esa estructura permite que otra persona detecte metas sin contrapeso.
+En la plataforma de entregas de [SE-135](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md), `metric-audit.md` tiene una fila por métrica: definición calculable (numerador, denominador, ventana, filtros), tipo, decisión que informa, métrica contraria y fecha de revisión. «Sesiones por semana» queda tipificada como actividad. Si el equipo quisiera elevarla como meta, la regla del contrato exige emparejarla con una métrica de resultado y responder «qué haría distinto si bajara». Sin ese contrapeso, la meta no se acepta.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-135 — Resultados, outputs, actividad y vanity metrics](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md)) son:
-
-- **La meta se cumple y nadie mejora** — causa: se premió la producción. Corrección: reemplazar o acompañar con un resultado y su métrica contraria.
-- **El panel solo muestra crecimiento** — causa: la métrica es acumulada. Corrección: usar métricas por periodo (activos del mes, retenidos).
+- **La meta se cumple y nadie mejora.** Se premió la producción o la actividad; corrección de [SE-135](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md): sustituirla o acompañarla con un resultado y su métrica contraria.
+- **El panel solo muestra crecimiento.** La métrica es acumulada; usar cifras por periodo.
+- **Confundir actividad con uso valioso.** Que alguien abra la aplicación no prueba que consiga lo que necesita ([SE-136](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-136-metricas-de-adopcion-retencion-y-tarea-util/README.md)).
+- **Tratarla como vanidad sin matiz.** Una métrica de vanidad no informa ninguna decisión; la actividad sí puede informar, si se declara para qué.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La actividad que se acerca al valor (enviar una entrega aceptada) se distingue de la que no (abrir la aplicación), y `SE-136` desarrolla esa diferencia con la tarea útil. ([SE-135](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md))
-- En el experimento de los equipos, la actividad correlaciona 0,20 con el resultado: informa algo, pero no lo suficiente para ser meta. ([SE-135](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md))
+La actividad es valiosa cuando todavía no hay un resultado medible: informa de adopción inicial. Deja de valer como meta en cuanto puede subir sin que suba el resultado. Y no es un defecto del concepto sino de la evidencia: la correlación de 0,20 de [SE-135](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md) proviene de un experimento con datos sintéticos, no de un hallazgo general sobre productos reales. El criterio sigue siendo comprobar, en cada producto, qué tan cerca del valor está el evento que se cuenta.
 
 ## Relación con otros conceptos
 

@@ -2,43 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← Amplitud](./amplitud.md) · [Análisis confirmatorio y exploratorio →](./analisis-confirmatorio-y-exploratorio.md)
 
-> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
+> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
 
 ## Definición
 
-Tratamiento del conjunto recogido para encontrar duplicados, conflictos, dependencias y huecos y convertirlos en decisiones o preguntas.
-
-Definición de trabajo de [SE-145 — Elicitación, análisis, especificación y validación](../../../classes/part-12-ingenieria-de-requisitos/se-145-elicitacion-analisis-especificacion-y-validacion/README.md).
+En ingeniería de requisitos, **análisis** es el tratamiento del conjunto recogido para encontrar duplicados, conflictos, dependencias y huecos, y convertirlos en decisiones o preguntas. Es el sentido de [SE-145](../../../classes/part-12-ingenieria-de-requisitos/se-145-elicitacion-analisis-especificacion-y-validacion/README.md), que lo sitúa tras la elicitación y antes de la especificación y la validación. «Análisis» tiene otros usos en el programa (análisis de impacto, estático, de datos); aquí se trata únicamente de lo que se hace con los requisitos ya recogidos.
 
 ## Por qué importa
 
-En [SE-145 — Elicitación, análisis, especificación y validación](../../../classes/part-12-ingenieria-de-requisitos/se-145-elicitacion-analisis-especificacion-y-validacion/README.md), el tema «Análisis» importa porque detecta conflictos, dependencias y huecos antes de comprometer diseño.
+Decide cuándo se descubren los conflictos: antes de comprometer diseño o después. Cada persona consultada ve su parte; solo quien trata lo recogido como conjunto ve que dos partes chocan. [SE-145](../../../classes/part-12-ingenieria-de-requisitos/se-145-elicitacion-analisis-especificacion-y-validacion/README.md) lo ilustra con una simulación en la que hablar con todo el mundo cubre apenas el 77 % de lo necesario: recoger más no sustituye a analizar. Un conflicto hallado al analizar cuesta una conversación; hallado en producción cuesta un rediseño.
 
 ## Cómo funciona
 
-Según [SE-145 — Elicitación, análisis, especificación y validación](../../../classes/part-12-ingenieria-de-requisitos/se-145-elicitacion-analisis-especificacion-y-validacion/README.md), en la sección «Análisis»:
+Analizar es tratar lo recogido como un conjunto, no como una lista. [SE-145](../../../classes/part-12-ingenieria-de-requisitos/se-145-elicitacion-analisis-especificacion-y-validacion/README.md) enumera cuatro búsquedas:
 
-Analizar es tratar lo recogido como un conjunto, no como una lista. Se buscan duplicados (dos personas piden lo mismo con palabras distintas), conflictos (dos personas piden cosas incompatibles), dependencias (un requisito solo tiene sentido si otro existe) y huecos (una situación que nadie contempló). El resultado no es un texto más bonito sino una lista de preguntas pendientes con nombre y apellido: «Auditoría exige 730 días y Privacidad 365; ¿quién decide?». Un análisis que no produce preguntas probablemente no analizó nada.
+- **Duplicados:** dos personas piden lo mismo con palabras distintas.
+- **Conflictos:** dos personas piden cosas incompatibles.
+- **Dependencias:** un requisito solo tiene sentido si otro existe.
+- **Huecos:** una situación que nadie contempló.
+
+El producto del análisis no es un texto más pulido sino una lista de preguntas pendientes con responsable. La clase da el modelo: «Auditoría exige 730 días y Privacidad 365; ¿quién decide?». La pregunta nombra a las partes y obliga a que alguien con autoridad resuelva. Y la regla de cierre es práctica: un análisis que no produce preguntas probablemente no analizó nada.
 
 ## Ejemplo
 
-Ejemplo de [SE-145 — Elicitación, análisis, especificación y validación](../../../classes/part-12-ingenieria-de-requisitos/se-145-elicitacion-analisis-especificacion-y-validacion/README.md) (sección «Preguntas frecuentes»):
-
-No. Hablar con el cliente es una técnica de elicitación entre varias, y en la simulación solo llega hasta 77 % de la cobertura aunque se hablara con todos. El análisis empieza cuando lo recogido se trata como conjunto: allí aparecen los conflictos que cada persona, por separado, no ve.
+En la plataforma de entregas de [SE-145](../../../classes/part-12-ingenieria-de-requisitos/se-145-elicitacion-analisis-especificacion-y-validacion/README.md), los requisitos recogidos de docentes, estudiantes, secretaría y auditoría se cruzan. Retención de datos aparece con dos plazos incompatibles; la solución no la elige quien analiza, sino que se registra como pregunta dirigida a quien tiene la decisión. Mientras no se resuelva, el requisito queda marcado como en conflicto, no como aprobado con un valor arbitrario.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-145 — Elicitación, análisis, especificación y validación](../../../classes/part-12-ingenieria-de-requisitos/se-145-elicitacion-analisis-especificacion-y-validacion/README.md)) son:
-
-- **La especificación está completa y el sistema decepciona a quienes lo usan** — causa: solo se entrevistó a quien paga; el conocimiento tácito no se elicitó. Corrección: añadir observación del trabajo real y validar con la persona usuaria, no solo con el cliente.
-- **Dos equipos discuten una frase durante una hora** — causa: la frase mezcla un requisito y una solución, y los interesados entienden cosas distintas. Corrección: separar necesidad, requisito y supuesto, y registrar el origen de cada uno.
+- **Confundir elicitar con analizar.** Hablar con el cliente es una técnica de elicitación; el análisis empieza cuando lo recogido se trata como conjunto ([SE-145](../../../classes/part-12-ingenieria-de-requisitos/se-145-elicitacion-analisis-especificacion-y-validacion/README.md)).
+- **Pulir la redacción en lugar de buscar conflictos.** Mejorar el texto no resuelve la contradicción de fondo.
+- **Resolver el conflicto en silencio.** Elegir un valor sin que decida quien corresponde oculta el problema.
+- **Mezclar requisito y solución.** Dos equipos discuten una frase una hora porque mezcla ambas cosas; la corrección es separar necesidad, requisito y supuesto y registrar el origen de cada uno.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un análisis que no produce preguntas probablemente no analizó nada. ([SE-145](../../../classes/part-12-ingenieria-de-requisitos/se-145-elicitacion-analisis-especificacion-y-validacion/README.md))
-- El análisis empieza cuando lo recogido se trata como conjunto: allí aparecen los conflictos que cada persona, por separado, no ve. ([SE-145](../../../classes/part-12-ingenieria-de-requisitos/se-145-elicitacion-analisis-especificacion-y-validacion/README.md))
+El análisis solo encuentra lo que está en el conjunto: si la elicitación no recogió el conocimiento tácito (por ejemplo, porque solo se entrevistó a quien paga), el análisis no puede inventarlo, y la especificación saldrá «completa» pero decepcionará a quienes la usan. Tampoco decide por sí mismo: produce preguntas, no resoluciones. En proyectos muy pequeños puede hacerse en una conversación; la disciplina que importa es dejar escritas las preguntas y quién las responde.
 
 ## Relación con otros conceptos
 

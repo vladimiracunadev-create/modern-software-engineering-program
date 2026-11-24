@@ -2,49 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Calentamiento](./calentamiento.md) · [Calidad de servicio →](./calidad-de-servicio.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 15](../../../classes/part-15-procesos-planificacion-y-estimacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 15](../../../classes/part-15-procesos-planificacion-y-estimacion/README.md)
 
 ## Definición
 
-Correspondencia entre la confianza anunciada de un pronóstico y la frecuencia con que se cumple.
-
-Definición de trabajo de [SE-191 — Taller: planificar bajo incertidumbre explícita](../../../classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-604 — Evaluación, sesgos y validación de modelos](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-604-evaluacion-sesgos-y-validacion-de-modelos/README.md): Correspondencia entre probabilidad predicha y frecuencia observada.
-- En [SE-553 — Capacidades y límites de los modelos generativos](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-553-capacidades-y-limites-de-los-modelos-generativos/README.md): Relación entre la confianza declarada de una respuesta y la frecuencia con que acierta.
-- En [SE-539 — Taller: conducir una revisión de decisión difícil](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-539-taller-conducir-una-revision-de-decision-dificil/README.md): Correspondencia entre la probabilidad declarada y la frecuencia con que lo declarado ocurre.
+**Calibración** es la correspondencia entre la confianza que anuncia un pronóstico y la frecuencia con que se cumple. El sentido principal es el de [SE-191](../../../classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita/README.md): un pronóstico está calibrado si el resultado real cae por debajo de su percentil 85 el 85 % de las veces. El programa lo reutiliza con el mismo núcleo en [SE-604](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-604-evaluacion-sesgos-y-validacion-de-modelos/README.md) (probabilidad predicha frente a frecuencia observada en un modelo), en [SE-553](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-553-capacidades-y-limites-de-los-modelos-generativos/README.md) (confianza declarada de una respuesta generativa frente a su tasa de acierto) y en [SE-539](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-539-taller-conducir-una-revision-de-decision-dificil/README.md) (probabilidad declarada en una revisión de decisión frente a lo que ocurrió).
 
 ## Por qué importa
 
-En [SE-191 — Taller: planificar bajo incertidumbre explícita](../../../classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita/README.md), el tema «Calibración» importa porque un percentil solo vale si se cumple con la frecuencia anunciada.
-
-En [SE-604 — Evaluación, sesgos y validación de modelos](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-604-evaluacion-sesgos-y-validacion-de-modelos/README.md), el tema «Calibración» importa porque si se muestran probabilidades, deben significar lo que dicen.
+Cambia si un número se puede usar para decidir. Un percentil o una probabilidad solo valen si significan lo que dicen: si «85 %» se cumple el 60 % de las veces, quien planifica con él está asumiendo un riesgo mayor del que cree. La calibración es la prueba de que el lenguaje de la incertidumbre, ya sea fechas de entrega o probabilidades de un modelo, es fiable.
 
 ## Cómo funciona
 
-Según [SE-191 — Taller: planificar bajo incertidumbre explícita](../../../classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita/README.md), en la sección «Calibración»:
+Se comprueba contra la realidad, no con argumentos. [SE-191](../../../classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita/README.md) propone una retrospectiva: simular muchos proyectos con un proceso conocido, pronosticar cada uno con su historia y contar cuántas veces se cumplió el pronóstico. Es, según la clase, la única manera de saber si «85 %» significa 85 %.
 
-Un pronóstico está calibrado si el resultado real cae por debajo de su percentil 85 el 85 % de las veces. Se comprueba con retrospectiva: se simulan muchos proyectos con un proceso conocido, se pronostica cada uno con su historia y se cuenta el cumplimiento. Es la única manera de saber si «85 %» significa 85 %. Dos fuentes de descalibración dominan: la historia corta, que subestima la incertidumbre sobre la propia media, y los efectos que el modelo no incluye, como el crecimiento del alcance. Un pronóstico con solo la historia de rendimiento supone que el trabajo pendiente no cambia.
+Dos fuentes de descalibración dominan en la planificación. La primera es la **historia corta**: con pocas semanas de datos se subestima la incertidumbre sobre la propia media, y el intervalo sale demasiado estrecho. La segunda son los **efectos que el modelo no incluye**, como el crecimiento del alcance: un pronóstico hecho solo con la historia de rendimiento supone que el trabajo pendiente no cambia. La corrección es ensanchar el intervalo o apoyarse en una clase de referencia cuando la historia es de menos de unas doce semanas.
+
+En modelos ([SE-604](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-604-evaluacion-sesgos-y-validacion-de-modelos/README.md)) la lógica es idéntica: se agrupan las predicciones por probabilidad declarada y se compara con la frecuencia observada en cada grupo.
 
 ## Ejemplo
 
-Ejemplo de [SE-191 — Taller: planificar bajo incertidumbre explícita](../../../classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita/README.md) (sección «Preguntas frecuentes»):
-
-Cuanta más mejor, pero con menos de unas doce semanas conviene ensanchar el intervalo o corregirlo con una clase de referencia. La calibración con tu propio proceso muestra cuánto.
+En el taller de [SE-191](../../../classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita/README.md) se simulan muchos proyectos con un proceso conocido. Para cada uno se pronostica la fecha con la historia disponible y se cuenta en cuántos el real quedó por debajo del percentil 85. Si el cumplimiento resulta inferior al 85 %, el pronóstico está sobreconfiado, y el taller muestra cuánto con el propio proceso. La clase observa que, cuanta más historia, mejor, pero con pocas semanas conviene ensanchar el intervalo.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Se acepta una respuesta porque «suena segura»** — causa: se confunde tono con calibración. Corrección: medir acierto por tramos con tareas del propio equipo. ([SE-553](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-553-capacidades-y-limites-de-los-modelos-generativos/README.md))
+- **Confundir calibración con precisión.** Un pronóstico puede ser impreciso (intervalo ancho) y estar bien calibrado; uno estrecho puede estar descalibrado.
+- **Creer que un percentil «vale» sin comprobarlo.** Sin retrospectiva, «85 %» es una etiqueta.
+- **Ignorar el crecimiento del alcance.** El modelo con solo rendimiento histórico sobreestima su confianza.
+- **Evaluar con una sola ocurrencia.** Un acierto o fallo aislado no dice nada: la calibración es una propiedad de muchas predicciones.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- **Dónde deja de valer:** el crecimiento del alcance (uniforme entre 0 y 20 %) es conocido en el segundo pronóstico, algo que en la práctica se estima con historia; si se subestima, la calibración se pierde. ([SE-191](../../../classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita/README.md))
+Requiere muchas predicciones comparables; con pocos casos la frecuencia observada es ruidosa y no permite concluir. Las clases lo practican con procesos simulados de proceso conocido, que no incluyen todas las perturbaciones de un proyecto real. Y no sustituye a la discriminación: un modelo bien calibrado puede ser inútil si da la misma probabilidad a todo. Es una condición necesaria para confiar en una probabilidad, no suficiente.
 
 ## Relación con otros conceptos
 

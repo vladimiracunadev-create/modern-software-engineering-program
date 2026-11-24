@@ -2,43 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Contracargo](./contracargo.md) · [Contraejemplo →](./contraejemplo.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
 
 ## Definición
 
-Relación entre requisitos que no pueden cumplirse todos a la vez, directa o a través de otros.
-
-Definición de trabajo de [SE-154 — Ambigüedad, contradicción e incompletitud](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md).
+En ingeniería de requisitos, una **contradicción** es una relación entre requisitos que no pueden cumplirse todos a la vez, directamente o a través de otros. Es el sentido de [SE-154](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md), que la sitúa junto a la ambigüedad y la incompletitud como los tres defectos clásicos de una especificación. [SE-560](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-560-context-engineering-y-reduccion-de-ambiguedad/README.md) usa la misma idea para instrucciones dadas a un modelo: las reglas contradictorias provocan elecciones arbitrarias entre ellas.
 
 ## Por qué importa
 
-En [SE-154 — Ambigüedad, contradicción e incompletitud](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md), el tema «Contradicción» importa porque requisitos incompatibles hacen imposible cumplirlos todos.
-
-En [SE-560 — Context engineering y reducción de ambigüedad](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-560-context-engineering-y-reduccion-de-ambiguedad/README.md), el tema «Contradicciones» importa porque provocan elecciones arbitrarias entre reglas
+Cambia cuándo se descubre que algo no se puede construir. Requisitos incompatibles hacen imposible cumplirlos todos, y quien implementa acabará eligiendo uno en silencio. Detectarlo al especificar cuesta una pregunta; detectarlo con el sistema construido cuesta un rediseño o una excepción permanente.
 
 ## Cómo funciona
 
-Según [SE-154 — Ambigüedad, contradicción e incompletitud](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md), en la sección «Contradicción»:
+[SE-154](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md) distingue dos formas. La **contradicción directa** («guardar» frente a «no guardar») es rara y se ve a simple vista. La frecuente es la **indirecta**: requiere varias premisas para aparecer, y un conjunto puede ser inconsistente sin que ningún par lo sea. Por eso la revisión por pares, que compara requisitos de dos en dos, no encuentra las contradicciones más costosas.
 
-Dos requisitos se contradicen si no pueden cumplirse a la vez. La contradicción directa («guardar» frente a «no guardar») es rara; la frecuente es indirecta: requiere varias premisas para aparecer. Un conjunto puede ser inconsistente sin que ningún par lo sea. Por eso la revisión por pares, que compara requisitos de dos en dos, no encuentra las contradicciones más costosas. La detección sistemática traduce los requisitos a una forma donde se pueda decidir si existe algún estado que los cumpla todos.
+La detección sistemática traduce los requisitos a una forma donde se pueda decidir si existe algún estado que los cumpla todos. Si no existe, se buscan **subconjuntos mínimos incompatibles**: los requisitos más pequeños que, juntos, no pueden satisfacerse. Eso señala qué conjunto de personas debe decidir. El hallazgo se registra como defecto con tipo, técnica y responsable, no como una observación suelta.
 
 ## Ejemplo
 
-Ejemplo de [SE-154 — Ambigüedad, contradicción e incompletitud](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md) (sección «Ejemplo profesional»):
-
-Los identificadores, las fechas y los requisitos son ilustrativos. Compara con la ambigüedad que desaparece al añadir un ejemplo, la contradicción que solo aparece tras un cambio de `SE-153` y la celda abierta que resultó imposible por una regla de la interfaz. El inventario es apropiado cuando cada defecto tiene tipo, técnica y responsable; es peligroso cuando es una lista de observaciones sin dueño.
+En [SE-154](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md) el inventario de defectos muestra tres casos para comparar: una ambigüedad que desaparece al añadir un ejemplo, una contradicción que solo aparece tras un cambio hecho en [SE-153](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md), y una celda abierta que resultó imposible por una regla de la interfaz. El inventario es útil cuando cada defecto tiene tipo, técnica y responsable; es peligroso cuando se reduce a observaciones sin dueño.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Los requisitos se revisaron de dos en dos y el módulo no se puede construir** — causa: hay una contradicción de orden tres o más. Corrección: buscar subconjuntos mínimos incompatibles sobre las condiciones. ([SE-154](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md))
+- **Revisar de dos en dos y declarar el conjunto consistente.** Hay contradicciones de orden tres o más; buscar subconjuntos mínimos incompatibles sobre las condiciones ([SE-154](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md)).
+- **Confundir contradicción con ambigüedad.** Una contradicción persiste aunque cada requisito sea claro; una ambigüedad desaparece al precisarlo.
+- **Resolverla eligiendo al azar.** Debe decidir quien tiene autoridad sobre ambos requisitos.
+- **Pensar que solo existe entre requisitos funcionales.** También ocurre entre atributos de calidad.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La contradicción directa («guardar» frente a «no guardar») es rara; la frecuente es indirecta: requiere varias premisas para aparecer. ([SE-154](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md))
+La detección formal exige expresar los requisitos con precisión suficiente; con texto libre solo se encuentran contradicciones evidentes. Un conjunto consistente no es un conjunto correcto: puede ser consistente y no resolver el problema. En requisitos de calidad la incompatibilidad suele ser un compromiso a negociar más que una contradicción lógica. Y los ejemplos de [SE-154](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md) usan identificadores y requisitos ilustrativos.
 
 ## Relación con otros conceptos
 

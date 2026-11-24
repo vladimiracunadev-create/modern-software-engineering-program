@@ -2,40 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Compromiso probabilístico](./compromiso-probabilistico.md) · [Compuerta →](./compuerta.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
 
 ## Definición
 
-Relaciones en las que mejorar un atributo cuesta otro.
-
-Definición de trabajo de [SE-147 — Atributos de calidad y restricciones](../../../classes/part-12-ingenieria-de-requisitos/se-147-atributos-de-calidad-y-restricciones/README.md).
+Los **compromisos entre atributos** (en inglés, *trade-offs*) son las relaciones en las que mejorar un atributo de calidad cuesta otro. Es el sentido de [SE-147](../../../classes/part-12-ingenieria-de-requisitos/se-147-atributos-de-calidad-y-restricciones/README.md): la calidad no se compra por atributos aislados, porque rendimiento, seguridad, disponibilidad, costo o simplicidad compiten por los mismos recursos y decisiones de diseño.
 
 ## Por qué importa
 
-En [SE-147 — Atributos de calidad y restricciones](../../../classes/part-12-ingenieria-de-requisitos/se-147-atributos-de-calidad-y-restricciones/README.md), el tema «Compromisos entre atributos» importa porque mejorar uno suele costar otro; decidirlo a tiempo evita descubrirlo en producción.
+Cambia el momento en que se descubre el choque. [SE-147](../../../classes/part-12-ingenieria-de-requisitos/se-147-atributos-de-calidad-y-restricciones/README.md) lo resume así: descubrirlo al redactar el requisito cuesta una conversación; descubrirlo en producción cuesta un incidente. Un requisito de calidad aislado («que sea muy seguro», «que esté siempre disponible») es una promesa sin precio: quien lo escribe no ha decidido qué está dispuesto a perder para obtenerlo.
 
 ## Cómo funciona
 
-Según [SE-147 — Atributos de calidad y restricciones](../../../classes/part-12-ingenieria-de-requisitos/se-147-atributos-de-calidad-y-restricciones/README.md), en la sección «Compromisos entre atributos»:
+[SE-147](../../../classes/part-12-ingenieria-de-requisitos/se-147-atributos-de-calidad-y-restricciones/README.md) da dos ejemplos del mecanismo. Una derivación de contraseña más costosa protege mejor frente a un ataque de fuerza bruta, pero hace más lento cada acceso legítimo: el mismo trabajo que encarece el ataque encarece el uso. Más réplicas aumentan la disponibilidad, pero también el costo de mantener la consistencia entre ellas. En ambos casos el atributo mejora porque se gasta otro.
 
-Casi todo atributo cuesta otro. Una derivación de contraseña más costosa protege mejor frente a un ataque de fuerza bruta y hace más lento cada acceso legítimo. Más réplicas aumentan la disponibilidad y el costo de consistencia. Un requisito de calidad aislado es una promesa sin precio; la especificación debe mostrar con qué otro atributo compite y quién decide cuál cede. Descubrir el choque en la redacción cuesta una conversación; descubrirlo en producción cuesta un incidente.
+La especificación debe, por eso, mostrar con qué otro atributo compite cada requisito y quién decide cuál cede. La forma operativa es escribir cada atributo como escenario verificable (estímulo, medida, umbral) y revisar los escenarios por pares buscando los que tiran en direcciones opuestas. Los umbrales deben fijar percentil y ventana: un objetivo con media oculta una cola lenta que concentra el daño, y una disponibilidad anual del 99,9 % puede cumplirse con un mes catastrófico si la ventana diluye una caída larga; por eso se declara la ventana mensual o se añade un tope de caída continua.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-147 — Atributos de calidad y restricciones](../../../classes/part-12-ingenieria-de-requisitos/se-147-atributos-de-calidad-y-restricciones/README.md):
-
-Tres escenarios de calidad del requisito conductor, escritos de forma verificable:
+En [SE-147](../../../classes/part-12-ingenieria-de-requisitos/se-147-atributos-de-calidad-y-restricciones/README.md), el requisito conductor de la plataforma de entregas se escribe con tres escenarios de calidad verificables. Al ponerlos juntos, el de latencia de la subida y el de seguridad del acceso compiten por presupuesto de tiempo de cada petición; el registro nombra quién decide cuál cede cuando chocan, en lugar de dejar que lo decida el primero que lo implemente.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-147 — Atributos de calidad y restricciones](../../../classes/part-12-ingenieria-de-requisitos/se-147-atributos-de-calidad-y-restricciones/README.md)) son:
-
-- **El tablero está verde y la gente se queja** — causa: el objetivo usa la media y la cola concentra el daño. Corrección: fijar percentil y fracción de peticiones, y vigilar la cola.
-- **Se cumple el 99,9 % anual con un mes catastrófico** — causa: la ventana anual diluye una caída larga. Corrección: declarar la ventana (mensual) o añadir un tope de caída continua.
+- **El tablero está verde y la gente se queja.** El objetivo usa la media y la cola concentra el daño; fijar percentil y fracción de peticiones.
+- **Se cumple el 99,9 % anual con un mes catastrófico.** La ventana anual diluye la caída; declarar la ventana.
+- **Pedir todos los atributos al máximo.** Es una especificación sin decisión.
+- **Creer que un compromiso es un defecto.** Es una propiedad del problema; el defecto es no decidirlo.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-147 — Atributos de calidad y restricciones](../../../classes/part-12-ingenieria-de-requisitos/se-147-atributos-de-calidad-y-restricciones/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2): los dos primeros con salidas idénticas y el tercero con tiempos propios de cada equipo. No se midió ningún sistema real, la cola lenta y los incidentes son supuestos y el costo de PBKDF2 corresponde a una corrida. La siguiente clase cuenta los requisitos desde la perspectiva de quien los usa: casos de uso, historias y job stories.
+No todos los atributos compiten en cada sistema: algunos compromisos desaparecen con otra arquitectura o más presupuesto, y el análisis debe distinguir un conflicto real de uno supuesto. Los experimentos de [SE-147](../../../classes/part-12-ingenieria-de-requisitos/se-147-atributos-de-calidad-y-restricciones/README.md) usan datos sintéticos y no midieron un sistema real, de modo que las cifras ilustran el mecanismo y no establecen magnitudes. Y el compromiso lo cierra una decisión de negocio documentada, no el instinto de quien programa.
 
 ## Relación con otros conceptos
 

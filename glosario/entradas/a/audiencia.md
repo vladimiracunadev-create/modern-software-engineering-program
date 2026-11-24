@@ -2,50 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← AUC](./auc.md) · [Autenticación →](./autenticacion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 17](../../../classes/part-17-documentacion-y-conocimiento-tecnico/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 17](../../../classes/part-17-documentacion-y-conocimiento-tecnico/README.md)
 
 ## Definición
 
-Grupo de personas descrito por lo que sabe, lo que quiere conseguir y el tiempo del que dispone al leer; no es un cargo ni una etiqueta de rol.
-
-Definición de trabajo de [SE-205 — Documentación orientada a tareas y audiencias](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-286 — Confianza cero en la práctica](../../../classes/part-23-runtimes-y-plataformas-modernas/se-286-confianza-cero-en-la-practica/README.md): Destinatario para el que una credencial es válida.
-- En [SE-484 — Credenciales efímeras y OIDC](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-484-credenciales-efimeras-y-oidc/README.md): Receptor al que va dirigido un token; un receptor distinto debe rechazarlo.
-- En [SE-245 — Autenticación, autorización y contexto](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-245-autenticacion-autorizacion-y-contexto/README.md): Destinatario previsto de un token; la API debe rechazar los emitidos para otra.
+En el programa, **audiencia** es un grupo de personas descrito por lo que sabe, lo que quiere conseguir y el tiempo del que dispone al leer; no es un cargo ni una etiqueta de rol. Es el sentido de [SE-205](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md), de documentación. En seguridad, el mismo término tiene otro sentido, el del campo *audience* de una credencial: el destinatario para el que un token es válido ([SE-245](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-245-autenticacion-autorizacion-y-contexto/README.md), [SE-286](../../../classes/part-23-runtimes-y-plataformas-modernas/se-286-confianza-cero-en-la-practica/README.md), [SE-484](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-484-credenciales-efimeras-y-oidc/README.md)). Esta entrada desarrolla el primero y señala el segundo para no confundirlos.
 
 ## Por qué importa
 
-En [SE-205 — Documentación orientada a tareas y audiencias](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md), el tema «Audiencia» importa porque define el vocabulario, el nivel de detalle y lo que se puede dar por sabido; un mismo hecho se escribe distinto para cada una.
+Una audiencia mal definida produce documentación que nadie termina. Define el vocabulario, el nivel de detalle y lo que se puede dar por sabido: un mismo hecho se escribe distinto para cada grupo. En el sentido de seguridad, comprobar la audiencia decide si una API acepta un token emitido para otro servicio.
 
 ## Cómo funciona
 
-Según [SE-205 — Documentación orientada a tareas y audiencias](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md), en la sección «Audiencia»:
+Según [SE-205](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md), «docente» es un cargo; «docente que debe mover un plazo antes de que termine el día, sin haber leído nunca el manual» es una audiencia. La diferencia fija decisiones concretas: si se puede usar «prórroga» sin definirla, si el primer párrafo da la respuesta o el contexto, si hay capturas o comandos. La audiencia se descubre preguntando a personas reales; cuando no es posible, se escribe como hipótesis y se marca como tal.
 
-Una audiencia no es un cargo, es una combinación de lo que la persona ya sabe, lo que quiere conseguir y cuánto tiempo tiene. «Docente» es un cargo; «docente que debe mover un plazo antes de que termine el día, sin haber leído nunca el manual» es una audiencia. La diferencia importa porque determina decisiones concretas: si puedes usar el término «prórroga» sin definirlo, si el primer párrafo da la respuesta o el contexto, si hay capturas o comandos. La audiencia se descubre preguntando a personas reales; cuando no es posible, se escribe como hipótesis y se marca como tal.
+En el sentido de seguridad, el mecanismo es una comprobación. [SE-245](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-245-autenticacion-autorizacion-y-contexto/README.md) indica que verificar un token exige varias cosas: algoritmo esperado, firma contra la clave del emisor, emisor y audiencia propios de esta API, y hora entre `nbf` y `exp`. Si la audiencia no se comprueba, un token legítimo emitido para otra API funciona aquí.
 
 ## Ejemplo
 
-Ejemplo de [SE-205 — Documentación orientada a tareas y audiencias](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md) (sección «Ejemplo profesional»):
-
-El portal documental de la plataforma de entregas tiene un inventario de tareas por audiencia en `audiencias.md`: estudiante (entender el descuento, pedir prórroga), docente (cambiar plazo, conceder prórroga, corregir una nota), secretaría (exportar el acta con la nota final), mantenimiento (depurar el cálculo, cambiar el tope). La regla vive en `politica/penalizacion.md`, versionada, con responsable y fecha de revisión. Las cuatro vistas enlazan esa fuente con una frase de contexto cada una. Cuando la política cambia el tope al 30 %, el cambio es un único commit en la fuente y una lista de verificación señala las cuatro vistas para revisar.
+El portal documental de la plataforma de entregas ([SE-205](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md)) mantiene un inventario de tareas por audiencia en `audiencias.md`: estudiante (entender el descuento, pedir prórroga), docente (cambiar plazo, conceder prórroga), secretaría (exportar el acta) y mantenimiento (depurar el cálculo). La regla vive una sola vez en `politica/penalizacion.md`; las cuatro vistas la enlazan con una frase de contexto. Cuando el tope cambia al 30 %, es un solo commit en la fuente y una lista señala las cuatro vistas por revisar.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Una página explica todo y nadie la termina** — causa: mezcla audiencias y tareas en un solo texto. Corrección: separar por audiencia o por tarea y enlazar lo común. ([SE-205](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md))
-- **Un token para otro receptor funciona** — causa: no se comprueba la audiencia. Corrección: exigir la audiencia propia. ([SE-484](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-484-credenciales-efimeras-y-oidc/README.md))
-- **Un token de otra API funciona aquí** — causa: no se comprueba la audiencia. Corrección: exigir audiencia y emisor. ([SE-245](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-245-autenticacion-autorizacion-y-contexto/README.md))
+- **Una página explica todo y nadie la termina.** Mezcla audiencias y tareas; corrección: separar por audiencia o tarea y enlazar lo común ([SE-205](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md)).
+- **Definir la audiencia por cargo.** El cargo no dice qué sabe ni cuánto tiempo tiene.
+- **Copiar la regla en cada vista.** Genera versiones divergentes; mejor una fuente y vistas que la enlazan.
+- **Un token para otro receptor funciona.** No se comprueba la audiencia ([SE-484](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-484-credenciales-efimeras-y-oidc/README.md), [SE-245](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-245-autenticacion-autorizacion-y-contexto/README.md)); corrección: exigir la audiencia propia y el emisor.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Una audiencia no es un cargo, es una combinación de lo que la persona ya sabe, lo que quiere conseguir y cuánto tiempo tiene. ([SE-205](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md))
-- Un token firmado transporta un sujeto y unas afirmaciones, y su verificación exige varias comprobaciones: que el algoritmo sea el esperado (no el que declara la cabecera), que la firma coincida con la clave del emisor, que el emisor y la audiencia sean los de esta API, y que la hora actual esté entre `nbf` y `exp`. ([SE-245](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-245-autenticacion-autorizacion-y-contexto/README.md))
+La audiencia documental, cuando no se pudo preguntar a personas reales, es una hipótesis y debe marcarse así; nada garantiza que describa a quien realmente lee. Y no toda documentación necesita varias audiencias: un README mínimo de una herramienta personal puede tener una sola. En seguridad, la audiencia es una comprobación necesaria pero no suficiente: no sustituye verificar firma, emisor y vigencia.
 
 ## Relación con otros conceptos
 

@@ -2,40 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Convalidación](./convalidacion.md) · [Convergencia →](./convergencia.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 16](../../../classes/part-16-git-colaboracion-y-codigo-abierto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 16](../../../classes/part-16-git-colaboracion-y-codigo-abierto/README.md)
 
 ## Definición
 
-Forma común de los mensajes de commit legible por máquinas.
-
-Definición de trabajo de [SE-199 — Convenciones, ownership y CODEOWNERS](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-199-convenciones-ownership-y-codeowners/README.md).
+Una **convención de mensajes** es una forma común, legible por máquinas, para los mensajes de commit. Es el sentido de [SE-199](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-199-convenciones-ownership-y-codeowners/README.md). El ejemplo que cita es Conventional Commits: un tipo (`feat`, `fix`, `docs`…), un alcance opcional y una descripción. Es una convención de **forma**; no dice si el contenido del mensaje es verdadero ni si el tipo elegido es el correcto.
 
 ## Por qué importa
 
-En [SE-199 — Convenciones, ownership y CODEOWNERS](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-199-convenciones-ownership-y-codeowners/README.md), el tema «Convención de mensajes» importa porque alimenta registros de cambios y versionado; una forma común se comprueba.
+Cambia lo que se puede automatizar sobre el historial. Con una forma común, se generan registros de cambios, se decide el número de versión y se filtra el historial sin leerlo todo. [SE-199](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-199-convenciones-ownership-y-codeowners/README.md) añade la condición que la vuelve útil: su valor depende de que se cumpla, y por eso se comprueba en un gancho local o en integración continua.
 
 ## Cómo funciona
 
-Según [SE-199 — Convenciones, ownership y CODEOWNERS](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-199-convenciones-ownership-y-codeowners/README.md), en la sección «Convención de mensajes»:
+El mensaje se descompone en campos con significado: el tipo indica la naturaleza del cambio, el alcance opcional su zona, y la descripción el resumen. Una herramienta puede leer los tipos para decidir, por ejemplo, que un `fix` sube el parche y un `feat` la versión menor, según la política del proyecto. Un comprobador valida la forma: si el mensaje no sigue el patrón, el commit o el PR se rechaza.
 
-Una convención como Conventional Commits fija una forma legible por máquinas: un tipo (`feat`, `fix`, `docs`…), un alcance opcional y una descripción. Sirve para generar registros de cambios, decidir el número de versión y filtrar el historial. Su valor depende de que se cumpla, y por eso se comprueba en un gancho local o en integración continua. Es una convención de forma: no sabe si el tipo es el correcto.
+La limitación es que la comprobación es sintáctica. Un mensaje `feat: ajustes` es válido en forma y pobre en contenido; un `fix` que en realidad rompe compatibilidad pasa el comprobador. Por eso la convención se complementa con revisión humana y, dentro de las doce comprobaciones de forma de [SE-204](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-204-proyecto-contribucion-revisable-de-extremo-a-extremo/README.md), con la regla de que los commits sean atómicos.
 
 ## Ejemplo
 
-Ejemplo de [SE-199 — Convenciones, ownership y CODEOWNERS](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-199-convenciones-ownership-y-codeowners/README.md) (sección «Caso conductor»):
-
-El repositorio de la plataforma de entregas es el caso conductor de la [Parte 16](../../../classes/part-16-git-colaboracion-y-codigo-abierto/README.md). Esta clase deja el archivo de propietarios, la convención de mensajes y la lista de revisiones a ignorar. `SE-200` abre el proyecto a contribuciones externas y necesita estas reglas para recibirlas y `SE-202` protege la rama con ellas. Cambia después un solo dato, el orden de dos reglas, y revisa qué rutas cambian de propietario.
+El repositorio de la plataforma de entregas es el caso conductor de la [Parte 16](../../../classes/part-16-git-colaboracion-y-codigo-abierto/README.md). [SE-199](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-199-convenciones-ownership-y-codeowners/README.md) deja allí el archivo de propietarios (`CODEOWNERS`), la convención de mensajes y la lista de revisiones a ignorar. [SE-200](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-200-contribucion-gobernanza-y-comunidades-abiertas/README.md) abre el proyecto a contribuciones externas y necesita estas reglas para recibirlas, y [SE-202](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-202-firmas-procedencia-y-proteccion-del-repositorio/README.md) protege la rama con ellas. Un commit del proyecto tendría la forma `fix(entregas): corrige el tope de penalización`, que una herramienta clasifica como corrección.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-199 — Convenciones, ownership y CODEOWNERS](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-199-convenciones-ownership-y-codeowners/README.md)) son:
-
-- **Un PR no pide revisión a quien debería** — causa: una regla posterior cubre la ruta. Corrección: poner lo específico después de lo general y probar rutas clave.
-- **Hay rutas sin propietario** — causa: no hay regla `*` ni reglas para esa carpeta. Corrección: añadir una regla por defecto y revisar las métricas.
+- **Creer que la convención garantiza buenos mensajes.** Solo garantiza la forma.
+- **Elegir el tipo por costumbre.** Un tipo equivocado produce un registro de cambios y una versión equivocados.
+- **No comprobarla.** Sin gancho ni integración continua se erosiona commit a commit.
+- **Confundirla con `CODEOWNERS`.** Aquella regula la forma del mensaje; esta, quién revisa qué rutas. En `CODEOWNERS`, una regla posterior cubre a una anterior: lo específico va después de lo general.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-199 — Convenciones, ownership y CODEOWNERS](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-199-convenciones-ownership-y-codeowners/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con repositorios temporales y datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. El modelo de coincidencia simplifica el de una plataforma, las rutas, equipos y mensajes son del autor y no se midió el efecto de ninguna convención en ningún equipo. La siguiente clase pregunta qué cambia cuando quien contribuye no pertenece al equipo y cómo se gobierna un proyecto abierto.
+En un proyecto personal pequeño, el costo de imponerla puede superar su beneficio. Con una herramienta de versionado que no lee los tipos, la convención es solo una costumbre de estilo. Los experimentos de [SE-199](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-199-convenciones-ownership-y-codeowners/README.md) usan repositorios temporales y un modelo de coincidencia simplificado respecto al de una plataforma real, con rutas, equipos y mensajes del autor.
 
 ## Relación con otros conceptos
 

@@ -2,58 +2,40 @@
 
 [↑ Glosario](../../README.md) · [← Clave de flota](./clave-de-flota.md) · [Clave de lista →](./clave-de-lista.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 14](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 14](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md)
 
 ## Definición
 
-Valor único por operación que el cliente envía y el servidor recuerda para no aplicar dos veces un reintento.
-
-Definición de trabajo de [SE-264 — Proyecto: cliente multiplataforma con sincronización](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-264-proyecto-cliente-multiplataforma-con-sincronizacion/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-392 — Idempotencia y procesamiento distribuido](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-392-idempotencia-y-procesamiento-distribuido/README.md): Identificador de una intención, generado por el cliente y reutilizado en sus reintentos.
-- En [SE-246 — Idempotencia, reintentos y deduplicación](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md): Identificador generado por el cliente para una intención que permite al servidor reconocer repeticiones.
-- En [SE-417 — Pagos, idempotencia y conciliación](../../../classes/part-34-saas-y-plataformas-de-producto/se-417-pagos-idempotencia-y-conciliacion/README.md): Identificador de una operación de negocio que permite repetirla sin duplicar su efecto.
-- En [SE-596 — Ejecución durable, reintentos e idempotencia](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-596-ejecucion-durable-reintentos-e-idempotencia/README.md): Identificador estable de una intención que permite al servidor ignorar repeticiones.
+Una **clave de idempotencia** es un identificador único por operación que el cliente genera una vez para una intención y reutiliza en todos sus reintentos; el servidor la recuerda para no aplicar dos veces el mismo efecto. Es el sentido común a [SE-264](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-264-proyecto-cliente-multiplataforma-con-sincronizacion/README.md), [SE-392](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-392-idempotencia-y-procesamiento-distribuido/README.md), [SE-246](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md), [SE-417](../../../classes/part-34-saas-y-plataformas-de-producto/se-417-pagos-idempotencia-y-conciliacion/README.md) y [SE-596](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-596-ejecucion-durable-reintentos-e-idempotencia/README.md). Aplica a operaciones que por naturaleza no son idempotentes (como un POST que crea un cobro): la clave les da esa propiedad.
 
 ## Por qué importa
 
-En [SE-264 — Proyecto: cliente multiplataforma con sincronización](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-264-proyecto-cliente-multiplataforma-con-sincronizacion/README.md), el tema «Clave de idempotencia» importa porque una clave enviada con la petición hace seguro reintentar una operación cuya respuesta se perdió.
-
-En [SE-392 — Idempotencia y procesamiento distribuido](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-392-idempotencia-y-procesamiento-distribuido/README.md), el tema «Claves de idempotencia» importa porque reconocen el duplicado y detectan la clave reutilizada con otro cuerpo.
-
-En [SE-246 — Idempotencia, reintentos y deduplicación](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md), el tema «Clave de idempotencia» importa porque reconoce la intención del cliente; sin ella el servidor no distingue repetición de novedad.
+Cambia la decisión de si es seguro reintentar. Según [SE-264](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-264-proyecto-cliente-multiplataforma-con-sincronizacion/README.md), cuando el servidor aplica una operación y la respuesta se pierde, el cliente no puede distinguir ese caso de aquel en que la petición nunca llegó. Sin clave, reintentar aplica dos veces: cobros, entregas o pedidos duplicados. Con clave, el reintento es seguro y la red poco fiable deja de ser un riesgo de negocio.
 
 ## Cómo funciona
 
-Según [SE-264 — Proyecto: cliente multiplataforma con sincronización](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-264-proyecto-cliente-multiplataforma-con-sincronizacion/README.md), en la sección «Clave de idempotencia»:
+El servidor guarda, por cada clave, la huella del cuerpo y el resultado ([SE-392](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-392-idempotencia-y-procesamiento-distribuido/README.md)). Si la clave llega de nuevo con el mismo cuerpo, devuelve el resultado guardado sin repetir el efecto. Dos detalles la hacen segura:
 
-Cuando el servidor aplica una operación y la respuesta se pierde, el cliente no puede distinguir ese caso de aquel en que la petición no llegó. Sin clave, reintentar aplica dos veces. Con clave, el servidor reconoce el reintento y devuelve el resultado sin repetir el efecto. RFC 9110 define la idempotencia por el efecto; la clave la implementa para operaciones que por naturaleza no lo son.
+- **Huella del cuerpo.** Si llega la misma clave con otro cuerpo, es un error del cliente que reutilizó la clave, y debe rechazarse, no responder con el resultado de otra petición.
+- **Atomicidad.** Guardar la clave y aplicar el efecto deben ocurrir en la misma transacción; por separado, una caída entre ambos deja un efecto sin clave (el reintento duplica) o una clave sin efecto (el reintento no hace nada).
 
-Según [SE-392 — Idempotencia y procesamiento distribuido](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-392-idempotencia-y-procesamiento-distribuido/README.md), en la sección «Claves de idempotencia»:
-
-Una **clave de idempotencia** es un identificador que el cliente genera una vez para una intención y reutiliza en todos los reintentos; el servidor guarda la clave con la huella del cuerpo y el resultado, y si la ve de nuevo devuelve el resultado guardado sin repetir el efecto. Dos detalles la hacen segura. Primero, la **huella del cuerpo**: si llega la misma clave con otro cuerpo, es un error del cliente (reutilizó una clave) y debe rechazarse, no devolver la respuesta de otra petición. Segundo, la **atomicidad**: guardar la clave y aplicar el efecto deben ocurrir en la misma transacción; si se hacen por separado, una caída entre ambas deja un efecto sin clave o una clave sin efecto.
+[SE-417](../../../classes/part-34-saas-y-plataformas-de-producto/se-417-pagos-idempotencia-y-conciliacion/README.md) añade que, en pagos, la clave identifica la operación de negocio y se guarda con una duración declarada. RFC 9110 define la idempotencia por el efecto de la operación; la clave es el mecanismo que la implementa donde el método no la da por sí solo ([SE-264](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-264-proyecto-cliente-multiplataforma-con-sincronizacion/README.md)).
 
 ## Ejemplo
 
-Ejemplo de [SE-264 — Proyecto: cliente multiplataforma con sincronización](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-264-proyecto-cliente-multiplataforma-con-sincronizacion/README.md) (sección «Ejemplo mínimo»):
-
-El fragmento aplica una operación con y sin clave de idempotencia cuando el cliente reintenta. Antes de ejecutarlo, predice cuántas veces se aplica.
+En el fragmento de [SE-264](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-264-proyecto-cliente-multiplataforma-con-sincronizacion/README.md), un cliente pide 30 operaciones y la red provoca reintentos hasta sumar 44 peticiones. Sin clave el servidor aplica 44 operaciones; con clave aplica exactamente 30, con las mismas 44 peticiones. La clase pide predecir el número antes de ejecutar, para que la diferencia se vea como consecuencia del mecanismo y no del azar.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El servidor aplica más operaciones de las pedidas** — causa: reintento sin clave de idempotencia. Corrección: identificador único por operación y deduplicación en el servidor. ([SE-264](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-264-proyecto-cliente-multiplataforma-con-sincronizacion/README.md))
-- **Entregas duplicadas tras un error de red** — causa: POST sin clave de idempotencia. Corrección: clave por intención y restricción única. ([SE-246](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md))
-- **Cobros duplicados tras un fallo de red** — causa: reintento sin clave de idempotencia. Corrección: clave por intención, guardada con el resultado y con duración declarada. ([SE-294](../../../classes/part-24-software-especializado-y-dominios/se-294-fintech-contabilidad-e-invariantes-monetarias/README.md))
+- **Reintento sin clave.** El servidor aplica más operaciones de las pedidas; corrección de [SE-264](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-264-proyecto-cliente-multiplataforma-con-sincronizacion/README.md): identificador único por operación y deduplicación en el servidor.
+- **Generar una clave nueva en cada reintento.** Equivale a no tener clave: la clave debe ser estable por intención.
+- **Guardar la clave sin atomicidad.** Reabre la ventana de duplicados o de efectos perdidos.
+- **Reutilizar la clave para otra operación.** Debe detectarse con la huella del cuerpo.
+- **Confundir con «retroceso exponencial».** Este espacia los reintentos; la clave los hace seguros.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Resultado: sin clave de idempotencia, el servidor aplica **44** operaciones de las 30 pedidas, con 44 peticiones; con clave, aplica exactamente **30**, con 44 peticiones. ([SE-264](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-264-proyecto-cliente-multiplataforma-con-sincronizacion/README.md))
+La clave debe conservarse un tiempo acotado y declarado: el servidor no puede recordarla para siempre, y pasada la ventana un reintento tardío se trataría como nuevo. Protege contra repeticiones de la misma intención, no contra dos intenciones legítimamente iguales (dos compras idénticas con claves distintas). Los números del ejemplo de [SE-264](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-264-proyecto-cliente-multiplataforma-con-sincronizacion/README.md) provienen de un experimento sintético. Y no sustituye una restricción única en la base de datos cuando la deduplicación debe valer por encima del servicio.
 
 ## Relación con otros conceptos
 

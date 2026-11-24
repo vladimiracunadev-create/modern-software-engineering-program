@@ -24,7 +24,7 @@ probar, entregar, operar, modernizar y retirar software con evidencia.**
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-sitio%20vivo-222?style=flat-square&logo=githubpages&logoColor=white)](https://vladimiracunadev-create.github.io/modern-software-engineering-program/)
 [![SPEC + MCP](https://img.shields.io/badge/SPEC%20·%20MCP-ruta%20agentic-8A2BE2?style=flat-square)](classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md)
 
-[📚 Índice completo de clases](classes/README.md) · [🧭 Rutas por rol](roles/README.md) · [📖 Glosario](glosario/README.md) · [🧪 Producto transversal](blueprints/reference-product/README.md) · [🌐 Aplicación web](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [📐 Estándar pedagógico](docs/PEDAGOGICAL-STANDARD.md) · [🗺️ Roadmap](ROADMAP.md) · [🤝 Contribuir](CONTRIBUTING.md)
+[📚 Índice completo de clases](classes/README.md) · [🧭 Rutas por rol](roles/README.md) · [📖 Glosario](glosario/README.md) · [📄 PDF](docs/PDF.md) · [🧪 Producto transversal](blueprints/reference-product/README.md) · [🌐 Aplicación web](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [📐 Estándar pedagógico](docs/PEDAGOGICAL-STANDARD.md) · [🗺️ Roadmap](ROADMAP.md) · [🤝 Contribuir](CONTRIBUTING.md)
 
 </div>
 
@@ -1331,14 +1331,22 @@ fronteras y transiciones.
 
 ## 📦 Formatos disponibles
 
-Actualmente existen dos superficies oficiales:
+Hay tres superficies oficiales:
 
 - documentación navegable directamente en GitHub;
-- portal estático completo en GitHub Pages.
+- portal estático completo en GitHub Pages, con clases, partes, guías de rol, casos de estudio y glosario;
+- **PDF descargables** que integran todo lo anterior, generados desde el portal con
+  [`scripts/build_pdf.py`](scripts/build_pdf.py), comprobados con
+  [`scripts/verify_pdf.py`](scripts/verify_pdf.py) y publicados como activos de un release con su
+  suma SHA-256. La tabla, la verificación, la instalación y los límites están en [`docs/PDF.md`](docs/PDF.md).
 
-No se anuncian como disponibles un manual PDF consolidado, aplicación Android,
-seguimiento personal, certificación ni paquetes de release. Cuando existan, deberán
-tener generación reproducible, validación y evidencia propias antes de aparecer aquí.
+<!-- pdf-downloads:start -->
+Los PDF se publican cuando un release verificado los incluye; hasta entonces, [`docs/PDF.md`](docs/PDF.md) explica cómo generarlos.
+<!-- pdf-downloads:end -->
+
+No se anuncian como disponibles aplicación Android, seguimiento personal, certificación ni paquetes
+instalables. Los PDF no se guardan en git (por su tamaño) y no sustituyen al portal: son una vista offline
+del contenido publicado, sin revisión editorial humana independiente adicional.
 
 ## ✅ Calidad y CI
 

@@ -10,3 +10,4 @@ __pycache__/
 labs/**/work/
 .DS_Store
 Thumbs.db
+build/

@@ -95,7 +95,8 @@ están fijados por SHA; sólo el job de despliegue recibe `pages: write` e
 | Build de sitio | `pages.yml` y `validate_site.py` | Incorporado sin dependencia Markdown externa porque el generador es propio |
 | Escaneo de secretos | `security.yml` / Gitleaks | Incorporado con versión fijada y verificación de checksum |
 | SAST Python | `security.yml` / Bandit | Incorporado con la misma versión y umbral medio/alto |
-| Release Android, web empaquetada y PDF | no existe equivalente | Excluido: el README declara que esos productos aún no existen |
+| Release de PDF | `scripts/publish_pdf.py` (manual, no es un workflow) | Los PDF se generan y verifican en local con `build_pdf.py` y `verify_pdf.py` y se publican como activos de un release; ver [`PDF.md`](PDF.md). CI no los construye: requieren un navegador y ~1 h |
+| Release Android y web empaquetada | no existe equivalente | Excluido: el README declara que esos productos aún no existen |
 
 ## Ejecución local
 

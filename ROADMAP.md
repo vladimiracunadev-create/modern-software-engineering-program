@@ -235,6 +235,13 @@ clases y de las guías de rol, se describe en [`glosario/README.md`](glosario/RE
 [`glosario/INVENTARIO.md`](glosario/INVENTARIO.md), y se publica también en el portal con búsqueda por término. No cambia los
 contadores ni requiere un ADR de ampliación de clases.
 
+## PDF
+
+Vista offline del programa publicado: libro completo, un volumen por etapa (A–H), casos de estudio, glosario y guías de rol,
+generados con [`scripts/build_pdf.py`](scripts/build_pdf.py), comprobados con [`scripts/verify_pdf.py`](scripts/verify_pdf.py) y
+publicados como activos de un release con sus sumas SHA-256 (no se guardan en git). La tabla vigente, la reproducción y los
+límites están en [`docs/PDF.md`](docs/PDF.md). No cambia los contadores ni el alcance del currículo.
+
 ## Criterio de término del programa
 
 El programa no está terminado porque existan 612 posiciones o cualquier otra cifra. Está
